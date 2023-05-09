@@ -6,32 +6,39 @@ import java.util.List;
 
 import static engine.ContentFormatting.print;
 
-public class KoanExecutor {
+public class Sensei {
     @SafeVarargs
-    public static void executeKoanLists(List<Koan>... koanLists) {
-        Arrays.stream(koanLists)
+    public static void offerKoans(List<Koan>... koanLists) {
+        var failingKoan = Arrays.stream(koanLists)
             .flatMap((kl) -> kl.stream())
-            .filter((kl) -> !KoanExecutor.execute(kl))
+            .filter((kl) -> !Sensei.offer(kl))
             .findFirst()
             .orElse(null);
+
+        if (failingKoan == null) {
+            print(false, "Mountains are again merely mountains .");
+        }
     }
 
-    private static boolean execute(Koan koan) {
+    private static boolean offer(Koan koan) {
         // Execute silently the first time
-        var succeeded = execute(true, koan);
+        var succeeded = offer(true, koan);
 
         if (!succeeded) {
             // If failed, execute verbosely the second time
-            return execute(false, koan);
+            return offer(false, koan);
         }
 
         return true;
     }
 
-    private static boolean execute(boolean silent, Koan koan) {
+    private static boolean offer(boolean silent, Koan koan) {
         try {
-            print(silent, "Looking for wisdom in the %s koan of the %s class in the src/main/java/koans folder", koan.methodName, koan.koanClass.getSimpleName());
             print(silent, "");
+            print(silent, "Thinking %s ...", koan.koanClass.getSimpleName());
+            print(silent, "%s.%s has damaged your karma.", koan.koanClass.getSimpleName(), koan.methodName);
+            print(silent, "");
+            print(silent, "Console:");
             print(silent, "---------");
             print(silent, "");
             var method = koan.koanClass.getMethod(koan.methodName);
@@ -43,8 +50,17 @@ public class KoanExecutor {
                 print(silent, "");
                 print(silent, "---------");
                 print(silent, "");
+                print(silent, "The master says:");
+                print(silent, "  You have not yet reached enlightment ...");
+                print(silent, "");
 
-                return executeAssertions(silent, result, koan.assertions);
+                var success = executeAssertions(silent, result, koan.assertions);
+
+                print(silent, "");
+                print(silent, "Please meditate on %s in src/main/java/koans/%s.java", koan.methodName, koan.koanClass.getSimpleName());
+                print(silent, "");
+                return success;
+
             }
             catch(IllegalAccessException iae) {
                 print(silent, "Koan lesson: the method %s() appears to not be public. Koan methods must be public.", koan.methodName);

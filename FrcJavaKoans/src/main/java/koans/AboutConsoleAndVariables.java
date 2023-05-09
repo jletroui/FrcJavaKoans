@@ -1,6 +1,6 @@
 package koans;
 
-public class OnTheConsoleAndVariables {
+public class AboutConsoleAndVariables {
     /**
      * This method should display 'Hello!' in the console.
      * 
@@ -26,6 +26,6 @@ public class OnTheConsoleAndVariables {
      * What is your name?
      */
     public static void askANameInConsole() {
-        
+        //System.out.println("What is your name?");
     }
 }

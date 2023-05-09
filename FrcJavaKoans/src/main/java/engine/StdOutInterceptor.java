@@ -6,10 +6,29 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * Intercepts the StdOut output of koans so we can assert what the koan method does output to the console.
+ * Also, allows to silent the output, so that successful koans are not polluting the console, and only the
+ * first failing koan output is displayed.
+ */
 public class StdOutInterceptor {
-    private final PrintStream realOut = System.out;
+    private static final PrintStream realOut = System.out;
 
-    private final class OutputStreamMultiplexer extends OutputStream {
+    public static class InterceptionResult {
+        public final String[] stdOutLines;
+        public final Object returnValue;
+
+        public InterceptionResult(String[] stdOutLines, Object returnValue) {
+            this.stdOutLines = stdOutLines;
+            this.returnValue = returnValue;
+        }
+    }
+
+    public static interface ReflectionRunnable {
+        Object run() throws IllegalAccessException, InvocationTargetException;
+    }
+
+    private static class OutputStreamMultiplexer extends OutputStream {
         private final OutputStream stream1;
         private final OutputStream stream2;
         
@@ -25,23 +44,21 @@ public class StdOutInterceptor {
         }
     }
 
-    public interface ReflectionRunnable {
-        void run() throws IllegalAccessException, InvocationTargetException;
-    }
-
-    public String capture(ReflectionRunnable runnable) throws IllegalAccessException, InvocationTargetException {
+    public static InterceptionResult capture(boolean silent, ReflectionRunnable executeFunc) throws IllegalAccessException, InvocationTargetException {
         var bos = new ByteArrayOutputStream();
-        var multiplexer = new OutputStreamMultiplexer(bos, realOut);
-        var printStream = new PrintStream(multiplexer, true);
+        var outputStream = silent? bos : new OutputStreamMultiplexer(bos, realOut);
+        var printStream = new PrintStream(outputStream, true);
 
         System.setOut(printStream);
+        Object returnValue;
         try {
-            runnable.run();
+            returnValue = executeFunc.run();
         }
         finally {
             System.setOut(realOut);
         }
         printStream.flush();
-        return bos.toString();
+
+        return new InterceptionResult(bos.toString().split(System.lineSeparator()), returnValue);
     }
 }

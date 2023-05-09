@@ -1,70 +1,75 @@
 package engine;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
 
+import static engine.ContentFormatting.print;
+
 public class KoanExecutor {
-    private final Class<?> koanClass;
-    private final List<String> methodNames;
-    private final StdOutInterceptor interceptor = new StdOutInterceptor();
-
-    public KoanExecutor(Class<?> koanClass, List<String> methodNames) {
-        this.koanClass = koanClass;
-        this.methodNames = methodNames;
+    @SafeVarargs
+    public static void executeKoanLists(List<Koan>... koanLists) {
+        Arrays.stream(koanLists)
+            .flatMap((kl) -> kl.stream())
+            .filter((kl) -> !KoanExecutor.execute(kl))
+            .findFirst()
+            .orElse(null);
     }
 
-    private static void print(String template, Object... params) {
-        System.out.println(String.format(template, params));
-    }
-    
-    public boolean execute() {
-        for (String methodName : methodNames) {
-            var result = executeKoanMethod(methodName);
-            if (!result) {
-                return false;
-            }    
+    private static boolean execute(Koan koan) {
+        // Execute silently the first time
+        var succeeded = execute(true, koan);
+
+        if (!succeeded) {
+            // If failed, execute verbosely the second time
+            return execute(false, koan);
         }
+
         return true;
     }
 
-    private boolean assertOutEquals(String captured, String expectedTemplate, Object... params) {
-        var expected = String.format(expectedTemplate, params);
-        if (!captured.equals(expected)) {
-            if (captured.trim().equals("")) {
-                print("Expected to read '%s' in the console, but read nothing instead", expected);
-            } else {
-                print("Expected to read '%s' in the console, but read '%s' instead", expected, captured);
-            }
-            return false;
-        }
-        return true;
-    }
-
-    public boolean executeKoanMethod(String methodName) {
+    private static boolean execute(boolean silent, Koan koan) {
         try {
-            print("Looking for wisdom in the %s koan of the %s class", methodName, koanClass.getSimpleName());
-            print("---------");
-            print("");
-            var method = koanClass.getMethod(methodName);
+            print(silent, "Looking for wisdom in the %s koan of the %s class in the src/main/java/koans folder", koan.methodName, koan.koanClass.getSimpleName());
+            print(silent, "");
+            print(silent, "---------");
+            print(silent, "");
+            var method = koan.koanClass.getMethod(koan.methodName);
             try {
-                String printedToOut = interceptor.capture(() -> method.invoke(null));
-                return assertOutEquals(printedToOut, "What is your name?%n");
+                var interceptionResult = StdOutInterceptor.capture(silent, () -> method.invoke(null));
+
+                var result = new KoanResult(interceptionResult.stdOutLines, new String[0], interceptionResult.returnValue, new String[0]);
+
+                print(silent, "");
+                print(silent, "---------");
+                print(silent, "");
+
+                return executeAssertions(silent, result, koan.assertions);
             }
             catch(IllegalAccessException iae) {
-                print("Koan lesson: the method %s() appears to not be public. Koan methods must be public.", methodName);
+                print(silent, "Koan lesson: the method %s() appears to not be public. Koan methods must be public.", koan.methodName);
                 return false;
             }
             catch(IllegalArgumentException iae) {
-                print("Koan lesson: the method %s() appears to not accept TODO.", methodName);
+                print(silent, "Koan lesson: the method %s() appears to not accept TODO.", koan.methodName);
                 return false;
             }
             catch(InvocationTargetException ite) {
-                print("Koan lesson: the method %s() appears to produce an error: %s.", methodName, ite.getCause().getMessage());
+                print(silent, "Koan lesson: the method %s() appears to produce an error: %s.", koan.methodName, ite.getCause().getMessage());
                 return false;
             }
         }
         catch(NoSuchMethodException mnfe) {
             throw new RuntimeException("Oops, something bad happen", mnfe);
         }
+    }
+
+    private static boolean executeAssertions(boolean silent, KoanResult result, Assertion[] assertions) {
+        for(Assertion as: assertions) {
+            if (!as.validate(silent, result)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

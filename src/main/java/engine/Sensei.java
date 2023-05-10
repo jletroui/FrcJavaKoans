@@ -43,7 +43,7 @@ public class Sensei {
             print(silent, "");
             var method = koan.koanClass.getMethod(koan.methodName);
             try {
-                var interceptionResult = StdOutInterceptor.capture(silent, () -> method.invoke(null));
+                var interceptionResult = StdStreamsInterceptor.capture(silent, () -> method.invoke(null), koan.stdInInputs);
 
                 var result = new KoanResult(interceptionResult.stdOutLines, new String[0], interceptionResult.returnValue, new String[0]);
 

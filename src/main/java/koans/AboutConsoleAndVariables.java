@@ -1,16 +1,20 @@
 package koans;
 
-import java.util.Scanner;
+import static engine.Helpers.readLine;
 
 public class AboutConsoleAndVariables {
     /**
      * Display 'Hello!' in the console.
      * 
-     * You can use the method System.out.println([some text]) to do so.
+     * ---------   TIPS --------------
      * 
-     * Text in Java is represented by enclosing it between double quotes. Ex:
+     * You can use the method System.out.println([some value]) to do so.
+     * 
+     * You can tell Java that something is text by enclosing it between double quotes. Ex:
      * 
      * "This is text"
+     * 
+     * -------------------------------
      * 
      * Expected result in the console:
      * 
@@ -23,6 +27,8 @@ public class AboutConsoleAndVariables {
     /**
      * Make java compute 2 + 2 for you, and display the result in the console.
      * 
+     * ---------   TIPS --------------
+     * 
      * In Java, you can compute arithmetic expressions in Java. For example:
      * 
      * 3 + 4
@@ -31,6 +37,8 @@ public class AboutConsoleAndVariables {
      * 3 - 4
      * 
      * You can use the method System.out.println([some arithmetic expression]) to do so.
+     * 
+     * -------------------------------
      * 
      * Expected result in the console:
      * 
@@ -42,6 +50,8 @@ public class AboutConsoleAndVariables {
 
     /**
      * Compute 2 + 2 and store the value in a variable. Display the value of the variable.
+     * 
+     * ---------   TIPS --------------
      * 
      * A variable is a piece of information which can be referred to by a name.
      * So, to declare a variable, you need to give it a name and a value.
@@ -68,6 +78,8 @@ public class AboutConsoleAndVariables {
      * 
      * System.out.println(4);
      * 
+     * -------------------------------
+     * 
      * Expected result in the console:
      * 
      * 4
@@ -79,7 +91,11 @@ public class AboutConsoleAndVariables {
     /**
      * Create a text variable called 'greeting' with the value 'Hello!' and display it in the console.
      * 
+     * ---------   TIPS --------------
+     * 
      * The java type for a piece of text is called 'String'.
+     * 
+     * -------------------------------
      * 
      * Expected result in the console:
      * 
@@ -93,16 +109,20 @@ public class AboutConsoleAndVariables {
     /**
      * Display a ask for a name in the console. Let the user answer. Store the answer in a String variable. Display 'Your name is:' and then the answer.
      * 
-     * You can read a text from the console with the System.console().readLine(). This method is _returning_ the value read.
-     * It means Java will replace the call to the method by its return result.
+     * ---------   TIPS --------------
      * 
-     * Let's say that when asked, the user will type 'Hello' then the enter key in the console. Then:
+     * You can read a text from the console with readLine(). This method is _returning_ the value typed in the console by the user.
+     * 'Returning a result' means Java will replace the call to the method by its returned result in the code.
      * 
-     * String someText = System.console.readLine();
+     * Let's say that when asked, the user will type 'Hello' then the [ENTER] key in the console. Then:
      * 
-     * Will be equivalent to:
+     * String someText = readLine();
+     * 
+     * Will become the equivalent to:
      * 
      * String someText = "Hello";
+     * 
+     * -------------------------------
      * 
      * Expected result in the console:
      * 
@@ -112,10 +132,9 @@ public class AboutConsoleAndVariables {
      * [The name entered above]
      */
     public static void askAndDisplayNameInConsole() {
-        var scanner = new Scanner(System.in);
         System.out.println("What is your name?");
-        String name = scanner.nextLine();
+        String name = readLine();
+        System.out.println("Your name is:");
         System.out.println(name);
-        scanner.close();
     }    
 }

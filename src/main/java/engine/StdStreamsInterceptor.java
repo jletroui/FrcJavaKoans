@@ -29,7 +29,7 @@ public class StdStreamsInterceptor {
         }
     }
 
-    public static interface ReflectionRunnable {
+    public interface ReflectionRunnable {
         Object run() throws IllegalAccessException, InvocationTargetException;
     }
 
@@ -58,6 +58,18 @@ public class StdStreamsInterceptor {
             int b = realIn.read();
             bos.write(b);
             return b;
+        }
+
+        @Override
+        public int available() throws IOException {
+            return realIn.available();
+        }
+
+        @Override
+        public int read(byte[] b, int off, int len) throws IOException {
+            var n = realIn.read(b, off, len);
+            bos.write(b, off, len);
+            return n;
         }
 
         public String[] lines() {

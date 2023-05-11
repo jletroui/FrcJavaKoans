@@ -1,5 +1,7 @@
 package engine;
 
+import java.util.Optional;
+
 public class KoanResult {
     public final String[] stdOutLines;
     private final String[] stdInLines;
@@ -14,9 +16,17 @@ public class KoanResult {
     }
 
     public String inputLine(StdInInput input) {
-        if (this.stdInLines.length < input.index + 1) {
+        if (this.stdInLines.length <= input.index) {
             return "";
         }
         return this.stdInLines[input.index];
+    }
+
+
+    public Optional<String> inputLine(int inputIndex) {
+        if (this.stdInLines.length <= inputIndex) {
+            return Optional.empty();
+        }
+        return Optional.of(this.stdInLines[inputIndex]);
     }
 }

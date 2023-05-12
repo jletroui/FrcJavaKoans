@@ -36,6 +36,22 @@ public class AboutConsoleAndVariablesKoans {
             assertAskedInStdIn(0),
             assertOutEquals(1, "Your name is:"),
             assertOutEquals(2, "%s", new StdInInput(0))
-        ).withStdInInputs("Juliette")
+        ).withStdInInputs("Juliette"),
+        new Koan(
+            AboutConsoleAndVariables.class,
+            "askAndDisplayNameOnASingleLineInConsole",
+            assertOutEquals(0, "What is your name?"),
+            assertAskedInStdIn(0),
+            assertOutEquals(1, "Your name is: %s", new StdInInput(0))
+        ).withStdInInputs("Juliette"),
+        new Koan(
+            AboutConsoleAndVariables.class,
+            "askNameAndAgeInConsole",
+            assertOutEquals(0, "What is your name?"),
+            assertAskedInStdIn(0),
+            assertOutEquals(1, "What is your age?"),
+            assertAskedInStdIn(1),
+            assertOutEquals(2, "Your name is %s and your age is %s.", new StdInInput(0), new StdInInput(1))
+        ).withStdInInputs("Juliette", "14")
     );
 }

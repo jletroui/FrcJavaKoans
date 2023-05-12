@@ -95,6 +95,7 @@ public class StdStreamsInterceptor {
 
         System.setOut(printStream);
         System.setIn(inputStream);
+        Helpers.setupForKoan();
         Object returnValue;
         try {
             returnValue = executeFunc.run();
@@ -103,6 +104,7 @@ public class StdStreamsInterceptor {
         finally {
             System.setOut(realOut);
             System.setIn(realIn);
+            Helpers.cleanupForKoan();
         }
 
         return new InterceptionResult(

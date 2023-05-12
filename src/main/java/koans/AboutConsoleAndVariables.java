@@ -136,5 +136,80 @@ public class AboutConsoleAndVariables {
         String name = readLine();
         System.out.println("Your name is:");
         System.out.println(name);
-    }    
+    }
+
+    /**
+     * Same thing as before, but display the name on a single line.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * You will need to create a text out of 2 text values. Glueing multiple text values together is called "concatenating".
+     * In Java, you can do that with the '+' operator:
+     * 
+     * String glued = "abc" + "def";
+     *          ^
+     *  glued's value is "abcdef"
+     * 
+     * Warning! Don't confuse the String concatenation operator with the number's 'addition' operator. This won't work:
+     * 
+     * 4 + "abc"
+     *   ^
+     * Error: because the left of the operator is a number, '+' is the 'addition' operator for numbers, not the text's 'concatenate' one.
+     * As a result, Java expects an other number to the right of the '+', but "abc" is not a number.
+     * 
+     * Note: however, this will work:
+     * 
+     * String glued = "abc" + 4;
+     *          ^
+     *  glued's value is "abc4"
+     * 
+     * This is because Java can convert anything, including numbers, to text automatically. So in this case, it is equivalent to:
+     * 
+     * String glued = "abc" + "4";
+     *                         ^
+     *            Automatically converted to text
+     * You can read a text from the console with readLine(). This method is _returning_ the value typed in the console by the user.
+     * 
+     * -------------------------------
+     * 
+     * Expected result in the console:
+     * 
+     * What is your name?
+     * [Enter some name]
+     * Your name is: [The name entered above]
+     */
+    public static void askAndDisplayNameOnASingleLineInConsole() {
+        System.out.println("What is your name?");
+        String name = readLine();
+        System.out.println("Your name is: " + name);
+    }
+
+    /**
+     * Ask for a name, then for an age. Display both on the same line.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * You can concatenate more than 2 texts together. For example:
+     * 
+     * String glued = "abc" + "def" + "ghi";
+     *          ^
+     *  glued's value is "abcdefghi"
+     * 
+     * -------------------------------
+     * 
+     * Expected result in the console:
+     * 
+     * What is your name?
+     * [Enter some name]
+     * What is your age?
+     * [Enter some age]
+     * Your name is [The name entered above] and your age is [The age entered above].
+     */
+    public static void askNameAndAgeInConsole() {
+        System.out.println("What is your name?");
+        String name = readLine();
+        System.out.println("What is your age?");
+        String age = readLine();
+        System.out.println("Your name is " + name + " and your age is " + age + ".");
+    }
 }

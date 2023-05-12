@@ -19,7 +19,7 @@ public class KoanResult {
         if (this.stdInLines.length <= input.index) {
             return "";
         }
-        return this.stdInLines[input.index];
+        return this.stdInLines[input.index].trim();
     }
 
 
@@ -27,6 +27,6 @@ public class KoanResult {
         if (this.stdInLines.length <= inputIndex) {
             return Optional.empty();
         }
-        return Optional.of(this.stdInLines[inputIndex]);
+        return Optional.of(this.stdInLines[inputIndex].trim());
     }
 }

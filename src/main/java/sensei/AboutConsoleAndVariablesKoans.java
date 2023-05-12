@@ -1,5 +1,6 @@
 package sensei;
 
+import engine.FormatParam;
 import engine.Koan;
 import engine.StdInInput;
 import koans.AboutConsoleAndVariables;
@@ -8,6 +9,13 @@ import static engine.Assertions.*;
 import java.util.List;
 
 public class AboutConsoleAndVariablesKoans {
+    private static FormatParam plusFive = res -> 
+        res.inputLineAsInt(0)
+            .stream()
+            .mapToObj(n -> String.valueOf(n + 5))
+            .findFirst()
+            .orElse("");
+
     public static final List<Koan> koans = List.of(
         new Koan(
             AboutConsoleAndVariables.class,
@@ -52,6 +60,13 @@ public class AboutConsoleAndVariablesKoans {
             assertOutEquals(1, "What is your age?"),
             assertAskedInStdIn(1),
             assertOutEquals(2, "Your name is %s and your age is %s.", new StdInInput(0), new StdInInput(1))
-        ).withStdInInputs("Juliette", "14")
+        ).withStdInInputs("Juliette", "14"),
+        new Koan(
+            AboutConsoleAndVariables.class,
+            "computeAgeIn5YearsConsole",
+            assertOutEquals(0, "What is your age?"),
+            assertAskedInStdIn(0),
+            assertOutEquals(1, "In 5 years from now, you will be %s.", plusFive)
+        ).withStdInInputs("14")
     );
 }

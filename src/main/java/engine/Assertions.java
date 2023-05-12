@@ -3,13 +3,24 @@ package engine;
 import static engine.ContentFormatting.print;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class Assertions {
+    private static String resolveParam(KoanResult res, Object p) {
+        if (p instanceof StdInInput) {
+            return res.inputLine((StdInInput)p);
+        } else if (p instanceof FormatParam) {
+            return ((FormatParam)p).format(res);
+        }
+
+        return Optional.ofNullable(p).map((v) -> v.toString()).orElse("");
+    }
+
     public static Assertion assertOutEquals(int outLineIndex, String expectedTemplate, Object... params) {
 
         return (silent, res) -> {
             final var realParams = Arrays.stream(params)
-                .map((p) -> p instanceof StdInInput ? res.inputLine((StdInInput)p) : p)
+                .map((p) -> Assertions.resolveParam(res, p))
                 .toArray();
             final var expected = String.format(expectedTemplate, realParams);
 

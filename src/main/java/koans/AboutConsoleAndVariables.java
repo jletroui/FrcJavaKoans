@@ -212,4 +212,42 @@ public class AboutConsoleAndVariables {
         String age = readLine();
         System.out.println("Your name is " + name + " and your age is " + age + ".");
     }
+
+    
+    /**
+     * Ask for an age. Display the age in 5 years.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * The trick is, the value returned from the console is always text.
+     * But, in order to compute the 5-years-from-now value, you will need to convert the text to an integer number first.
+     * You can convert some text to an integer like so:
+     * 
+     * String nbOfOrangesAsText = "3";
+     * int nbOfOrangesAsNumber = Integer.parseInt(nbOfOrangesAsText);
+     *              ^
+     *    value is 3, as a number
+     * 
+     * For the computation, you can either create a new variable you can display later:
+     * 
+     * int nbOfOragesAfterIAteOne = nbOfOrangesAsNumber - 1;
+     * 
+     * Or compute it directly where you need it, by using parentheses:
+     * 
+     * System.out.println("Oranges left: " + (nbOfOrangesAsNumber - 1));
+     * 
+     * -------------------------------
+     * 
+     * Expected result in the console:
+     * 
+     * What is your age?
+     * [Enter some age]
+     * In 5 years from now, you will be [The age entered above + 5 years].
+     */
+    public static void computeAgeIn5YearsConsole() {
+        System.out.println("What is your age?");
+        String ageStr = readLine();
+        int age = Integer.parseInt(ageStr);
+        System.out.println("In 5 years from now, you will be " + (age + 5) + ".");
+    }
 }

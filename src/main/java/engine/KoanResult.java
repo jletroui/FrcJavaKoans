@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.Optional;
+import java.util.OptionalInt;
 
 public class KoanResult {
     public final String[] stdOutLines;
@@ -22,11 +23,22 @@ public class KoanResult {
         return this.stdInLines[input.index].trim();
     }
 
-
     public Optional<String> inputLine(int inputIndex) {
         if (this.stdInLines.length <= inputIndex) {
             return Optional.empty();
         }
         return Optional.of(this.stdInLines[inputIndex].trim());
+    }
+
+    public OptionalInt inputLineAsInt(int inputIndex) {
+        if (this.stdInLines.length <= inputIndex) {
+            return OptionalInt.empty();
+        }
+        try {
+            int value = Integer.parseInt(this.stdInLines[inputIndex].trim());
+            return OptionalInt.of(value);
+        } catch(NumberFormatException nfe) {
+            return OptionalInt.empty();
+        }
     }
 }

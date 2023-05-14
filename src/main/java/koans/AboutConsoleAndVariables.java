@@ -8,9 +8,13 @@ public class AboutConsoleAndVariables {
      * 
      * ---------   TIPS --------------
      * 
-     * You can use the method System.out.println([some value]) to do so.
+     * All lines of code in Java must end with the ';' character. Ex:
      * 
-     * You can tell Java that something is text by enclosing it between double quotes. Ex:
+     * System.out.println("Apple");
+     * 
+     * You can use the method System.out.println([some value]) to write something in the console.
+     * 
+     * You can tell Java that some value is text by enclosing it between double quotes. Ex:
      * 
      * "This is text"
      * 
@@ -21,7 +25,7 @@ public class AboutConsoleAndVariables {
      * Hello!
      */
     public static void sayHelloInConsole() {
-        System.out.println("Hello!");
+
     }
 
     /**
@@ -45,7 +49,7 @@ public class AboutConsoleAndVariables {
      * 4
      */
     public static void computeTwoAndTwo() {
-        System.out.println(2 + 2);
+
     }
 
     /**
@@ -85,7 +89,7 @@ public class AboutConsoleAndVariables {
      * 4
      */
     public static void createAndDisplayAVariable() {
-        System.out.println(2 + 2);
+
     }
 
     /**
@@ -102,7 +106,7 @@ public class AboutConsoleAndVariables {
      * Hello!
      */
     public static void createAndDisplayAStringVariable() {
-        System.out.println("Hello!");
+
     }
 
 
@@ -132,10 +136,7 @@ public class AboutConsoleAndVariables {
      * [The name entered above]
      */
     public static void askAndDisplayNameInConsole() {
-        System.out.println("What is your name?");
-        String name = readLine();
-        System.out.println("Your name is:");
-        System.out.println(name);
+
     }
 
     /**
@@ -179,9 +180,7 @@ public class AboutConsoleAndVariables {
      * Your name is: [The name entered above]
      */
     public static void askAndDisplayNameOnASingleLineInConsole() {
-        System.out.println("What is your name?");
-        String name = readLine();
-        System.out.println("Your name is: " + name);
+
     }
 
     /**
@@ -206,11 +205,7 @@ public class AboutConsoleAndVariables {
      * Your name is [The name entered above] and your age is [The age entered above].
      */
     public static void askNameAndAgeInConsole() {
-        System.out.println("What is your name?");
-        String name = readLine();
-        System.out.println("What is your age?");
-        String age = readLine();
-        System.out.println("Your name is " + name + " and your age is " + age + ".");
+
     }
 
     
@@ -245,9 +240,6 @@ public class AboutConsoleAndVariables {
      * In 5 years from now, you will be [The age entered above + 5 years].
      */
     public static void computeAgeIn5YearsConsole() {
-        System.out.println("What is your age?");
-        String ageStr = readLine();
-        int age = Integer.parseInt(ageStr);
-        System.out.println("In 5 years from now, you will be " + (age + 5) + ".");
+
     }
 }

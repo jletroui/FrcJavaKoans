@@ -37,6 +37,9 @@ public class Sensei {
         print(silent, "Thinking %s ...", koan.koanClass.getSimpleName());
         print(silent, "%s.%s has damaged your karma.", koan.koanClass.getSimpleName(), koan.methodName);
         print(silent, "");
+        print(silent, "The master says:");
+        print(silent, "  You have not yet reached enlightment ...");
+        print(silent, "");
         print(silent, "Console:");
         print(silent, "---------");
         print(silent, "");
@@ -55,9 +58,6 @@ public class Sensei {
 
             print(silent, "");
             print(silent, "---------");
-            print(silent, "");
-            print(silent, "The master says:");
-            print(silent, "  You have not yet reached enlightment ...");
             print(silent, "");
 
             success = executeAssertions(silent, result, koan.assertions);

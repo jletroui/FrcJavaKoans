@@ -17,8 +17,22 @@ First, choose a directory where you want to download the FRC Java Koans. For exa
 
 You can then paste the following command:
 
-```
+```bash
 git clone https://github.com/jletroui/FrcJavaKoans.git
+```
+
+Git should then download and initialize the koans:
+
+```
+C:\Users\Julien\Documents\src> git clone https://github.com/jletroui/FrcJavaKoans.git
+Cloning into 'FrcJavaKoans'...
+remote: Enumerating objects: 133, done.
+remote: Counting objects: 100% (133/133), done.
+remote: Compressing objects: 100% (71/71), done.
+Receiving objects: 100% (133/133), 436.30 KiB | 4.74 MiB/s, done.0Receiving objects:  75% (100/133)
+
+Resolving deltas: 100% (41/41), done.
+C:\Users\Julien\Documents\src>
 ```
 
 Finally, open WPILib VSCode:

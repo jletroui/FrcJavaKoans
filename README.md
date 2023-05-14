@@ -9,7 +9,7 @@ You will need to install 2 things to run the Java Koans for the FRC:
 1. [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html)
 2. [Git](https://gitforwindows.org/)
 
-Once installed, you are ready to get and run the Koans.
+Once installed, you are ready to get and run the koans.
 
 First, choose a directory where you want to download the FRC Java Koans. For example, a `/src` folder within your Documents folder. Open that folder in the windows explorer. Then, while maintaining the SHIFT key, right click on that folder, and choose 'Open Powershell window here':
 
@@ -18,7 +18,7 @@ First, choose a directory where you want to download the FRC Java Koans. For exa
 You can then paste the following command:
 
 ```
-git clone TODO
+git clone https://github.com/jletroui/FrcJavaKoans.git
 ```
 
 Finally, open WPILib VSCode:
@@ -65,7 +65,7 @@ Please meditate on sayHelloInConsole in src/main/java/koans/AboutConsoleAndVaria
 
 The Koans are telling you a lot, so let's decompose a bit.
 
-First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that the specific `AboutConsoleAndVariables.sayHelloInConsole` exercise was not successful. Which is normal, because, you know, you have not even started yet! Then it show a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `sayHelloInConsole` in the `src/main/java/koans/AboutConsoleAndVariables.java` file.
+First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that the specific `AboutConsoleAndVariables.sayHelloInConsole` exercise was not successful. Which is normal, because, you know, you have not even started yet! Then it shows a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `sayHelloInConsole` in the `src/main/java/koans/AboutConsoleAndVariables.java` file.
 
 ### Opening the exercise file
 
@@ -222,7 +222,7 @@ Expected to see 'Hello!' in the console, but read 'Hello' instead
 Please meditate on sayHelloInConsole in src/main/java/koans/AboutConsoleAndVariables.java
 ```
 
-Oops, we made a mistake! The master was expecting us to display 'Hello!', but we displayed 'Hello' without the question mark. Let's fix it in `src/main/java/koans/AboutConsoleAndVariables.java`:
+Oops, we made a mistake! The master was expecting us to display 'Hello!', but we displayed 'Hello' without the exclamation mark. Let's fix it in `src/main/java/koans/AboutConsoleAndVariables.java`:
 
 ```java
     public static void sayHelloInConsole() {
@@ -253,3 +253,7 @@ Please meditate on computeTwoAndTwo in src/main/java/koans/AboutConsoleAndVariab
 That's a completely different message! This is because we successfully completed the first exercise, so the master is telling us about the next exercise.
 
 Congratulations! You can now look at the next comment and method in the `src/main/java/koans/AboutConsoleAndVariables.java` and try to figure out how to complete the next exercise!
+
+## Credits
+
+Heavily inspired by the wonderful [Ruby Koans](https://www.rubykoans.com/).

@@ -41,4 +41,18 @@ public class KoanResult {
             return OptionalInt.empty();
         }
     }
+
+    /**
+     * Creates a FormatParam taking the stdIn input for the given index, convert it to an int, and increment it by the given increment.
+     * 
+     * Ex: if input 0 contains "3", then paramPlus(0, 10) will return "13".
+     */
+    public static FormatParam paramPlus(int inputIndex, int increment) { 
+        return res -> 
+            res.inputLineAsInt(inputIndex)
+                .stream()
+                .mapToObj(n -> String.valueOf(n + increment))
+                .findFirst()
+                .orElse("");
+    }
 }

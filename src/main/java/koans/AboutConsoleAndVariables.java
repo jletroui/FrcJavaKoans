@@ -23,6 +23,7 @@ public class AboutConsoleAndVariables {
      * Expected result in the console:
      * 
      * Hello!
+     * 
      */
     public static void sayHelloInConsole() {
 
@@ -47,6 +48,7 @@ public class AboutConsoleAndVariables {
      * Expected result in the console:
      * 
      * 4
+     * 
      */
     public static void computeTwoAndTwo() {
 
@@ -104,6 +106,7 @@ public class AboutConsoleAndVariables {
      * Expected result in the console:
      * 
      * Hello!
+     * 
      */
     public static void createAndDisplayAStringVariable() {
 
@@ -134,6 +137,7 @@ public class AboutConsoleAndVariables {
      * [Enter some name]
      * Your name is:
      * [The name entered above]
+     * 
      */
     public static void askAndDisplayNameInConsole() {
 
@@ -178,6 +182,7 @@ public class AboutConsoleAndVariables {
      * What is your name?
      * [Enter some name]
      * Your name is: [The name entered above]
+     * 
      */
     public static void askAndDisplayNameOnASingleLineInConsole() {
 
@@ -203,6 +208,7 @@ public class AboutConsoleAndVariables {
      * What is your age?
      * [Enter some age]
      * Your name is [The name entered above] and your age is [The age entered above].
+     * 
      */
     public static void askNameAndAgeInConsole() {
 
@@ -238,6 +244,7 @@ public class AboutConsoleAndVariables {
      * What is your age?
      * [Enter some age]
      * In 5 years from now, you will be [The age entered above + 5 years].
+     * 
      */
     public static void computeAgeIn5YearsConsole() {
 

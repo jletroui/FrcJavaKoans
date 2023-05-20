@@ -21,6 +21,7 @@ public class AboutMethods {
      * What is your age?
      * [Enter some age]
      * In 20 years from now, you will be [The new age entered above + 20 years].
+     * 
      */
     public static void computeAgeIn5And10And20YearsConsole() {
 
@@ -108,6 +109,7 @@ public class AboutMethods {
      * What is your age?
      * [Enter some age]
      * In 20 years from now, you will be [The new age entered above + 20 years].
+     * 
      */
     public static void computeAgeIn5And10And20YearsConsoleWithMethod() {
 
@@ -159,11 +161,13 @@ public class AboutMethods {
      * Expected result:
      * 
      * square(3) should return 9
+     * 
      */
     public static int square(int number) {
         return 0;
     }    
 
+    
     /**
      * Create a method named 'opposite' which has a parameter for an integer number, and returns the opposite of that number.
      * 
@@ -176,7 +180,9 @@ public class AboutMethods {
      * Expected result:
      * 
      * opposite(2) should return -2
+     * 
      */
+
 
     /**
      * Create a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animals.
@@ -187,5 +193,6 @@ public class AboutMethods {
      * Expected result:
      * 
      * legs(2, 3, 4) should return 32
+     * 
      */
 }

@@ -8,7 +8,7 @@ You will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to
 
 Once installed, you are ready to get and run the koans.
 
-Download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v0.1/FrcJavaKoans.zip).
+Download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v0.2/FrcJavaKoans.zip).
 
 Then extract it somewhere on your computer. For example, in a `/src` folder within your Documents folder.
 

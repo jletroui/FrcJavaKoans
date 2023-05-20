@@ -112,4 +112,80 @@ public class AboutMethods {
     public static void computeAgeIn5And10And20YearsConsoleWithMethod() {
 
     }
+
+    /**
+     * Create a method which has a parameter for an integer number, and returns the square of that number.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * Up to now, methods were only "doing stuff" but were not communicating anything to the rest of the program.
+     * A very useful thing in programmation is when methods can not only receive information _from_ the rest of the program (via its parameters) but also give back information _to_ the rest of the program.
+     * To give back information, the method can return one, and only one value. Up to now, the methods we saw started with:
+     * 
+     *     public static void [name of the method]()
+     *                     ^
+     *                 the type of return
+     * 
+     * 'void' meant that our methods did not return anything.
+     * To make a method return something, we must tell Java what type of information we want the method to return.
+     * For example, let's say we want to make a method divide an integer number per 2:
+     * 
+     *     public static int half(int number) { ... }
+     *                    ^
+     *           Now returning an integer number
+     * 
+     * However, this is just telling Java that, at the end of the method, we will return a number.
+     * How do we do the actual returning thing? Simply by using the special word 'return':
+     * 
+     *     public static int half(int number) {
+     *         return number / 2;
+     *     }
+     * 
+     * Finally, how do we benefit from this method? We can simply call it somewhere else, as any other method. For example:
+     * 
+     *     System.out.println(half(10));
+     * 
+     * In this example, Java will call the method, and replace the call by the return value.
+     * In this example, this would be equivalent to write:
+     * 
+     *     System.out.println(5);
+     * 
+     * In the next series of exercises, though, we will not call our methods, just create them.
+     * 
+     * For this exercise, the signature of the method has been written for you, you simply need to modify the body of it.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * square(3) should return 9
+     */
+    public static int square(int number) {
+        return 0;
+    }    
+
+    /**
+     * Create a method named 'opposite' which has a parameter for an integer number, and returns the opposite of that number.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * For this exercise, you have to write the signature of the method yourself.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * opposite(2) should return -2
+     */
+
+    /**
+     * Create a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animals.
+     * There are 3 int parameters: chickenCount, pigCount, cowCount.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * legs(2, 3, 4) should return 32
+     */
 }

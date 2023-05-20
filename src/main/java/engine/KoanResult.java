@@ -8,8 +8,10 @@ public class KoanResult {
     private final String[] stdInLines;
     public final Object koanReturnValue;
     public final Object[] koanParameters;
+    public final Koan koan;
 
-    public KoanResult(String[] stdOutLines, String[] stdInLines, Object koanReturnValue, Object[] koanParameters) {
+    public KoanResult(Koan koan, String[] stdOutLines, String[] stdInLines, Object koanReturnValue, Object[] koanParameters) {
+        this.koan = koan;
         this.stdOutLines = stdOutLines;
         this.stdInLines = stdInLines;
         this.koanReturnValue = koanReturnValue;

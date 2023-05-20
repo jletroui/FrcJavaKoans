@@ -1,8 +1,11 @@
 package engine;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+
+import engine.Koan.KoanMethodCall;
 
 import static engine.ContentFormatting.print;
 
@@ -16,7 +19,9 @@ public class Sensei {
                 .orElse(null);
 
         if (failingKoan == null) {
+            print(false, "");
             print(false, "Mountains are again merely mountains .");
+            print(false, "");
         }
     }
 
@@ -39,28 +44,16 @@ public class Sensei {
         print(silent, "");
         print(silent, "The master says:");
         print(silent, "  You have not yet reached enlightment ...");
-        print(silent, "");
-        print(silent, "Console:");
-        print(silent, "---------");
-        print(silent, "");
-        
-        var success = false;
-        try {
-            var method = koan.koanClass.getMethod(koan.methodName);
 
-            var interceptionResult = StdStreamsInterceptor.capture(silent, () -> method.invoke(null), koan.stdInInputs);
-
-            var result = new KoanResult(
-                interceptionResult.stdOutLines,
-                interceptionResult.stdInLines,
-                interceptionResult.returnValue,
-                new String[0]);
-
+        if (!koan.usesConsole) {
             print(silent, "");
             print(silent, "---------");
             print(silent, "");
-
-            success = executeAssertions(silent, result, koan.assertions);
+        }
+        
+        var success = false;
+        try {
+            success = executeCalls(silent, koan);
         } catch (IllegalAccessException iae) {
             print(silent, "The method %s() appears to not be public. Koan methods must be public.", koan.methodName);
         } catch (IllegalArgumentException iae) {
@@ -69,7 +62,30 @@ public class Sensei {
             print(silent, "The method %s() appears to produce an error: %s.", koan.methodName,
                     ite.getCause().getMessage());
         } catch (NoSuchMethodException mnfe) {
-            print(silent, "The method %s() seems to have disappeared.", koan.methodName);
+            if (koan.methodParamTypes.length == 0) {
+                print(
+                    silent,
+                    "Expected to find a method called '%s' in src/main/java/koans/%s.java but did not find it.",
+                    koan.methodName,
+                    koan.koanClass.getSimpleName()
+                );
+            } else if (koan.methodParamTypes.length == 1) {
+                print(
+                    silent,
+                    "Expected to find a method called '%s' in src/main/java/koans/%s.java with a '%s' parameter but did not find it.",
+                    koan.methodName,
+                    koan.koanClass.getSimpleName(),
+                    koan.methodParamTypes[0].getSimpleName()
+                );
+            } else {
+                print(
+                    silent,
+                    "Expected to find a method called '%s' in src/main/java/koans/%s.java with parameters of type %s but did not find it.",
+                    koan.methodName,
+                    koan.koanClass.getSimpleName(),
+                    String.join(", ", Arrays.stream(koan.methodParamTypes).map(type -> "'" + type.getSimpleName() + "'").toArray(String[]::new))
+                );
+            }
         }
 
         print(silent, "");
@@ -82,6 +98,46 @@ public class Sensei {
         print(silent, "");
 
         return success;
+    }
+
+    private static boolean executeCalls(boolean silent, Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        var method = koan.koanClass.getMethod(koan.methodName, koan.methodParamTypes);
+
+        for(var call: koan.calls) {
+            var success = executeCall(silent, method, koan, call);
+            if (!success) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    
+    private static boolean executeCall(boolean silent, Method method, Koan koan, KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        if (koan.usesConsole) {
+            print(silent, "");
+            print(silent, "Console:");
+            print(silent, "---------");
+            print(silent, "");
+        }
+
+        var interceptionResult = StdStreamsInterceptor.capture(silent, () -> method.invoke(null, call.params), call.stdInInputs);
+
+        var result = new KoanResult(
+            koan,
+            interceptionResult.stdOutLines,
+            interceptionResult.stdInLines,
+            interceptionResult.returnValue,
+            call.params);
+
+        if (koan.usesConsole) {
+            print(silent, "");
+            print(silent, "---------");
+            print(silent, "");
+        }
+
+        return executeAssertions(silent, result, call.assertions);
     }
 
     private static boolean executeAssertions(boolean silent, KoanResult result, Assertion[] assertions) {

@@ -1,6 +1,6 @@
 # Java Koans for the FRC
 
-Java Koans for the FRC is an interactive, step by step, course to teach Java to students engaged in the First Robotics Competition. It requires no previous experience in programming. It does not intend to teach the entirety of the Java language, but rather most of the fundamentals required to start programming a FRC robot.
+Java Koans for the [FRC](https://www.firstinspires.org/robotics/frc) is an interactive, step by step, course to teach Java to students engaged in the First Robotics Competition. It requires no previous experience in programming. It does not intend to teach the entirety of the Java language, but rather most of the fundamentals required to start programming a FRC robot.
 
 ## Getting Started
 
@@ -247,6 +247,12 @@ Please meditate on computeTwoAndTwo in src/main/java/koans/AboutConsoleAndVariab
 That's a completely different message! This is because we successfully completed the first exercise, so the master is telling us about the next exercise.
 
 Congratulations! You can now look at the next comment and method in the `src/main/java/koans/AboutConsoleAndVariables.java` and try to figure out how to complete the next exercise!
+
+## Mentors
+
+Not all teams have access to a mentor with programming knowledge. This course intent to come batteries included, with 100% of the information needed by a motivated student to learn Java from Scratch without any other ressource at hand.
+
+That being said, this is a lot of reading for most kids. Knowledgeable mentors can enhance this course by providing students guidance, especially for the content of this README. As for the exercises themselves, mentors are encouraged to not give solutions to students' issues, and instead ask them open questions about what they don't understand about the exercices text. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the exercises' text will help them become more autonomous when it will be time to program and debug a robot. That being said, any improvement to the clarity and conciseness of the textual material of this course would be highly appreciated and pull requests are very welcomed!
 
 ## Credits
 

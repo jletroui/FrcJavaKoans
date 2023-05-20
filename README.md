@@ -4,42 +4,22 @@ Java Koans for the FRC is an interactive, step by step, course to teach Java to 
 
 ## Getting Started
 
-You will need to install 2 things to run the Java Koans for the FRC:
-
-1. [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html)
-2. [Git](https://gitforwindows.org/)
+You will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) first to run the Java Koans for the FRC.
 
 Once installed, you are ready to get and run the koans.
 
-First, choose a directory where you want to download the FRC Java Koans. For example, a `/src` folder within your Documents folder. Open that folder in the windows explorer. Then, while maintaining the SHIFT key, right click on that folder, and choose 'Open Powershell window here':
+Download the [latest release]().
 
-![Shift Right Click on the folder](images/open_powershell.png)
+Then extract it somewhere on your computer. For example, in a `/src` folder within your Documents folder.
 
-You can then paste the following command:
+![Extract step 1](images/extract_step1.png)
+![Extract step 2](images/extract_step2.png)
 
-```bash
-git clone https://github.com/jletroui/FrcJavaKoans.git
-```
-
-Git should then download and initialize the koans:
-
-```
-C:\Users\Julien\Documents\src> git clone https://github.com/jletroui/FrcJavaKoans.git
-Cloning into 'FrcJavaKoans'...
-remote: Enumerating objects: 133, done.
-remote: Counting objects: 100% (133/133), done.
-remote: Compressing objects: 100% (71/71), done.
-Receiving objects: 100% (133/133), 436.30 KiB | 4.74 MiB/s, done.0Receiving objects:  75% (100/133)
-
-Resolving deltas: 100% (41/41), done.
-C:\Users\Julien\Documents\src>
-```
-
-Finally, open WPILib VSCode:
+Then, open WPILib VSCode:
 
 ![Launch VS Code](images/launch_vs_code.png)
 
-And open the `FrcJavaKoan` folder that git created in your folder of choice (for example, `C:\Users\Jane\Documents\src\FrcJavaKoans`):
+And open the folder in which you extracted the koans (for example, `C:\Users\Jane\Documents\src\FrcJavaKoans`):
 
 ![Open folder in VS Code](images/open_folder_in_vs_code.png)
 

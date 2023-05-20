@@ -25,7 +25,9 @@ You are ready to go!
 
 ## Learning to code with the Java Koans for the FRC
 
-### Run the koans
+A koan is a challenge a zen master is throwing at you to help you learn something. Here, your mission is to solve koans which will help you learn about programming in Java.
+
+### Ask the master for koans
 
 When you open the Java Koans for the FRC in VS Code, you should see something similar to this:
 
@@ -55,11 +57,11 @@ Expected to see 'Hello!' in the console, but read nothing instead
 Please meditate on sayHelloInConsole in src/main/java/koans/AboutConsoleAndVariables.java
 ```
 
-The Koans are telling you a lot, so let's decompose a bit.
+The master of the Java Koans is telling you a lot of things at once, so let's decompose a bit.
 
-First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that the specific `AboutConsoleAndVariables.sayHelloInConsole` exercise was not successful. Which is normal, because, you have not even started yet! Then it shows a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `sayHelloInConsole` in the `src/main/java/koans/AboutConsoleAndVariables.java` file.
+First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that you did not complete the `AboutConsoleAndVariables.sayHelloInConsole` koan. Which is normal, because you have not even started yet! Then it shows a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `sayHelloInConsole` in the `src/main/java/koans/AboutConsoleAndVariables.java` file.
 
-### Opening the exercise file
+### Opening the koan file
 
 Open that file in VS Code:
 
@@ -91,7 +93,7 @@ This tells Java that we are creating a `AboutConsoleAndVariables` class. All the
 
 Note: everywhere in Java where you will need to 'enclose' a bit of code, we will use an opening `{` and a closing `}`. This will tell Java that everything between those curly brackets are belonging to the same thing.
 
-### The exercise comment
+### The koan instructions
 
 Next, we can see these lines, colored in green:
 
@@ -120,7 +122,7 @@ Next, we can see these lines, colored in green:
      */
 ```
 
-These lines are forming what's called a 'comment'. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The Java FRC Koans are putting instructions for you in comments. You can find the goal of the exercise at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koan? You saw this bit:
+These lines are forming what's called a 'comment'. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The master is putting each Koan's instructions for you in such a comment. You can find the goal of the koan at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koans? You saw this bit:
 
 ```
 Console:
@@ -132,13 +134,13 @@ Console:
 
 This is where the text will appear when you will program something displaying text in the console.
 
-After the goal of the exercise, the comment goes on with tips on how to solve the exercise. For example, it is telling you to use `System.out.println([some value])`. Note: when you see square brackets '['  and ']' in the exercise, it is not something to type in directly, but rather it is a placeholder for you to type something else.
+After the goal of the koan, the comment goes on with tips on how to solve the koan. For example, it is telling you to use `System.out.println([some value])`. Note: when you see square brackets '['  and ']' in the master's instructions, it is not something to type in directly, but rather it is a placeholder for you to type something else.
 
-Finally, the last section of the comment is showing you what the result of your code for the exercise should produce.
+Finally, the last section of the comment is showing you what result your code is expected to produce.
 
-When trying to solve a koan exercise, take your time to understand all the information that is given to you to successfully solve the exercise.
+When trying to solve a koan, take your time to understand all the information that is given to you to successfully solve it.
 
-### The exercise method
+### The koan method
 
 Finally, we arrive at the part of the file where you will be able to code in Java! In Java all the code must be part of a "program chunk" called a method. A method is really nothing else than a mini-program. Here is the method of the first koan:
 
@@ -150,7 +152,7 @@ Finally, we arrive at the part of the file where you will be able to code in Jav
 
 We will ignore the `public static void` part for now. What comes next is the name of the method: `sayHelloInConsole`. All the code chunks in Java have names, allowing to refer to it later, if we want to run that piece of code. Then comes parentheses: `()`. This is basically telling Java that `sayHelloInConsole` is a method. And at last, the opening `{` and closing `}`. All the code you will write will have to go in between those 2 curly brackets, and nowhere else. If you write code outside of the curly brackets of a method, Java will show you an error.
 
-So let's try so solve this exercise. To do it, we have to display "Hello!" in the console. The first tip for doing so is:
+So let's try so solve this first koan. To do it, we have to display "Hello!" in the console. The first tip for doing so is:
 
 ```
      * All lines of code in Java must end with the ';' character.
@@ -194,7 +196,7 @@ Perfect! So let's place the value within the previous command:
 
 ### Running the koans again
 
-Now that we think we completed the exercise, let's run the koans again and see what happens. To run the koans, right-click on `PathToEnlightment.java` and choose `Run Java`. You should see this output:
+Now that we think we completed the koan, let's ask the master what he thinks and see what happens. To run the koans, right-click on `PathToEnlightment.java` and choose `Run Java`. You should see this output:
 
 ```
 Thinking AboutConsoleAndVariables ...
@@ -243,9 +245,9 @@ Expected to see '4' in the console, but read nothing instead
 Please meditate on computeTwoAndTwo in src/main/java/koans/AboutConsoleAndVariables.java
 ```
 
-That's a completely different message! This is because we successfully completed the first exercise, so the master is telling us about the next exercise.
+That's a completely different message! This is because we successfully completed the first koan! So our master is telling us about the next koan.
 
-Congratulations! You can now look at the next comment and method in the `src/main/java/koans/AboutConsoleAndVariables.java` and try to figure out how to complete the next exercise!
+Congratulations, you completed your first koan! You can now look at the next koan in the `src/main/java/koans/AboutConsoleAndVariables.java` and try to figure out how to complete the next koan!
 
 ## Mentors
 
@@ -253,7 +255,7 @@ Not all teams have access to a mentor with programming knowledge. This course in
 
 Knowledgeable mentors can enhance this course by providing students guidance, especially for the content of this README.
 
-As for the exercises themselves, mentors are encouraged to not give solutions to students' issues, and instead ask them open questions about what they don't understand about the exercices text. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the exercises' text will help them become more autonomous when it will be time to program and debug a robot.
+As for the koans themselves, mentors are encouraged to not give solutions to students' issues, and instead ask them open questions about what they don't understand about the koan text. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous when it will be time to program and debug a robot.
 
 That being said, any improvement to the clarity and conciseness of the textual material of this course would be highly appreciated and pull requests are very welcomed!
 

@@ -77,4 +77,22 @@ public class Assertions {
             return true;
         }; 
     }
+
+    public static Assertion assertResultEquals(final String expected) {
+        return (silent, res) -> {
+            if (res.koanReturnValue == null) {
+                print(silent, "Expected %s to return \"%s\" but returned null instead!", formatMethodCall(res), expected);
+                return false;
+            } else if (!(res.koanReturnValue instanceof String)) {
+                print(silent, "Expected %s to return a String but returned a %s instead!", formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                return false;
+            } else if (!((String)res.koanReturnValue).equals(expected)) {
+                print(silent, "Expected %s to return \"%s\" but returned \"%s\" instead!", formatMethodCall(res), expected, (String)res.koanReturnValue);
+                return false;
+            }
+
+            print(silent, "Ok: %s returned \"%s\".", formatMethodCall(res), expected);
+            return true;
+        }; 
+    }
 }

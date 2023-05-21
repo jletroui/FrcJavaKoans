@@ -1,77 +1,82 @@
 package sensei;
 
 import engine.Koan;
+import engine.Local;
 import engine.StdInInput;
-import koans.AboutConsoleAndVariables;
-import static engine.Assertions.*;
-import static engine.KoanResult.*;
-
 import java.util.List;
 
+import koans.english.AboutConsoleAndVariables;
+import static engine.Assertions.*;
+import static engine.KoanResult.*;
+import static engine.Localizable.*;
+import static sensei.Texts.*;
+
 public class AboutConsoleAndVariablesKoans {
+    private static final Local<Class<?>> CLASS = local(AboutConsoleAndVariables.class);
+
     public static final List<Koan> koans = List.of(
-        new Koan(AboutConsoleAndVariables.class, "sayHelloInConsole")
+        new Koan(CLASS, "sayHelloInConsole")
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, "Hello!")
+                assertOutEquals(0, global("Hello!"))
             ),
-        new Koan(AboutConsoleAndVariables.class, "computeTwoAndTwo")
+        new Koan(CLASS, "computeTwoAndTwo")
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, "4")
+                assertOutEquals(0, global("4"))
             ),
-        new Koan(AboutConsoleAndVariables.class, "createAndDisplayAVariable")
+        new Koan(CLASS, "createAndDisplayAVariable")
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, "4")
+                assertOutEquals(0, global("4"))
             ),
-        new Koan(AboutConsoleAndVariables.class, "createAndDisplayAStringVariable")
+        new Koan(CLASS, "createAndDisplayAStringVariable")
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, "Hello!")
+                assertOutEquals(0, global("Hello!"))
             ),
-        new Koan(AboutConsoleAndVariables.class, "askAndDisplayNameInConsole")
-            .useConsole()
-            .whenCalling()
-            .withStdInInputs("Juliette")
-            .then(
-                assertOutEquals(0, "What is your name?"),
-                assertAskedInStdIn(0),
-                assertOutEquals(1, "Your name is:"),
-                assertOutEquals(2, "%s", new StdInInput(0))
-            ),
-        new Koan(AboutConsoleAndVariables.class, "askAndDisplayNameOnASingleLineInConsole")
+        new Koan(CLASS, "askAndDisplayNameInConsole")
             .useConsole()
             .whenCalling()
             .withStdInInputs("Juliette")
             .then(
-                assertOutEquals(0, "What is your name?"),
+                assertOutEquals(0, WHAT_IS_YOUR_NAME),
                 assertAskedInStdIn(0),
-                assertOutEquals(1, "Your name is: %s", new StdInInput(0))
+                assertOutEquals(1, YOUR_NAME_IS),
+                assertOutEquals(2, global("%s"), new StdInInput(0))
             ),
-        new Koan(AboutConsoleAndVariables.class, "askNameAndAgeInConsole")
+        new Koan(CLASS, "askAndDisplayNameOnASingleLineInConsole")
+            .useConsole()
+            .whenCalling()
+            .withStdInInputs("Juliette")
+            .then(
+                assertOutEquals(0, WHAT_IS_YOUR_NAME),
+                assertAskedInStdIn(0),
+                assertOutEquals(1, YOUR_NAME_IS, new StdInInput(0))
+            ),
+        new Koan(CLASS, "askNameAndAgeInConsole")
             .useConsole()
             .whenCalling()
             .withStdInInputs("Juliette", "14")
             .then(
-                assertOutEquals(0, "What is your name?"),
+                assertOutEquals(0, WHAT_IS_YOUR_NAME),
                 assertAskedInStdIn(0),
-                assertOutEquals(1, "What is your age?"),
+                assertOutEquals(1, WHAT_IS_YOUR_AGE),
                 assertAskedInStdIn(1),
-                assertOutEquals(2, "Your name is %s and your age is %s.", new StdInInput(0), new StdInInput(1))
+                assertOutEquals(2, YOUR_NAME_IS_AND_YOUR_AGE_IS, new StdInInput(0), new StdInInput(1))
             ),
-        new Koan(AboutConsoleAndVariables.class, "computeAgeIn5YearsConsole")
+        new Koan(CLASS, "computeAgeIn5YearsConsole")
             .useConsole()
             .whenCalling()
             .withStdInInputs("14")
             .then(
-                assertOutEquals(0, "What is your age?"),
+                assertOutEquals(0, WHAT_IS_YOUR_AGE),
                 assertAskedInStdIn(0),
-                assertOutEquals(1, "In 5 years from now, you will be %s.", paramPlus(0, 5))
+                assertOutEquals(1, IN_5_YEARS_YOU_WILL_BE, paramPlus(0, 5))
             )
     );
 }

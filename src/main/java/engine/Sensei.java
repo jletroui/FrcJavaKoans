@@ -6,22 +6,29 @@ import java.util.Arrays;
 import java.util.List;
 
 import engine.Koan.KoanMethodCall;
+import static engine.Texts.*;
 
 public class Sensei {
-    private final Printer consolePrinter = new ConsolePrinter();
+    private final Locale locale;
+    private final Printer consolePrinter;
     private Printer p = Printer.SILENT;
 
-    @SafeVarargs
-    public final void offerKoans(List<Koan>... koanLists) {
-        var failingKoan = Arrays.stream(koanLists)
-                .flatMap((kl) -> kl.stream())
-                .filter((kl) -> !tryOffer(kl))
-                .findFirst()
-                .orElse(null);
+    public Sensei(Locale locale) {
+        this.locale = locale;
+        this.consolePrinter = new ConsolePrinter(locale);
+    }
 
-        if (failingKoan == null) {
+    public void offerKoans(List<List<Koan>> koanSeries) {
+        var firstFailingKoan = koanSeries
+            .stream()
+            .flatMap((kl) -> kl.stream())
+            .filter((kl) -> !tryOffer(kl))
+            .findFirst()
+            .orElse(null);
+
+        if (firstFailingKoan == null) {
             consolePrinter.println();
-            consolePrinter.println("Mountains are again merely mountains .");
+            consolePrinter.println(MOUNTAINS_ARE_AGAIN_MERELY_MOUNTAINS);
             consolePrinter.println();
         }
     }
@@ -42,11 +49,11 @@ public class Sensei {
 
     private boolean offer(Koan koan) {
         p.println();
-        p.println("Thinking %s ...", koan.koanClass.getSimpleName());
-        p.println("%s.%s has damaged your karma.", koan.koanClass.getSimpleName(), koan.methodName);
+        p.println(THINKING, koan.className(locale));
+        p.println(HAS_DAMAGED_YOUR_KARMA, koan.className(locale), koan.methodName);
         p.println();
-        p.println("The master says:");
-        p.println("  You have not yet reached enlightment ...");
+        p.println(THE_MASTER_SAYS);
+        p.println(YOU_HAVE_NOT_REACHED_ENLIGHTMENT);
 
         if (!koan.usesConsole) {
             p.println();
@@ -58,31 +65,32 @@ public class Sensei {
         try {
             success = executeCalls(koan);
         } catch (IllegalAccessException iae) {
-            p.println("The method %s() appears to not be public. Koan methods must be public.", koan.methodName);
+            p.println(EXPECTED_METHOD_TO_BE_PUBLIC, koan.methodName);
         } catch (IllegalArgumentException iae) {
-            p.println("The method %s() appears to not accept TODO.", koan.methodName);
+            // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
+            p.println(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, koan.methodName);
         } catch (InvocationTargetException ite) {
-            p.println("The method %s() appears to produce an error: %s.", koan.methodName,
+            p.println(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, koan.methodName,
                     ite.getCause().getMessage());
         } catch (NoSuchMethodException mnfe) {
             if (koan.methodParamTypes.length == 0) {
                 p.println(
-                    "Expected to find a method called '%s' in src/main/java/koans/%s.java but did not find it.",
+                    EXPECTED_TO_FIND_MEHOD_NO_PARAMS,
                     koan.methodName,
-                    koan.koanClass.getSimpleName()
+                    koan.className(locale)
                 );
             } else if (koan.methodParamTypes.length == 1) {
                 p.println(
-                    "Expected to find a method called '%s' in src/main/java/koans/%s.java with a '%s' parameter but did not find it.",
+                    EXPECTED_TO_FIND_MEHOD_ONE_PARAM,
                     koan.methodName,
-                    koan.koanClass.getSimpleName(),
+                    koan.className(locale),
                     koan.methodParamTypes[0].getSimpleName()
                 );
             } else {
                 p.println(
-                    "Expected to find a method called '%s' in src/main/java/koans/%s.java with parameters of type %s but did not find it.",
+                    EXPECTED_TO_FIND_MEHOD_MANY_PARAMS,
                     koan.methodName,
-                    koan.koanClass.getSimpleName(),
+                    koan.className(locale),
                     String.join(", ", Arrays.stream(koan.methodParamTypes).map(type -> "'" + type.getSimpleName() + "'").toArray(String[]::new))
                 );
             }
@@ -90,9 +98,9 @@ public class Sensei {
 
         p.println();
         p.println(
-            "Please meditate on %s in src/main/java/koans/%s.java", 
+            PLEASE_MEDITATE_ON, 
             koan.methodName,
-            koan.koanClass.getSimpleName()
+            koan.className(locale)
         );
         p.println("");
 
@@ -100,7 +108,7 @@ public class Sensei {
     }
 
     private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        var method = koan.koanClass.getMethod(koan.methodName, koan.methodParamTypes);
+        var method = koan.method(locale);
 
         for(var call: koan.calls) {
             var success = executeCall(method, koan, call);
@@ -116,7 +124,7 @@ public class Sensei {
     private boolean executeCall(Method method, Koan koan, KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (koan.usesConsole) {
             p.println();
-            p.println("Console:");
+            p.println(CONSOLE);
             p.println("---------");
             p.println();
         }
@@ -141,7 +149,7 @@ public class Sensei {
 
     private boolean executeAssertions(KoanResult result, Assertion[] assertions) {
         for (Assertion as : assertions) {
-            if (!as.validate(p, result)) {
+            if (!as.validate(locale, p, result)) {
                 return false;
             }
         }

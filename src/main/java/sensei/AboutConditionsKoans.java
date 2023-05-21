@@ -1,26 +1,31 @@
 package sensei;
 
 import engine.Koan;
-import koans.AboutConditions;
-
-import static engine.Assertions.*;
 
 import java.util.List;
 
+import koans.english.AboutConditions;
+import static engine.Assertions.*;
+import engine.Local;
+import static sensei.Texts.*;
+import static engine.Localizable.*;
+
 public class AboutConditionsKoans {
+    private static final Local<Class<?>> CLASS = local(AboutConditions.class);
+
     public static final List<Koan> koans = List.of(
-        new Koan(AboutConditions.class, "sign", int.class)
+        new Koan(CLASS, "sign", int.class)
             .whenCallingWith(2)
             .then(
-                assertResultEquals("positive")
+                assertResultEquals(POSITIVE)
             )
             .whenCallingWith(0)
             .then(
-                assertResultEquals("positive")
+                assertResultEquals(POSITIVE)
             )
             .whenCallingWith(-2)
             .then(
-                assertResultEquals("negative")
+                assertResultEquals(NEGATIVE)
             )
     );
 }

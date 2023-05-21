@@ -1,4 +1,4 @@
-package koans;
+package koans.english;
 
 public class AboutConditions {
     /**

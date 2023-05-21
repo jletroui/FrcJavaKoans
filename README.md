@@ -33,7 +33,7 @@ When you open the Java Koans for the FRC in VS Code, you should see something si
 
 ![VS Code](images/opened_koans.png)
 
-Expand the `src` folder, then right click on the file `src\main\java\PathToEnlightment.java` and choose `Run Java`:
+Expand the `src` folder, then right click on the file `src\main\java\EnglishPathToEnlightment.java` and choose `Run Java`:
 
 ![Run Java](images/run_java.png)
 
@@ -59,13 +59,13 @@ Please meditate on sayHelloInConsole in src/main/java/koans/AboutConsoleAndVaria
 
 The master of the Java Koans is telling you a lot of things at once, so let's decompose a bit.
 
-First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that you did not complete the `AboutConsoleAndVariables.sayHelloInConsole` koan. Which is normal, because you have not even started yet! Then it shows a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `sayHelloInConsole` in the `src/main/java/koans/AboutConsoleAndVariables.java` file.
+First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that you did not complete the `AboutConsoleAndVariables.sayHelloInConsole` koan. Which is normal, because you have not even started yet! Then it shows a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `sayHelloInConsole` in the `src/main/java/koans/english/AboutConsoleAndVariables.java` file.
 
 ### Opening the koan file
 
 Open that file in VS Code:
 
-![open src/main/java/koans/AboutConsoleAndVariables.java](images/open_first_koan.png)
+![open src/main/java/koans/english/AboutConsoleAndVariables.java](images/open_first_koan.png)
 
 Wow, there is a lot going on! In order to understand what is all of this, we need to learn about a few things about Java.
 
@@ -196,7 +196,7 @@ Perfect! So let's place the value within the previous command:
 
 ### Running the koans again
 
-Now that we think we completed the koan, let's ask the master what he thinks and see what happens. To run the koans, right-click on `PathToEnlightment.java` and choose `Run Java`. You should see this output:
+Now that we think we completed the koan, let's ask the master what he thinks and see what happens. To run the koans, right-click on `EnglishPathToEnlightment.java` and choose `Run Java`. You should see this output:
 
 ```
 Thinking AboutConsoleAndVariables ...
@@ -214,10 +214,10 @@ Hello
 
 Expected to see 'Hello!' in the console, but read 'Hello' instead
 
-Please meditate on sayHelloInConsole in src/main/java/koans/AboutConsoleAndVariables.java
+Please meditate on sayHelloInConsole in src/main/java/koans/english/AboutConsoleAndVariables.java
 ```
 
-Oops, we made a mistake! The master was expecting us to display _Hello!_, but we forgot the exclamation mark. Let's fix it in `src/main/java/koans/AboutConsoleAndVariables.java`:
+Oops, we made a mistake! The master was expecting us to display _Hello!_, but we forgot the exclamation mark. Let's fix it in `src/main/java/koans/english/AboutConsoleAndVariables.java`:
 
 ```java
     public static void sayHelloInConsole() {
@@ -242,12 +242,12 @@ Console:
 
 Expected to see '4' in the console, but read nothing instead
 
-Please meditate on computeTwoAndTwo in src/main/java/koans/AboutConsoleAndVariables.java
+Please meditate on computeTwoAndTwo in src/main/java/koans/english/AboutConsoleAndVariables.java
 ```
 
 That's a completely different message! This is because we successfully completed the first koan! So our master is telling us about the next koan.
 
-Congratulations, you completed your first koan! You can now look at the next koan in the `src/main/java/koans/AboutConsoleAndVariables.java` and try to figure out how to complete the next koan!
+Congratulations, you completed your first koan! You can now look at the next koan in the `src/main/java/koans/english/AboutConsoleAndVariables.java` and try to figure out how to complete the next koan!
 
 ## Mentors
 

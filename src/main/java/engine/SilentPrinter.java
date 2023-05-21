@@ -15,5 +15,9 @@ public class SilentPrinter implements Printer {
     public void println(String template, Object... params) {
         // Silent        
     }
-    
+
+    @Override
+    public void println(Localizable<String> template, Object... params) {
+        // Silent        
+    }
 }

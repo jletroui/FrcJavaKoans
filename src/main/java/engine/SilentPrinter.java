@@ -1,5 +1,9 @@
 package engine;
 
+/**
+ * A Printer which is silent, hence displaying nothing.
+ * Useful when executing koans outside the view of the student.
+ */
 public class SilentPrinter implements Printer {
     public static final Printer INSTANCE = new SilentPrinter();
 

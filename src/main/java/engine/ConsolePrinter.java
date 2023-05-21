@@ -1,5 +1,8 @@
 package engine;
 
+/**
+ * A printer displaying feedback to the student in the console.
+ */
 public class ConsolePrinter implements Printer {
     private final Locale locale;
 

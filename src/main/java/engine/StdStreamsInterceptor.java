@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Intercepts the StdOut output of koans so we can assert what the koan method does output to the console.
+ * Intercepts the StdOut output and the StdIn input of koans so we can assert what the koan method does output to the console and read from it.
  * Also, allows to silent the output, so that successful koans are not polluting the console, and only the
  * first failing koan output is displayed.
  */

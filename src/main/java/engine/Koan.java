@@ -4,6 +4,9 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.function.Function;
 
+/**
+ * Stores all the information required to execute and assess the result of a koan.
+ */
 public class Koan {
     private final Localizable<Class<?>> koanClass;
     public final String methodName;

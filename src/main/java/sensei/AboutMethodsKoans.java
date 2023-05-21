@@ -42,30 +42,54 @@ public class AboutMethodsKoans {
             ),
         new Koan(AboutMethods.class, "square", int.class)
             .whenCallingWith(2)
-            .then(assertResultEquals(4))
+            .then(
+                assertResultEquals(4)
+            )
             .whenCallingWith(-2)
-            .then(assertResultEquals(4))
+            .then(
+                assertResultEquals(4)
+            )
             .whenCallingWith(3)
-            .then(assertResultEquals(9))
+            .then(
+                assertResultEquals(9)
+            )
             .whenCallingWith(0)
-            .then(assertResultEquals(0)),
+            .then(
+                assertResultEquals(0)
+            ),
         new Koan(AboutMethods.class, "opposite", int.class)
             .whenCallingWith(2)
-            .then(assertResultEquals(-2))
+            .then(
+                assertResultEquals(-2)
+            )
             .whenCallingWith(-2)
-            .then(assertResultEquals(2))
+            .then(
+                assertResultEquals(2)
+            )
             .whenCallingWith(0)
-            .then(assertResultEquals(0)),
+            .then(
+                assertResultEquals(0)
+            ),
         new Koan(AboutMethods.class, "legs", int.class, int.class, int.class)
             .whenCallingWith(2, 3, 4)
-            .then(assertResultEquals(32))
+            .then(
+                assertResultEquals(32)
+            )
             .whenCallingWith(3, 0, 0)
-            .then(assertResultEquals(6))
+            .then(
+                assertResultEquals(6)
+            )
             .whenCallingWith(0, 3, 0)
-            .then(assertResultEquals(12))
+            .then(
+                assertResultEquals(12)
+            )
             .whenCallingWith(0, 0, 3)
-            .then(assertResultEquals(12))
+            .then(
+                assertResultEquals(12)
+            )
             .whenCallingWith(0, 0, 0)
-            .then(assertResultEquals(0))
+            .then(
+                assertResultEquals(0)
+            )
     );
 }

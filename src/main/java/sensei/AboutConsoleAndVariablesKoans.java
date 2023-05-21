@@ -13,20 +13,29 @@ public class AboutConsoleAndVariablesKoans {
         new Koan(AboutConsoleAndVariables.class, "sayHelloInConsole")
             .useConsole()
             .whenCalling()
-            .then(assertOutEquals(0, "Hello!")),
+            .then(
+                assertOutEquals(0, "Hello!")
+            ),
         new Koan(AboutConsoleAndVariables.class, "computeTwoAndTwo")
             .useConsole()
             .whenCalling()
-            .then(assertOutEquals(0, "4")),
+            .then(
+                assertOutEquals(0, "4")
+            ),
         new Koan(AboutConsoleAndVariables.class, "createAndDisplayAVariable")
             .useConsole()
             .whenCalling()
-            .then(assertOutEquals(0, "4")),
+            .then(
+                assertOutEquals(0, "4")
+            ),
         new Koan(AboutConsoleAndVariables.class, "createAndDisplayAStringVariable")
             .useConsole()
             .whenCalling()
-            .then(assertOutEquals(0, "Hello!")),
+            .then(
+                assertOutEquals(0, "Hello!")
+            ),
         new Koan(AboutConsoleAndVariables.class, "askAndDisplayNameInConsole")
+            .useConsole()
             .whenCalling()
             .withStdInInputs("Juliette")
             .then(

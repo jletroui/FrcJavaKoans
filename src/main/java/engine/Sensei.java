@@ -6,105 +6,112 @@ import java.util.Arrays;
 import java.util.List;
 
 import engine.Koan.KoanMethodCall;
-
-import static engine.ContentFormatting.print;
+import static engine.Texts.*;
 
 public class Sensei {
-    @SafeVarargs
-    public static void offerKoans(List<Koan>... koanLists) {
-        var failingKoan = Arrays.stream(koanLists)
-                .flatMap((kl) -> kl.stream())
-                .filter((kl) -> !Sensei.offer(kl))
-                .findFirst()
-                .orElse(null);
+    private final Locale locale;
+    private final Printer consolePrinter;
+    private Printer p = Printer.SILENT;
 
-        if (failingKoan == null) {
-            print(false, "");
-            print(false, "Mountains are again merely mountains .");
-            print(false, "");
+    public Sensei(Locale locale) {
+        this.locale = locale;
+        this.consolePrinter = new ConsolePrinter(locale);
+    }
+
+    public void offerKoans(List<List<Koan>> koanSeries) {
+        var firstFailingKoan = koanSeries
+            .stream()
+            .flatMap((kl) -> kl.stream())
+            .filter((kl) -> !tryOffer(kl))
+            .findFirst()
+            .orElse(null);
+
+        if (firstFailingKoan == null) {
+            consolePrinter.println();
+            consolePrinter.println(MOUNTAINS_ARE_AGAIN_MERELY_MOUNTAINS);
+            consolePrinter.println();
         }
     }
 
-    private static boolean offer(Koan koan) {
+    private boolean tryOffer(Koan koan) {
         // Execute silently the first time
-        var succeeded = offer(true, koan);
+        p = Printer.SILENT;
+        var succeeded = offer(koan);
 
         if (!succeeded) {
             // If failed, execute verbosely the second time
-            return offer(false, koan);
+            p = consolePrinter;
+            return offer(koan);
         }
 
         return true;
     }
 
-    private static boolean offer(boolean silent, Koan koan) {
-        print(silent, "");
-        print(silent, "Thinking %s ...", koan.koanClass.getSimpleName());
-        print(silent, "%s.%s has damaged your karma.", koan.koanClass.getSimpleName(), koan.methodName);
-        print(silent, "");
-        print(silent, "The master says:");
-        print(silent, "  You have not yet reached enlightment ...");
+    private boolean offer(Koan koan) {
+        p.println();
+        p.println(THINKING, koan.className(locale));
+        p.println(HAS_DAMAGED_YOUR_KARMA, koan.className(locale), koan.methodName);
+        p.println();
+        p.println(THE_MASTER_SAYS);
+        p.println(YOU_HAVE_NOT_REACHED_ENLIGHTMENT);
 
         if (!koan.usesConsole) {
-            print(silent, "");
-            print(silent, "---------");
-            print(silent, "");
+            p.println();
+            p.println("---------");
+            p.println();
         }
         
         var success = false;
         try {
-            success = executeCalls(silent, koan);
+            success = executeCalls(koan);
         } catch (IllegalAccessException iae) {
-            print(silent, "The method %s() appears to not be public. Koan methods must be public.", koan.methodName);
+            p.println(EXPECTED_METHOD_TO_BE_PUBLIC, koan.methodName);
         } catch (IllegalArgumentException iae) {
-            print(silent, "The method %s() appears to not accept TODO.", koan.methodName);
+            // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
+            p.println(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, koan.methodName);
         } catch (InvocationTargetException ite) {
-            print(silent, "The method %s() appears to produce an error: %s.", koan.methodName,
+            p.println(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, koan.methodName,
                     ite.getCause().getMessage());
         } catch (NoSuchMethodException mnfe) {
             if (koan.methodParamTypes.length == 0) {
-                print(
-                    silent,
-                    "Expected to find a method called '%s' in src/main/java/koans/%s.java but did not find it.",
+                p.println(
+                    EXPECTED_TO_FIND_MEHOD_NO_PARAMS,
                     koan.methodName,
-                    koan.koanClass.getSimpleName()
+                    koan.className(locale)
                 );
             } else if (koan.methodParamTypes.length == 1) {
-                print(
-                    silent,
-                    "Expected to find a method called '%s' in src/main/java/koans/%s.java with a '%s' parameter but did not find it.",
+                p.println(
+                    EXPECTED_TO_FIND_MEHOD_ONE_PARAM,
                     koan.methodName,
-                    koan.koanClass.getSimpleName(),
+                    koan.className(locale),
                     koan.methodParamTypes[0].getSimpleName()
                 );
             } else {
-                print(
-                    silent,
-                    "Expected to find a method called '%s' in src/main/java/koans/%s.java with parameters of type %s but did not find it.",
+                p.println(
+                    EXPECTED_TO_FIND_MEHOD_MANY_PARAMS,
                     koan.methodName,
-                    koan.koanClass.getSimpleName(),
+                    koan.className(locale),
                     String.join(", ", Arrays.stream(koan.methodParamTypes).map(type -> "'" + type.getSimpleName() + "'").toArray(String[]::new))
                 );
             }
         }
 
-        print(silent, "");
-        print(
-            silent,
-            "Please meditate on %s in src/main/java/koans/%s.java", 
+        p.println();
+        p.println(
+            PLEASE_MEDITATE_ON, 
             koan.methodName,
-            koan.koanClass.getSimpleName()
+            koan.className(locale)
         );
-        print(silent, "");
+        p.println("");
 
         return success;
     }
 
-    private static boolean executeCalls(boolean silent, Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        var method = koan.koanClass.getMethod(koan.methodName, koan.methodParamTypes);
+    private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        var method = koan.method(locale);
 
         for(var call: koan.calls) {
-            var success = executeCall(silent, method, koan, call);
+            var success = executeCall(method, koan, call);
             if (!success) {
                 return false;
             }
@@ -114,15 +121,15 @@ public class Sensei {
     }
 
     
-    private static boolean executeCall(boolean silent, Method method, Koan koan, KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private boolean executeCall(Method method, Koan koan, KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (koan.usesConsole) {
-            print(silent, "");
-            print(silent, "Console:");
-            print(silent, "---------");
-            print(silent, "");
+            p.println();
+            p.println(CONSOLE);
+            p.println("---------");
+            p.println();
         }
 
-        var interceptionResult = StdStreamsInterceptor.capture(silent, () -> method.invoke(null, call.params), call.stdInInputs);
+        var interceptionResult = StdStreamsInterceptor.capture(p == Printer.SILENT, () -> method.invoke(null, call.params), call.stdInInputs);
 
         var result = new KoanResult(
             koan,
@@ -132,17 +139,17 @@ public class Sensei {
             call.params);
 
         if (koan.usesConsole) {
-            print(silent, "");
-            print(silent, "---------");
-            print(silent, "");
+            p.println();
+            p.println("---------");
+            p.println();
         }
 
-        return executeAssertions(silent, result, call.assertions);
+        return executeAssertions(result, call.assertions);
     }
 
-    private static boolean executeAssertions(boolean silent, KoanResult result, Assertion[] assertions) {
+    private boolean executeAssertions(KoanResult result, Assertion[] assertions) {
         for (Assertion as : assertions) {
-            if (!as.validate(silent, result)) {
+            if (!as.validate(locale, p, result)) {
                 return false;
             }
         }

@@ -1,10 +1,11 @@
 package engine;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.function.Function;
 
 public class Koan {
-    public final Class<?> koanClass;
+    private final Localizable<Class<?>> koanClass;
     public final String methodName;
     public final Class<?>[] methodParamTypes;
     public final KoanMethodCall[] calls;
@@ -30,11 +31,11 @@ public class Koan {
         }
     }
 
-    public Koan(Class<?> koanClass, String methodName, Class<?>... methodParamTypes) {
+    public Koan(Localizable<Class<?>> koanClass, String methodName, Class<?>... methodParamTypes) {
         this(koanClass, methodName, methodParamTypes, new KoanMethodCall[0], false);
     }
 
-    private Koan(Class<?> koanClass, String methodName, Class<?>[] methodParamTypes, KoanMethodCall[] calls, boolean usesConsole) {
+    private Koan(Localizable<Class<?>> koanClass, String methodName, Class<?>[] methodParamTypes, KoanMethodCall[] calls, boolean usesConsole) {
         this.koanClass = koanClass;
         this.methodName = methodName;
         this.methodParamTypes = methodParamTypes;
@@ -90,6 +91,14 @@ public class Koan {
             }
             return call.withAssertions(assertions);
         });
+    }
+
+    public String className(Locale locale) {
+        return koanClass.get(locale).getSimpleName();
+    }
+
+    public Method method(Locale locale) throws NoSuchMethodException {
+        return koanClass.get(locale).getMethod(methodName, methodParamTypes);
     }
 
     private Koan withUpdatedCall(Function<KoanMethodCall, KoanMethodCall> newCall) {

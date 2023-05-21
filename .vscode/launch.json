@@ -6,9 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch PathToEnlightment",
+            "name": "Launch English PathToEnlightment",
             "request": "launch",
-            "mainClass": "PathToEnlightment",
+            "mainClass": "EnglishPathToEnlightment",
             "projectName": "FrcJavaKoans_88b00649"
         }
     ]

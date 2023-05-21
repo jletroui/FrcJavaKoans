@@ -1,9 +1,8 @@
 package engine;
 
-import static engine.ContentFormatting.print;
-
 import java.util.Arrays;
 import java.util.Optional;
+import static engine.Texts.*;
 
 public class Assertions {
     private static String resolveParam(KoanResult res, Object p) {
@@ -23,75 +22,75 @@ public class Assertions {
         return String.format("%s(%s)", res.koan.methodName, String.join(", ", params));
     }
 
-    public static Assertion assertOutEquals(int outLineIndex, String expectedTemplate, Object... params) {
+    public static Assertion assertOutEquals(int outLineIndex, Localizable<String> expectedTemplate, Object... params) {
 
-        return (silent, res) -> {
+        return (locale, p, res) -> {
             final var realParams = Arrays.stream(params)
-                .map((p) -> Assertions.resolveParam(res, p))
+                .map((param) -> Assertions.resolveParam(res, param))
                 .toArray();
-            final var expected = String.format(expectedTemplate, realParams);
+            final var expected = String.format(expectedTemplate.get(locale), realParams);
 
             if (res.stdOutLines.length < outLineIndex + 1) {
-                print(silent, "Expected to see '%s' in the console, but read nothing instead!", expected);
+                p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, expected);
                 return false;
             }
             if (!res.stdOutLines[outLineIndex].equals(expected)) {
                 if (res.stdOutLines[outLineIndex].trim().equals("")) {
-                    print(silent, "Expected to see '%s' in the console, but read nothing instead!", expected);
+                    p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, expected);
                 } else {
-                    print(silent, "Expected to see '%s' in the console, but read '%s' instead!", expected, res.stdOutLines[outLineIndex]);
+                    p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD, expected, res.stdOutLines[outLineIndex]);
                 }
                 return false;
             }
 
-            print(silent, "Ok: displayed '%s' in the console.", expected);
+            p.println(OK_DISPLAYED_IN_CONSOLE, expected);
             return true;
         };
     }
 
     public static Assertion assertAskedInStdIn(final int inLineIndex) {
-        return (silent, res) -> {
+        return (locale, p, res) -> {
             if (res.inputLine(inLineIndex).isPresent()) {
-                print(silent, "Ok: asked for a line in the console.");
+                p.println(OK_ASKED_FOR_LINE_IN_CONSOLE);
                 return true;
             }
-            print(silent, "Expected the user to be able to answer in the console, but they were not!");
+            p.println(EXPECTED_FOR_USER_TO_ANSWER_IN_CONSOLE);
             return false;
         };
     }
 
     public static Assertion assertResultEquals(final int expected) {
-        return (silent, res) -> {
+        return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
-                print(silent, "Expected %s to return %d but returned null instead!", formatMethodCall(res), expected);
+                p.println(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL, formatMethodCall(res), expected);
                 return false;
             } else if (!(res.koanReturnValue instanceof Integer)) {
-                print(silent, "Expected %s to return an integer but returned a %s instead!", formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                p.println(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
                 return false;
             } else if (((Integer)res.koanReturnValue).intValue() != expected) {
-                print(silent, "Expected %s to return %d but returned %d instead!", formatMethodCall(res), expected, ((Integer)res.koanReturnValue).intValue());
+                p.println(EXPECTED_TO_RETURN_INT_BUT_RETURNED, formatMethodCall(res), expected, ((Integer)res.koanReturnValue).intValue());
                 return false;
             }
 
-            print(silent, "Ok: %s returned %d.", formatMethodCall(res), expected);
+            p.println(OK_RETURNED_INT, formatMethodCall(res), expected);
             return true;
         }; 
     }
 
-    public static Assertion assertResultEquals(final String expected) {
-        return (silent, res) -> {
+    public static Assertion assertResultEquals(final Localizable<String> expected) {
+        return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
-                print(silent, "Expected %s to return \"%s\" but returned null instead!", formatMethodCall(res), expected);
+                p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL, formatMethodCall(res), expected);
                 return false;
             } else if (!(res.koanReturnValue instanceof String)) {
-                print(silent, "Expected %s to return a String but returned a %s instead!", formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE, formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
                 return false;
-            } else if (!((String)res.koanReturnValue).equals(expected)) {
-                print(silent, "Expected %s to return \"%s\" but returned \"%s\" instead!", formatMethodCall(res), expected, (String)res.koanReturnValue);
+            } else if (!((String)res.koanReturnValue).equals(expected.get(locale))) {
+                p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED, formatMethodCall(res), expected, (String)res.koanReturnValue);
                 return false;
             }
 
-            print(silent, "Ok: %s returned \"%s\".", formatMethodCall(res), expected);
+            p.println(OK_RETURNED_STRING, formatMethodCall(res), expected.get(locale));
             return true;
         }; 
     }

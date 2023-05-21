@@ -83,13 +83,13 @@ public class Assertions {
     public static Assertion assertResultEquals(final Localizable<String> expected) {
         return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
-                p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL, formatMethodCall(res), expected);
+                p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL, formatMethodCall(res), expected.get(locale));
                 return false;
             } else if (!(res.koanReturnValue instanceof String)) {
                 p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE, formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
                 return false;
             } else if (!((String)res.koanReturnValue).equals(expected.get(locale))) {
-                p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED, formatMethodCall(res), expected, (String)res.koanReturnValue);
+                p.println(EXPECTED_TO_RETURN_STRING_BUT_RETURNED, formatMethodCall(res), expected.get(locale), (String)res.koanReturnValue);
                 return false;
             }
 

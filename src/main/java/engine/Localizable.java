@@ -9,6 +9,10 @@ public interface Localizable<T> {
      */
     T get(Locale locale);
 
+    static Local<Class<?>> localClass(Class<?> enItem) {
+        return new Local<>(enItem);
+    }
+
     static <T> Local<T> local(T enItem) {
         return new Local<>(enItem);
     }

@@ -12,7 +12,9 @@ import static engine.Localizable.*;
 import static sensei.Texts.*;
 
 public class AboutConsoleAndVariablesKoans {
-    private static final Local<Class<?>> CLASS = local(AboutConsoleAndVariables.class);
+    private static final Local<Class<?>> CLASS =
+        localClass(AboutConsoleAndVariables.class)
+        .fr(AboutConsoleAndVariables.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sayHelloInConsole")

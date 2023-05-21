@@ -10,6 +10,13 @@
             "request": "launch",
             "mainClass": "EnglishPathToEnlightment",
             "projectName": "FrcJavaKoans_88b00649"
+        },
+        {
+            "type": "java",
+            "name": "Launch French PathToEnlightment",
+            "request": "launch",
+            "mainClass": "FrenchPathToEnlightment",
+            "projectName": "FrcJavaKoans_88b00649"
         }
     ]
 }

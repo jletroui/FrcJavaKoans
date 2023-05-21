@@ -13,7 +13,9 @@ import static sensei.Texts.*;
 
 
 public class AboutMethodsKoans {
-    private static final Local<Class<?>> CLASS = local(AboutMethods.class);
+    private static final Local<Class<?>> CLASS =
+        localClass(AboutMethods.class)
+        .fr(AboutMethods.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "computeAgeIn5And10And20YearsConsole")

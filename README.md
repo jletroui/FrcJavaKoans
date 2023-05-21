@@ -54,7 +54,7 @@ Console:
 
 Expected to see 'Hello!' in the console, but read nothing instead
 
-Please meditate on sayHelloInConsole in src/main/java/koans/AboutConsoleAndVariables.java
+Please meditate on sayHelloInConsole in src/main/java/koans/english/AboutConsoleAndVariables.java
 ```
 
 The master of the Java Koans is telling you a lot of things at once, so let's decompose a bit.

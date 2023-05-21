@@ -34,5 +34,23 @@ public class Texts {
     static final Local<String> NEGATIVE = 
         local("negative")
         .fr("négatif");
-    
+    static final Local<String> ZERO = 
+        local("zero")
+        .fr("zéro");
+    static final Local<String> YOU_CHEAT = 
+        local("You cheat!")
+        .fr("Tu triches!");
+    static final Local<String> GOT_EVERYTHING_RIGHT = 
+        local("Congratulations! You got everything right!")
+        .fr("Bravo, tu as tout bon!");        
+    static final Local<String> OOPS = 
+        local("Oops!")
+        .fr("Ouch!");
+    static final Local<String> YOU_FAILED = 
+        local("You failed!")
+        .fr("Échec!");        
+    static final Local<String> YOU_PASS = 
+        local("Congratulations! You pass!")
+        .fr("Bravo, tu passes!"); 
 }
+

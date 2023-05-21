@@ -28,6 +28,52 @@ public class AboutConditionsKoans {
             .whenCallingWith(-2)
             .then(
                 assertResultEquals(NEGATIVE)
+            ),
+        new Koan(CLASS, "signOrZero", int.class)
+            .whenCallingWith(2)
+            .then(
+                assertResultEquals(POSITIVE)
             )
+            .whenCallingWith(0)
+            .then(
+                assertResultEquals(ZERO)
+            )
+            .whenCallingWith(-2)
+            .then(
+                assertResultEquals(NEGATIVE)
+            ),
+        new Koan(CLASS, "gradeComment", int.class)
+            .whenCallingWith(0)
+            .then(
+                assertResultEquals(OOPS)
+            )
+            .whenCallingWith(1)
+            .then(
+                assertResultEquals(YOU_FAILED)
+            )
+            .whenCallingWith(59)
+            .then(
+                assertResultEquals(YOU_FAILED)
+            )
+            .whenCallingWith(60)
+            .then(
+                assertResultEquals(YOU_PASS)
+            )            
+            .whenCallingWith(99)
+            .then(
+                assertResultEquals(YOU_PASS)
+            )            
+            .whenCallingWith(100)
+            .then(
+                assertResultEquals(GOT_EVERYTHING_RIGHT)
+            )            
+            .whenCallingWith(101)
+            .then(
+                assertResultEquals(YOU_CHEAT)
+            )            
+            .whenCallingWith(-1)
+            .then(
+                assertResultEquals(YOU_CHEAT)
+            )            
     );
 }

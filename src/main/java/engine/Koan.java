@@ -2,6 +2,7 @@ package engine;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -39,10 +40,10 @@ public class Koan {
     }
 
     private Koan(Localizable<Class<?>> koanClass, String methodName, Class<?>[] methodParamTypes, KoanMethodCall[] calls, boolean usesConsole) {
-        this.koanClass = koanClass;
-        this.methodName = methodName;
-        this.methodParamTypes = methodParamTypes;
-        this.calls = calls;
+        this.koanClass = Objects.requireNonNull(koanClass, "koanClass must not be null");
+        this.methodName = Objects.requireNonNull(methodName, "methodName must not be null");
+        this.methodParamTypes = Objects.requireNonNull(methodParamTypes, "methodParamTypes must not be null");
+        this.calls = Objects.requireNonNull(calls, "calls must not be null");
         this.usesConsole = usesConsole;
     }
 

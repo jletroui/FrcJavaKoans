@@ -11,7 +11,9 @@ import static sensei.Texts.*;
 import static engine.Localizable.*;
 
 public class AboutConditionsKoans {
-    private static final Local<Class<?>> CLASS = local(AboutConditions.class);
+    private static final Local<Class<?>> CLASS =
+        localClass(AboutConditions.class)
+        .fr(AboutConditions.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sign", int.class)

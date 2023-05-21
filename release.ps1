@@ -1,1 +1,1 @@
-Compress-Archive -LiteralPath './.vscode','./images','./src','./LICENSE','./README.md' -DestinationPath './FrcJavaKoans.zip'
+Compress-Archive -LiteralPath './.vscode','./images','./src','./LICENSE','./README.md' -DestinationPath './FrcJavaKoans.zip' -Force

@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Optional;
 import static engine.Texts.*;
 
+/**
+ * Library of various assertions which can be run about the result of a koan execution.
+ */
 public class Assertions {
     private static String resolveParam(KoanResult res, Object p) {
         if (p instanceof StdInInput) {

@@ -3,6 +3,9 @@ package engine;
 import java.util.Optional;
 import java.util.OptionalInt;
 
+/**
+ * Stores all the information about what happened during the execution of a koan.
+ */
 public class KoanResult {
     public final String[] stdOutLines;
     private final String[] stdInLines;

@@ -8,6 +8,9 @@ import java.util.List;
 import engine.Koan.KoanMethodCall;
 import static engine.Texts.*;
 
+/**
+ * The main engine class, executing the series of koans.
+ */
 public class Sensei {
     private final Locale locale;
     private final Printer consolePrinter;
@@ -34,12 +37,13 @@ public class Sensei {
     }
 
     private boolean tryOffer(Koan koan) {
-        // Execute silently the first time
+        // Execute silently the first time.
+        // We do not want to display all the outputs of the successful koans to the student.
         p = Printer.SILENT;
         var succeeded = offer(koan);
 
         if (!succeeded) {
-            // If failed, execute verbosely the second time
+            // If failed, execute verbosely the second time, in order to give feedback to the student.
             p = consolePrinter;
             return offer(koan);
         }
@@ -120,7 +124,6 @@ public class Sensei {
         return true;
     }
 
-    
     private boolean executeCall(Method method, Koan koan, KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (koan.usesConsole) {
             p.println();

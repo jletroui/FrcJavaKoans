@@ -1,7 +1,7 @@
 package engine;
 
 /**
- * Supports a localizable item, typically a String to be displayed.
+ * Supports a localizable item, typically a String to be displayed, which could be different from one language to the other.
  */
 public interface Localizable<T> {
     /**

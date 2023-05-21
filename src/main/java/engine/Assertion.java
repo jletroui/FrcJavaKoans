@@ -1,5 +1,5 @@
 package engine;
 
 public interface Assertion {
-    boolean validate(boolean silentMode, KoanResult result);
+    boolean validate(Printer p, KoanResult result);
 }

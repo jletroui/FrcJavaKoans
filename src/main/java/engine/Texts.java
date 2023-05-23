@@ -12,8 +12,8 @@ public class Texts {
         local("Thinking %s ...")
         .fr("En pensant %s ...");
     static Local<String> HAS_DAMAGED_YOUR_KARMA =
-        local("%s.%s has damaged your karma.")
-        .fr("%s.%s a alourdi ton karma.");
+        local("%s has damaged your karma.")
+        .fr("%s a alourdi ton karma.");
     static Local<String> THE_MASTER_SAYS =
         local("The master says:")
         .fr("Le maître dit:");
@@ -77,6 +77,18 @@ public class Texts {
     static Local<String> OK_RETURNED_INT =
         local("Ok: %s returned %d.")
         .fr("Ok: %s a retourné %d.");
+    static Local<String> EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL =
+        local("Expected %s to return %f but returned null instead!")
+        .fr("Attendu à ce que %s retourne %f mais a retourné null à la place!");
+    static Local<String> EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return a double but returned a '%s' instead!")
+        .fr("Attendu à ce que %s retourne un décimal mais a retourné un '%s' à la place!");
+    static Local<String> EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED =
+        local("Expected %s to return %f but returned %f instead!")
+        .fr("Attendu à ce que %s retourne %f mais a retourné %f à la place!");
+    static Local<String> OK_RETURNED_DOUBLE =
+        local("Ok: %s returned %f.")
+        .fr("Ok: %s a retourné %f.");
     static Local<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL =
         local("Expected %s to return %s but returned null instead!")
         .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
@@ -101,4 +113,10 @@ public class Texts {
     static Local<String> OK_RETURNED_STRING =
         local("Ok: %s returned \"%s\".")
         .fr("Ok: %s a retourné \"%s\".");
+    static Local<String> EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED =
+        local("Expected %s to return %d from random number %f but returned %d instead!")
+        .fr("Attendu à ce que %s retourne %d à partir du nombre aléatoire %f mais a retourné %d à la place!");
+    static Local<String> OK_RETURNED_INT_FROM_RANDOM =
+        local("Ok: %s returned %d from random number %f.")
+        .fr("Ok: %s a retourné %d à partir du nombre aléatoire %f.");
 }

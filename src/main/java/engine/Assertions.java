@@ -2,6 +2,8 @@ package engine;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.DoubleToIntFunction;
+
 import static engine.Texts.*;
 
 /**
@@ -87,6 +89,30 @@ public class Assertions {
         }; 
     }
 
+    private static final double EPSILON = 0.0000000001;
+    private static boolean equals(Double actual, double expected) {
+        var diff = Math.abs(actual.doubleValue() - expected);
+        return diff < EPSILON;
+    }
+
+    public static Assertion assertResultEquals(final double expected) {
+        return (locale, p, res) -> {
+            if (res.koanReturnValue == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL), formatMethodCall(res), expected);
+                return false;
+            } else if (!(res.koanReturnValue instanceof Double)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE), formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                return false;
+            } else if (!equals((Double)res.koanReturnValue, expected)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED), formatMethodCall(res), expected, ((Double)res.koanReturnValue).doubleValue());
+                return false;
+            }
+
+            p.println(Color.green(OK_RETURNED_DOUBLE), formatMethodCall(res), expected);
+            return true;
+        }; 
+    }
+
     public static Assertion assertResultEquals(final boolean expected) {
         return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
@@ -119,6 +145,31 @@ public class Assertions {
             }
 
             p.println(Color.green(OK_RETURNED_STRING), formatMethodCall(res), expected.get(locale));
+            return true;
+        }; 
+    }
+
+    public static Assertion assertResultWithRandomEquals(DoubleToIntFunction expected) {
+        return (locale, p, res) -> {
+            var randomNumber = res.randomNumber();
+            if (res.koanReturnValue == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), formatMethodCall(res), expected);
+                return false;
+            } else if (!(res.koanReturnValue instanceof Integer)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                return false;
+            } else if (((Integer)res.koanReturnValue).intValue() != expected.applyAsInt(randomNumber)) {
+                p.println(
+                    Color.red(EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED), 
+                    formatMethodCall(res),
+                    expected.applyAsInt(randomNumber),
+                    randomNumber,
+                    ((Integer)res.koanReturnValue).intValue()
+                );
+                return false;
+            }
+
+            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOM), formatMethodCall(res), expected.applyAsInt(randomNumber), randomNumber);
             return true;
         }; 
     }

@@ -56,16 +56,11 @@ public class Sensei {
     private boolean offer(Koan koan, int successfulCount) {
         observe(koan);
         encourage();
-
-        if (!koan.usesConsole) {
-            p.println();
-            p.println("---------");
-            p.println();
-        }
         
         var success = false;
         try {
             success = executeCalls(koan);
+            p.println();
         } catch (IllegalAccessException iae) {
             p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
         } catch (IllegalArgumentException iae) {
@@ -98,19 +93,11 @@ public class Sensei {
             }
         }
 
-        p.println();
-        p.println(
-            PLEASE_MEDITATE_ON, 
-            koan.methodName,
-            koan.className(locale)
-        );
-        p.println("");
-
+        offerToMeditate(koan);
         showProgress(successfulCount);
 
         return success;
     }
-
 
     private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         var method = koan.method(locale);
@@ -133,6 +120,7 @@ public class Sensei {
             p.println();
         }
 
+        var seed = Helpers.setupRandomForKoan();
         var interceptionResult = StdStreamsInterceptor.capture(p == Printer.SILENT, () -> method.invoke(null, call.params), call.stdInInputs);
 
         var result = new KoanResult(
@@ -140,7 +128,9 @@ public class Sensei {
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
             interceptionResult.returnValue,
-            call.params);
+            call.params,
+            seed
+        );
 
         if (koan.usesConsole) {
             p.println();
@@ -165,13 +155,25 @@ public class Sensei {
         p.println(THE_MASTER_SAYS);
         p.println(Color.cyan(YOU_HAVE_NOT_REACHED_ENLIGHTMENT));
         p.println();
+        p.println("---------");
+        p.println();
         p.println(THE_ANSWERS_YOU_SEEK);
+        p.println();
     }
 
     private void observe(Koan koan) {
         p.println();
         p.println(THINKING, koan.className(locale));
-        p.println(Color.red(HAS_DAMAGED_YOUR_KARMA), koan.className(locale), koan.methodName);
+        p.println(Color.red(HAS_DAMAGED_YOUR_KARMA), koan.methodName);
+    }
+
+    private void offerToMeditate(Koan koan) {
+        p.println(
+            PLEASE_MEDITATE_ON, 
+            koan.methodName,
+            koan.className(locale)
+        );
+        p.println();
     }
 
     private void showProgress(int successfulCount) {

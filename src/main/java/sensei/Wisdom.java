@@ -12,6 +12,7 @@ public final class Wisdom {
         AboutConsoleAndVariablesKoans.koans,
         AboutMethodsKoans.koans,
         AboutConditionsKoans.koans,
-        AboutMoreMethodsKoans.koans
+        AboutMoreMethodsKoans.koans,
+        AboutDecimalNumbersKoans.koans
     );
 }

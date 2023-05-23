@@ -2,6 +2,7 @@ package engine;
 
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.Random;
 
 /**
  * Stores all the information about what happened during the execution of a koan.
@@ -12,13 +13,15 @@ public class KoanResult {
     public final Object koanReturnValue;
     public final Object[] koanParameters;
     public final Koan koan;
+    private final long seed;
 
-    public KoanResult(Koan koan, String[] stdOutLines, String[] stdInLines, Object koanReturnValue, Object[] koanParameters) {
+    public KoanResult(Koan koan, String[] stdOutLines, String[] stdInLines, Object koanReturnValue, Object[] koanParameters, long seed) {
         this.koan = koan;
         this.stdOutLines = stdOutLines;
         this.stdInLines = stdInLines;
         this.koanReturnValue = koanReturnValue;
         this.koanParameters = koanParameters;
+        this.seed = seed;
     }
 
     public String inputLine(StdInInput input) {
@@ -59,5 +62,25 @@ public class KoanResult {
                 .mapToObj(n -> String.valueOf(n + increment))
                 .findFirst()
                 .orElse("");
+    }
+
+    /**
+     * Returns the random number generated during the koan execution.
+     */
+    public double randomNumber() {
+        var rng = new Random(seed);
+        return rng.nextDouble();
+    }
+
+    /**
+     * Returns the first count random numbers generated during the koan execution.
+     */
+    public double[] randomNumbers(int count) {
+        var rng = new Random(seed);
+        var res = new double[count];
+        for(int i=0; i<count; i++) {
+            res[i] = rng.nextDouble();
+        }
+        return res;
     }
 }

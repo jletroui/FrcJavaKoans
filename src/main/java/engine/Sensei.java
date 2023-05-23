@@ -15,43 +15,45 @@ public class Sensei {
     private final Locale locale;
     private final Printer consolePrinter;
     private Printer p = Printer.SILENT;
+    private List<Koan> allKoans;
 
-    public Sensei(Locale locale) {
+    public Sensei(Locale locale, List<List<Koan>> koanSeries) {
         this.locale = locale;
         this.consolePrinter = new ConsolePrinter(locale);
+        this.allKoans = koanSeries
+        .stream()
+        .flatMap((kl) -> kl.stream())
+        .toList();
     }
 
-    public void offerKoans(List<List<Koan>> koanSeries) {
-        var firstFailingKoan = koanSeries
-            .stream()
-            .flatMap((kl) -> kl.stream())
-            .filter((kl) -> !tryOffer(kl))
-            .findFirst()
-            .orElse(null);
-
-        if (firstFailingKoan == null) {
-            consolePrinter.println();
-            consolePrinter.println(MOUNTAINS_ARE_AGAIN_MERELY_MOUNTAINS);
-            consolePrinter.println();
+    public void offerKoans() {
+        for(int i = 0; i< allKoans.size(); i++) {
+            if (!tryOffer(allKoans.get(i), i)) {
+                return;
+            }
         }
+
+        consolePrinter.println();
+        consolePrinter.println(MOUNTAINS_ARE_AGAIN_MERELY_MOUNTAINS);
+        consolePrinter.println();
     }
 
-    private boolean tryOffer(Koan koan) {
+    private boolean tryOffer(Koan koan, int successfulCount) {
         // Execute silently the first time.
         // We do not want to display all the outputs of the successful koans to the student.
         p = Printer.SILENT;
-        var succeeded = offer(koan);
+        var succeeded = offer(koan, successfulCount);
 
         if (!succeeded) {
             // If failed, execute verbosely the second time, in order to give feedback to the student.
             p = consolePrinter;
-            return offer(koan);
+            return offer(koan, successfulCount);
         }
 
         return true;
     }
 
-    private boolean offer(Koan koan) {
+    private boolean offer(Koan koan, int successfulCount) {
         p.println();
         p.println(THINKING, koan.className(locale));
         p.println(HAS_DAMAGED_YOUR_KARMA, koan.className(locale), koan.methodName);
@@ -108,6 +110,8 @@ public class Sensei {
         );
         p.println("");
 
+        showProgress(successfulCount);
+
         return success;
     }
 
@@ -157,5 +161,15 @@ public class Sensei {
             }
         }
         return true;
+    }
+
+    private void showProgress(int successfulCount) {
+        var bar = String.format("%sX%s", repeat(".", successfulCount), repeat("_", allKoans.size() - successfulCount - 1));
+        p.println(YOUR_PROGRESS_THUS_FAR, bar, successfulCount, allKoans.size());
+        p.println();
+    }
+
+    private static String repeat(String s, int times) {
+        return new String(new char[times]).replace("\0", s);
     }
 }

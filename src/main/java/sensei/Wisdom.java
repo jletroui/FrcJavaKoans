@@ -11,6 +11,7 @@ public final class Wisdom {
     public static final List<List<Koan>> koans = List.of(
         AboutConsoleAndVariablesKoans.koans,
         AboutMethodsKoans.koans,
-        AboutConditionsKoans.koans
+        AboutConditionsKoans.koans,
+        AboutMoreMethodsKoans.koans
     );
 }

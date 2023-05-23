@@ -41,18 +41,21 @@ public class Texts {
     static Local<String> CONSOLE =
         local("Console:")
         .fr("Console:");
+    static Local<String> YOUR_PROGRESS_THUS_FAR =
+        local("Your progress thus far: [%s] %d/%d")
+        .fr("Ton progrès jusqu'à maintenant: [%s] %d/%d");
 
     // Assertions
     
     static Local<String> EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING =
-        local("Expected to see '%s' in the console, but did not saw it!")
-        .fr("Attendu à voir '%s' dans la console, mais ne l'a pas vu!");
+        local("Expected to see '%s' in the console%s, but did not saw it!")
+        .fr("Attendu à voir '%s' dans la console%s, mais ne l'a pas vu!");
     static Local<String> EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD =
-        local("Expected to see '%s' in the console, but saw '%s' instead!")
-        .fr("Attendu à voir '%s' dans la console, mais vu '%s' à la place!");
+        local("Expected to see '%s' in the console%s, but saw '%s' instead!")
+        .fr("Attendu à voir '%s' dans la console%s, mais vu '%s' à la place!");
     static Local<String> OK_DISPLAYED_IN_CONSOLE =
-        local("Ok: displayed '%s' in the console.")
-        .fr("Ok: affiché '%s' dans la console.");
+        local("Ok: displayed '%s' in the console%s.")
+        .fr("Ok: affiché '%s' dans la console%s.");
     static Local<String> OK_ASKED_FOR_LINE_IN_CONSOLE =
         local("Ok: asked for a line in the console.")
         .fr("Ok: demandé du texte dans la console.");
@@ -71,6 +74,18 @@ public class Texts {
     static Local<String> OK_RETURNED_INT =
         local("Ok: %s returned %d.")
         .fr("Ok: %s a retourné %d.");
+    static Local<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL =
+        local("Expected %s to return %s but returned null instead!")
+        .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
+    static Local<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return a boolean but returned a '%s' instead!")
+        .fr("Attendu à ce que %s retourne un booléen mais a retourné un '%s' à la place!");
+    static Local<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED =
+        local("Expected %s to return %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
+    static Local<String> OK_RETURNED_BOOLEAN =
+        local("Ok: %s returned %s.")
+        .fr("Ok: %s a retourné %s.");
     static Local<String> EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL =
         local("Expected %s to return \"%s\" but returned null instead!")
         .fr("Attendu à ce que %s retourne \"%s\" mais a retourné null à la place!");

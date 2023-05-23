@@ -54,12 +54,8 @@ public class Sensei {
     }
 
     private boolean offer(Koan koan, int successfulCount) {
-        p.println();
-        p.println(THINKING, koan.className(locale));
-        p.println(HAS_DAMAGED_YOUR_KARMA, koan.className(locale), koan.methodName);
-        p.println();
-        p.println(THE_MASTER_SAYS);
-        p.println(YOU_HAVE_NOT_REACHED_ENLIGHTMENT);
+        observe(koan);
+        encourage();
 
         if (!koan.usesConsole) {
             p.println();
@@ -71,30 +67,30 @@ public class Sensei {
         try {
             success = executeCalls(koan);
         } catch (IllegalAccessException iae) {
-            p.println(EXPECTED_METHOD_TO_BE_PUBLIC, koan.methodName);
+            p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
         } catch (IllegalArgumentException iae) {
             // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
-            p.println(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, koan.methodName);
+            p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName);
         } catch (InvocationTargetException ite) {
-            p.println(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, koan.methodName,
+            p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName,
                     ite.getCause().getMessage());
         } catch (NoSuchMethodException mnfe) {
             if (koan.methodParamTypes.length == 0) {
                 p.println(
-                    EXPECTED_TO_FIND_MEHOD_NO_PARAMS,
+                    Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
                     koan.methodName,
                     koan.className(locale)
                 );
             } else if (koan.methodParamTypes.length == 1) {
                 p.println(
-                    EXPECTED_TO_FIND_MEHOD_ONE_PARAM,
+                    Color.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
                     koan.methodName,
                     koan.className(locale),
                     koan.methodParamTypes[0].getSimpleName()
                 );
             } else {
                 p.println(
-                    EXPECTED_TO_FIND_MEHOD_MANY_PARAMS,
+                    Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
                     koan.methodName,
                     koan.className(locale),
                     String.join(", ", Arrays.stream(koan.methodParamTypes).map(type -> "'" + type.getSimpleName() + "'").toArray(String[]::new))
@@ -114,6 +110,7 @@ public class Sensei {
 
         return success;
     }
+
 
     private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         var method = koan.method(locale);
@@ -163,8 +160,31 @@ public class Sensei {
         return true;
     }
 
+    private void encourage() {
+        p.println();
+        p.println(THE_MASTER_SAYS);
+        p.println(Color.cyan(YOU_HAVE_NOT_REACHED_ENLIGHTMENT));
+        p.println();
+        p.println(THE_ANSWERS_YOU_SEEK);
+    }
+
+    private void observe(Koan koan) {
+        p.println();
+        p.println(THINKING, koan.className(locale));
+        p.println(Color.red(HAS_DAMAGED_YOUR_KARMA), koan.className(locale), koan.methodName);
+    }
+
     private void showProgress(int successfulCount) {
-        var bar = String.format("%sX%s", repeat(".", successfulCount), repeat("_", allKoans.size() - successfulCount - 1));
+        if (successfulCount == 0) {
+            // Let's not be discouraging...
+            return;
+        }
+
+        var bar = String.format(
+            "%s%s%s",
+            Color.green(repeat(".", successfulCount)),
+            Color.red("X"),
+            Color.cyan(repeat("_", allKoans.size() - successfulCount - 1)));
         p.println(YOUR_PROGRESS_THUS_FAR, bar, successfulCount, allKoans.size());
         p.println();
     }

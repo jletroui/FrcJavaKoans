@@ -17,6 +17,9 @@ public class Texts {
     static Local<String> THE_MASTER_SAYS =
         local("The master says:")
         .fr("Le maître dit:");
+    static Local<String> THE_ANSWERS_YOU_SEEK =
+        local("The answers you seek...")
+        .fr("Les réponses que tu cherches...");
     static Local<String> YOU_HAVE_NOT_REACHED_ENLIGHTMENT =
         local("  You have not yet reached enlightment ...")
         .fr("  Tu n'as pas encore atteint l'illumination ...");
@@ -42,8 +45,8 @@ public class Texts {
         local("Console:")
         .fr("Console:");
     static Local<String> YOUR_PROGRESS_THUS_FAR =
-        local("Your progress thus far: [%s] %d/%d")
-        .fr("Ton progrès jusqu'à maintenant: [%s] %d/%d");
+        local(Color.green("Your progress thus far: [") + "%s" + Color.green("]") + " %d/%d")
+        .fr(Color.green("Ton progrès jusqu'à maintenant: [") + "%s" + Color.green("]") + " %d/%d");
 
     // Assertions
     

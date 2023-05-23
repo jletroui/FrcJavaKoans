@@ -25,6 +25,13 @@ public class Assertions {
         return String.format("%s(%s)", res.koan.methodName, String.join(", ", params));
     }
 
+    private static String whenCalling(KoanResult res) {
+        if (res.koanParameters.length > 0) {
+            return String.format(" when calling %s", formatMethodCall(res));
+        }
+        return "";
+    }
+
     public static Assertion assertOutEquals(int outLineIndex, Localizable<String> expectedTemplate, Object... params) {
 
         return (locale, p, res) -> {
@@ -34,19 +41,19 @@ public class Assertions {
             final var expected = String.format(expectedTemplate.get(locale), realParams);
 
             if (res.stdOutLines.length < outLineIndex + 1) {
-                p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, expected);
+                p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, expected, whenCalling(res));
                 return false;
             }
             if (!res.stdOutLines[outLineIndex].equals(expected)) {
                 if (res.stdOutLines[outLineIndex].trim().equals("")) {
-                    p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, expected);
+                    p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, expected, whenCalling(res));
                 } else {
-                    p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD, expected, res.stdOutLines[outLineIndex]);
+                    p.println(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD, expected, whenCalling(res), res.stdOutLines[outLineIndex]);
                 }
                 return false;
             }
 
-            p.println(OK_DISPLAYED_IN_CONSOLE, expected);
+            p.println(OK_DISPLAYED_IN_CONSOLE, expected, whenCalling(res));
             return true;
         };
     }
@@ -76,6 +83,24 @@ public class Assertions {
             }
 
             p.println(OK_RETURNED_INT, formatMethodCall(res), expected);
+            return true;
+        }; 
+    }
+
+    public static Assertion assertResultEquals(final boolean expected) {
+        return (locale, p, res) -> {
+            if (res.koanReturnValue == null) {
+                p.println(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL, formatMethodCall(res), expected);
+                return false;
+            } else if (!(res.koanReturnValue instanceof Boolean)) {
+                p.println(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE, formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                return false;
+            } else if (((Boolean)res.koanReturnValue).booleanValue() != expected) {
+                p.println(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED, formatMethodCall(res), expected, ((Boolean)res.koanReturnValue).booleanValue());
+                return false;
+            }
+
+            p.println(OK_RETURNED_BOOLEAN, formatMethodCall(res), expected);
             return true;
         }; 
     }

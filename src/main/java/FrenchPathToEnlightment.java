@@ -4,6 +4,6 @@ import sensei.Wisdom;
 
 public class FrenchPathToEnlightment {
     public static void main(String[] args) {
-        new Sensei(Locale.fr).offerKoans(Wisdom.koans);
+        new Sensei(Locale.fr, Wisdom.koans).offerKoans();
     }
 }

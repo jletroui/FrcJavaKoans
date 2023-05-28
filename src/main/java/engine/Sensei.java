@@ -21,9 +21,9 @@ public class Sensei {
         this.locale = locale;
         this.consolePrinter = new ConsolePrinter(locale);
         this.allKoans = koanSeries
-        .stream()
-        .flatMap((kl) -> kl.stream())
-        .toList();
+            .stream()
+            .flatMap((kl) -> kl.stream())
+            .toList();
     }
 
     public void offerKoans() {
@@ -65,7 +65,7 @@ public class Sensei {
             p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
         } catch (IllegalArgumentException iae) {
             // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
-            p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName);
+            p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, iae.getMessage());
         } catch (InvocationTargetException ite) {
             p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName,
                     ite.getCause().getMessage());

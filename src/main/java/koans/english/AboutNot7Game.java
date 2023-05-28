@@ -30,7 +30,22 @@ public class AboutNot7Game {
      * die6() should return an int between 1 and 6 randomly
      * 
      */
-    public static int die6() {
-        return (int)Math.ceil(6*random());
-    }   
+
+
+    /**
+     * Write a method 'die6Sum(int times)' throwing a 6-face die times times and returning the sum of the result.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * Use the die6 method in a loop.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * die6Sum(2) should return an int between 2 and 12 randomly
+     * 
+     */
+
+     
 }

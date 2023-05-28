@@ -14,6 +14,7 @@ public final class Wisdom {
         AboutConditionsKoans.koans,
         AboutMoreMethodsKoans.koans,
         AboutDecimalNumbersKoans.koans,
-        AboutLoopsKoans.koans
+        AboutLoopsKoans.koans,
+        AboutNot7GameKoans.koans
     );
 }

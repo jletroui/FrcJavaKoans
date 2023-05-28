@@ -158,7 +158,7 @@ public class Assertions {
         return (locale, p, res) -> {
             var randomNumber = res.randomNumber();
             if (res.koanReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.call, expected);
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.call, expected.applyAsInt(randomNumber));
                 return false;
             } else if (!(res.koanReturnValue instanceof Integer)) {
                 p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.call, res.koanReturnValue.getClass().getSimpleName());
@@ -175,6 +175,35 @@ public class Assertions {
             }
 
             p.println(Color.green(OK_RETURNED_INT_FROM_RANDOM), res.call, expected.applyAsInt(randomNumber), randomNumber);
+            return true;
+        }; 
+    }
+
+    public static Assertion assertResultWithRandomEquals(int count, DoubleArrayToIntFunction expected) {
+        return (locale, p, res) -> {
+            var randomNumbers = res.randomNumbers(count);
+            var formatRandomNumbers = String.join(
+                ", ",
+                Arrays.stream(randomNumbers).mapToObj(Double::toString).toList()
+            );
+        if (res.koanReturnValue == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.call, expected.apply(randomNumbers));
+                return false;
+            } else if (!(res.koanReturnValue instanceof Integer)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.call, res.koanReturnValue.getClass().getSimpleName());
+                return false;
+            } else if (((Integer)res.koanReturnValue).intValue() != expected.apply(randomNumbers)) {
+                p.println(
+                    Color.red(EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED), 
+                    res.call,
+                    expected.apply(randomNumbers),
+                    formatRandomNumbers,
+                    ((Integer)res.koanReturnValue).intValue()
+                );
+                return false;
+            }
+
+            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOMS), res.call, expected.apply(randomNumbers), formatRandomNumbers);
             return true;
         }; 
     }

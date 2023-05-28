@@ -122,4 +122,10 @@ public class Texts {
     static Local<String> OK_RETURNED_INT_FROM_RANDOM =
         local("Ok: %s returned %d from random number %f.")
         .fr("Ok: %s a retourné %d à partir du nombre aléatoire %f.");
+    static Local<String> EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED =
+        local("Expected %s to return %d from random numbers %s but returned %d instead!")
+        .fr("Attendu à ce que %s retourne %d à partir des nombres aléatoires %s mais a retourné %d à la place!");
+    static Local<String> OK_RETURNED_INT_FROM_RANDOMS =
+        local("Ok: %s returned %d from random numbers %s.")
+        .fr("Ok: %s a retourné %d à partir du nombre aléatoire %s.");        
 }

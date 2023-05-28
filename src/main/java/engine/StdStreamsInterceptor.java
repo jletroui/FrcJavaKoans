@@ -89,7 +89,7 @@ public class StdStreamsInterceptor {
 
     public static InterceptionResult capture(boolean silent, ReflectionRunnable executeFunc, String[] stdInputs) throws IllegalAccessException, InvocationTargetException {
         var bos = new ByteArrayOutputStream();
-        var printStream = new PrintStream(silent? bos : new OutputStreamMultiplexer(bos, realOut), true);
+        var printStream = new PrintStream(silent ? bos : new OutputStreamMultiplexer(bos, realOut), true);
 
         var inputStream = silent ? new ByteArrayInputStream(String.join(System.lineSeparator(), stdInputs).getBytes()) : new StdInInterceptor();
 
@@ -99,12 +99,12 @@ public class StdStreamsInterceptor {
         Object returnValue;
         try {
             returnValue = executeFunc.run();
-            printStream.flush();
         }
         finally {
             System.setOut(realOut);
             System.setIn(realIn);
             Helpers.cleanupStdInForKoan();
+            printStream.close();
         }
 
         return new InterceptionResult(

@@ -20,22 +20,14 @@ public class Assertions {
         return Optional.ofNullable(p).map((v) -> v.toString()).orElse("");
     }
 
-    private static String formatMethodCall(KoanResult res) {
-        String[] params = Arrays.stream(res.koanParameters)
-            .map(p -> p == null ? "null": p.toString())
-            .toArray(String[]::new);
-        return String.format("%s(%s)", res.koan.methodName, String.join(", ", params));
-    }
-
     private static String whenCalling(KoanResult res) {
-        if (res.koanParameters.length > 0) {
-            return String.format(" when calling %s", formatMethodCall(res));
+        if (res.call.params.length > 0) {
+            return String.format(" when calling %s", res.call);
         }
         return "";
     }
 
     public static Assertion assertOutEquals(int outLineIndex, Localizable<String> expectedTemplate, Object... params) {
-
         return (locale, p, res) -> {
             final var realParams = Arrays.stream(params)
                 .map((param) -> Assertions.resolveParam(res, param))
@@ -60,6 +52,19 @@ public class Assertions {
         };
     }
 
+    public static Assertion assertOutNoLineAfter(int outLineCount) {
+        return (locale, p, res) -> {
+            for(int i = outLineCount; i < res.stdOutLines.length; i++) {
+                if (!res.stdOutLines[i].trim().equals("")) {
+                    p.println(Color.red(EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD), whenCalling(res), res.stdOutLines[i]);
+                    return false;
+                }
+            }
+
+            return true;
+        };
+    }
+
     public static Assertion assertAskedInStdIn(final int inLineIndex) {
         return (locale, p, res) -> {
             if (res.inputLine(inLineIndex).isPresent()) {
@@ -74,17 +79,17 @@ public class Assertions {
     public static Assertion assertResultEquals(final int expected) {
         return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), formatMethodCall(res), expected);
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.call, expected);
                 return false;
             } else if (!(res.koanReturnValue instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.call, res.koanReturnValue.getClass().getSimpleName());
                 return false;
             } else if (((Integer)res.koanReturnValue).intValue() != expected) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED), formatMethodCall(res), expected, ((Integer)res.koanReturnValue).intValue());
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED), res.call, expected, ((Integer)res.koanReturnValue).intValue());
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT), formatMethodCall(res), expected);
+            p.println(Color.green(OK_RETURNED_INT), res.call, expected);
             return true;
         }; 
     }
@@ -98,17 +103,17 @@ public class Assertions {
     public static Assertion assertResultEquals(final double expected) {
         return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL), formatMethodCall(res), expected);
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL), res.call, expected);
                 return false;
             } else if (!(res.koanReturnValue instanceof Double)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE), formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE), res.call, res.koanReturnValue.getClass().getSimpleName());
                 return false;
             } else if (!equals((Double)res.koanReturnValue, expected)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED), formatMethodCall(res), expected, ((Double)res.koanReturnValue).doubleValue());
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED), res.call, expected, ((Double)res.koanReturnValue).doubleValue());
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_DOUBLE), formatMethodCall(res), expected);
+            p.println(Color.green(OK_RETURNED_DOUBLE), res.call, expected);
             return true;
         }; 
     }
@@ -116,17 +121,17 @@ public class Assertions {
     public static Assertion assertResultEquals(final boolean expected) {
         return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL), formatMethodCall(res), expected);
+                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL), res.call, expected);
                 return false;
             } else if (!(res.koanReturnValue instanceof Boolean)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE), formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE), res.call, res.koanReturnValue.getClass().getSimpleName());
                 return false;
             } else if (((Boolean)res.koanReturnValue).booleanValue() != expected) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED), formatMethodCall(res), expected, ((Boolean)res.koanReturnValue).booleanValue());
+                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED), res.call, expected, ((Boolean)res.koanReturnValue).booleanValue());
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_BOOLEAN), formatMethodCall(res), expected);
+            p.println(Color.green(OK_RETURNED_BOOLEAN), res.call, expected);
             return true;
         }; 
     }
@@ -134,17 +139,17 @@ public class Assertions {
     public static Assertion assertResultEquals(final Localizable<String> expected) {
         return (locale, p, res) -> {
             if (res.koanReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL), formatMethodCall(res), expected.get(locale));
+                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL), res.call, expected.get(locale));
                 return false;
             } else if (!(res.koanReturnValue instanceof String)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE), formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE), res.call, res.koanReturnValue.getClass().getSimpleName());
                 return false;
             } else if (!((String)res.koanReturnValue).equals(expected.get(locale))) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED), formatMethodCall(res), expected.get(locale), (String)res.koanReturnValue);
+                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED), res.call, expected.get(locale), (String)res.koanReturnValue);
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_STRING), formatMethodCall(res), expected.get(locale));
+            p.println(Color.green(OK_RETURNED_STRING), res.call, expected.get(locale));
             return true;
         }; 
     }
@@ -153,15 +158,15 @@ public class Assertions {
         return (locale, p, res) -> {
             var randomNumber = res.randomNumber();
             if (res.koanReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), formatMethodCall(res), expected);
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.call, expected);
                 return false;
             } else if (!(res.koanReturnValue instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), formatMethodCall(res), res.koanReturnValue.getClass().getSimpleName());
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.call, res.koanReturnValue.getClass().getSimpleName());
                 return false;
             } else if (((Integer)res.koanReturnValue).intValue() != expected.applyAsInt(randomNumber)) {
                 p.println(
                     Color.red(EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED), 
-                    formatMethodCall(res),
+                    res.call,
                     expected.applyAsInt(randomNumber),
                     randomNumber,
                     ((Integer)res.koanReturnValue).intValue()
@@ -169,7 +174,7 @@ public class Assertions {
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOM), formatMethodCall(res), expected.applyAsInt(randomNumber), randomNumber);
+            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOM), res.call, expected.applyAsInt(randomNumber), randomNumber);
             return true;
         }; 
     }

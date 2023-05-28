@@ -13,6 +13,7 @@ public final class Wisdom {
         AboutMethodsKoans.koans,
         AboutConditionsKoans.koans,
         AboutMoreMethodsKoans.koans,
-        AboutDecimalNumbersKoans.koans
+        AboutDecimalNumbersKoans.koans,
+        AboutLoopsKoans.koans
     );
 }

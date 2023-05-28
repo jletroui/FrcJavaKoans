@@ -26,7 +26,7 @@ public class AboutConsoleAndVariables {
      * 
      */
     public static void sayHelloInConsole() {
-
+        
     }
 
     /**

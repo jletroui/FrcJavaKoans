@@ -42,8 +42,8 @@ public class Texts {
         local("Please meditate on %s in src/main/java/koans/english/%s.java")
         .fr("Tu peux méditer sur %s in src/main/java/koans/french/%s.java");
     static Local<String> CONSOLE =
-        local("Console:")
-        .fr("Console:");
+        local("Console for %s:")
+        .fr("Console pour %s:");
     static Local<String> YOUR_PROGRESS_THUS_FAR =
         local(Color.green("Your progress thus far: [") + "%s" + Color.green("]") + " %d/%d")
         .fr(Color.green("Ton progrès jusqu'à maintenant: [") + "%s" + Color.green("]") + " %d/%d");
@@ -59,6 +59,9 @@ public class Texts {
     static Local<String> OK_DISPLAYED_IN_CONSOLE =
         local("Ok: displayed '%s' in the console%s.")
         .fr("Ok: affiché '%s' dans la console%s.");
+    static Local<String> EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD =
+        local("Expected to not see anything more in the console%s, but saw '%s' instead!")
+        .fr("Attendu à ne plus rien voir dans la console%s, mais vu '%s' à la place!");
     static Local<String> OK_ASKED_FOR_LINE_IN_CONSOLE =
         local("Ok: asked for a line in the console.")
         .fr("Ok: demandé du texte dans la console.");

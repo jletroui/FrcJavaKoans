@@ -21,25 +21,29 @@ public class AboutConsoleAndVariablesKoans {
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, global("Hello!"))
+                assertOutEquals(0, global("Hello!")),
+                assertOutNoLineAfter(1)
             ),
         new Koan(CLASS, "computeTwoAndTwo")
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, global("4"))
+                assertOutEquals(0, global("4")),
+                assertOutNoLineAfter(1)
             ),
         new Koan(CLASS, "createAndDisplayAVariable")
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, global("4"))
+                assertOutEquals(0, global("4")),
+                assertOutNoLineAfter(1)
             ),
         new Koan(CLASS, "createAndDisplayAStringVariable")
             .useConsole()
             .whenCalling()
             .then(
-                assertOutEquals(0, global("Hello!"))
+                assertOutEquals(0, global("Hello!")),
+                assertOutNoLineAfter(1)
             ),
         new Koan(CLASS, "askAndDisplayNameInConsole")
             .useConsole()
@@ -49,7 +53,8 @@ public class AboutConsoleAndVariablesKoans {
                 assertOutEquals(0, WHAT_IS_YOUR_NAME),
                 assertAskedInStdIn(0),
                 assertOutEquals(1, YOUR_NAME_IS),
-                assertOutEquals(2, global("%s"), new StdInInput(0))
+                assertOutEquals(2, global("%s"), new StdInInput(0)),
+                assertOutNoLineAfter(3)
             ),
         new Koan(CLASS, "askAndDisplayNameOnASingleLineInConsole")
             .useConsole()
@@ -58,7 +63,8 @@ public class AboutConsoleAndVariablesKoans {
             .then(
                 assertOutEquals(0, WHAT_IS_YOUR_NAME),
                 assertAskedInStdIn(0),
-                assertOutEquals(1, YOUR_NAME_IS, new StdInInput(0))
+                assertOutEquals(1, YOUR_NAME_IS, new StdInInput(0)),
+                assertOutNoLineAfter(2)
             ),
         new Koan(CLASS, "askNameAndAgeInConsole")
             .useConsole()
@@ -69,7 +75,8 @@ public class AboutConsoleAndVariablesKoans {
                 assertAskedInStdIn(0),
                 assertOutEquals(1, WHAT_IS_YOUR_AGE),
                 assertAskedInStdIn(1),
-                assertOutEquals(2, YOUR_NAME_IS_AND_YOUR_AGE_IS, new StdInInput(0), new StdInInput(1))
+                assertOutEquals(2, YOUR_NAME_IS_AND_YOUR_AGE_IS, new StdInInput(0), new StdInInput(1)),
+                assertOutNoLineAfter(3)
             ),
         new Koan(CLASS, "computeAgeIn5YearsConsole")
             .useConsole()
@@ -78,7 +85,8 @@ public class AboutConsoleAndVariablesKoans {
             .then(
                 assertOutEquals(0, WHAT_IS_YOUR_AGE),
                 assertAskedInStdIn(0),
-                assertOutEquals(1, IN_5_YEARS_YOU_WILL_BE, paramPlus(0, 5))
+                assertOutEquals(1, IN_5_YEARS_YOU_WILL_BE, paramPlus(0, 5)),
+                assertOutNoLineAfter(2)
             )
     );
 }

@@ -1,8 +1,68 @@
 package koans.english;
 
-import static engine.Helpers.*;
+import static engine.Helpers.random;
 
 public class AboutNot7Game {
+    /**
+     * These koans are a bit special. You will gradually code everything necessary for a 2 players game called 'Not 7!'.
+     * 
+     * Each player has only one turn. On its turn, the player will throw 2 dice as many times as they wish.
+     * 
+     * However, if at any time the result for one throw is 7, the player loose immediately.
+     * 
+     * Otherwise, when the player decide to pass and not throw anymore, their score is the sum of all the dice results.
+     * 
+     * Here is a game example, in the console:
+     * 
+     * Player 1, it's your turn!
+     * 
+     * You threw 4 and 5. Your result so far: 9
+     * Do you want to throw again [y/n]? y
+     * You threw 3 and 1. Your result so far: 13
+     * Do you want to throw again [y/n]? y
+     * You threw 2 and 6. Your result so far: 21
+     * Do you want to throw again [y/n]? n
+     * 
+     * Well done, your score is 21!
+     * 
+     * Player 2, it's your turn!
+     * 
+     * You threw 2 and 3. Your result so far: 5
+     * Do you want to throw again [y/n]? y
+     * You threw 4 and 4. Your result so far: 13
+     * Do you want to throw again [y/n]? y
+     * You threw 2 and 1. Your result so far: 16
+     * Do you want to throw again [y/n]? y
+     * You threw 3 and 3. Your result so far: 22
+     * Do you want to throw again [y/n]? n
+     * 
+     * Well done, your score is 22!
+     * 
+     * Congratulations, player 2 wins!!!
+     * 
+     * 
+     * 
+     * Here is an other game example, where one unlucky player is throwing a 7:
+     * 
+     * Player 1, it's your turn!
+     * 
+     * You threw 3 and 2. Your result so far: 5
+     * Do you want to throw again [y/n]? y
+     * You threw 5 and 6. Your result so far: 16
+     * Do you want to throw again [y/n]? n
+     * 
+     * Well done, your score is 16!
+     * 
+     * Player 2, it's your turn!
+     * 
+     * You threw 2 and 3. Your result so far: 5
+     * Do you want to throw again [y/n]? y
+     * You threw 2 and 5. That's a 7, you loose!
+     * 
+     * Congratulations, player 1 wins!!!
+     */
+
+
     /**
      * Write a method 'die6()' returning the result of a 6-face die throw as an integer.
      * 

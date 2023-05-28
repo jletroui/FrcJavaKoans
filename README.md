@@ -51,7 +51,7 @@ Open that file in VS Code:
 
 ![open src/main/java/koans/english/AboutConsoleAndVariables.java](images/open_first_koan.png)
 
-Wow, there is a lot going on! In order to understand what is all of this, we need to learn about a few things about Java.
+Wow, there is a lot going on! In order to understand what is all of this, we need to learn a few things about Java.
 
 ### Java files
 
@@ -106,7 +106,7 @@ Next, we can see these lines, colored in green:
      */
 ```
 
-These lines are forming what's called a 'comment'. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The master is putting each Koan's instructions for you in such a comment. You can find the goal of the koan at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koans? You saw this bit:
+These lines are forming what's called a 'comment'. All the text between a `/*` and a `*/` is a comment. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The master is putting each Koan's instructions for you in such a comment. You can find the goal of the koan at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koans? You saw this bit:
 
 ```
 Console:
@@ -202,7 +202,7 @@ And run the koans again:
 
 That's a completely different message! This is because we successfully completed the first koan! So our master is telling us about our progress and about the next koan.
 
-Congratulations, you completed your first koan! You can now look at the next koan in the `src/main/java/koans/english/AboutConsoleAndVariables.java` and try to figure out how to complete the next koan!
+Congratulations, you completed your first koan! You can now look at the next koan in the `src/main/java/koans/english/AboutConsoleAndVariables.java` file and try to figure out how to complete the next koan!
 
 ## Mentors
 

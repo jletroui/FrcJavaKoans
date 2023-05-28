@@ -19,19 +19,29 @@ public class Koan {
         public final Object[] params;
         public final Assertion[] assertions;
         public final String[] stdInInputs;
+        public final Koan koan;
 
-        public KoanMethodCall(Object[] params, Assertion[] assertions, String[] stdInInputs) {
+        public KoanMethodCall(Koan koan, Object[] params, Assertion[] assertions, String[] stdInInputs) {
+            this.koan = koan;
             this.params = params;
             this.assertions = assertions;
             this.stdInInputs = stdInInputs;
         }
 
         public KoanMethodCall withStdInInputs(String[] inputs) {
-            return new KoanMethodCall(params, assertions, inputs);
+            return new KoanMethodCall(koan, params, assertions, inputs);
         }
         
         public KoanMethodCall withAssertions(Assertion[] assertions) {
-            return new KoanMethodCall(params, assertions, stdInInputs);
+            return new KoanMethodCall(koan, params, assertions, stdInInputs);
+        }
+
+        @Override
+        public String toString() {
+            String[] params = Arrays.stream(this.params)
+                .map(p -> p == null ? "null": p.toString())
+                .toArray(String[]::new);
+            return String.format("%s(%s)", koan.methodName, String.join(", ", params));
         }
     }
 
@@ -49,7 +59,7 @@ public class Koan {
 
     public Koan whenCallingWith(Object... params) {
         var newCalls = Arrays.copyOf(calls, calls.length + 1);
-        newCalls[newCalls.length - 1] = new KoanMethodCall(params, new Assertion[0], new String[0]);
+        newCalls[newCalls.length - 1] = new KoanMethodCall(this, params, new Assertion[0], new String[0]);
         return new Koan(
             koanClass,
             methodName,
@@ -74,7 +84,7 @@ public class Koan {
             koanClass,
             methodName,
             methodParamTypes,
-            new KoanMethodCall[] { new KoanMethodCall(new Object[0], new Assertion[0], new String[0]) },
+            new KoanMethodCall[] { new KoanMethodCall(this, new Object[0], new Assertion[0], new String[0]) },
             usesConsole
         );
     }

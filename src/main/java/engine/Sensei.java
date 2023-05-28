@@ -115,7 +115,7 @@ public class Sensei {
     private boolean executeCall(Method method, Koan koan, KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (koan.usesConsole) {
             p.println();
-            p.println(CONSOLE);
+            p.println(CONSOLE, call);
             p.println("---------");
             p.println();
         }
@@ -124,11 +124,10 @@ public class Sensei {
         var interceptionResult = StdStreamsInterceptor.capture(p == Printer.SILENT, () -> method.invoke(null, call.params), call.stdInInputs);
 
         var result = new KoanResult(
-            koan,
+            call,
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
             interceptionResult.returnValue,
-            call.params,
             seed
         );
 

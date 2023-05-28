@@ -31,7 +31,8 @@ public class AboutMethodsKoans {
                 assertOutEquals(3, IN_10_YEARS_YOU_WILL_BE, paramPlus(1, 10)),
                 assertOutEquals(4, WHAT_IS_YOUR_AGE),
                 assertAskedInStdIn(2),
-                assertOutEquals(5, IN_20_YEARS_YOU_WILL_BE, paramPlus(2, 20))
+                assertOutEquals(5, IN_20_YEARS_YOU_WILL_BE, paramPlus(2, 20)),
+                assertOutNoLineAfter(6)
             ),
         new Koan(CLASS, "computeAgeIn5And10And20YearsConsoleWithMethod")
             .useConsole()
@@ -46,7 +47,8 @@ public class AboutMethodsKoans {
                 assertOutEquals(3, IN_10_YEARS_YOU_WILL_BE, paramPlus(1, 10)),
                 assertOutEquals(4, WHAT_IS_YOUR_AGE),
                 assertAskedInStdIn(2),
-                assertOutEquals(5, IN_20_YEARS_YOU_WILL_BE, paramPlus(2, 20))
+                assertOutEquals(5, IN_20_YEARS_YOU_WILL_BE, paramPlus(2, 20)),
+                assertOutNoLineAfter(6)
             ),
         new Koan(CLASS, "square", int.class)
             .whenCallingWith(2)

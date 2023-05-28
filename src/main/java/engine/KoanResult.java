@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Random;
 
+import engine.Koan.KoanMethodCall;
+
 /**
  * Stores all the information about what happened during the execution of a koan.
  */
@@ -11,16 +13,14 @@ public class KoanResult {
     public final String[] stdOutLines;
     private final String[] stdInLines;
     public final Object koanReturnValue;
-    public final Object[] koanParameters;
-    public final Koan koan;
+    public final KoanMethodCall call;
     private final long seed;
 
-    public KoanResult(Koan koan, String[] stdOutLines, String[] stdInLines, Object koanReturnValue, Object[] koanParameters, long seed) {
-        this.koan = koan;
+    public KoanResult(KoanMethodCall call, String[] stdOutLines, String[] stdInLines, Object koanReturnValue, long seed) {
+        this.call = call;
         this.stdOutLines = stdOutLines;
         this.stdInLines = stdInLines;
         this.koanReturnValue = koanReturnValue;
-        this.koanParameters = koanParameters;
         this.seed = seed;
     }
 

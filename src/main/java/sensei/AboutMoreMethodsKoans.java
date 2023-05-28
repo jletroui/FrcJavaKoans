@@ -109,23 +109,28 @@ public class AboutMoreMethodsKoans {
             .useConsole()
             .whenCallingWith(33)
             .then(
-                assertOutEquals(0, global("Fizz"))
+                assertOutEquals(0, global("Fizz")),
+                assertOutNoLineAfter(1)
             )
             .whenCallingWith(40)
             .then(
-                assertOutEquals(0, global("Buzz"))
+                assertOutEquals(0, global("Buzz")),
+                assertOutNoLineAfter(1)
             )
             .whenCallingWith(30)
             .then(
-                assertOutEquals(0, global("FizzBuzz"))
+                assertOutEquals(0, global("FizzBuzz")),
+                assertOutNoLineAfter(1)
             )
             .whenCallingWith(0)
             .then(
-                assertOutEquals(0, global("FizzBuzz"))
+                assertOutEquals(0, global("FizzBuzz")),
+                assertOutNoLineAfter(1)
             )
             .whenCallingWith(2)
             .then(
-                assertOutEquals(0, global("2"))
+                assertOutEquals(0, global("2")),
+                assertOutNoLineAfter(1)
             )
     );
 }

@@ -121,7 +121,7 @@ public class Sensei {
         }
 
         var seed = Helpers.setupRandomForKoan();
-        var interceptionResult = StdStreamsInterceptor.capture(p == Printer.SILENT, () -> method.invoke(null, call.params), call.stdInInputs);
+        var interceptionResult = StdStreamsInterceptor.capture(p == Printer.SILENT, () -> method.invoke(null, call.parameters(locale)), call.stdInInputs(locale));
 
         var result = new KoanResult(
             call,
@@ -137,16 +137,7 @@ public class Sensei {
             p.println();
         }
 
-        return executeAssertions(result, call.assertions);
-    }
-
-    private boolean executeAssertions(KoanResult result, Assertion[] assertions) {
-        for (Assertion as : assertions) {
-            if (!as.validate(locale, p, result)) {
-                return false;
-            }
-        }
-        return true;
+        return result.executeAssertions(locale, p, call.assertions);
     }
 
     private void encourage() {

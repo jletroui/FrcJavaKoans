@@ -83,4 +83,25 @@ public class KoanResult {
         }
         return res;
     }
+
+    /**
+     * Returns the nth random number generated during the koan execution.
+     */
+    public double randomNumber(int n) {
+        var rng = new Random(seed);
+        var res = 0.0;
+        for(int i=0; i<=n; i++) {
+            res = rng.nextDouble();
+        }
+        return res;
+    }
+
+    public boolean executeAssertions(Locale locale, Printer p, Assertion... assertions) {
+        for (Assertion as : assertions) {
+            if (!as.validate(locale, p, this)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

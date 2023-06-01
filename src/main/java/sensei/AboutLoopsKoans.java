@@ -22,18 +22,18 @@ public class AboutLoopsKoans {
             .then(
                 assertOutEquals(0, global("Hello")),
                 assertOutEquals(1, global("Hello")),
-                assertOutNoLineAfter(2)
+                assertNoLineInStdOutAfter(2)
             )
             .whenCallingWith(3)
             .then(
                 assertOutEquals(0, global("Hello")),
                 assertOutEquals(1, global("Hello")),
                 assertOutEquals(2, global("Hello")),
-                assertOutNoLineAfter(3)
+                assertNoLineInStdOutAfter(3)
             )
             .whenCallingWith(0)
             .then(
-                assertOutNoLineAfter(0)
+                assertNoLineInStdOutAfter(0)
             ),
         new Koan(CLASS, "reverseNumbers", int.class)
             .useConsole()
@@ -41,23 +41,23 @@ public class AboutLoopsKoans {
             .then(
                 assertOutEquals(0, global("2")),
                 assertOutEquals(1, global("1")),
-                assertOutNoLineAfter(2)
+                assertNoLineInStdOutAfter(2)
             )
             .whenCallingWith(3)
             .then(
                 assertOutEquals(0, global("3")),
                 assertOutEquals(1, global("2")),
                 assertOutEquals(2, global("1")),
-                assertOutNoLineAfter(3)
+                assertNoLineInStdOutAfter(3)
             )
             .whenCallingWith(1)
             .then(
                 assertOutEquals(0, global("1")),
-                assertOutNoLineAfter(1)
+                assertNoLineInStdOutAfter(1)
             )
             .whenCallingWith(0)
             .then(
-                assertOutNoLineAfter(0)
+                assertNoLineInStdOutAfter(0)
             ),
         new Koan(CLASS, "sevens", int.class)
             .useConsole()
@@ -67,7 +67,7 @@ public class AboutLoopsKoans {
                 assertOutEquals(1, global("14")),
                 assertOutEquals(2, global("21")),
                 assertOutEquals(3, global("28")),
-                assertOutNoLineAfter(4)
+                assertNoLineInStdOutAfter(4)
             )
             .whenCallingWith(28)
             .then(
@@ -75,16 +75,16 @@ public class AboutLoopsKoans {
                 assertOutEquals(1, global("14")),
                 assertOutEquals(2, global("21")),
                 assertOutEquals(3, global("28")),
-                assertOutNoLineAfter(4)
+                assertNoLineInStdOutAfter(4)
             )
             .whenCallingWith(6)
             .then(
-                assertOutNoLineAfter(0)
+                assertNoLineInStdOutAfter(0)
             )
             .whenCallingWith(7)
             .then(
                 assertOutEquals(0, global("7")),
-                assertOutNoLineAfter(1)
+                assertNoLineInStdOutAfter(1)
             ),
         new Koan(CLASS, "sevensOrEights", int.class)
             .useConsole()
@@ -94,7 +94,7 @@ public class AboutLoopsKoans {
                 assertOutEquals(1, global("8")),
                 assertOutEquals(2, global("14")),
                 assertOutEquals(3, global("16")),
-                assertOutNoLineAfter(4)
+                assertNoLineInStdOutAfter(4)
             )
             .whenCallingWith(16)
             .then(
@@ -102,16 +102,16 @@ public class AboutLoopsKoans {
                 assertOutEquals(1, global("8")),
                 assertOutEquals(2, global("14")),
                 assertOutEquals(3, global("16")),
-                assertOutNoLineAfter(4)
+                assertNoLineInStdOutAfter(4)
             )
             .whenCallingWith(6)
             .then(
-                assertOutNoLineAfter(0)
+                assertNoLineInStdOutAfter(0)
             )
             .whenCallingWith(7)
             .then(
                 assertOutEquals(0, global("7")),
-                assertOutNoLineAfter(1)
+                assertNoLineInStdOutAfter(1)
             ),
         new Koan(CLASS, "exponent", int.class, int.class)
             .whenCallingWith(2, 1)

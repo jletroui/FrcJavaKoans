@@ -51,6 +51,25 @@ public class Texts {
         .fr("Échec!");        
     static final Local<String> YOU_PASS = 
         local("Congratulations! You pass!")
-        .fr("Bravo, tu passes!"); 
+        .fr("Bravo, tu passes!");
+
+    static final Local<String> DO_YOU_WANT_TO_CONTINUE = 
+        local("Do you want to continue [y/n]? ")
+        .fr("Voulez-vous continuer [y/n]? ");
+    static final Local<String> Y = 
+        local("y")
+        .fr("o");
+    static final Local<String> N = 
+        local("n")
+        .fr("n");
+    static final Local<String> YOU_THREW = 
+        local("You threw %s and %s.")
+        .fr("Vous avez lancé un %s et un %s.");
+    static final Local<String> DO_YOU_WANT_TO_THROW_AGAIN = 
+        local("Do you want to throw again [y/n]?")
+        .fr("Voulez-vous continuer à lancer [y/n]? ");
+    static final Local<String> YOUR_RESULT_SO_FAR = 
+        local("Your result so far: %s.")
+        .fr("Votre résultat jusqu'à maintenant: %s.");            
 }
 

@@ -1,9 +1,11 @@
 package sensei;
 
+import engine.Assertion;
 import engine.FormatParam;
 import engine.Koan;
 import engine.KoanResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +14,6 @@ import koans.english.AboutNot7Game;
 
 import static engine.Assertions.*;
 import engine.Local;
-import engine.Locale;
 import engine.Printer;
 import engine.ResToIntFunction;
 
@@ -24,47 +25,40 @@ public class AboutNot7GameKoans {
         localClass(AboutNot7Game.class)
         .fr(AboutNot7Game.class); // TODO
 
-        public static final List<Koan> koans = List.of(
-        // new Koan(CLASS, "die6")
-        //     .whenCalling()
-        //     .then(
-        //         assertResultWithRandomEquals(rand -> die(rand))
-        //     ),
-        // new Koan(CLASS, "die6Sum", int.class)
-        //     .whenCallingWith(2)
-        //     .then(
-        //         assertResultWithRandomEquals(2, rand -> dieSum(rand))
-        //     )
-        //     .whenCallingWith(3)
-        //     .then(
-        //         assertResultWithRandomEquals(3, rand -> dieSum(rand))
-        //     ),
+    private static final GameRoundv5Assertions GAME_ROUND_ASSERTIONS = new GameRoundv5Assertions(false);
+
+    public static final List<Koan> koans = List.of(
+        new Koan(CLASS, "die6")
+            .whenCalling()
+            .then(
+                assertReturnValueWithRandomEquals(rand -> die(rand))
+            ),
         new Koan(CLASS, "askQuestion", String.class)
             .useConsole()
             .whenCallingWith(DO_YOU_WANT_TO_CONTINUE)
             .withStdInInputs(List.of(Y))
             .then(
-                assertOutEquals(0, DO_YOU_WANT_TO_CONTINUE),
-                assertResultEquals(true),
-                assertNoLineInStdOutAfter(1)
+                assertNextStdOutLineEquals(DO_YOU_WANT_TO_CONTINUE),
+                assertReturnValueEquals(true),
+                assertNoMoreLineInStdOut()
             )
             .whenCallingWith(DO_YOU_WANT_TO_CONTINUE)
             .withStdInInputs(List.of(N))
             .then(
-                assertOutEquals(0, DO_YOU_WANT_TO_CONTINUE),
-                assertResultEquals(false),
-                assertNoLineInStdOutAfter(1)
+                assertNextStdOutLineEquals(DO_YOU_WANT_TO_CONTINUE),
+                assertReturnValueEquals(false),
+                assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "throwDice")
             .useConsole()
             .whenCalling()
             .then(
-                assertResultWithRandomEquals(2, expectedDieSumResult(1)),
-                assertOutEquals(0, YOU_THREW, expectedDieResult(0), expectedDieResult(1)),
-                assertNoLineInStdOutAfter(1)
+                assertReturnValueWithRandomEquals(2, expectedDieSumResult(0, 1)),
+                assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(0), expectedDieResult(1)),
+                assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "gameRoundv1")
-            .useConsole()
+            .useConsoleAndShowStdinInputs()
             .whenCalling()
             .withStdInInputs(List.of(N))
             .then(
@@ -76,7 +70,7 @@ public class AboutNot7GameKoans {
                 AboutNot7GameKoans::gameRoundv1Assertions
             ),
         new Koan(CLASS, "gameRoundv2")
-            .useConsole()
+            .useConsoleAndShowStdinInputs()
             .whenCalling()
             .withStdInInputs(List.of(N))
             .then(
@@ -88,7 +82,7 @@ public class AboutNot7GameKoans {
                 AboutNot7GameKoans::gameRoundv2Assertions
             ),
         new Koan(CLASS, "gameRoundv3")
-            .useConsole()
+            .useConsoleAndShowStdinInputs()
             .whenCalling()
             .withStdInInputs(List.of(N))
             .then(
@@ -98,113 +92,308 @@ public class AboutNot7GameKoans {
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv3Assertions
+            ),
+        new Koan(CLASS, "gameRoundv4")
+            .useConsoleAndShowStdinInputs()
+            .whenCalling()
+            .withStdInInputs(List.of(N))
+            .then(
+                AboutNot7GameKoans::gameRoundv4Assertions
+            )
+            .whenCalling()
+            .withStdInInputs(List.of(Y, Y, N))
+            .then(
+                AboutNot7GameKoans::gameRoundv4Assertions
+            ),
+        new Koan(CLASS, "gameRoundv5")
+            .useConsoleAndShowStdinInputs()
+            .whenCalling()
+            .withStdInInputs(List.of(N))
+            .then(
+                new GameRoundv5Assertions(true),
+                assertNoMoreLineInStdOut()
+            )
+            .whenCalling()
+            .withStdInInputs(List.of(Y, Y, N))
+            .then(
+                new GameRoundv5Assertions(true),
+                assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "not7Gamev1")
+            .useConsoleAndShowStdinInputs()
+            .whenCalling()
+            .withStdInInputs(List.of(N, N))
+            .then(
+                assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                assertNextStdOutLineEquals(PLAYER_2_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                assertNoMoreLineInStdOut()
+            )
+            .whenCalling()
+            .withStdInInputs(List.of(Y, Y, N, Y, Y, N))
+            .then(
+                assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                assertNextStdOutLineEquals(PLAYER_2_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "not7Gamev2")
+            .useConsoleAndShowStdinInputs()
+            .whenCalling()
+            .withStdInInputs(List.of(N, N))
+            .then(
+                assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                assertNextStdOutLineEquals(PLAYER_2_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                AboutNot7GameKoans::assertWinnerLine,
+                assertNoMoreLineInStdOut()
+            )
+            .whenCalling()
+            .withStdInInputs(List.of(Y, Y, N, Y, Y, N))
+            .then(
+                assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                assertNextStdOutLineEquals(PLAYER_2_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                AboutNot7GameKoans::assertWinnerLine,
+                assertNoMoreLineInStdOut()
             )
     );
 
-    private static boolean gameRoundv1Assertions(Locale l, Printer p, KoanResult res) {
+    private static boolean gameRoundv1Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
-        var asserted = true;
+
         while (wantsToContinue) {
-            int dieOffset = 2 * loopCount;
-            asserted = res.executeAssertions(l, p, 
-                assertOutEquals(loopCount * 2, YOU_THREW, expectedDieResult(dieOffset), expectedDieResult(dieOffset + 1)),
-                assertOutEquals(loopCount * 2 + 1, DO_YOU_WANT_TO_THROW_AGAIN)
+            final int dieOffset = 2 * loopCount;
+
+            final var asserted = res.executeAssertions(p, 
+                assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(res, dieOffset), expectedDieResult(res, dieOffset + 1)),
+                assertNextStdOutLineEquals(DO_YOU_WANT_TO_THROW_AGAIN)
             );
             if (!asserted) {
                 return false;
             }
-            Optional<String> answer = res.inputLine(loopCount);
-            wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(l));
+
+            Optional<String> answer = res.nextStdInLine();
+            wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(res.locale));
             loopCount++;
         }
-        asserted = res.executeAssertions(l, p, 
-            assertNoLineInStdOutAfter(2 * loopCount)
+        
+        return res.executeAssertions(p, 
+            assertNoMoreLineInStdOut()
         );
-        if (!asserted) {
-            return false;
-        }
-        return true;
     }
 
-    private static boolean gameRoundv2Assertions(Locale l, Printer p, KoanResult res) {
+    private static boolean gameRoundv2Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
-        var asserted = true;
 
         while (wantsToContinue) {
-            int dieOffset = 2 * loopCount;
+            final int dieOffset = 2 * loopCount;
 
-            asserted = res.executeAssertions(l, p, 
-                assertOutEquals(loopCount * 3, YOU_THREW, expectedDieResult(dieOffset), expectedDieResult(dieOffset + 1)),
-                assertOutEquals(loopCount * 3 + 1, YOUR_RESULT_SO_FAR, expectedDieSum(loopCount + 1)),
-                assertOutEquals(loopCount * 3 + 2, DO_YOU_WANT_TO_THROW_AGAIN)
+            final var asserted = res.executeAssertions(p, 
+                assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(res, dieOffset), expectedDieResult(res, dieOffset + 1)),
+                assertNextStdOutLineEquals(YOUR_RESULT_SO_FAR, expectedDieSum(res, 0, loopCount + 1)),
+                assertNextStdOutLineEquals(DO_YOU_WANT_TO_THROW_AGAIN)
             );
             if (!asserted) {
                 return false;
             }
 
-            Optional<String> answer = res.inputLine(loopCount);
-            wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(l));
+            Optional<String> answer = res.nextStdInLine();
+            wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(res.locale));
             loopCount++;
         }
 
-        asserted = res.executeAssertions(l, p, 
-            assertNoLineInStdOutAfter(3 * loopCount)
+        return res.executeAssertions(p, 
+            assertNoMoreLineInStdOut()
         );
-        if (!asserted) {
-            return false;
-        }
-
-        return true;
     }
 
-    private static boolean gameRoundv3Assertions(Locale l, Printer p, KoanResult res) {
+    private static boolean gameRoundv3Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
-        var asserted = true;
 
         while (wantsToContinue) {
-            int dieOffset = 2 * loopCount;
+            final int dieOffset = 2 * loopCount;
 
-            asserted = res.executeAssertions(l, p, 
-                assertOutEquals(loopCount * 3, YOU_THREW, expectedDieResult(dieOffset), expectedDieResult(dieOffset + 1)),
-                assertOutEquals(loopCount * 3 + 1, YOUR_RESULT_SO_FAR, expectedDieSum(loopCount + 1)),
-                assertOutEquals(loopCount * 3 + 2, DO_YOU_WANT_TO_THROW_AGAIN)
+            final var asserted = res.executeAssertions(p, 
+                assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(res, dieOffset), expectedDieResult(res, dieOffset + 1)),
+                assertNextStdOutLineEquals(YOUR_RESULT_SO_FAR, expectedDieSum(res, 0, loopCount + 1)),
+                assertNextStdOutLineEquals(DO_YOU_WANT_TO_THROW_AGAIN)
             );
             if (!asserted) {
                 return false;
             }
 
-            Optional<String> answer = res.inputLine(loopCount);
-            wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(l));
+            Optional<String> answer = res.nextStdInLine();
+            wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(res.locale));
             loopCount++;
         }
 
-        asserted = res.executeAssertions(l, p, 
-            assertNoLineInStdOutAfter(3 * loopCount),
-            assertResultWithRandomEquals(2 * loopCount, expectedDieSumResult(loopCount))
+        return res.executeAssertions(p, 
+            assertNoMoreLineInStdOut(),
+            assertReturnValueWithRandomEquals(2 * loopCount, expectedDieSumResult(0, loopCount))
         );
-        if (!asserted) {
-            return false;
+    }
+
+    private static boolean gameRoundv4Assertions(Printer p, KoanResult res) {
+        int loopCount = 0;
+        boolean wantsToContinue = true;
+        var asserted = true;
+
+        while (wantsToContinue) {
+            final int dieOffset = 2 * loopCount;
+
+            if (diceThrowSum(res, dieOffset) == 7) {
+                return res.executeAssertions(p,
+                    assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(res, dieOffset), expectedDieResult(res, dieOffset + 1)),
+                    assertNextStdOutLineEquals(OH_NO_NOT7_YOU_LOOSE),
+                    assertNextStdOutLineIsEmpty(),
+                    assertNoMoreLineInStdOut(),
+                    assertReturnValueEquals(0)
+                );
+            } else {
+                asserted = res.executeAssertions(p, 
+                    assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(res, dieOffset), expectedDieResult(res, dieOffset + 1)),
+                    assertNextStdOutLineEquals(YOUR_RESULT_SO_FAR, expectedDieSum(res, 0, loopCount + 1)),
+                    assertNextStdOutLineEquals(DO_YOU_WANT_TO_THROW_AGAIN)
+                );
+            }
+            if (!asserted) {
+                return false;
+            }
+
+            Optional<String> answer = res.nextStdInLine();
+            wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(res.locale));
+            loopCount++;
         }
 
-        return true;
+        return res.executeAssertions(p, 
+            assertNoMoreLineInStdOut(),
+            assertReturnValueWithRandomEquals(2 * loopCount, expectedDieSumResult(0, loopCount))
+        );
+    }
+
+    /**
+     * These more complex assertions allow to reuse them for a game with multiple rounds.
+     */
+    private static class GameRoundv5Assertions implements Assertion {
+        private final boolean shouldAssertReturnValue;
+        private int loopCount = 0;
+        private KoanResult lastResultSeen = null;
+        private List<Integer> scores = new ArrayList<>();
+
+        public GameRoundv5Assertions(boolean shouldAssertReturnValue) {
+            this.shouldAssertReturnValue = shouldAssertReturnValue;
+        }
+
+        @Override
+        public boolean validate(Printer p, KoanResult res) {
+            var wantsToContinue = true;
+            var asserted = true;
+            var loopOffset = res == lastResultSeen ? loopCount : 0;
+            if (res != lastResultSeen) {
+                scores.clear();
+            }
+            loopCount = loopOffset;
+            lastResultSeen = res;
+
+            while (wantsToContinue) {
+                final int dieOffset = 2 * loopCount;
+
+                if (diceThrowSum(res, dieOffset) == 7) {
+                    loopCount++;
+                    scores.add(0);
+                    return  res.executeAssertions(p,
+                        assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(res, dieOffset), expectedDieResult(res, dieOffset + 1)),
+                        assertNextStdOutLineEquals(OH_NO_NOT7_YOU_LOOSE),
+                        assertNextStdOutLineIsEmpty(),
+                        assertIf(shouldAssertReturnValue, assertReturnValueEquals(0))
+                    );
+                } else {
+                    asserted = res.executeAssertions(p, 
+                        assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(res, dieOffset), expectedDieResult(res, dieOffset + 1)),
+                        assertNextStdOutLineEquals(YOUR_RESULT_SO_FAR, expectedDieSum(res, loopOffset, loopCount + 1 - loopOffset)),
+                        assertNextStdOutLineEquals(DO_YOU_WANT_TO_THROW_AGAIN)
+                    );
+                }
+                if (!asserted) {
+                    return false;
+                }
+
+                Optional<String> answer = res.nextStdInLine();
+                wantsToContinue = answer.isPresent() && answer.get().trim().equals(Y.get(res.locale));
+                loopCount++;
+            }
+
+            int score = expectedDieSum(res, loopOffset, loopCount - loopOffset);
+            scores.add(score);
+            return res.executeAssertions(p,
+                assertNextStdOutLineIsEmpty(),
+                assertNextStdOutLineEquals(WELL_DONE_YOUR_SCORE_IS, score),
+                assertNextStdOutLineIsEmpty(),
+                assertIf(shouldAssertReturnValue, assertReturnValueWithRandomEquals(2 * loopCount, expectedDieSumResult(loopOffset, loopCount - loopOffset)))
+            );
+        }
+        
+        public int player1Score() {
+            return scores.size() > 0 ? scores.get(0) : 0;
+        }
+        
+        public int player2Score() {
+            return scores.size() > 1 ? scores.get(1) : 0;
+        }
+    }
+
+    private static boolean assertWinnerLine(Printer p, KoanResult res) {
+        var expected = TIE;
+        if (GAME_ROUND_ASSERTIONS.player1Score() > GAME_ROUND_ASSERTIONS.player2Score()) {
+            expected = PLAYER_1_WINS;
+        } else if (GAME_ROUND_ASSERTIONS.player2Score() > GAME_ROUND_ASSERTIONS.player1Score()) {
+            expected = PLAYER_2_WINS;
+        }
+        return res.executeAssertions(p, assertNextStdOutLineEquals(expected));
     }
 
     private static int die(double rand) {
         return (int)Math.ceil(6 * rand);
     }
 
-    private static ResToIntFunction expectedDieSumResult(int throwCount) {
-        return res ->Arrays.stream(res.randomNumbers(throwCount*2)).mapToInt(rn -> die(rn)).sum();
-    }
-
-    private static FormatParam expectedDieSum(int throwCount) {
-        return res -> String.valueOf(expectedDieSumResult(throwCount).apply(res));
+    private static int expectedDieResult(KoanResult res, int dieIndex) {
+        var rn = res.randomNumber(dieIndex);
+        var dieResult = die(rn);
+        return dieResult;
     }
 
     private static FormatParam expectedDieResult(int dieIndex) {
-        return res -> String.valueOf(die(res.randomNumber(dieIndex)));
+        return res -> String.valueOf(expectedDieResult(res, dieIndex));
+    }
+
+    private static int diceThrowSum(KoanResult res, int dieIndex) {
+        return die(res.randomNumber(dieIndex)) + die(res.randomNumber(dieIndex + 1));
+    }
+
+    private static ResToIntFunction expectedDieSumResult(int throwOffset, int throwCount) {
+        return res -> Arrays
+            .stream(res.randomNumbers(throwOffset * 2, throwCount*2))
+            .mapToInt(rn -> die(rn))
+            .sum();
+    }
+
+    private static int expectedDieSum(KoanResult res, int throwOffset, int throwCount) {
+        return expectedDieSumResult(throwOffset, throwCount).apply(res);
     }
 }

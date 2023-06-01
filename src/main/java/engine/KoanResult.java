@@ -1,8 +1,6 @@
 package engine;
 
 import java.util.Optional;
-import java.util.OptionalInt;
-import java.util.Random;
 
 import engine.Koan.KoanMethodCall;
 
@@ -10,25 +8,24 @@ import engine.Koan.KoanMethodCall;
  * Stores all the information about what happened during the execution of a koan.
  */
 public class KoanResult {
-    public final String[] stdOutLines;
+    private final String[] stdOutLines;
+    private int stdOutIndex = 0;
     private final String[] stdInLines;
-    public final Object koanReturnValue;
+    private int stdInIndex = 0;
+    public final Object methodReturnValue;
     public final KoanMethodCall call;
-    private final long seed;
+    public final Locale locale;
 
-    public KoanResult(KoanMethodCall call, String[] stdOutLines, String[] stdInLines, Object koanReturnValue, long seed) {
+    public KoanResult(Locale locale, KoanMethodCall call, String[] stdOutLines, String[] stdInLines, Object methodReturnValue) {
+        this.locale = locale;
         this.call = call;
         this.stdOutLines = stdOutLines;
         this.stdInLines = stdInLines;
-        this.koanReturnValue = koanReturnValue;
-        this.seed = seed;
+        this.methodReturnValue = methodReturnValue;
     }
 
-    public String inputLine(StdInInput input) {
-        if (this.stdInLines.length <= input.index) {
-            return "";
-        }
-        return this.stdInLines[input.index].trim();
+    public String formatCall() {
+        return call.toString(locale);
     }
 
     public Optional<String> inputLine(int inputIndex) {
@@ -38,16 +35,18 @@ public class KoanResult {
         return Optional.of(this.stdInLines[inputIndex].trim());
     }
 
-    public OptionalInt inputLineAsInt(int inputIndex) {
-        if (this.stdInLines.length <= inputIndex) {
-            return OptionalInt.empty();
+    public Optional<String> nextStdInLine() {
+        if (stdInLines.length <= stdInIndex) {
+            return Optional.empty();
         }
-        try {
-            int value = Integer.parseInt(this.stdInLines[inputIndex].trim());
-            return OptionalInt.of(value);
-        } catch(NumberFormatException nfe) {
-            return OptionalInt.empty();
+        return Optional.of(stdInLines[stdInIndex++].trim());
+    }
+
+    Optional<String> nextStdOutLine() {
+        if (stdOutLines.length <= stdOutIndex) {
+            return Optional.empty();
         }
+        return Optional.of(stdOutLines[stdOutIndex++].trim());
     }
 
     /**
@@ -55,31 +54,56 @@ public class KoanResult {
      * 
      * Ex: if input 0 contains "3", then paramPlus(0, 10) will return "13".
      */
-    public static FormatParam paramPlus(int inputIndex, int increment) { 
+    public static FormatParam addToStdInInput(int inputIndex, int increment) { 
         return res -> 
-            res.inputLineAsInt(inputIndex)
-                .stream()
-                .mapToObj(n -> String.valueOf(n + increment))
-                .findFirst()
+            res.inputLine(inputIndex)
+                .map(line -> {
+                    try {
+                        int value = Integer.parseInt(line);
+                        return  String.valueOf(value + increment);
+                    } catch(NumberFormatException nfe) {
+                        // Ignore
+                    }
+                    return "";
+                })
                 .orElse("");
+    }
+
+    public static FormatParam stdInInput(int inputIndex) {
+        return res -> res.inputLine(inputIndex).orElse("");
     }
 
     /**
      * Returns the random number generated during the koan execution.
      */
     public double randomNumber() {
-        var rng = new Random(seed);
-        return rng.nextDouble();
+        call.setupRandomForKoan();
+        return Helpers.random();
     }
 
     /**
      * Returns the first count random numbers generated during the koan execution.
      */
     public double[] randomNumbers(int count) {
-        var rng = new Random(seed);
+        call.setupRandomForKoan();
         var res = new double[count];
         for(int i=0; i<count; i++) {
-            res[i] = rng.nextDouble();
+            res[i] = Helpers.random();
+        }
+        return res;
+    }
+
+    /**
+     * Returns the first count random numbers generated during the koan execution.
+     */
+    public double[] randomNumbers(int fromOffset, int count) {
+        call.setupRandomForKoan();
+        var res = new double[count];
+        for(int i=0; i< fromOffset + count; i++) {
+            final var nb = Helpers.random();
+            if (i >= fromOffset) {
+                res[i - fromOffset] = nb;
+            }
         }
         return res;
     }
@@ -88,17 +112,17 @@ public class KoanResult {
      * Returns the nth random number generated during the koan execution.
      */
     public double randomNumber(int n) {
-        var rng = new Random(seed);
+        call.setupRandomForKoan();
         var res = 0.0;
         for(int i=0; i<=n; i++) {
-            res = rng.nextDouble();
+            res = Helpers.random();
         }
         return res;
     }
 
-    public boolean executeAssertions(Locale locale, Printer p, Assertion... assertions) {
+    public boolean executeAssertions(Printer p, Assertion... assertions) {
         for (Assertion as : assertions) {
-            if (!as.validate(locale, p, this)) {
+            if (!as.validate(p, this)) {
                 return false;
             }
         }

@@ -10,5 +10,5 @@ public interface Assertion {
      * @param result The details of the Koan execution.
      * @return Whether or not the assertion is successful or not.
      */
-    boolean validate(Locale locale, Printer p, KoanResult result);
+    boolean validate(Printer p, KoanResult result);
 }

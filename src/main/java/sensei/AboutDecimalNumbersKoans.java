@@ -19,92 +19,92 @@ public class AboutDecimalNumbersKoans {
         new Koan(CLASS, "toCm", double.class)
             .whenCallingWith(0.0)
             .then(
-                assertResultEquals(0.0)
+                assertReturnValueEquals(0.0)
             )
             .whenCallingWith(1.0)
             .then(
-                assertResultEquals(2.54)
+                assertReturnValueEquals(2.54)
             )
             .whenCallingWith(2.0)
             .then(
-                assertResultEquals(5.08)
+                assertReturnValueEquals(5.08)
             ),
         new Koan(CLASS, "toInches", double.class)
             .whenCallingWith(0.0)
             .then(
-                assertResultEquals(0.0)
+                assertReturnValueEquals(0.0)
             )
             .whenCallingWith(2.54)
             .then(
-                assertResultEquals(1.0)
+                assertReturnValueEquals(1.0)
             )
             .whenCallingWith(5.08)
             .then(
-                assertResultEquals(2.0)
+                assertReturnValueEquals(2.0)
             ),
         new Koan(CLASS, "rectangleArea", double.class, double.class)
             .whenCallingWith(0.0, 0.0)
             .then(
-                assertResultEquals(0.0)
+                assertReturnValueEquals(0.0)
             )
             .whenCallingWith(0.0, 4.0)
             .then(
-                assertResultEquals(0.0)
+                assertReturnValueEquals(0.0)
             )
             .whenCallingWith(1.0, 4.0)
             .then(
-                assertResultEquals(4.0)
+                assertReturnValueEquals(4.0)
             )
             .whenCallingWith(3.5, 3.0)
             .then(
-                assertResultEquals(10.5)
+                assertReturnValueEquals(10.5)
             ),
         new Koan(CLASS, "wheelCircumference", double.class)
             .whenCallingWith(0.0)
             .then(
-                assertResultEquals(0.0)
+                assertReturnValueEquals(0.0)
             )
             .whenCallingWith(1.0)
             .then(
-                assertResultEquals(6.28)
+                assertReturnValueEquals(6.28)
             )
             .whenCallingWith(2.0)
             .then(
-                assertResultEquals(12.56)
+                assertReturnValueEquals(12.56)
             ),
         new Koan(CLASS, "wheelRotations", double.class, double.class)
             .whenCallingWith(0.0, 1.0)
             .then(
-                assertResultEquals(0.0)
+                assertReturnValueEquals(0.0)
             )
             .whenCallingWith(0.15, 1.0)
             .then(
-                assertResultEquals(0.15)
+                assertReturnValueEquals(0.15)
             )
             .whenCallingWith(0.15, 10.0)
             .then(
-                assertResultEquals(1.5)
+                assertReturnValueEquals(1.5)
             ),
         new Koan(CLASS, "toDistance", double.class, double.class, double.class)
             .whenCallingWith(0.0, 4.0, 1.0)
             .then(
-                assertResultEquals(0.0)
+                assertReturnValueEquals(0.0)
             )
             .whenCallingWith(1.0, 1.0, 1.0)
             .then(
-                assertResultEquals(6.28)
+                assertReturnValueEquals(6.28)
             )
             .whenCallingWith(1.0, 1.0, 10.0)
             .then(
-                assertResultEquals(62.8)
+                assertReturnValueEquals(62.8)
             )
             .whenCallingWith(0.15, 4.0, 1.0)
             .then(
-                assertResultEquals(3.768)
+                assertReturnValueEquals(3.768)
             )
             .whenCallingWith(0.15, 3.0, 10.0)
             .then(
-                assertResultEquals(28.26)
+                assertReturnValueEquals(28.26)
             )
     );
 }

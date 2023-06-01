@@ -3,6 +3,7 @@ package engine;
 import static engine.Localizable.*;
 
 public class Texts {
+
     // Sensei
 
     static Local<String> MOUNTAINS_ARE_AGAIN_MERELY_MOUNTAINS =
@@ -41,15 +42,30 @@ public class Texts {
     static Local<String> PLEASE_MEDITATE_ON =
         local("Please meditate on %s in src/main/java/koans/english/%s.java")
         .fr("Tu peux méditer sur %s in src/main/java/koans/french/%s.java");
+    static Local<String> THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN_ANSWERING =
+        local("The master sensed the harmony dissolving when planning to answer %s.")
+        .fr("Le maître a senti l'harmonie se briser en voulant répondre %s.");
     static Local<String> CONSOLE =
         local("Console for %s:")
         .fr("Console pour %s:");
     static Local<String> YOUR_PROGRESS_THUS_FAR =
         local(Color.green("Your progress thus far: [") + "%s" + Color.green("]") + " %d/%d")
         .fr(Color.green("Ton progrès jusqu'à maintenant: [") + "%s" + Color.green("]") + " %d/%d");
+    static Local<String> AND =
+        local(", and %s")
+        .fr("et %s");
 
     // Assertions
     
+    static Local<String> EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_NOTHING =
+        local("Expected to see an empty line in the console, but saw nothing!")
+        .fr("Attendu à voir une ligne vide dans la console, mais n'a rien vu!");
+    static Local<String> EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_INSTEAD =
+        local("Expected to see an empty line in the console, but saw '%s' instead!")
+        .fr("Attendu à voir une ligne vide dans la console, mais vu '%s' à la place!");
+    static Local<String> OK_DISPLAYED_EMPTY_LINE_IN_CONSOLE =
+        local("Ok: displayed an empty line in the console.")
+        .fr("Ok: affiché une ligne vide dans la console.");
     static Local<String> EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING =
         local("Expected to see '%s' in the console%s, but did not saw it!")
         .fr("Attendu à voir '%s' dans la console%s, mais ne l'a pas vu!");

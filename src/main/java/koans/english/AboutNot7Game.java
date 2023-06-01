@@ -81,7 +81,7 @@ public class AboutNot7Game {
      * Do you want to throw again [y/n]?
      * y
      * You threw 2 and 5.
-     * That's a 7, you loose!
+     * Oh no, Not 7! You loose!
      * 
      * Congratulations, player 1 wins!!!
      */
@@ -114,25 +114,6 @@ public class AboutNot7Game {
      * die6() should return an int between 1 and 6 randomly
      * 
      */
-    public static int die6() {
-        return (int)Math.ceil(6 * random());
-    }
-
-
-    /**
-     * Write a method 'die6Sum(int times)' throwing a 6-face die times times and returning the sum of the result.
-     * 
-     * ---------   TIPS --------------
-     * 
-     * Use the die6 method in a loop.
-     * 
-     * -------------------------------
-     * 
-     * Expected result:
-     * 
-     * die6Sum(2) should return an int between 2 and 12 randomly
-     * 
-     */
 
 
     /**
@@ -145,10 +126,7 @@ public class AboutNot7Game {
      * askQuestion("Do you want to continue [y/n]? ") should return true if the user entered 'y'
      * 
      */
-    public static boolean askQuestion(String t) {
-        System.out.println(t);
-        return readLine().equals("y");
-    }
+
 
     /**
      * Use die6() to write a method 'throwDice' throwing 2 dice, displaying the dice results in the console, and returning the sum of the 2 results.
@@ -160,12 +138,7 @@ public class AboutNot7Game {
      * when the thrown dice results are 2 and 3, throwDice() shoud display 'You threw 2 and 3.' and return 5.
      * 
      */
-    public static int throwDice() {
-        int d1 = die6();
-        int d2 = die6();
-        System.out.println("You threw " + d1 + " and " + d2 + ".");
-        return d1 + d2;
-    }
+
 
     /**
      * Use 'throwDice' and 'askQuestion' to write a method 'gameRoundv1' which repeatedly, while the user says 'y':
@@ -190,13 +163,7 @@ public class AboutNot7Game {
      * If the user answers 'y', then it should go for an other round.
      * If the user answers 'n', then it should stop.
      */
-    public static void gameRoundv1() {
-        var wantToContinue = true;
-        while (wantToContinue) {
-            throwDice();
-            wantToContinue = askQuestion("Do you want to throw again [y/n]?");
-        }
-    }
+
 
     /**
      * write a method 'gameRoundv2' which does the same as gameRoundv1, but it is also displaying the sum of the results so far.
@@ -214,15 +181,7 @@ public class AboutNot7Game {
      * If the user answers 'y', then it should go for an other round.
      * If the user answers 'n', then it should stop.
      */
-    public static void gameRoundv2() {
-        var wantToContinue = true;
-        var sum = 0;
-        while (wantToContinue) {
-            sum += throwDice();
-            System.out.println("Your result so far: " + sum + ".");
-            wantToContinue = askQuestion("Do you want to throw again [y/n]?");
-        }
-    }
+
 
     /**
      * write a method 'gameRoundv3' which does the same as gameRoundv2, but it is also returning the result once the player choose to stop.
@@ -239,22 +198,7 @@ public class AboutNot7Game {
      * 
      * If the user answers 'n', then it should stop and return 5.
      */       
-     public static int gameRoundv3() {
-        var wantToContinue = true;
-        var sum = 0;
-        var count = 0;
-        while (wantToContinue) {
-            count++;
-            sum += throwDice();
-            if (count ==3) {
-                System.out.println("Your result so far: " + 0 + ".");
-            } else {
-                System.out.println("Your result so far: " + sum + ".");
-            }
-            wantToContinue = askQuestion("Do you want to throw again [y/n]?");
-        }
-        return sum;
-    }
+
 
     /**
      * write a method 'gameRoundv4' which does the same as gameRoundv3, but it is also stopping if the dice result is 7.
@@ -267,7 +211,155 @@ public class AboutNot7Game {
      * when the thrown dice results are 4 and 3, gameRoundv4() shoud return 0 and display:
      * 
      * You threw 4 and 3.
-     * That's a 7, you loose!
+     * Oh no, Not 7! You loose!
      * 
-     */  
+     */
+
+
+    /**
+     * write a method 'gameRoundv5' which does the same as gameRoundv4, but in case of the player stopping before throwing a 7,
+     *   it also display their score between empty lines.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * when the thrown dice results are 4 and 3, gameRoundv5() shoud return 0 and display:
+     * 
+     * You threw 4 and 3.
+     * Oh no, Not 7! You loose!
+     * 
+     * 
+     * when the thrown dice results are 4 and 5, and the player answers 'n', gameRoundv5() shoud return 9 and display:
+     * 
+     * You threw 4 and 5.
+     * Your result so far: 9.
+     * Do you want to throw again [y/n]?
+     * n
+     * 
+     * Well done, your score is 9!
+     * 
+     */
+
+
+    /**
+     * Using 'gameRoundv5', write a method 'not7Gamev1' displays which player's round it is, and make this player play their round.
+     * 
+     * -------------------------------
+     * 
+     * Example of game:
+     * 
+     * Player 1, it's your turn!
+     * 
+     * You threw 4 and 5.
+     * Your result so far: 9.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 3 and 1.
+     * Your result so far: 13.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 2 and 6.
+     * Your result so far: 21.
+     * Do you want to throw again [y/n]?
+     * n
+     * 
+     * Well done, your score is 21!
+     * 
+     * Player 2, it's your turn!
+     * 
+     * You threw 2 and 3.
+     * Your result so far: 5.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 4 and 4.
+     * Your result so far: 13.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 2 and 1.
+     * Your result so far: 16.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 3 and 3.
+     * Your result so far: 22.
+     * Do you want to throw again [y/n]?
+     * n
+     * 
+     * Well done, your score is 22!
+     * 
+     */
+
+
+    /**
+     * Write a method 'not7Gamev2' which does the same as not7Gamev1, but is also displaying who the winner is.
+     * In case of tie, simply display: 'Tie!'.
+     * 
+     * -------------------------------
+     * 
+     * Example of game:
+     * 
+     * Player 1, it's your turn!
+     * 
+     * You threw 4 and 5.
+     * Your result so far: 9.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 3 and 1.
+     * Your result so far: 13.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 2 and 6.
+     * Your result so far: 21.
+     * Do you want to throw again [y/n]?
+     * n
+     * 
+     * Well done, your score is 21!
+     * 
+     * Player 2, it's your turn!
+     * 
+     * You threw 2 and 3.
+     * Your result so far: 5.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 4 and 4.
+     * Your result so far: 13.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 2 and 1.
+     * Your result so far: 16.
+     * Do you want to throw again [y/n]?
+     * y
+     * You threw 3 and 3.
+     * Your result so far: 22.
+     * Do you want to throw again [y/n]?
+     * n
+     * 
+     * Well done, your score is 22!
+     * 
+     * Congratulations, player 2 wins!!!
+     * 
+     */
+ 
+
+    /**
+     * BONUS:
+     * 
+     * If you made it that far, congratulations! You now know a lot about programming!!!
+     * Before the next Koan though, what about the ability to launch your game so you can play with a friend?
+     * 
+     * In Java, in order for a program to know what to execute, you have to create a method called 'main' somewhere.
+     * The method must look exactly like that:
+     * 
+     *     public static void main(String[] args) {
+     *       // The code to execute when the program starts
+     *     }
+     * 
+     * For example, the Koans are running because the class 'EnglishPathToEnlightment' on which you right-click to start the Koans, contains such a method.
+     * 
+     * So go ahead, and create such a method in this AboutNot7Game class and call your 'not7Gamev2' method in it.
+     * 
+     * Then, right click on AboutNot7Game.java in the explorer and choose 'Run Java'. Your game is running for real!
+     * 
+     */
+
 }

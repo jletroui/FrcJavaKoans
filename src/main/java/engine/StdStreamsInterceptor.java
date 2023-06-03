@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 /**
  * Intercepts the StdOut output and the StdIn input of koans so we can assert what the koan method does output to the console and read from it.
@@ -84,7 +85,8 @@ public class StdStreamsInterceptor {
     }
 
     private static String[] lines(ByteArrayOutputStream bos) {
-        return bos.toString().split("\\r?\\n");
+        var lines = bos.toString().split("\\r?\\n", -1);
+        return Arrays.copyOf(lines, lines.length - 1);
     }
 
     public static InterceptionResult capture(boolean silent, ReflectionRunnable executeFunc, String[] stdInputs) throws IllegalAccessException, InvocationTargetException {

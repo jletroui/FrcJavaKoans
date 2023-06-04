@@ -85,6 +85,23 @@ public class AboutClassesKoans {
             .then(
                 assertNextStdOutLineEquals(global("4")),
                 assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "displayMin", int.class, int.class)
+            .useConsole()
+            .whenCallingWith(2, 2)
+            .then(
+                assertNextStdOutLineEquals(global("2")),
+                assertNoMoreLineInStdOut()
+            )
+            .whenCallingWith(1, 4)
+            .then(
+                assertNextStdOutLineEquals(global("1")),
+                assertNoMoreLineInStdOut()
+            )          
+            .whenCallingWith(4, 1)
+            .then(
+                assertNextStdOutLineEquals(global("1")),
+                assertNoMoreLineInStdOut()
             )
     );
 }

@@ -46,7 +46,7 @@ public class AboutClasses {
 
 
     /**
-     * Using utils.MathUtils.cube, Create a method 'displayCube' in AboutClasses which displays the cube of a number in the console.
+     * Using utils.MathUtils.cube, create a method 'displayCube' in AboutClasses which displays the cube of a number in the console.
      * 
      * ---------   TIPS --------------
      * 
@@ -56,14 +56,15 @@ public class AboutClasses {
      *     // The package of the class you are currently creating
      *     package mypackage;
      *
-     *     // The package and class name of the class you will be **using**
+     *     // Import all the classes you will be using in this file here
      *     import frc.Robot;
+     *     import utils.MathUtils;
      * 
-     * You can then use the name of that class to call a method:
+     * You can then call methods on imported classes:
      * 
      *     public class MyClass {
      *         public static void illuminateRobot() {
-     *             Robot.tunOnDELs(); // Use the class by calling one of its methods
+     *             Robot.tunOnDELs(); // Use an imported class by calling one of its methods
      *         }
      *     }
      * 
@@ -88,13 +89,25 @@ public class AboutClasses {
 
 
     /**
-     * Using utils.math.OtherMathUtils.max, Create a method 'displayMax' in AboutClasses which display the greater of 2 integers.
+     * Using utils.math.OtherMathUtils.max, create a method 'displayMax' in AboutClasses which display the greater of 2 integers.
      * 
      * -------------------------------
      * 
      * Expected result:
      * 
      * displayMax(5, -1) should display '5' in the console.
+     * 
+     */
+
+
+    /**
+     * Using the min method created in a previous Koan, create a method 'displayMin' in AboutClasses which display the lesser of 2 integers.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * displayMin(5, -1) should display '-1' in the console.
      * 
      */
 

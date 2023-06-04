@@ -1,9 +1,11 @@
 package engine;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -16,6 +18,8 @@ public class Koan {
     public final KoanMethodCall[] calls;
     public final boolean usesConsole;
     public final boolean showStdInInputs;
+    public final Optional<String> exerciseClassName;
+    public final Optional<String> exerciseClassPackage;
     private Method method = null;
 
     public class KoanMethodCall {
@@ -77,16 +81,26 @@ public class Koan {
     }
 
     public Koan(Localizable<Class<?>> koanClass, String methodName, Class<?>... methodParamTypes) {
-        this(koanClass, methodName, methodParamTypes, new KoanMethodCall[0], false, false);
+        this(koanClass, methodName, methodParamTypes, new KoanMethodCall[0], false, false, Optional.empty(), Optional.empty());
     }
 
-    private Koan(Localizable<Class<?>> koanClass, String methodName, Class<?>[] methodParamTypes, KoanMethodCall[] calls, boolean usesConsole, boolean showStdInInputs) {
+    private Koan(
+        Localizable<Class<?>> koanClass,
+        String methodName,
+        Class<?>[] methodParamTypes,
+        KoanMethodCall[] calls,
+        boolean usesConsole,
+        boolean showStdInInputs,
+        Optional<String> exerciseClassName,
+        Optional<String> exerciseClassPackage) {
         this.koanClass = Objects.requireNonNull(koanClass, "koanClass must not be null");
         this.methodName = Objects.requireNonNull(methodName, "methodName must not be null");
         this.methodParamTypes = Objects.requireNonNull(methodParamTypes, "methodParamTypes must not be null");
         this.calls = Objects.requireNonNull(calls, "calls must not be null");
         this.usesConsole = usesConsole;
         this.showStdInInputs = showStdInInputs;
+        this.exerciseClassName = exerciseClassName;
+        this.exerciseClassPackage = exerciseClassPackage;
     }
 
 
@@ -100,7 +114,24 @@ public class Koan {
             methodParamTypes,
             newCalls,
             usesConsole,
-            showStdInInputs
+            showStdInInputs,
+            exerciseClassName,
+            exerciseClassPackage
+        );
+    }
+
+    public Koan inClass(String className) {
+        var separatorIndex = className.lastIndexOf(".");
+
+        return new Koan(
+            koanClass,
+            methodName,
+            methodParamTypes,
+            calls,
+            usesConsole,
+            showStdInInputs,
+            Optional.of(className.substring(separatorIndex + 1)),
+            Optional.of(className.substring(0, separatorIndex))
         );
     }
 
@@ -111,7 +142,9 @@ public class Koan {
             methodParamTypes,
             calls,
             true,
-            showStdInInputs
+            showStdInInputs,
+            exerciseClassName,
+            exerciseClassPackage
         );
     }
 
@@ -122,7 +155,9 @@ public class Koan {
             methodParamTypes,
             calls,
             true,
-            true
+            true,
+            exerciseClassName,
+            exerciseClassPackage
         );
     }
 
@@ -133,7 +168,9 @@ public class Koan {
             methodParamTypes,
             new KoanMethodCall[] { new KoanMethodCall(this, new Object[0]) },
             usesConsole,
-            showStdInInputs
+            showStdInInputs,
+            exerciseClassName,
+            exerciseClassPackage
         );
     }
 
@@ -163,15 +200,32 @@ public class Koan {
         });
     }
 
-    public String className(Locale locale) {
+    public String koanClassName(Locale locale) {
         return koanClass.get(locale).getSimpleName();
     }
 
-    Method method(Locale locale) throws NoSuchMethodException {
+    public String exerciseClassName(Locale locale) {
+        if (exerciseClassName.isEmpty()) {
+            return koanClass.get(locale).getName();
+        }
+
+        return String.format("%s.%s", exerciseClassPackage.get(), exerciseClassName.get());
+    }
+
+    Method method(Locale locale) throws NoSuchMethodException, ClassNotFoundException {
         // Kind of expensive, so cache it.
         if (method == null) {
             // Fine to cache: we will never call this with 2 different locales in the same session
-            method = koanClass.get(locale).getMethod(methodName, methodParamTypes);
+
+            Class<?> exerciseClass = koanClass.get(locale);
+            if (exerciseClassName.isPresent()) {
+                exerciseClass = Class.forName(exerciseClassName(locale));
+            }
+            var candidateMethod = exerciseClass.getMethod(methodName, methodParamTypes);
+            if (!Modifier.isStatic(candidateMethod.getModifiers())) {
+                throw new NoStaticMethodException();
+            }
+            method = candidateMethod;
         }
         return method;
     }
@@ -183,6 +237,15 @@ public class Koan {
         var currentCall = calls[calls.length - 1];
         var newCalls = calls.clone();
         newCalls[newCalls.length - 1] = newCall.apply(currentCall);
-        return new Koan(koanClass, methodName, methodParamTypes, newCalls, usesConsole, showStdInInputs);
+        return new Koan(
+            koanClass,
+            methodName,
+            methodParamTypes,
+            newCalls,
+            usesConsole,
+            showStdInInputs,
+            exerciseClassName,
+            exerciseClassPackage
+        );
     }
 }

@@ -31,14 +31,20 @@ public class Texts {
         local("The method %s() appears to produce an error: %s.")
         .fr("La méthode %s() a produit une erreur: %s.");
     static Local<String> EXPECTED_TO_FIND_MEHOD_NO_PARAMS =
-        local("Expected to find a method called '%s' in src/main/java/koans/english/%s.java but did not find it.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java mais ne la trouve pas.");
+        local("Expected to find a method called '%s' in src/main/java/%s.java but did not find any.")
+        .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java, mais ne la trouve pas.");
+    static Local<String> EXPECTED_METHOD_TO_BE_STATIC =
+        local("Expected method '%s' in src/main/java/%s.java to have the 'static' modifier, but it had not.")
+        .fr("Attendu à ce que la méthode '%s' dans src/main/java/koans/french/%s.java ai le modifieur 'static', mais elle ne l'a pas.");
     static Local<String> EXPECTED_TO_FIND_MEHOD_ONE_PARAM =
-        local("Expected to find a method called '%s' in src/main/java/koans/english/%s.java with a '%s' parameter but did not find it.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java avec un paramètre '%s' mais ne la trouve pas.");
+        local("Expected to find a method called '%s' in src/main/java/%s.java with a '%s' parameter but did not find any.")
+        .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java, avec un paramètre '%s' mais ne la trouve pas.");
     static Local<String> EXPECTED_TO_FIND_MEHOD_MANY_PARAMS =
-        local("Expected to find a method called '%s' in src/main/java/koans/english/%s.java with parameters of type %s but did not find it.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java avec des paramètres de type %s mais ne la trouve pas.");
+        local("Expected to find a method called '%s' in src/main/java/%s.java with parameters of type %s but did not find any.")
+        .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java, avec des paramètres de type %s mais ne la trouve pas.");
+    static Local<String> EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE =
+        local("Expected to find a class %s in the %s package, but did not find any.")
+        .fr("Attendu à trouver une classe %s dans le package %s, mais ne la trouve pas.");
     static Local<String> PLEASE_MEDITATE_ON =
         local("Please meditate on %s in src/main/java/koans/english/%s.java")
         .fr("Tu peux méditer sur %s in src/main/java/koans/french/%s.java");

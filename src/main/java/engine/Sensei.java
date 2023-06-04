@@ -72,10 +72,18 @@ public class Sensei {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
             p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, ite.getCause().getMessage());
+        } catch (NoStaticMethodException nsme) {
+            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+            concludeConsole(koan);
+            p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
         } catch (NoSuchMethodException mnfe) {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
             displayMethodNotFound(koan);
+        } catch (ClassNotFoundException cnfe) {
+            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+            concludeConsole(koan);
+            p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.exerciseClassName.get(), koan.exerciseClassPackage.get());
         }
 
         offerToMeditate(koan);
@@ -84,7 +92,7 @@ public class Sensei {
         return success;
     }
 
-    private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         for(var call: koan.calls) {
             final var success = executeCall(call);
             if (!success) {
@@ -95,7 +103,7 @@ public class Sensei {
         return true;
     }
 
-    private boolean executeCall(KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private boolean executeCall(KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         introduceConsole(call);
 
         call.setupRandomForKoan();
@@ -155,7 +163,7 @@ public class Sensei {
 
     private void observe(Koan koan) {
         p.println();
-        p.println(THINKING, koan.className(locale));
+        p.println(THINKING, koan.koanClassName(locale));
         p.println(Color.red(HAS_DAMAGED_YOUR_KARMA), koan.methodName);
     }
 
@@ -164,7 +172,7 @@ public class Sensei {
         p.println(
             PLEASE_MEDITATE_ON, 
             koan.methodName,
-            koan.className(locale)
+            koan.koanClassName(locale)
         );
         p.println();
     }
@@ -193,20 +201,20 @@ public class Sensei {
             p.println(
                 Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
                 koan.methodName,
-                koan.className(locale)
+                koan.exerciseClassName(locale).replace(".", "/")
             );
         } else if (koan.methodParamTypes.length == 1) {
             p.println(
                 Color.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
                 koan.methodName,
-                koan.className(locale),
+                koan.exerciseClassName(locale).replace(".", "/"),
                 koan.methodParamTypes[0].getSimpleName()
             );
         } else {
             p.println(
                 Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
                 koan.methodName,
-                koan.className(locale),
+                koan.exerciseClassName(locale).replace(".", "/"),
                 String.join(", ", Arrays.stream(koan.methodParamTypes).map(type -> "'" + type.getSimpleName() + "'").toArray(String[]::new))
             );
         }

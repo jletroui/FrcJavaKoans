@@ -1,5 +1,6 @@
 package engine;
 
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.DoubleToIntFunction;
@@ -26,11 +27,11 @@ public class Assertions {
         return "";
     }
 
-    public static Assertion assertIf(boolean condition, Assertion inner) {
+    public static ResultAssertion assertIf(boolean condition, ResultAssertion inner) {
         return (p, res) -> condition ? inner.validate(p, res) : true;
     }
 
-    public static Assertion assertNextStdOutLineEquals(Localizable<String> expectedTemplate, Object... params) {
+    public static ResultAssertion assertNextStdOutLineEquals(Localizable<String> expectedTemplate, Object... params) {
         return (p, res) -> {
             final var realParams = Arrays.stream(params)
                 .map((param) -> Assertions.resolveParam(res, param))
@@ -56,7 +57,7 @@ public class Assertions {
         };
     }
 
-    public static Assertion assertNextStdOutLineIsEmpty() {
+    public static ResultAssertion assertNextStdOutLineIsEmpty() {
         return (p, res) -> {
             final var lineContent = res.nextStdOutLine();
 
@@ -74,7 +75,7 @@ public class Assertions {
         };
     }
 
-    public static Assertion assertNoMoreLineInStdOut() {
+    public static ResultAssertion assertNoMoreLineInStdOut() {
         return (p, res) -> {
             final var lineContent = res.nextStdOutLine();
 
@@ -87,7 +88,7 @@ public class Assertions {
         };
     }
 
-    public static Assertion assertAskedInStdIn() {
+    public static ResultAssertion assertAskedInStdIn() {
         return (p, res) -> {
             final var lineContent = res.nextStdInLine();
 
@@ -100,7 +101,7 @@ public class Assertions {
         };
     }
 
-    public static Assertion assertReturnValueEquals(final int expected) {
+    public static ResultAssertion assertReturnValueEquals(final int expected) {
         return (p, res) -> {
             if (res.methodReturnValue == null) {
                 p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.formatCall(), expected);
@@ -124,7 +125,7 @@ public class Assertions {
         return diff < EPSILON;
     }
 
-    public static Assertion assertReturnValueEquals(final double expected) {
+    public static ResultAssertion assertReturnValueEquals(final double expected) {
         return (p, res) -> {
             if (res.methodReturnValue == null) {
                 p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL), res.formatCall(), expected);
@@ -142,7 +143,7 @@ public class Assertions {
         }; 
     }
 
-    public static Assertion assertReturnValueEquals(final boolean expected) {
+    public static ResultAssertion assertReturnValueEquals(final boolean expected) {
         return (p, res) -> {
             if (res.methodReturnValue == null) {
                 p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL), res.formatCall(), expected);
@@ -160,7 +161,7 @@ public class Assertions {
         }; 
     }
 
-    public static Assertion assertReturnValueEquals(final Localizable<String> expected) {
+    public static ResultAssertion assertReturnValueEquals(final Localizable<String> expected) {
         return (p, res) -> {
             if (res.methodReturnValue == null) {
                 p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL), res.formatCall(), expected.get(res.locale));
@@ -178,7 +179,7 @@ public class Assertions {
         }; 
     }
 
-    public static Assertion assertReturnValueWithRandomEquals(DoubleToIntFunction expected) {
+    public static ResultAssertion assertReturnValueWithRandomEquals(DoubleToIntFunction expected) {
         return (p, res) -> {
             var randomNumber = res.randomNumber();
             if (res.methodReturnValue == null) {
@@ -208,7 +209,7 @@ public class Assertions {
      * @param count the number of random numbers expected to be generated
      * @param buildExpected given the generated numbers, returns the expected result
      */
-    public static Assertion assertReturnValueWithRandomEquals(int count, ResToIntFunction buildExpected) {
+    public static ResultAssertion assertReturnValueWithRandomEquals(int count, ResToIntFunction buildExpected) {
         return assertReturnValueWithRandomEquals(res -> res.randomNumbers(count), buildExpected);
     }
 
@@ -218,11 +219,11 @@ public class Assertions {
      * @param count the number of random numbers to pick
      * @param buildExpected given the generated numbers, returns the expected result
      */
-    public static Assertion assertReturnValueWithRandomEquals(int fromOffset, int count, ResToIntFunction buildExpected) {
+    public static ResultAssertion assertReturnValueWithRandomEquals(int fromOffset, int count, ResToIntFunction buildExpected) {
         return assertReturnValueWithRandomEquals(res -> res.randomNumbers(fromOffset, count), buildExpected);
     }
 
-    private static Assertion assertReturnValueWithRandomEquals(Function<KoanResult, double[]> randomNumbersFunc, ResToIntFunction buildExpected) {
+    private static ResultAssertion assertReturnValueWithRandomEquals(Function<KoanResult, double[]> randomNumbersFunc, ResToIntFunction buildExpected) {
         return (p, res) -> {
             var randomNumbers = randomNumbersFunc.apply(res);
             var formatRandomNumbers = Helpers.formatSequence(randomNumbers, AND.get(res.locale));
@@ -249,4 +250,64 @@ public class Assertions {
             return true;
         }; 
     }
+
+    public static KoanAssertion assertFieldIsPrivate(String fieldName) {
+        return (p, methodDetails) -> {
+            var clasz = methodDetails.clasz;
+
+            try {
+                var field = clasz.getDeclaredField(fieldName);
+                if (!Modifier.isPrivate(field.getModifiers())) {
+                    p.println(Color.red(EXPECTED_FIELD_TO_BE_PRIVATE), fieldName, clasz.getName());
+                    return false;
+                }
+            }
+            catch(NoSuchFieldException nsfe) {
+                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, clasz.getName());
+                return false;
+            }
+
+            return true;
+        };
+    }
+    
+    public static KoanAssertion assertFieldIsFinal(String fieldName) {
+        return (p, methodDetails) -> {
+            var clasz = methodDetails.clasz;
+
+            try {
+                var field = clasz.getDeclaredField(fieldName);
+                if (!Modifier.isFinal(field.getModifiers())) {
+                    p.println(Color.red(EXPECTED_FIELD_TO_BE_FINAL), fieldName, clasz.getName());
+                    return false;
+                }
+            }
+            catch(NoSuchFieldException nsfe) {
+                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, clasz.getName());
+                return false;
+            }
+
+            return true;
+        };
+    }    
+    
+    public static KoanAssertion assertFieldType(String fieldName, Class<?> fieldType) {
+        return (p, methodDetails) -> {
+            var clasz = methodDetails.clasz;
+
+            try {
+                var field = clasz.getDeclaredField(fieldName);
+                if (!field.getType().equals(fieldType)) {
+                    p.println(Color.red(EXPECTED_FIELD_TO_BE_OF_TYPE), fieldName, clasz.getName(), fieldType.getSimpleName(), field.getType().getSimpleName());
+                    return false;
+                }
+            }
+            catch(NoSuchFieldException nsfe) {
+                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, clasz.getName());
+                return false;
+            }
+
+            return true;
+        };
+    }    
 }

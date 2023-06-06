@@ -120,8 +120,12 @@ public class KoanResult {
         return res;
     }
 
-    public boolean executeAssertions(Printer p, Assertion... assertions) {
-        for (Assertion as : assertions) {
+    public boolean executeAssertions(Printer p) {
+        return executeAssertions(p, call.assertions);
+    }
+
+    public boolean executeAssertions(Printer p, ResultAssertion... assertions) {
+        for (ResultAssertion as : assertions) {
             if (!as.validate(p, this)) {
                 return false;
             }

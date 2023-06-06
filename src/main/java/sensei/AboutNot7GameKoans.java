@@ -1,6 +1,6 @@
 package sensei;
 
-import engine.Assertion;
+import engine.ResultAssertion;
 import engine.FormatParam;
 import engine.Koan;
 import engine.KoanResult;
@@ -290,7 +290,7 @@ public class AboutNot7GameKoans {
     /**
      * These more complex assertions allow to reuse them for a game with multiple rounds.
      */
-    private static class GameRoundv5Assertions implements Assertion {
+    private static class GameRoundv5Assertions implements ResultAssertion {
         private final boolean shouldAssertReturnValue;
         private int loopCount = 0;
         private KoanResult lastResultSeen = null;

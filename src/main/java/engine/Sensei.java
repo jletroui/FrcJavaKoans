@@ -64,9 +64,9 @@ public class Sensei {
             concludeConsole(koan);
             p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
         } catch (IllegalArgumentException iae) {
-            // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
+            // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
             p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, iae.getMessage());
         } catch (InvocationTargetException ite) {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
@@ -76,6 +76,10 @@ public class Sensei {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
             p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
+        } catch (NoSuchConstructorException nsce) {
+            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+            concludeConsole(koan);
+            displayConstructorNotFound(koan);
         } catch (NoSuchMethodException mnfe) {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
@@ -84,6 +88,11 @@ public class Sensei {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
             p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.exerciseClassName.get(), koan.exerciseClassPackage.get());
+        } catch (InstantiationException ie) {
+            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+            concludeConsole(koan);
+            // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
+            p.println(Color.red(THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR), koan.exerciseClassName.get());
         }
 
         offerToMeditate(koan);
@@ -92,7 +101,7 @@ public class Sensei {
         return success;
     }
 
-    private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         for(var call: koan.calls) {
             final var success = executeCall(call);
             if (!success) {
@@ -103,14 +112,20 @@ public class Sensei {
         return true;
     }
 
-    private boolean executeCall(KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    private boolean executeCall(KoanMethodCall call) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         introduceConsole(call);
 
         call.setupRandomForKoan();
-        final var method = call.koan.method(locale);
+        final var methodDetails = call.koan.resolveMethod(locale);
+        final Object object = call.koan.onObject ?  methodDetails.constructor.newInstance(call.constructorParameters(locale)) : null;
+        final var asserted = call.koan.executeAssertions(p);
+        if (!asserted) {
+            return false;
+        }
+
         final var interceptionResult = StdStreamsInterceptor.capture(
             p == Printer.SILENT,
-            () -> method.invoke(null, call.parameters(locale)),
+            () -> methodDetails.method.invoke(object, call.parameters(locale)),
             call.stdInInputs(locale)
         );
 
@@ -124,7 +139,7 @@ public class Sensei {
 
         concludeConsole(call.koan);
 
-        return result.executeAssertions(p, call.assertions);
+        return result.executeAssertions(p);
     }
 
     private void introduceConsole(KoanMethodCall call) {
@@ -211,11 +226,40 @@ public class Sensei {
                 koan.methodParamTypes[0].getSimpleName()
             );
         } else {
+            final var expectedParams = Arrays
+                .stream(koan.methodParamTypes)
+                .map(type -> "'" + type.getSimpleName() + "'")
+                .toArray(String[]::new);
             p.println(
                 Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
                 koan.methodName,
                 koan.exerciseClassName(locale).replace(".", "/"),
-                String.join(", ", Arrays.stream(koan.methodParamTypes).map(type -> "'" + type.getSimpleName() + "'").toArray(String[]::new))
+                Helpers.formatSequence(expectedParams, AND.get(locale))
+            );
+        }
+    }
+    
+    private void displayConstructorNotFound(Koan koan) {
+        if (koan.constructorParamTypes.length == 0) {
+            p.println(
+                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS),
+                koan.exerciseClassName(locale)
+            );
+        } else if (koan.constructorParamTypes.length == 1) {
+            p.println(
+                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM),
+                koan.exerciseClassName(locale),
+                koan.constructorParamTypes[0].getSimpleName()
+            );
+        } else {
+            final var expectedParams = Arrays
+                .stream(koan.constructorParamTypes)
+                .map(type -> "'" + type.getSimpleName() + "'")
+                .toArray(String[]::new);
+            p.println(
+                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS),
+                koan.exerciseClassName(locale),
+                Helpers.formatSequence(expectedParams, AND.get(locale))
             );
         }
     }

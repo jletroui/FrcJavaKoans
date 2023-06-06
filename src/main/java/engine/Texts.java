@@ -30,6 +30,9 @@ public class Texts {
     static Local<String> THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR =
         local("The method %s() appears to produce an error: %s.")
         .fr("La méthode %s() a produit une erreur: %s.");
+    static Local<String> THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR =
+        local("The constructor of %s appears to produce an error: %s.")
+        .fr("Le constructeur de %s a produit une erreur: %s.");
     static Local<String> EXPECTED_TO_FIND_MEHOD_NO_PARAMS =
         local("Expected to find a method called '%s' in src/main/java/%s.java but did not find any.")
         .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java, mais ne la trouve pas.");
@@ -42,6 +45,15 @@ public class Texts {
     static Local<String> EXPECTED_TO_FIND_MEHOD_MANY_PARAMS =
         local("Expected to find a method called '%s' in src/main/java/%s.java with parameters of type %s but did not find any.")
         .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java, avec des paramètres de type %s mais ne la trouve pas.");
+    static Local<String> EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS =
+        local("Expected to find a constructor in %s but did not find any.")
+        .fr("Attendu à un constructeur dans %s, mais ne le trouve pas.");
+    static Local<String> EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM =
+        local("Expected to find a constructor in %s with a '%s' parameter but did not find any.")
+        .fr("Attendu à constructeur dans %s, avec un paramètre '%s' mais ne le trouve pas.");
+    static Local<String> EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS =
+        local("Expected to find a constructor in %s with parameters of type %s but did not find any.")
+        .fr("Attendu à un constructeur dans %s, avec des paramètres de type %s mais ne le trouve pas.");
     static Local<String> EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE =
         local("Expected to find a class %s in the %s package, but did not find any.")
         .fr("Attendu à trouver une classe %s dans le package %s, mais ne la trouve pas.");
@@ -60,6 +72,9 @@ public class Texts {
     static Local<String> AND =
         local(", and %s")
         .fr("et %s");
+    static Local<String> EXPECTED_TO_FIND_FIELD_IN_CLASS =
+        local("Expected to find a '%s' field in class %s, but did not find any.")
+        .fr("Attendu à trouver un membre '%s' dans la classe %s, mais ne le trouve pas.");
 
     // Assertions
     
@@ -150,4 +165,14 @@ public class Texts {
     static Local<String> OK_RETURNED_INT_FROM_RANDOMS =
         local("Ok: %s returned %d from random numbers %s.")
         .fr("Ok: %s a retourné %d à partir du nombre aléatoire %s.");        
+    static Local<String> EXPECTED_FIELD_TO_BE_PRIVATE =
+        local("Expected '%s' field in class %s to be private, but it is not.")
+        .fr("Attendu à ce que le membre '%s' dans la classe %s soit privé, mais il ne l'est pas.");
+    static Local<String> EXPECTED_FIELD_TO_BE_FINAL =
+        local("Expected '%s' field in class %s to be final, but it is not.")
+        .fr("Attendu à ce que le membre '%s' dans la classe %s soit final, mais il ne l'est pas.");
+    static Local<String> EXPECTED_FIELD_TO_BE_OF_TYPE =
+        local("Expected '%s' field in class %s to be a '%s', but it is a '%s'.")
+        .fr("Attendu à ce que le membre '%s' dans la classe %s soit un '%s', mais il est un '%s'.");
+
 }

@@ -47,12 +47,34 @@ public class Koan {
                 } catch(NoSuchMethodException nsme) {
                     throw new NoSuchConstructorException();
                 }
+                if (Modifier.isStatic(method.getModifiers())) {
+                    throw new NoDynamicMethodException();
+                }
             } else {
                 if (!Modifier.isStatic(method.getModifiers())) {
                     throw new NoStaticMethodException();
                 }
                 constructor = null;
             }
+        }
+
+        private static String formatParams(Object[] params) {
+            return String.join(
+                ", ",
+                Arrays.stream(params)
+                    .map(p -> p == null ? "null": p instanceof String ? String.format("\"%s\"", p) : p.toString())
+                    .toArray(String[]::new)
+            );
+        }
+
+        public String formatCall(Object[] constructorParameters, Object[] parameters) {
+            var constructorCall = "";
+
+            if (onObject) {
+                constructorCall = String.format("new %s(%s).", clasz.getSimpleName(), formatParams(constructorParameters));
+            }
+
+            return String.format("%s%s(%s)", constructorCall, koan.methodName, formatParams(parameters));
         }
     }
 
@@ -116,10 +138,7 @@ public class Koan {
         }
 
         public String toString(Locale locale) {
-            String[] params = Arrays.stream(parameters(locale))
-                .map(p -> p == null ? "null": p instanceof String ? String.format("\"%s\"", p) : p.toString())
-                .toArray(String[]::new);
-            return String.format("%s(%s)", koan.methodName, String.join(", ", params));
+            return methodDetails.formatCall(constructorParameters(locale), parameters(locale));
         }
     }
 

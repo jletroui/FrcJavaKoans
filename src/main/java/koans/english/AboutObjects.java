@@ -103,5 +103,35 @@ public class AboutObjects {
      */
 
 
+    /**
+     * Create a method 'toString' in 'geom.Point' which returns a text representation of a Point object as follow:
+     * 
+     * Point([x value], [y value])
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new Point(2.5, 4.3).toString() should return the String "Point(2.5, 4.3)"
+     * 
+     */
+
+
+    /**
+     * Create a method 'translate' in 'geom.Point' which takes 2 translation coordinate in x and y, and returns a new point object, which is the initial point translated by the given coordinates.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * When we translate by xT and yT a point A of coordinates xA and xB, the resulting point has the coordinates xA+xT and yA+yT.
+     * 
+     * You will need to create a new object of type point to return it, so you might need a refresher on how to create objects in the first exercise of this series.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new Point(2.5, 4.3).translate(2, -1) should return a point with coordinates 4.5 and 3.3
+     * 
+     */
 
 }

@@ -26,6 +26,30 @@ public class AboutObjectsKoans {
                 assertFieldType("y", double.class)
             )
             .withObjectConstructedWith(2.0, 2.0)
+            .whenCalling(),
+        new Koan(CLASS, "toString")
+            .inClass("geom.Point", double.class, double.class)
+            .withObjectConstructedWith(2.0, 2.0)
             .whenCalling()
+            .then(
+                assertReturnValueEquals(global("Point(2.0, 2.0)"))
+            ),
+        new Koan(CLASS, "translate", double.class, double.class)
+            .inClass("geom.Point", double.class, double.class)
+            .withObjectConstructedWith(2.0, 2.0)
+            .whenCallingWith(0.0, 0.0)
+            .then(
+                assertReturnValueStringRepresentationEquals(global("Point(2.0, 2.0)"), "geom.Point")
+            )
+            .withObjectConstructedWith(2.0, 2.0)
+            .whenCallingWith(1.0, -2.5)
+            .then(
+                assertReturnValueStringRepresentationEquals(global("Point(3.0, -0.5)"), "geom.Point")
+            )
+            .withObjectConstructedWith(-2.0, 2.0)
+            .whenCallingWith(1.0, 1.0)
+            .then(
+                assertReturnValueStringRepresentationEquals(global("Point(-1.0, 3.0)"), "geom.Point")
+            )    
     );
 }

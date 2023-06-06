@@ -179,6 +179,24 @@ public class Assertions {
         }; 
     }
 
+    public static ResultAssertion assertReturnValueStringRepresentationEquals(final Localizable<String> expected, final String expectedType) {
+        return (p, res) -> {
+            if (res.methodReturnValue == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_NULL), res.formatCall(), expected.get(res.locale));
+                return false;
+            } else if (!res.methodReturnValue.getClass().getName().equals(expectedType)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE), res.formatCall(), expectedType, res.methodReturnValue.getClass().getSimpleName());
+                return false;
+            } else if (!res.methodReturnValue.toString().equals(expected.get(res.locale))) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED), res.formatCall(), expected.get(res.locale), res.methodReturnValue.toString());
+                return false;
+            }
+
+            p.println(Color.green(OK_RETURNED), res.formatCall(), expected.get(res.locale));
+            return true;
+        }; 
+    }
+
     public static ResultAssertion assertReturnValueWithRandomEquals(DoubleToIntFunction expected) {
         return (p, res) -> {
             var randomNumber = res.randomNumber();
@@ -309,5 +327,5 @@ public class Assertions {
 
             return true;
         };
-    }    
+    } 
 }

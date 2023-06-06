@@ -75,7 +75,11 @@ public class Sensei {
         } catch (NoStaticMethodException nsme) {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
-            p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
+            p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale).replace(".", "/"));
+        } catch (NoDynamicMethodException ndme) {
+            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+            concludeConsole(koan);
+            p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
         } catch (NoSuchConstructorException nsce) {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);

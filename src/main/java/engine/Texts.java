@@ -39,6 +39,9 @@ public class Texts {
     static Local<String> EXPECTED_METHOD_TO_BE_STATIC =
         local("Expected method '%s' in src/main/java/%s.java to have the 'static' modifier, but it had not.")
         .fr("Attendu à ce que la méthode '%s' dans src/main/java/koans/french/%s.java ai le modifieur 'static', mais elle ne l'a pas.");
+    static Local<String> EXPECTED_METHOD_TO_NOT_BE_STATIC =
+        local("Expected method '%s' %s to not have the 'static' modifier, but it had.")
+        .fr("Attendu à ce que la méthode '%s' dans %s n'ai pas le modifieur 'static', mais elle l'a.");
     static Local<String> EXPECTED_TO_FIND_MEHOD_ONE_PARAM =
         local("Expected to find a method called '%s' in src/main/java/%s.java with a '%s' parameter but did not find any.")
         .fr("Attendu à une méthode nommée '%s' dans src/main/java/koans/french/%s.java, avec un paramètre '%s' mais ne la trouve pas.");
@@ -153,6 +156,18 @@ public class Texts {
     static Local<String> OK_RETURNED_STRING =
         local("Ok: %s returned \"%s\".")
         .fr("Ok: %s a retourné \"%s\".");
+    static Local<String> EXPECTED_TO_RETURN_BUT_RETURNED_NULL =
+        local("Expected %s to return %s but returned null instead!")
+        .fr("Attendu à ce que %s retourne un %s mais a retourné null à la place!");
+    static Local<String> EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
+    static Local<String> EXPECTED_TO_RETURN_BUT_RETURNED =
+        local("Expected %s to return %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
+    static Local<String> OK_RETURNED =
+        local("Ok: %s returned %s.")
+        .fr("Ok: %s a retourné %s.");
     static Local<String> EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED =
         local("Expected %s to return %d from random number %f but returned %d instead!")
         .fr("Attendu à ce que %s retourne %d à partir du nombre aléatoire %f mais a retourné %d à la place!");

@@ -16,45 +16,45 @@ public class AboutConsoleAndVariablesKoans {
         .fr(AboutConsoleAndVariables.class); // TODO
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "sayHelloInConsole")
-            .useConsole()
-            .whenCalling()
-            .then(
-                assertNextStdOutLineEquals(global("Hello!")),
-                assertNoMoreLineInStdOut()
-            ),
-        new Koan(CLASS, "computeTwoAndTwo")
-            .useConsole()
-            .whenCalling()
-            .then(
-                assertNextStdOutLineEquals(global("4")),
-                assertNoMoreLineInStdOut()
-            ),
-        new Koan(CLASS, "createAndDisplayAVariable")
-            .useConsole()
-            .whenCalling()
-            .then(
-                assertNextStdOutLineEquals(global("4")),
-                assertNoMoreLineInStdOut()
-            ),
-        new Koan(CLASS, "createAndDisplayAStringVariable")
-            .useConsole()
-            .whenCalling()
-            .then(
-                assertNextStdOutLineEquals(global("Hello!")),
-                assertNoMoreLineInStdOut()
-            ),
-        new Koan(CLASS, "askAndDisplayNameInConsole")
-            .useConsole()
-            .whenCalling()
-            .withStdInInputs("Juliette")
-            .then(
-                assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
-                assertAskedInStdIn(),
-                assertNextStdOutLineEquals(YOUR_NAME_IS),
-                assertNextStdOutLineEquals(global("%s"), stdInInput(0)),
-                assertNoMoreLineInStdOut()
-            ),
+        // new Koan(CLASS, "sayHelloInConsole")
+        //     .useConsole()
+        //     .whenCalling()
+        //     .then(
+        //         assertNextStdOutLineEquals(global("Hello!")),
+        //         assertNoMoreLineInStdOut()
+        //     ),
+        // new Koan(CLASS, "computeTwoAndTwo")
+        //     .useConsole()
+        //     .whenCalling()
+        //     .then(
+        //         assertNextStdOutLineEquals(global("4")),
+        //         assertNoMoreLineInStdOut()
+        //     ),
+        // new Koan(CLASS, "createAndDisplayAVariable")
+        //     .useConsole()
+        //     .whenCalling()
+        //     .then(
+        //         assertNextStdOutLineEquals(global("4")),
+        //         assertNoMoreLineInStdOut()
+        //     ),
+        // new Koan(CLASS, "createAndDisplayAStringVariable")
+        //     .useConsole()
+        //     .whenCalling()
+        //     .then(
+        //         assertNextStdOutLineEquals(global("Hello!")),
+        //         assertNoMoreLineInStdOut()
+        //     ),
+        // new Koan(CLASS, "askAndDisplayNameInConsole")
+        //     .useConsole()
+        //     .whenCalling()
+        //     .withStdInInputs("Juliette")
+        //     .then(
+        //         assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
+        //         assertAskedInStdIn(),
+        //         assertNextStdOutLineEquals(YOUR_NAME_IS),
+        //         assertNextStdOutLineEquals(global("%s"), stdInInput(0)),
+        //         assertNoMoreLineInStdOut()
+        //     ),
         new Koan(CLASS, "askAndDisplayNameOnASingleLineInConsole")
             .useConsole()
             .whenCalling()

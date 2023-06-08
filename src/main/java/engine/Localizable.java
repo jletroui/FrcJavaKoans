@@ -8,16 +8,4 @@ public interface Localizable<T> {
      * Returns the item for the given locale.
      */
     T get(Locale locale);
-
-    static Local<Class<?>> localClass(Class<?> enItem) {
-        return new Local<>(enItem);
-    }
-
-    static <T> Local<T> local(T enItem) {
-        return new Local<>(enItem);
-    }
-
-    static <T> Global<T> global(T item) {
-        return new Global<>(item);
-    }
 }

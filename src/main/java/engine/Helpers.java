@@ -6,20 +6,19 @@ import java.util.Scanner;
 
 public class Helpers {
     private static Random rng = new Random();
-    private static Scanner scanner = new Scanner(System.in);
-
-    static void setupStdInForKoan() {
-        if (scanner != null) {
-            scanner.close();
-        }
-        scanner = new Scanner(System.in);
-    }
+    private static Scanner scanner = null;
 
     static void cleanupStdInForKoan() {
-        scanner.close();
+        if (scanner != null) {
+            scanner.close();
+            scanner = null;
+        }
     }
 
     public static String readLine() {
+        if (scanner == null) {
+            scanner = new Scanner(System.in);
+        }
         return scanner.nextLine();
     }
 
@@ -31,14 +30,14 @@ public class Helpers {
         return rng.nextDouble();
     }
 
-    public static String formatSequence(double[] toFormat, String localizedAndTemplate) {
+    static String formatSequence(double[] toFormat, String localizedAndTemplate) {
         return formatSequence(
             Arrays.stream(toFormat).mapToObj(Double::toString).toArray(String[]::new),
             localizedAndTemplate
         );
     }
 
-    public static String formatSequence(Object[] toFormat, String localizedAndTemplate) {
+    static String formatSequence(Object[] toFormat, String localizedAndTemplate) {
         if (toFormat == null || toFormat.length == 0) {
             return "";
         }

@@ -1,6 +1,6 @@
 package engine;
 
-import static engine.Localizable.*;
+import static engine.Factories.local;
 
 public class Texts {
 
@@ -160,8 +160,8 @@ public class Texts {
         local("Expected %s to return %s but returned null instead!")
         .fr("Attendu à ce que %s retourne un %s mais a retourné null à la place!");
     static Local<String> EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return %s but returned %s instead!")
-        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
+        local("Expected %s to return a %s but returned a %s instead!")
+        .fr("Attendu à ce que %s retourne un %s mais a retourné un %s à la place!");
     static Local<String> EXPECTED_TO_RETURN_BUT_RETURNED =
         local("Expected %s to return %s but returned %s instead!")
         .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");

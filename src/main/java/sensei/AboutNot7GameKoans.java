@@ -5,6 +5,7 @@ import engine.FormatParam;
 import engine.Koan;
 import engine.KoanResult;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,7 @@ import engine.Local;
 import engine.Printer;
 import engine.ResToIntFunction;
 
-import static engine.Localizable.*;
+import static engine.Factories.*;
 import static sensei.Texts.*;
 
 public class AboutNot7GameKoans {
@@ -171,7 +172,7 @@ public class AboutNot7GameKoans {
             )
     );
 
-    private static boolean gameRoundv1Assertions(Printer p, KoanResult res) {
+    private static boolean gameRoundv1Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -196,7 +197,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv2Assertions(Printer p, KoanResult res) {
+    private static boolean gameRoundv2Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -222,7 +223,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv3Assertions(Printer p, KoanResult res) {
+    private static boolean gameRoundv3Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -249,7 +250,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv4Assertions(Printer p, KoanResult res) {
+    private static boolean gameRoundv4Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
         int loopCount = 0;
         boolean wantsToContinue = true;
         var asserted = true;
@@ -301,7 +302,7 @@ public class AboutNot7GameKoans {
         }
 
         @Override
-        public boolean validate(Printer p, KoanResult res) {
+        public boolean validate(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
             var wantsToContinue = true;
             var asserted = true;
             var loopOffset = res == lastResultSeen ? loopCount : 0;
@@ -358,7 +359,7 @@ public class AboutNot7GameKoans {
         }
     }
 
-    private static boolean assertWinnerLine(Printer p, KoanResult res) {
+    private static boolean assertWinnerLine(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
         var expected = TIE;
         if (GAME_ROUND_ASSERTIONS.player1Score() > GAME_ROUND_ASSERTIONS.player2Score()) {
             expected = PLAYER_1_WINS;

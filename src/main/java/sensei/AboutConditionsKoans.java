@@ -8,7 +8,7 @@ import koans.english.AboutConditions;
 import static engine.Assertions.*;
 import engine.Local;
 import static sensei.Texts.*;
-import static engine.Localizable.*;
+import static engine.Factories.*;
 
 public class AboutConditionsKoans {
     private static final Local<Class<?>> CLASS =

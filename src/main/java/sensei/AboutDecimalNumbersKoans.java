@@ -8,7 +8,7 @@ import koans.english.AboutDecimalNumbers;
 
 import static engine.Assertions.*;
 import engine.Local;
-import static engine.Localizable.*;
+import static engine.Factories.*;
 
 public class AboutDecimalNumbersKoans {
     private static final Local<Class<?>> CLASS =

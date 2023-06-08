@@ -6,8 +6,8 @@ import java.util.List;
 
 import koans.english.AboutConsoleAndVariables;
 import static engine.Assertions.*;
-import static engine.KoanResult.*;
-import static engine.Localizable.*;
+import static engine.FormatParam.*;
+import static engine.Factories.*;
 import static sensei.Texts.*;
 
 public class AboutConsoleAndVariablesKoans {
@@ -16,45 +16,45 @@ public class AboutConsoleAndVariablesKoans {
         .fr(AboutConsoleAndVariables.class); // TODO
 
     public static final List<Koan> koans = List.of(
-        // new Koan(CLASS, "sayHelloInConsole")
-        //     .useConsole()
-        //     .whenCalling()
-        //     .then(
-        //         assertNextStdOutLineEquals(global("Hello!")),
-        //         assertNoMoreLineInStdOut()
-        //     ),
-        // new Koan(CLASS, "computeTwoAndTwo")
-        //     .useConsole()
-        //     .whenCalling()
-        //     .then(
-        //         assertNextStdOutLineEquals(global("4")),
-        //         assertNoMoreLineInStdOut()
-        //     ),
-        // new Koan(CLASS, "createAndDisplayAVariable")
-        //     .useConsole()
-        //     .whenCalling()
-        //     .then(
-        //         assertNextStdOutLineEquals(global("4")),
-        //         assertNoMoreLineInStdOut()
-        //     ),
-        // new Koan(CLASS, "createAndDisplayAStringVariable")
-        //     .useConsole()
-        //     .whenCalling()
-        //     .then(
-        //         assertNextStdOutLineEquals(global("Hello!")),
-        //         assertNoMoreLineInStdOut()
-        //     ),
-        // new Koan(CLASS, "askAndDisplayNameInConsole")
-        //     .useConsole()
-        //     .whenCalling()
-        //     .withStdInInputs("Juliette")
-        //     .then(
-        //         assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
-        //         assertAskedInStdIn(),
-        //         assertNextStdOutLineEquals(YOUR_NAME_IS),
-        //         assertNextStdOutLineEquals(global("%s"), stdInInput(0)),
-        //         assertNoMoreLineInStdOut()
-        //     ),
+        new Koan(CLASS, "sayHelloInConsole")
+            .useConsole()
+            .whenCalling()
+            .then(
+                assertNextStdOutLineEquals(global("Hello!")),
+                assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "computeTwoAndTwo")
+            .useConsole()
+            .whenCalling()
+            .then(
+                assertNextStdOutLineEquals(global("4")),
+                assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "createAndDisplayAVariable")
+            .useConsole()
+            .whenCalling()
+            .then(
+                assertNextStdOutLineEquals(global("4")),
+                assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "createAndDisplayAStringVariable")
+            .useConsole()
+            .whenCalling()
+            .then(
+                assertNextStdOutLineEquals(global("Hello!")),
+                assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "askAndDisplayNameInConsole")
+            .useConsole()
+            .whenCalling()
+            .withStdInInputs("Juliette")
+            .then(
+                assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
+                assertAskedInStdIn(),
+                assertNextStdOutLineEquals(YOUR_NAME_IS),
+                assertNextStdOutLineEquals(global("%s"), stdInInput(0)),
+                assertNoMoreLineInStdOut()
+            ),
         new Koan(CLASS, "askAndDisplayNameOnASingleLineInConsole")
             .useConsole()
             .whenCalling()
@@ -62,7 +62,7 @@ public class AboutConsoleAndVariablesKoans {
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
                 assertAskedInStdIn(),
-                assertNextStdOutLineEquals(YOUR_NAME_IS, stdInInput(0)),
+                assertNextStdOutLineEquals(YOUR_NAME_IS_SINGLE_LINE, stdInInput(0)),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "askNameAndAgeInConsole")

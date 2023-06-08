@@ -7,7 +7,7 @@ import engine.Local;
 import koans.english.AboutLoops;
 
 import static engine.Assertions.*;
-import static engine.Localizable.*;
+import static engine.Factories.*;
 
 
 public class AboutLoopsKoans {

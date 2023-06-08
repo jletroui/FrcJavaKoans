@@ -8,7 +8,7 @@ import koans.english.AboutMoreMethods;
 
 import static engine.Assertions.*;
 import engine.Local;
-import static engine.Localizable.*;
+import static engine.Factories.*;
 
 public class AboutMoreMethodsKoans {
     private static final Local<Class<?>> CLASS =

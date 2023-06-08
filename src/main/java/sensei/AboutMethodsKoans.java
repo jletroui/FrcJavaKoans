@@ -7,8 +7,8 @@ import engine.Local;
 import koans.english.AboutMethods;
 
 import static engine.Assertions.*;
-import static engine.KoanResult.*;
-import static engine.Localizable.*;
+import static engine.FormatParam.*;
+import static engine.Factories.*;
 import static sensei.Texts.*;
 
 

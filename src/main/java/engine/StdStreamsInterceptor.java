@@ -31,7 +31,7 @@ public class StdStreamsInterceptor {
     }
 
     public interface ReflectionRunnable {
-        Object run() throws IllegalAccessException, InvocationTargetException;
+        Object run() throws IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException;
     }
 
     private static class OutputStreamMultiplexer extends OutputStream {
@@ -89,7 +89,11 @@ public class StdStreamsInterceptor {
         return Arrays.copyOf(lines, lines.length - 1);
     }
 
-    public static InterceptionResult capture(boolean silent, ReflectionRunnable executeFunc, String[] stdInputs) throws IllegalAccessException, InvocationTargetException {
+    public static InterceptionResult capture(
+        boolean silent,
+        ReflectionRunnable executeFunc,
+        String[] stdInputs
+    ) throws IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
         var bos = new ByteArrayOutputStream();
         var printStream = new PrintStream(silent ? bos : new OutputStreamMultiplexer(bos, realOut), true);
 
@@ -97,7 +101,6 @@ public class StdStreamsInterceptor {
 
         System.setOut(printStream);
         System.setIn(inputStream);
-        Helpers.setupStdInForKoan();
         Object returnValue;
         try {
             returnValue = executeFunc.run();

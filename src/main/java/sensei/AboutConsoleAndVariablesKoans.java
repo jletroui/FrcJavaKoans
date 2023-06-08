@@ -6,8 +6,8 @@ import java.util.List;
 
 import koans.english.AboutConsoleAndVariables;
 import static engine.Assertions.*;
-import static engine.KoanResult.*;
-import static engine.Localizable.*;
+import static engine.FormatParam.*;
+import static engine.Factories.*;
 import static sensei.Texts.*;
 
 public class AboutConsoleAndVariablesKoans {
@@ -62,7 +62,7 @@ public class AboutConsoleAndVariablesKoans {
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
                 assertAskedInStdIn(),
-                assertNextStdOutLineEquals(YOUR_NAME_IS, stdInInput(0)),
+                assertNextStdOutLineEquals(YOUR_NAME_IS_SINGLE_LINE, stdInInput(0)),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "askNameAndAgeInConsole")

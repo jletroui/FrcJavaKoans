@@ -1,6 +1,6 @@
 package sensei;
 
-import static engine.Localizable.local;
+import static engine.Factories.local;
 
 import engine.Local;
 
@@ -24,6 +24,9 @@ public class Texts {
     static final Local<String> YOUR_NAME_IS = 
         local("Your name is:")
         .fr("Ton nom est:");
+    static final Local<String> YOUR_NAME_IS_SINGLE_LINE = 
+        local("Your name is: %s")
+        .fr("Ton nom est: %s");
     static final Local<String> WHAT_IS_YOUR_NAME = 
         local("What is your name?")
         .fr("Quel est ton nom?");

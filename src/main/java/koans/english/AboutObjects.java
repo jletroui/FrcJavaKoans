@@ -103,5 +103,76 @@ public class AboutObjects {
      */
 
 
+    /**
+     * Create a method 'toString' in 'geom.Point' which returns a text representation of a Point object as follow:
+     * 
+     * Point([x value], [y value])
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new Point(2.5, 4.3).toString() should return the String "Point(2.5, 4.3)"
+     * 
+     */
 
+
+    /**
+     * Create a method 'translate' in 'geom.Point' which takes 2 translation coordinates in x and y, and returns a new point object, which is the initial point translated by the given coordinates.
+     * 
+     * ---------   TIPS --------------
+     * 
+     * When we translate by xT and yT a point A of coordinates xA and xB, the resulting point has the coordinates xA+xT and yA+yT.
+     * 
+     * You will need to create a new object of type point to return it, so you might need a refresher on how to create objects in the first exercise of this series.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new Point(2.5, 4.3).translate(2, -1) should return a point with coordinates 4.5 and 3.3
+     * 
+     */
+
+
+    /**
+     * Create a class 'geom.Triangle' with 3 final private Point members 'a', 'b', and 'c'. The constructor should take 'a', 'b', and 'c' as parameters.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * we can create a new geom.Triangle object
+     * 
+     */
+
+
+    /**
+     * Using 'Point.toString', write a method 'toString' in 'geom.Triangle' which returns a text representation of a Triangle object as follow:
+     * 
+     * Triangle(Point([xA value], [yA value]), Point([xB value], [yB value]), Point([xC value], [yC value]))
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new Triangle(new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(3.0, 3.0)).toString() should return the String "Triangle(Point(1.0, 1.0), Point(2.0, 2.0), Point(3.0, 3.0))"
+     * 
+     */
+
+
+    /**
+     * Using 'Point.translate', write a method 'translate' in 'geom.Triangle' which takes 2 translation coordinates in x and y, and returns a new triangle object, which is the initial triangle translated by the given coordinates.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new Triangle(new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(3.0, 3.0)).translate(2.0, -1.0) should return a triangle with:
+     * 
+     *   - Point a = Point(3.0, 0.0)
+     *   - Point b = Point(4.0, 1.0)
+     *   - Point c = Point(5.0, 2.0)
+     * 
+     */
 }

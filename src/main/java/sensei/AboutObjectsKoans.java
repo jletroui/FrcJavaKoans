@@ -1,15 +1,20 @@
 package sensei;
 
-import engine.Koan;
+import static engine.Assertions.assertFieldIsFinal;
+import static engine.Assertions.assertFieldIsPrivate;
+import static engine.Assertions.assertFieldType;
+import static engine.Assertions.assertReturnValueEquals;
+import static engine.Assertions.assertReturnValueStringRepresentationEquals;
+import static engine.Factories.global;
+import static engine.Factories.localClass;
+import static engine.Factories.type;
+import static engine.Factories.value;
 
 import java.util.List;
 
-import koans.english.AboutObjects;
-import static engine.Assertions.*;
+import engine.Koan;
 import engine.Local;
 import engine.Type;
-
-import static engine.Factories.*;
 
 public class AboutObjectsKoans {
     private static final Type DOUBLE = type(double.class);
@@ -17,8 +22,8 @@ public class AboutObjectsKoans {
     private static final Type POINT = type("geom.Point");
 
     private static final Local<Class<?>> CLASS =
-        localClass(AboutObjects.class)
-        .fr(AboutObjects.class); // TODO
+        localClass(koans.english.AboutObjects.class)
+        .fr(koans.french.AboutObjects.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "toString")

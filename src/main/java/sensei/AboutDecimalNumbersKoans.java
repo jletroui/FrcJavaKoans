@@ -1,19 +1,17 @@
 package sensei;
 
-import engine.Koan;
+import static engine.Assertions.assertReturnValueEquals;
+import static engine.Factories.localClass;
 
 import java.util.List;
 
-import koans.english.AboutDecimalNumbers;
-
-import static engine.Assertions.*;
+import engine.Koan;
 import engine.Local;
-import static engine.Factories.*;
 
 public class AboutDecimalNumbersKoans {
     private static final Local<Class<?>> CLASS =
-        localClass(AboutDecimalNumbers.class)
-        .fr(AboutDecimalNumbers.class); // TODO
+        localClass(koans.english.AboutDecimalNumbers.class)
+        .fr(koans.french.AboutDecimalNumbers.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "toCm", double.class)

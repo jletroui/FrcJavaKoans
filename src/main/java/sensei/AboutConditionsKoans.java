@@ -1,19 +1,25 @@
 package sensei;
 
-import engine.Koan;
+import static engine.Assertions.assertReturnValueEquals;
+import static engine.Factories.localClass;
+import static sensei.Texts.GOT_EVERYTHING_RIGHT;
+import static sensei.Texts.NEGATIVE;
+import static sensei.Texts.OOPS;
+import static sensei.Texts.POSITIVE;
+import static sensei.Texts.YOU_CHEAT;
+import static sensei.Texts.YOU_FAILED;
+import static sensei.Texts.YOU_PASS;
+import static sensei.Texts.ZERO;
 
 import java.util.List;
 
-import koans.english.AboutConditions;
-import static engine.Assertions.*;
+import engine.Koan;
 import engine.Local;
-import static sensei.Texts.*;
-import static engine.Factories.*;
 
 public class AboutConditionsKoans {
     private static final Local<Class<?>> CLASS =
-        localClass(AboutConditions.class)
-        .fr(AboutConditions.class); // TODO
+        localClass(koans.english.AboutConditions.class)
+        .fr(koans.french.AboutConditions.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sign", int.class)

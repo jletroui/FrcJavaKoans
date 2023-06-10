@@ -1,9 +1,25 @@
 package sensei;
 
-import engine.ResultAssertion;
-import engine.FormatParam;
-import engine.Koan;
-import engine.KoanResult;
+import static engine.Assertions.assertIf;
+import static engine.Assertions.assertNextStdOutLineEquals;
+import static engine.Assertions.assertNextStdOutLineIsEmpty;
+import static engine.Assertions.assertNoMoreLineInStdOut;
+import static engine.Assertions.assertReturnValueEquals;
+import static engine.Assertions.assertReturnValueWithRandomEquals;
+import static engine.Factories.localClass;
+import static sensei.Texts.DO_YOU_WANT_TO_CONTINUE;
+import static sensei.Texts.DO_YOU_WANT_TO_THROW_AGAIN;
+import static sensei.Texts.N;
+import static sensei.Texts.OH_NO_NOT7_YOU_LOOSE;
+import static sensei.Texts.PLAYER_1_ITS_YOUR_TURN;
+import static sensei.Texts.PLAYER_1_WINS;
+import static sensei.Texts.PLAYER_2_ITS_YOUR_TURN;
+import static sensei.Texts.PLAYER_2_WINS;
+import static sensei.Texts.TIE;
+import static sensei.Texts.WELL_DONE_YOUR_SCORE_IS;
+import static sensei.Texts.Y;
+import static sensei.Texts.YOUR_RESULT_SO_FAR;
+import static sensei.Texts.YOU_THREW;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -11,20 +27,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import koans.english.AboutNot7Game;
-
-import static engine.Assertions.*;
+import engine.FormatParam;
+import engine.Koan;
+import engine.KoanResult;
 import engine.Local;
 import engine.Printer;
 import engine.ResToIntFunction;
-
-import static engine.Factories.*;
-import static sensei.Texts.*;
+import engine.ResultAssertion;
 
 public class AboutNot7GameKoans {
     private static final Local<Class<?>> CLASS =
-        localClass(AboutNot7Game.class)
-        .fr(AboutNot7Game.class); // TODO
+        localClass(koans.english.AboutNot7Game.class)
+        .fr(koans.french.AboutNot7Game.class); // TODO
 
     private static final GameRoundv5Assertions GAME_ROUND_ASSERTIONS = new GameRoundv5Assertions(false);
 

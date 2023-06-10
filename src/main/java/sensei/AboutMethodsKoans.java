@@ -1,21 +1,26 @@
 package sensei;
 
+import static engine.Assertions.assertAskedInStdIn;
+import static engine.Assertions.assertNextStdOutLineEquals;
+import static engine.Assertions.assertNoMoreLineInStdOut;
+import static engine.Assertions.assertReturnValueEquals;
+import static engine.Factories.localClass;
+import static engine.FormatParam.addToStdInInput;
+import static sensei.Texts.IN_10_YEARS_YOU_WILL_BE;
+import static sensei.Texts.IN_20_YEARS_YOU_WILL_BE;
+import static sensei.Texts.IN_5_YEARS_YOU_WILL_BE;
+import static sensei.Texts.WHAT_IS_YOUR_AGE;
+
 import java.util.List;
 
 import engine.Koan;
 import engine.Local;
-import koans.english.AboutMethods;
-
-import static engine.Assertions.*;
-import static engine.FormatParam.*;
-import static engine.Factories.*;
-import static sensei.Texts.*;
 
 
 public class AboutMethodsKoans {
     private static final Local<Class<?>> CLASS =
-        localClass(AboutMethods.class)
-        .fr(AboutMethods.class); // TODO
+        localClass(koans.english.AboutMethods.class)
+        .fr(koans.french.AboutMethods.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "computeAgeIn5And10And20YearsConsole")

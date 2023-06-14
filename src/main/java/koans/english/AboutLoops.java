@@ -30,13 +30,29 @@ public class AboutLoops {
 
 
      /**
-     * Write a method named 'reverseNumbers' with 1 integer parameter 'n', which displays numbers between 1 and n in reverse order.
+     * Write a method named 'displayNumbers' with an integer parameter 'n', which displays numbers between 1 and n.
      * 
      * -------------------------------
      * 
      * Expected result:
      * 
-     * reverseNumbers(3) should display:
+     * displayNumbers(3) should display:
+     * 
+     * 1
+     * 2
+     * 3
+     * 
+     */
+
+
+     /**
+     * Write a method named 'displayReverseNumbers' with an integer parameter 'n', which displays numbers between 1 and n in reverse order.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * displayReverseNumbers(3) should display:
      * 
      * 3
      * 2
@@ -67,11 +83,11 @@ public class AboutLoops {
      * 
      * ---------   TIPS --------------
      * 
-     * Reuse the 'isMultiple' method in the AboutMoreMethods class. To reuse a method in an other class, use the class name, then a '.', then call the method. Ex:
+     * Reuse the 'isMultiple' method in the AboutMoreMethods class. To reuse a method in an other class, write the class name, then a '.', before calling the method. Ex:
      * 
      *     AboutConsoleAndVariables.sayHelloInConsole();  // Will display 'Hello!' in the console
      *                  ^          ^          ^
-     *             class name     dot     method name
+     *             class name     dot     method call
      * 
      * -------------------------------
      * 
@@ -92,7 +108,7 @@ public class AboutLoops {
      * 
      * ---------   TIPS --------------
      * 
-     * Exponent is noted '^'. Example: 10^3.
+     * Exponent will be noted '^' in comments. Example: 10^3.
      * x^n is x multiplied by itself n times. Ex:
      * 
      * 2^4 = 2 * 2 * 2 * 2 = 16

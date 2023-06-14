@@ -2,26 +2,26 @@ package koans.french;
 
 public class AboutLoops {
     /**
-     * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console times times.
+     * Écris une méthode 'helloNTimes' avec un paramètre entier 'times', qui affiche 'Hello' dans la console 'times' fois.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * To do things multiple time in Java, you can use the 'while' loop.
-     * A while loop looks a lot like a if condition, except it will execute its block of code again and again while the condition stays true. Ex:
+     * Pour exécuter du code plusieurs fois, tu peux utiliser une boucle 'while'.
+     * Une boucle 'while' ressemble beaucoup à une instruction 'if', sauf que son bloc de code va se faire exécuter encore et encore tant que la condition reste vraie. Ex:
      * 
      *     int times = 3;
      *     while (times > 0) {
-     *         // It will take 3 executions of this block of code before the condition becomes false.
-     *         // So Java will execute it 3 times, and then move on to the rest of the code.
-     *         System.out.println("Still executing");
+     *         // Cela va prendre 3 exécutions de ce boc de code avant que la condition ne devienne fausse.
+     *         // Donc Java va l'exécuter 3 fois, puis va passer au reste du code.
+     *         System.out.println("Toujours en train d'exécuter");
      *         times = times -1;
      *     }
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * helloNTimes(2) should display:
+     * helloNTimes(2) devrait afficher:
      * 
      * Hello
      * Hello
@@ -30,13 +30,29 @@ public class AboutLoops {
 
 
      /**
-     * Write a method named 'reverseNumbers' with 1 integer parameter 'n', which displays numbers between 1 and n in reverse order.
+     * Écris une méthode 'displayNumbers' avec un paramètre entier 'n', qui affiche les nombres entre 1 et 'n'.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * reverseNumbers(3) should display:
+     * displayNumbers(3) devrait afficher:
+     * 
+     * 1
+     * 2
+     * 3
+     * 
+     */
+
+
+     /**
+     * Écris une méthode 'displayReverseNumbers' avec un paramètre entier 'n', qui affiche les nombres entre 1 et 'n', en ordre inverse.
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * displayReverseNumbers(3) devrait afficher:
      * 
      * 3
      * 2
@@ -46,13 +62,13 @@ public class AboutLoops {
 
 
      /**
-     * Write a method named 'sevens' with 1 integer parameter 'n', which displays all multiples of 7 between 1 and n.
+     * Écris une méthode 'sevens' avec un paramètre entier 'n', qui affiche tous les multiples de 7 entre 1 et n.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * sevens(30) should display:
+     * sevens(30) devrait afficher:
      * 
      * 7
      * 14
@@ -63,21 +79,21 @@ public class AboutLoops {
 
 
      /**
-     * Write a method named 'sevensOrEights' with 1 integer parameter 'n', which displays all multiples of 7 or 8 between 1 and n.
+     * Écris une méthode 'sevensOrEights' avec un paramètre entier 'n', qui affiche tous les multiples de 7 ou 8 entre 1 et n.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * Reuse the 'isMultiple' method in the AboutMoreMethods class. To reuse a method in an other class, use the class name, then a '.', then call the method. Ex:
+     * Réutilise la méthode 'isMultiple' dans la class 'AboutMoreMethods'. Pour utiliser une méthode dans une autre classe, écris le nom de la classe, puis un '.' devant l'appel de la méthode. Ex:
      * 
-     *     AboutConsoleAndVariables.sayHelloInConsole();  // Will display 'Hello!' in the console
+     *     AboutConsoleAndVariables.sayHelloInConsole();  // Va afficher 'Hello!' dans la console
      *                  ^          ^          ^
-     *             class name     dot     method name
+     *          nom de classe    point   appel de méthode
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * sevensOrEights(20) should display:
+     * sevensOrEights(20) devrait afficher:
      * 
      * 7
      * 8
@@ -88,57 +104,57 @@ public class AboutLoops {
 
 
      /**
-     * Write a method 'exponent' which computes the exponent of an integer by an other.
+     * Écris une méthode'exponent' qui calcule un entier à l'exposant d'un autre entier.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * Exponent is noted '^'. Example: 10^3.
-     * x^n is x multiplied by itself n times. Ex:
+     * Nous allons noter l'exposant avec '^'. Ex: 10^3.
+     * x^n est égal à x multiplié par lui-même n fois. Ex:
      * 
      * 2^4 = 2 * 2 * 2 * 2 = 16
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * exponent(5, 3) should return 125
+     * exponent(5, 3) devrait retourner 125
      * 
      */
 
 
      /**
-     * Write a method 'exponent2' which do the same as the previous one, except it also handles the case where n is 0.
+     * Écris une méthode'exponent2' qui fait la même chose, mais qui gère également le cas où n est 0.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * x^0 is always 1. Ex:
+     * x^0 vaut toujours 1. Ex:
      * 
      * 34^0 = 1
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * exponent2(5, 3) should return 125
+     * exponent2(5, 3) devrait retourner 125
      * 
      */
 
 
      /**
-     * Write a method 'factorial' which computes the factorial of an integer.
+     * Écris une méthode'factorial' qui calcule la factorielle d'un entier.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * Factorial is noted '!'. Example: 3!.
-     * The factorial of a number n is the product of all numbers between 1 and n. Ex:
+     * La factorielle est notée '!'. Ex: 3!.
+     * La factorielle d'un nombre n est le produit de tous les nombres entre 1 et n. Ex:
      * 
      * 4! = 1 * 2 * 3 * 4 = 24
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * factorial(5) should return 120
+     * factorial(5) devrait retourner 120
      * 
      */
 

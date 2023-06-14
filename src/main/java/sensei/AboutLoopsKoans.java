@@ -37,7 +37,31 @@ public class AboutLoopsKoans {
             .then(
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "reverseNumbers", int.class)
+        new Koan(CLASS, "displayNumbers", int.class)
+            .useConsole()
+            .whenCallingWith(2)
+            .then(
+                assertNextStdOutLineEquals(global("1")),
+                assertNextStdOutLineEquals(global("2")),
+                assertNoMoreLineInStdOut()
+            )
+            .whenCallingWith(3)
+            .then(
+                assertNextStdOutLineEquals(global("1")),
+                assertNextStdOutLineEquals(global("2")),
+                assertNextStdOutLineEquals(global("3")),
+                assertNoMoreLineInStdOut()
+            )
+            .whenCallingWith(1)
+            .then(
+                assertNextStdOutLineEquals(global("1")),
+                assertNoMoreLineInStdOut()
+            )
+            .whenCallingWith(0)
+            .then(
+                assertNoMoreLineInStdOut()
+            ),
+        new Koan(CLASS, "displayReverseNumbers", int.class)
             .useConsole()
             .whenCallingWith(2)
             .then(

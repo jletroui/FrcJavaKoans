@@ -8,19 +8,19 @@ public class Texts {
     // AboutConsoleAndVariables
     static final Local<String> IN_5_YEARS_YOU_WILL_BE = 
         local("In 5 years from now, you will be %s.")
-        .fr("Dans 5 ans, tu auras %s.");
+        .fr("Dans 5 ans, tu auras %s ans.");
     static final Local<String> IN_10_YEARS_YOU_WILL_BE = 
         local("In 10 years from now, you will be %s.")
-        .fr("Dans 10 ans, tu auras %s.");
+        .fr("Dans 10 ans, tu auras %s ans.");
     static final Local<String> IN_20_YEARS_YOU_WILL_BE = 
         local("In 20 years from now, you will be %s.")
-        .fr("Dans 20 ans, tu auras %s.");
+        .fr("Dans 20 ans, tu auras %s ans.");
     static final Local<String> YOUR_NAME_IS_AND_YOUR_AGE_IS = 
         local("Your name is %s and your age is %s.")
-        .fr("Ton nom est %s et ton âge est %s.");
+        .fr("Ton nom est %s et ton âge est %s ans.");
     static final Local<String> WHAT_IS_YOUR_AGE = 
         local("What is your age?")
-        .fr("Quel est ton âge?");
+        .fr("Quel âge as tu?");
     static final Local<String> YOUR_NAME_IS = 
         local("Your name is:")
         .fr("Ton nom est:");

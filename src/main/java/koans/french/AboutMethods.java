@@ -4,23 +4,23 @@ import static engine.Helpers.readLine;
 
 public class AboutMethods {
     /**
-     * Ask for an age. Display the age in 5 years.
-     * Ask for an age a second time. Display the new age in 10 years.
-     * Ask for an age a third time. Display the new age in 20 years.
+     * Demande un âge. Affiche l'âge dans 5 ans.
+     * Demande un âge une deuxième fois. Affiche cet âge dans 10 ans.
+     * Demande un âge une troisième fois. Affiche cet âge dans 20 ans.
      * 
      * -------------------------------
      * 
-     * Expected result in the console:
+     * Résultat attendu dans la console:
      * 
-     * What is your age?
-     * [Enter some age]
-     * In 5 years from now, you will be [The age entered above + 5 years].
-     * What is your age?
-     * [Enter some age]
-     * In 10 years from now, you will be [The new age entered above + 10 years].
-     * What is your age?
-     * [Enter some age]
-     * In 20 years from now, you will be [The new age entered above + 20 years].
+     * Quel âge as tu?
+     * [Tape un âge]
+     * Dans 5 ans, tu auras [L'âge tapé ci dessus + 5] ans.
+     * Quel âge as tu?
+     * [Tape un âge]
+     * Dans 10 ans, tu auras [Le nouvel âge tapé ci dessus + 10] ans.
+     * Quel âge as tu?
+     * [Tape un âge]
+     * Dans 20 ans, tu auras [Le 3e âge tapé ci dessus + 20] ans.
      * 
      */
     public static void computeAgeIn5And10And20YearsConsole() {
@@ -28,87 +28,88 @@ public class AboutMethods {
     }
 
     /**
-     * Now, that was a bit tedious to repeat 3 times almost the same thing, was it not?
-     * Do it again, but this time, with a new method in this class.
+     * Faisons une pause. Est-ce que ce n'était pas un peu pénible d'écrire 3 fois presque le même code?
+     * Fais la même chose cette fois ci, mais en appelant 3 fois une nouvelle méthode que tu vas créer.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * A method is a new mini program. You already know what a method is, because each exercise you completed made you code the _body_ of a method.
-     * It is time to create your own method, and make it execute yourself.
-     * To create a method, place yourself somewhere within the '{' and '}' of the class, but outside the existing methods. Ex:
-     *                                                                        <-- wrong place, outside the class
+     * Une méthode est un mini programme. Tu sais déjà ce qu'une méthode est, car chaque exercice que tu as terminé t'as fait écrire du code dans le _corps_ d'une méthode.
+     * Il est temps de créer une méthode complète toi même, et de l'appeler.
+     * Pour créer une méthode, il faut d'abord se placer au bon endroit dans la classe, entre la '{' et la '}' de la classe, mais en dehors d'une méthode existente. Ex:
+     * 
+     *                                                                        <-- mauvais endroit, en dehors de la classe
      *     public class AboutMethods {
-     *                                                                        <-- good place 
+     *                                                                        <-- bon endroit 
      *         public static void computeAgeIn5And10And20YearsConsole() {
-     *                                                                        <-- wrong place, inside an other method
+     *                                                                        <-- mauvais endroit, dans une autre méthode
      *         }
-     *                                                                        <-- good place 
+     *                                                                        <-- bon endroit 
      *     }
-     *                                                                        <-- wrong place, outside the class
+     *                                                                        <-- mauvais endroit, en dehors de la classe
      * 
-     * Then, you will have to write the _signature_ of a method, which is telling Java about several things.
-     * We will care for now only about 2 things: its _name_ and its _parameters_.
-     * You need to give a name to the method, in the same way you give a name to a variable: so when you want to refer to it, Java knows what you are refering to.
-     * The parameters are a way for the part of the program wanting to execute the method to give it some 'configuration'. Let's see how to write a signature:
+     * Une fois l'endroit choisi, tu vas devoir écrire la _signature_ de la méthode, qui va donner à Java des informations cruciales sur ta méthode.
+     * Pour l'instant, nous n'allons nous préoccuper que de 2 informations: le _nom_ de la méthode et ses _paramètres_.
+     * Tu as besoin de donner un nom à ta méthode, pour la même raison que tu dois donner un nom à tes variable: Java va savoir à quoi tu réfère lorsque tu utilise ce nom.
+     * Les paramètres sont un moyen pour le programme qui appelle la méthode de configurer ce qu'il va se passer dans la méthode. Voici comment on déclare une signature de méthode:
      * 
-     *     public static void [name of the method]([parameter 1 type] [parameter 1 value], [parameter 2 type] [parameter 2 name], ...) {
+     *     public static void [nom de la méthode]([type paramètre 1] [nom paramètre 1], [type paramètre 2] [nom paramètre 2], ...) {
      *
      *     }
      * 
-     * We will ignore the 'public static void' for now. Next come the name of the method.
-     * It is very important to choose a name which tells very well to the reader why you created the method (as opposed to, say, what the method is doing inside).
-     * For example, let's say we want to create a method that takes a text, and output it in the console with exclamation marks, like if it was yelling.
-     * Avoid names like "displayInConsoleAndAddExclamations". The reader will be able to already see that in the code within the method.
-     * Prefer things that express what the intent is, in as plain english as possible. For example "yell".
+     * La signature commence par 'public static void', dont nous allons ignorer la signification pour le moment. Ensuite vient le nom de la méthode.
+     * C'est très important de bien choisir un nom qui renseigne le lecteur de ton code sur la raison qui t'as poussé à écrire cette méthode (comparé à, par exemple, ce que la méthode éxécute à l'intérieur).
+     * Par exemple, disons que nous voulons créer une méthode qui prend un texte en paramètre, et l'affiche dans la console, suivi de 3 points d'exclamation, comme si la méthode criait le texte.
+     * Évite des noms du style 'displayInConsoleAndAddExclamations'. Le lecteur voit déjà que c'est ce que la méthode fait en lisant son code.
+     * Préfère des noms qui expriment l'intention en arrière de la méthode, dans un anglais le moins abstrait possible. Par exemple: 'yell'.
      * 
-     * Next come the parameters. Parameter list is given between parentheses. If your method have no parameters, just write '()' after its name.
-     * If you have more than one parameter, separate each of them with a ','.
-     * A parameter is a bit like a variable, except the method is not deciding what the value is.
-     * It will instead _receive_ the value from the rest of the program. So it does not know what the value is, and this is ok.
-     * It can still use that value like a normal variable. In our example, the yelling method will need to know which text to yell.
-     * So the type will be text, or 'String' in Java.
-     * And the name could be something like 'textToYell' so it is easy to understand what's the purpose of this parameter.
+     * Après le nom viennent les paramètres. La liste des paramètres est donnée entre parenthèses. Si ta méthode n'a pas de paramètres, écrit simplement '()' après son nom.
+     * Si tu as plus d'un paramètre, sépare les avec des ','.
+     * Un paramètre est un peu comme une variable pour la méthode, avec la différence que ce n'est pas la méthode qui va décider de sa valeur.
+     * La méthode va plutôt _recevoir_ la valeur de la part de la partie du programme qui l'appelle.
+     * Donc le/la programm·euse·eur ne sait pas d'avance, lorsqu'iel écrit sa méthode, quelle sera la valeur. Et c'est ok.
+     * La méthode peut par contre utiliser la valeur, comme avec une variable normale. Dans notre exemple, la méthode qui 'crie' va avoir besoin de savoir quoi crier.
+     * Le type du paramètre va donc être du texte, soit 'String' en Java.
+     * Le nom du paramètre devra rendre facile de se souvenir à quoi il sert. Par exemple: 'textToYell'.
      * 
-     * Everything together, this is how you would define this method:
+     * En appliquant tout ça, c'est ainsi que nous écririons une telle méthode:
      * 
-     *                       name  param type  param name
-     *                          v     v           v
+     *                 nom méthode  type param   nom param
+     *                        v       v           v
      *     public static void yell(String textToYell) {
      *          System.out.println(textToYell + " !!!");  
      *     }
      *                                ^
-     *       Inside the method, the parameter is used like a regular variable
+     *       À l'intérieur de la méthode, le paramètre est utilisé comme une variable normale
      * 
-     * Now, how do you execute this method 'yell'? In another method, you can 'call' it. Meaning you can ask Java to execute the code within the method.
-     * For that, you will need to tell Java the name and the values of the parameters of the method. You give the values inside parentheses.
-     * For example:
+     * Maintenant, comment éxécuter la méthode 'yell'? Dans une autre méthod, tu peux l'appeler. Cela veut dire que tu peux demander à Java d'éxécuter le code du corps (l'intérieur) de la méthode.
+     * Pour cela, tu dois donner à Java som nom et les valeurs des paramètres. Les valeurs sont entre parenthèses. Ex:
      * 
      *     public static void otherMethod() {
-     *         yell("Java is so cool");
+     *         yell("Java est trop cool");
      *     }
-     *          ^           ^
-     *    method name    parameter 1 value
+     *          ^            ^
+     *    nom méthode   valeur paramètre 1
      * 
-     * For this exercise, you need to create a method that is asking and computing the age in a certain number of years.
-     * This certain number of years would be the method's parameter.
-     * In the existing method 'computeAgeIn5And10And20YearsConsoleWithMethod()', you will then only have to call this method 3 times:
-     *   - once with a value of 5
-     *   - once with a value of 10
-     *   - and finally once with a value of 20
+     * Pour cet exercice, tu va créer une méthode qui demande et calcule un âge dans un certain nombre d'années.
+     * Ce nombre d'années sera différent à chaque appel, et devra donc être un paramètre de la méthode.
+     * Dans la méthode 'computeAgeIn5And10And20YearsConsoleWithMethod()', tu devras simplement appeler la méthode 3 fois:
+     *   - une fois avec la valeur 5
+     *   - une fois avec la valeur 10
+     *   - et finalement une fois avec la valeur 20
      * 
      * -------------------------------
      * 
-     * Expected result in the console:
+     * Résultat attendu dans la console:
      * 
-     * What is your age?
-     * [Enter some age]
-     * In 5 years from now, you will be [The age entered above + 5 years].
-     * What is your age?
-     * [Enter some age]
-     * In 10 years from now, you will be [The new age entered above + 10 years].
-     * What is your age?
-     * [Enter some age]
-     * In 20 years from now, you will be [The new age entered above + 20 years].
+     * Quel âge as tu?
+     * [Tape un âge]
+     * Dans 5 ans, tu auras [L'âge tapé ci dessus + 5] ans.
+     * Quel âge as tu?
+     * [Tape un âge]
+     * Dans 10 ans, tu auras [Le nouvel âge tapé ci dessus + 10] ans.
+     * Quel âge as tu?
+     * [Tape un âge]
+     * Dans 20 ans, tu auras [Le 3e âge tapé ci dessus + 20] ans.
      * 
      */
     public static void computeAgeIn5And10And20YearsConsoleWithMethod() {
@@ -116,83 +117,86 @@ public class AboutMethods {
     }
 
     /**
-     * Create a method which has a parameter for an integer number, and returns the square of that number.
+     * Écrit une méthode qui a un entier pour paramètre, et retourne le carré de ce nomre.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * Up to now, methods were only "doing stuff" but were not communicating anything to the rest of the program.
-     * A very useful thing in programmation is when methods can not only receive information _from_ the rest of the program (via its parameters) but also give back information _to_ the rest of the program.
-     * To give back information, the method can return one, and only one value. Up to now, the methods we saw started with:
+     * Jusqu'à maintenant, les méthode que tu as écrite 'faisait des choses', comme afficher quelque chose dans la console.
+     * Mais elles ne communiquaient aucun résultat au reste du programme.
+     * En programmation, il est très utile, non seulement de recevoir des informations du reste du programme (via les paramètres), mais aussi de renvoyer de l'informaiton au reste du programme.
+     * Pour renvoyer de l'information au reste du programme, une méthode peut retourner une, et une seule valeur appelée 'la valeur de retour'.
+     * Jusqu'à maintenant, les méthodes commencaient de cette façon:
      * 
      *     public static void [name of the method]()
      *                     ^
-     *                 the type of return
+     *                 le type de retour
      * 
-     * 'void' meant that our methods did not return anything.
-     * To make a method return something, we must tell Java what type of information we want the method to return.
-     * For example, let's say we want to make a method divide an integer number per 2:
+     * 'void' veut dire que la méthode ne retourne aucune information.
+     * Pour que la méthode puisse retourner quelque chose, il faut dire à Java quel type de valeur nous voulons faire retourner à la méthode.
+     * Par exemple, disons que nous voulons faire une méthode qui divise un entier par 2, et retourne le résultat:
      * 
      *     public static int half(int number) { ... }
      *                    ^
-     *           Now returning an integer number
+     *           Maintenant retourne un entier
      * 
-     * However, this is just telling Java that, at the end of the method, we will return a number.
-     * How do we do the actual returning thing? Simply by using the special word 'return':
+     * Cependant, cela indique juste à Java quel type de valeur la méthode va retourner.
+     * Comment demande-t-on à la méthode de retourner une valeur? En utilisant le mot clef 'return':
      * 
      *     public static int half(int number) {
      *         return number / 2;
      *     }
+     *                    ^
+     *            une expression de type 'entier'
      * 
-     * Finally, how do we benefit from this method? We can simply call it somewhere else, as any other method. For example:
+     * Finalement, comment utiliser le résultat retourné par la méthode? Nous pouvons appeler la méthode comme n'importe quelle autre:
      * 
      *     System.out.println(half(10));
      * 
-     * In this example, Java will call the method, and replace the call by the return value.
-     * In this example, this would be equivalent to write:
+     * Et comme vu précédemment, Java, après avoir appelé la méthode, va remplacer l'appel par le résultat de la méthode.
+     * Dans cet exemple, ce sera équivalent à écrire:
      * 
      *     System.out.println(5);
      * 
-     * In the next series of exercises, though, we will not call our methods, just create them.
+     * Dans les prochains exercices cependant, tu ne vas pas appeler test méthode, juste les écrire pour le maître.
      * 
-     * For this exercise, the signature of the method has been written for you, you simply need to modify the body of it.
+     * Pour cet exercice, la signature de la méthode a déjà été écrite pour toi, tu n'as qu'à modifier le corps de la méthode pour respecter l'objectif de l'exercice.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * square(3) should return 9
+     * square(3) devrait retourner 9
      * 
      */
     public static int square(int number) {
         return 0;
     }    
 
-    
     /**
-     * Create a method named 'opposite' which has a parameter for an integer number, and returns the opposite of that number.
+     * Écrit une méthode appelée 'opposite' qui prend un paramètre entier, et retourne l'opposé de cet entier.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * For this exercise, you have to write the signature of the method yourself.
+     * Pour cet exercice, tu dois écrire la signature de la méthode toi même.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * opposite(2) should return -2
+     * opposite(2) devrait retourner -2
      * 
      */
 
 
     /**
-     * Create a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animals.
-     * There are 3 int parameters: chickenCount, pigCount, cowCount.
+     * Écrit une méthode appelée 'legs', qui aide une fermière à compter le nombre de pattes de ses animaux, étant donné le nombre de chaque type d'animaux.
+     * Il y a 3 paramètres: le nombre de poulets, le nombre de cochons, et le nombre de vaches.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * legs(2, 3, 4) should return 32
+     * legs(2, 3, 4) devrait retourner 32
      * 
      */
 }

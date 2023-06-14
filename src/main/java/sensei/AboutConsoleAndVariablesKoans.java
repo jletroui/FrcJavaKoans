@@ -1,19 +1,28 @@
 package sensei;
 
-import engine.Koan;
-import engine.Local;
+import static engine.Assertions.assertAskedInStdIn;
+import static engine.Assertions.assertNextStdOutLineEquals;
+import static engine.Assertions.assertNoMoreLineInStdOut;
+import static engine.Factories.global;
+import static engine.Factories.localClass;
+import static engine.FormatParam.addToStdInInput;
+import static engine.FormatParam.stdInInput;
+import static sensei.Texts.IN_5_YEARS_YOU_WILL_BE;
+import static sensei.Texts.WHAT_IS_YOUR_AGE;
+import static sensei.Texts.WHAT_IS_YOUR_NAME;
+import static sensei.Texts.YOUR_NAME_IS;
+import static sensei.Texts.YOUR_NAME_IS_AND_YOUR_AGE_IS;
+import static sensei.Texts.YOUR_NAME_IS_SINGLE_LINE;
+
 import java.util.List;
 
-import koans.english.AboutConsoleAndVariables;
-import static engine.Assertions.*;
-import static engine.FormatParam.*;
-import static engine.Factories.*;
-import static sensei.Texts.*;
+import engine.Koan;
+import engine.Local;
 
 public class AboutConsoleAndVariablesKoans {
     private static final Local<Class<?>> CLASS =
-        localClass(AboutConsoleAndVariables.class)
-        .fr(AboutConsoleAndVariables.class); // TODO
+        localClass(koans.english.AboutConsoleAndVariables.class)
+        .fr(koans.french.AboutConsoleAndVariables.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sayHelloInConsole")

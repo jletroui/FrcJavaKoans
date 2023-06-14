@@ -62,7 +62,7 @@ public class Texts {
         .fr("Attendu à trouver une classe %s dans le package %s, mais ne la trouve pas.");
     static Local<String> PLEASE_MEDITATE_ON =
         local("Please meditate on %s in src/main/java/koans/english/%s.java")
-        .fr("Tu peux méditer sur %s in src/main/java/koans/french/%s.java");
+        .fr("Tu peux méditer sur %s dans src/main/java/koans/french/%s.java");
     static Local<String> THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN_ANSWERING =
         local("The master sensed the harmony dissolving when planning to answer %s.")
         .fr("Le maître a senti l'harmonie se briser en voulant répondre %s.");

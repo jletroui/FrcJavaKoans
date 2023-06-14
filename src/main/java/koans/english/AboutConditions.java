@@ -2,7 +2,7 @@ package koans.english;
 
 public class AboutConditions {
     /**
-     * Create a method named 'sign' which has a parameter for an integer number, and returns a text:
+     * Write a method named 'sign' which has a parameter for an integer number, and returns a text:
      * 
      * - if the number is greater or equal than zero, returns the text "positive"
      * - if the number is lesser than zero, returns the text "negative"
@@ -57,7 +57,7 @@ public class AboutConditions {
 
 
     /**
-     * Create a method named 'signOrZero' which has a parameter for an integer number, and returns a text:
+     * Write a method named 'signOrZero' which has a parameter for an integer number, and returns a text:
      * 
      * - if the number is greater than zero, returns the text "positive"
      * - if the number is 0, returns the text "zero"
@@ -70,9 +70,9 @@ public class AboutConditions {
      *     if (number > 10) {
      *         // Code executed only if number is greater than 10
      *     } else if (number > 0) {
-     *         // Code executed only if number is greater than 0 but less than 10
+     *         // Code executed only if number is not greater than 10, but is greater than 0
      *     } else {
-     *         // Code executed if number is less or equal to 0
+     *         // Code executed if number is neither greater than 10 nor greater than 0
      *     }
      * 
      * -------------------------------
@@ -86,7 +86,7 @@ public class AboutConditions {
 
 
     /**
-     * Create a method named 'gradeComment' which has a parameter for an integer number representing an exam grade, and returns a text:
+     * Write a method named 'gradeComment' which has a parameter for an integer number representing an exam grade, and returns a text:
      * 
      * - if the grade is less than 0 or greater than 100, returns the text "You cheat!"
      * - if the grade is 100, returns the text "Congratulations! You got everything right!"
@@ -96,7 +96,7 @@ public class AboutConditions {
      * 
      * ---------   TIPS --------------
      * 
-     * You can combine conditions together using the && (AND) and || (OR) operators:
+     * You can combine conditions together using the '&&' (AND) and '||' (OR) operators:
      * 
      *     if ((4 > 3) && (3 > 4)) {
      *         // Code here will not be executed

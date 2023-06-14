@@ -12,7 +12,7 @@ public class AboutConsoleAndVariables {
      * 
      *      System.out.println("Apple");
      * 
-     * You can use the method System.out.println([some value]) to write something in the console.
+     * You can use the method System.out.println([some value]) to display a value in the console.
      * 
      * You can tell Java that some value is text by enclosing it between double quotes. Ex:
      * 
@@ -30,7 +30,7 @@ public class AboutConsoleAndVariables {
     }
 
     /**
-     * Make java compute 2 + 2 for you, and display the result in the console.
+     * Make Java compute 2 + 2 for you, and display the result in the console.
      * 
      * ---------   TIPS --------------
      * 
@@ -59,28 +59,28 @@ public class AboutConsoleAndVariables {
      * 
      * ---------   TIPS --------------
      * 
-     * A variable is a piece of information which can be referred to by a name.
+     * A variable is a piece of information with a name. We can get the value by using its name.
      * So, to declare a variable, you need to give it a name and a value.
      * But in Java, you also need to give the kind of information (its type).
      * For example, when the information is an integer number, the type is called 'int'.
      * Putting everything together, if we want to create a variable for the number of legs of a pig:
      * 
      *      int pigNbOfLegs = 4;
-     *       ^       ^       ^
-     *      type   name    value
+     *       ^       ^        ^
+     *      type   name     value
      * 
-     * The value can be an arithmetic expression. For example:
+     * The value can also be an arithmetic expression. For example:
      * 
      *      int pigNbOfLegs = 1 + 1 + 1 + 1;
      * 
-     * Whenever you use the name of the variable, Java will replace it with its value when running.
-     * For example, if you want to display the number of legs of a pig variable in the console:
+     * Whenever you use the name of the variable, Java will replace the name with the variable's value when running.
+     * For example, if you want to display the variable defined above:
      * 
      *      System.out.println(pigNbOfLegs);
      *                              ^
-     *          'pigNbOfLegs' will be replaced by its value.
+     *          'pigNbOfLegs' will be replaced by the variable's value.
      * 
-     * So this is equivalent to:
+     * So this is equivalent to (because the variable's value is 4):
      * 
      *      System.out.println(4);
      * 
@@ -123,11 +123,13 @@ public class AboutConsoleAndVariables {
      * 
      * Let's say that when asked, the user will type 'Hello' then the [ENTER] key in the console. Then:
      * 
-     *      String someText = readLine();
+     *     String someText = readLine();
+     *                             ^
+     *       cet appel de méthode va être remplacé par son résultat
      * 
      * Will become the equivalent to:
      * 
-     *      String someText = "Hello";
+     *     String someText = "Hello";
      * 
      * -------------------------------
      * 
@@ -148,32 +150,31 @@ public class AboutConsoleAndVariables {
      * 
      * ---------   TIPS --------------
      * 
-     * You will need to create a text out of 2 text values. Glueing multiple text values together is called "concatenating".
+     * You will need to create a text out of 2 text values. Glueing multiple text values together is called 'concatenating'.
      * In Java, you can do that with the '+' operator:
      * 
-     *      String glued = "abc" + "def";
+     *     String glued = "abc" + "def";
      *               ^
      *       glued's value is "abcdef"
      * 
      * Warning! Don't confuse the String concatenation operator with the number's 'addition' operator. This won't work:
      * 
-     *      4 + "abc"
-     *        ^
-     *      Error: because the left of the operator is a number, '+' is the 'addition' operator for numbers, not the text's 'concatenate' one.
-     *      As a result, Java expects an other number to the right of the '+', but "abc" is not a number.
+     *     4 + "abc"
+     *       ^
+     *     Error: because the left of the operator is a number, '+' is the 'addition' operator for numbers, not the text's 'concatenate' one.
+     *     As a result, Java expects an other number to the right of the '+', but "abc" is not a number.
      * 
      * Note: however, this will work:
      * 
-     *      String glued = "abc" + 4;
+     *     String glued = "abc" + 4;
      *               ^
      *       glued's value is "abc4"
      * 
      * This is because Java can convert anything, including numbers, to text automatically. So in this case, it is equivalent to:
      * 
-          * String glued = "abc" + "4";
+     *     String glued = "abc" + "4";
      *                              ^
      *                 Automatically converted to text
-     * You can read a text from the console with readLine(). This method is _returning_ the value typed in the console by the user.
      * 
      * -------------------------------
      * 
@@ -221,7 +222,7 @@ public class AboutConsoleAndVariables {
      * ---------   TIPS --------------
      * 
      * The trick is, the value returned from the console is always text.
-     * But, in order to compute the 5-years-from-now value, you will need to convert the text to an integer number first.
+     * As a result, in order to compute the 5-years-from-now value, you will need to convert the text to an integer number first.
      * You can convert some text to an integer like so:
      * 
      *      String nbOfOrangesAsText = "3";

@@ -217,3 +217,9 @@ That being said, any improvement to the clarity and conciseness of the textual m
 ## Credits
 
 Heavily inspired by the wonderful [Ruby Koans](https://www.rubykoans.com/).
+
+Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and Dumitru.
+
+## License
+
+![CC BY-SA](https://i.creativecommons.org/l/by-sa/4.0/88x31.png) This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).

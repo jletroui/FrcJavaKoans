@@ -51,20 +51,20 @@ public class AboutMethods {
      * You need to give a name to the method, in the same way you give a name to a variable: so when you want to refer to it, Java knows what you are refering to.
      * The parameters are a way for the part of the program wanting to execute the method to give it some 'configuration'. Let's see how to write a signature:
      * 
-     *     public static void [name of the method]([parameter 1 type] [parameter 1 value], [parameter 2 type] [parameter 2 name], ...) {
+     *     public static void [name of the method]([parameter 1 type] [parameter 1 name], [parameter 2 type] [parameter 2 name], ...) {
      *
      *     }
      * 
-     * We will ignore the 'public static void' for now. Next come the name of the method.
+     * The signature starts with 'public static void', which we will ignore for now. Next come the name of the method.
      * It is very important to choose a name which tells very well to the reader why you created the method (as opposed to, say, what the method is doing inside).
      * For example, let's say we want to create a method that takes a text, and output it in the console with exclamation marks, like if it was yelling.
      * Avoid names like "displayInConsoleAndAddExclamations". The reader will be able to already see that in the code within the method.
-     * Prefer things that express what the intent is, in as plain english as possible. For example "yell".
+     * Prefer names that express what the intent is, in as plain english as possible. For example "yell".
      * 
      * Next come the parameters. Parameter list is given between parentheses. If your method have no parameters, just write '()' after its name.
-     * If you have more than one parameter, separate each of them with a ','.
-     * A parameter is a bit like a variable, except the method is not deciding what the value is.
-     * It will instead _receive_ the value from the rest of the program. So it does not know what the value is, and this is ok.
+     * If you have more than one parameter, separate each of them with ','.
+     * A parameter is a bit like a variable for the method, except it's not the method who is deciding what the value is.
+     * The method will instead _receive_ the value from the rest of the program. So it does not know what the value is, and this is ok.
      * It can still use that value like a normal variable. In our example, the yelling method will need to know which text to yell.
      * So the type will be text, or 'String' in Java.
      * And the name could be something like 'textToYell' so it is easy to understand what's the purpose of this parameter.
@@ -116,20 +116,20 @@ public class AboutMethods {
     }
 
     /**
-     * Create a method which has a parameter for an integer number, and returns the square of that number.
+     * Write a method which has a parameter for an integer number, and returns the square of that number.
      * 
      * ---------   TIPS --------------
      * 
-     * Up to now, methods were only "doing stuff" but were not communicating anything to the rest of the program.
+     * Up to now, methods were only "doing stuff", like displaying text to the console. But they were not communicating anything to the rest of the program.
      * A very useful thing in programmation is when methods can not only receive information _from_ the rest of the program (via its parameters) but also give back information _to_ the rest of the program.
-     * To give back information, the method can return one, and only one value. Up to now, the methods we saw started with:
+     * To give back information, the method can return one, and only one value, called 'the return value'. Up to now, the methods we saw started with:
      * 
      *     public static void [name of the method]()
      *                     ^
      *                 the type of return
      * 
      * 'void' meant that our methods did not return anything.
-     * To make a method return something, we must tell Java what type of information we want the method to return.
+     * To make a method return something, we must tell Java what type of value we want the method to return.
      * For example, let's say we want to make a method divide an integer number per 2:
      * 
      *     public static int half(int number) { ... }
@@ -142,6 +142,8 @@ public class AboutMethods {
      *     public static int half(int number) {
      *         return number / 2;
      *     }
+     *                     ^
+     *            An integer expression
      * 
      * Finally, how do we benefit from this method? We can simply call it somewhere else, as any other method. For example:
      * 
@@ -169,7 +171,7 @@ public class AboutMethods {
 
     
     /**
-     * Create a method named 'opposite' which has a parameter for an integer number, and returns the opposite of that number.
+     * Write a method named 'opposite' which has a parameter for an integer number, and returns the opposite of that number.
      * 
      * ---------   TIPS --------------
      * 
@@ -185,7 +187,7 @@ public class AboutMethods {
 
 
     /**
-     * Create a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animals.
+     * Write a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animals.
      * There are 3 int parameters: chickenCount, pigCount, cowCount.
      * 
      * -------------------------------

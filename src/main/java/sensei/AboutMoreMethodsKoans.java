@@ -1,19 +1,20 @@
 package sensei;
 
-import engine.Koan;
+import static engine.Assertions.assertNextStdOutLineEquals;
+import static engine.Assertions.assertNoMoreLineInStdOut;
+import static engine.Assertions.assertReturnValueEquals;
+import static engine.Factories.global;
+import static engine.Factories.localClass;
 
 import java.util.List;
 
-import koans.english.AboutMoreMethods;
-
-import static engine.Assertions.*;
+import engine.Koan;
 import engine.Local;
-import static engine.Factories.*;
 
 public class AboutMoreMethodsKoans {
     private static final Local<Class<?>> CLASS =
-        localClass(AboutMoreMethods.class)
-        .fr(AboutMoreMethods.class); // TODO
+        localClass(koans.english.AboutMoreMethods.class)
+        .fr(koans.french.AboutMoreMethods.class); // TODO
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "abs", int.class)

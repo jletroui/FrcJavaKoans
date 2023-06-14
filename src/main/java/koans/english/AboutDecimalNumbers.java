@@ -4,7 +4,7 @@ public class AboutDecimalNumbers {
     /**
      * Write a method named 'toCm' which has a parameter for a number of inches, and returns the conversion in centimeters.
      * 
-     * ---------   TIPS --------------
+     * ---------   TIPS  --------------
      * 
      * This time, the parameter cannot be an integer, because we want to be able to convert fractions of inches as well.
      * 
@@ -48,9 +48,9 @@ public class AboutDecimalNumbers {
 
 
      /**
-     * Write a method name 'wheelCircumference' which computes the circumference of a robot wheel given the wheel's radius.
+     * Write a method named 'wheelCircumference' which computes the circumference of a robot wheel given the wheel's radius.
      * 
-     * ---------   TIPS --------------
+     * ---------   TIPS  --------------
      * 
      * Use the value 3.14 for pi.
      * 
@@ -64,31 +64,34 @@ public class AboutDecimalNumbers {
 
 
     /**
-     * Write a method named 'wheelRotations' which computes the number of rotations the weel is turning given:
-     * - The gear ratio of the gearbox.
-     *   For example, if the motor has to turn 5 rotations to make the wheel turn 1 rotation, the ratio is 1/5 = 0.2.
-     * - The number of rotations of the motor.
+     * Write a method named 'wheelRotations' which computes the number of rotations of the weel given the number of rotations of the motor and the gear ratio.
+     * 
+     * ---------   TIPS  --------------
+     * 
+     * The gear ratio is how many rotations the wheel is turning when the motor rotate 1 turn.
+     * For example, if the motor has to turn 5 rotations to make the wheel turn 1 rotation, the ratio is 1/5 = 0.2.
      * 
      * -------------------------------
      * 
      * Expected result:
      * 
-     * wheelRotations(1/5, 2.0) should return 0.4
+     * wheelRotations(2.0, 0.2) should return 0.4
      * 
      */
 
 
     /**
      * Use the previous 2 methods in a new one named 'toDistance' which computes the distance the wheel traveled given:
+     * 
+     * - The number of rotations of the motor.
      * - The gear ratio of the gearbox.
      * - The wheel radius.
-     * - The number of rotations of the motor.
      * 
      * -------------------------------
      * 
      * Expected result:
      * 
-     * toDistance(1/5, 2.0, 10.0) should return 4.0
+     * toDistance(10.0, 0.2, 2.0) should return 25.12
      * 
      */
 

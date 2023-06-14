@@ -2,115 +2,117 @@ package koans.french;
 
 public class AboutConditions {
     /**
-     * Create a method named 'sign' which has a parameter for an integer number, and returns a text:
+     * Écrire une méthode 'sign' qui a un entier en paramètre, et retourne du texte:
      * 
-     * - if the number is greater or equal than zero, returns the text "positive"
-     * - if the number is lesser than zero, returns the text "negative"
+     * - si le nombre est plus grand que ou égal à 0, retourne le texte "positif"
+     * - sinon retourne le texte "négatif"
      * 
      * ---------   TIPS --------------
      * 
-     * You can execute code depending on a condition. Conditions between 2 numbers can be expressed this way:
+     * Tu peux exécuter du code sélectivement en fonction d'une condition. Une condition entre 2 nombre peut être exprimée ainsi:
      * 
      *     4 == 4
      *       ^
-     *    equality
+     *    égalité
      * 
      *     4 != 4
      *        ^
-     *    inequality
+     *    inégalité (différent de)
      * 
      *     4 > 3
      *       ^
-     *  greater than
+     *  plus grand que
      * 
      *     4 >= 3
      *       ^
-     * greater than or equal
+     * plus grand que ou égal
      * 
      *     4 < 3
      *       ^
-     *   lesser than
+     *   plus petit que
      * 
      *     4 <= 3
      *       ^
-     *  lesser than or equal
+     *  plus petit que ou égal
      * 
-     * To use a condition in your code, you can use a if / else statement. Ex:
+     * Pour utiliser une condition dans ton code, tu peux utiliser une instruction 'if / else'. Ex:
      * 
      *     if (number > 10) {
-     *         // Code executed only if number is greater than 10
+     *         // Code exécuté seulement si 'number' est plus grand que 10
      *     } else {
-     *         // Code executed only if number is not greater than 10
+     *         // Code exécuté seulement si 'number' n'est pas plus grand que 10
      *     }
      * 
-     * Note: double bars // allow to write a comment until the end of the line. Ex:
+     * Note: les doubles barres obliques '//' permettent d'écrire un commentaire jusqu'à la fin de la ligne. Ex:
      * 
-     *     String text = "Hello"; // Assign the value "Hello" to the variable 'text'.
+     *     String text = "Hello"; // Assigne la valeur "Hello" à la variable 'text'.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * sign(2) should return "positive"
+     * sign(2) devrait retourner "positive"
      * 
      */
 
 
     /**
-     * Create a method named 'signOrZero' which has a parameter for an integer number, and returns a text:
+     * Écrit une méthode 'signOrZero' qui a un entier en paramètre, et retourne du texte:
      * 
-     * - if the number is greater than zero, returns the text "positive"
-     * - if the number is 0, returns the text "zero"
-     * - if the number is lesser than zero, returns the text "negative"
+     * - si le nombre est plus grand que à 0, retourne le texte "positif"
+     * - si le nombre est 0, retourne le text "zéro"
+     * - sinon retourne le texte "négatif"
      * 
      * ---------   TIPS --------------
      * 
-     * To use multiple conditions in your code, you can use a if / else if / else statement. Ex:
+     * Pour enchaîner plusieurs conditions, tu peux utiliser l'instruction 'if / else if / else'. Ex:
      * 
      *     if (number > 10) {
-     *         // Code executed only if number is greater than 10
+     *         // Code exécuté seulement si 'number' est plus grand que 10
      *     } else if (number > 0) {
-     *         // Code executed only if number is greater than 0 but less than 10
+     *         // Code exécuté seulement si 'number' n'est pas plus grand que 10, mais est plus grand que 0
      *     } else {
-     *         // Code executed if number is less or equal to 0
+     *         // Code exécuté seulement si 'number' n'est ni plus grand que 10, ni plus grand que 0
      *     }
+     * 
+     * Note: tu peux avoir un seul 'if' et un seul 'else', mais tu peux avoir plusieurs 'else if' dans une telle instruction.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * signOrZero(2) should return "positive"
-     * signOrZero(0) should return "zero"
+     * signOrZero(2) devrait retourner "positif"
+     * signOrZero(0) devrait retourner "zéro"
      * 
      */
 
 
     /**
-     * Create a method named 'gradeComment' which has a parameter for an integer number representing an exam grade, and returns a text:
+     * Écrit une méthode 'gradeComment' qui a un paramètre entier représentant une note d'examen, et retourne du texte:
      * 
-     * - if the grade is less than 0 or greater than 100, returns the text "You cheat!"
-     * - if the grade is 100, returns the text "Congratulations! You got everything right!"
-     * - if the grade is 0, returns the text "Oops!"
-     * - if the grade is greater than 0 but less than 60, returns the text "You failed!"
-     * - else, returns the text "Congratulations! You pass!"
+     * - si la note est moins que 0 ou plus grande que 100, retourne le texte "Tu triches!"
+     * - si la note est 100, retourne le texte "Bravo, tu as tout bon!"
+     * - si la note est 0, retourne le texte "Ouch!"
+     * - si la note est plus grande que 0, mais moins grande que 60, retourne le texte "Échec!"
+     * - sinon retourne le texte "Bravo, tu passes!"
      * 
      * ---------   TIPS --------------
      * 
-     * You can combine conditions together using the && (AND) and || (OR) operators:
+     * Tu peux combiner plusieurs conditions ensemble en utilisant les opérateurs '&&' (ET) et '||' (OU). Ex:
      * 
      *     if ((4 > 3) && (3 > 4)) {
-     *         // Code here will not be executed
+     *         // Le code ici ne sera jamais exécuté
      *     }
      *     if ((4 > 3) || (3 > 4)) {
-     *         // Code here will be executed
+     *         // Le code ici sera exécuté
      *     }
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * gradeComment(80) should return "Congratulation! You pass!"
-     * gradeComment(0) should return "Oops!"
+     * gradeComment(80) devrait retourner "Bravo, tu passes!"
+     * gradeComment(0) devrait retourner "Ouch!"
      * 
      */    
 }

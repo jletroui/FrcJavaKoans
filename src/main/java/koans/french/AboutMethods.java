@@ -117,7 +117,7 @@ public class AboutMethods {
     }
 
     /**
-     * Écrit une méthode qui a un entier pour paramètre, et retourne le carré de ce nomre.
+     * Écris une méthode qui a un entier pour paramètre, et retourne le carré de ce nomre.
      * 
      * ---------   INDICES   --------------
      * 
@@ -173,7 +173,7 @@ public class AboutMethods {
     }    
 
     /**
-     * Écrit une méthode appelée 'opposite' qui prend un paramètre entier, et retourne l'opposé de cet entier.
+     * Écris une méthode appelée 'opposite' qui prend un paramètre entier, et retourne l'opposé de cet entier.
      * 
      * ---------   INDICES   --------------
      * 
@@ -189,7 +189,7 @@ public class AboutMethods {
 
 
     /**
-     * Écrit une méthode appelée 'legs', qui aide une fermière à compter le nombre de pattes de ses animaux, étant donné le nombre de chaque type d'animaux.
+     * Écris une méthode appelée 'legs', qui aide une fermière à compter le nombre de pattes de ses animaux, étant donné le nombre de chaque type d'animaux.
      * Il y a 3 paramètres: le nombre de poulets, le nombre de cochons, et le nombre de vaches.
      * 
      * -------------------------------

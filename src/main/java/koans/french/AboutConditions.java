@@ -2,12 +2,12 @@ package koans.french;
 
 public class AboutConditions {
     /**
-     * Écrire une méthode 'sign' qui a un entier en paramètre, et retourne du texte:
+     * Écris une méthode 'sign' qui a un entier en paramètre, et retourne du texte:
      * 
      * - si le nombre est plus grand que ou égal à 0, retourne le texte "positif"
      * - sinon retourne le texte "négatif"
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
      * Tu peux exécuter du code sélectivement en fonction d'une condition. Une condition entre 2 nombre peut être exprimée ainsi:
      * 
@@ -57,13 +57,13 @@ public class AboutConditions {
 
 
     /**
-     * Écrit une méthode 'signOrZero' qui a un entier en paramètre, et retourne du texte:
+     * Écris une méthode 'signOrZero' qui a un entier en paramètre, et retourne du texte:
      * 
      * - si le nombre est plus grand que à 0, retourne le texte "positif"
      * - si le nombre est 0, retourne le text "zéro"
      * - sinon retourne le texte "négatif"
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
      * Pour enchaîner plusieurs conditions, tu peux utiliser l'instruction 'if / else if / else'. Ex:
      * 
@@ -88,7 +88,7 @@ public class AboutConditions {
 
 
     /**
-     * Écrit une méthode 'gradeComment' qui a un paramètre entier représentant une note d'examen, et retourne du texte:
+     * Écris une méthode 'gradeComment' qui a un paramètre entier représentant une note d'examen, et retourne du texte:
      * 
      * - si la note est moins que 0 ou plus grande que 100, retourne le texte "Tu triches!"
      * - si la note est 100, retourne le texte "Bravo, tu as tout bon!"
@@ -96,7 +96,7 @@ public class AboutConditions {
      * - si la note est plus grande que 0, mais moins grande que 60, retourne le texte "Échec!"
      * - sinon retourne le texte "Bravo, tu passes!"
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
      * Tu peux combiner plusieurs conditions ensemble en utilisant les opérateurs '&&' (ET) et '||' (OU). Ex:
      * 

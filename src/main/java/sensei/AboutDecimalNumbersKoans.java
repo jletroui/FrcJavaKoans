@@ -71,20 +71,20 @@ public class AboutDecimalNumbersKoans {
                 assertReturnValueEquals(12.56)
             ),
         new Koan(CLASS, "wheelRotations", double.class, double.class)
-            .whenCallingWith(0.0, 1.0)
+            .whenCallingWith(1.0, 0.0)
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCallingWith(0.15, 1.0)
+            .whenCallingWith(1.0, 0.15)
             .then(
                 assertReturnValueEquals(0.15)
             )
-            .whenCallingWith(0.15, 10.0)
+            .whenCallingWith(10.0, 0.15)
             .then(
                 assertReturnValueEquals(1.5)
             ),
         new Koan(CLASS, "toDistance", double.class, double.class, double.class)
-            .whenCallingWith(0.0, 4.0, 1.0)
+            .whenCallingWith(1.0, 0.0, 4.0)
             .then(
                 assertReturnValueEquals(0.0)
             )
@@ -92,15 +92,15 @@ public class AboutDecimalNumbersKoans {
             .then(
                 assertReturnValueEquals(6.28)
             )
-            .whenCallingWith(1.0, 1.0, 10.0)
+            .whenCallingWith(10.0, 1.0, 1.0)
             .then(
                 assertReturnValueEquals(62.8)
             )
-            .whenCallingWith(0.15, 4.0, 1.0)
+            .whenCallingWith(1.0, 0.15, 4.0)
             .then(
                 assertReturnValueEquals(3.768)
             )
-            .whenCallingWith(0.15, 3.0, 10.0)
+            .whenCallingWith(10.0, 0.15, 3.0)
             .then(
                 assertReturnValueEquals(28.26)
             )

@@ -2,93 +2,96 @@ package koans.french;
 
 public class AboutDecimalNumbers {
     /**
-     * Write a method named 'toCm' which has a parameter for a number of inches, and returns the conversion in centimeters.
+     * Écris une méthode 'toCm' avec un paramètre pour un nombre de pouces, et qui retourne la conversion en centimètres.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * This time, the parameter cannot be an integer, because we want to be able to convert fractions of inches as well.
+     * Cette fois, le paramètre ne peut pas être un entier, car nous voulons convertir les fractions de pouces également.
      * 
-     * In Java, decimal numbers are represented with a type named 'double'. Ex:
+     * En Java, les nombres décimaux sont représentés par le type 'double'. Ex:
      * 
      *     double pi = 3.14;
      * 
-     * To convert from inches to centimaters, simply multiply by 2.54.
+     * Pour convertir de pouces vers des centimètres, il faut multiplier par 2.54.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * toCm(2.0) should return 5.08
+     * toCm(2.0) devrait retourner 5.08
      * 
      */
 
 
     /**
-     * Write a method named 'toInches' which does the opposite of the previous one.
+     * Écris une méthode 'toInches' qui fait l'inverse de la méthode précédente.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * toInches(5.08) should return 2.0
+     * toInches(5.08) devrait retourner 2.0
      * 
      */
 
 
     /**
-     * Write a method named 'rectangleArea' which computes the area of a rectangle, given the length of one of its sides.
+     * Écris une méthode 'rectangleArea' qui calcule l'aire d'un rectangle, étant donné la longueur de ses cotés.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * rectangleArea(3.6, 2.0) should return 7.2
+     * rectangleArea(3.6, 2.0) devrait retourner 7.2
      * 
      */
 
 
      /**
-     * Write a method name 'wheelCircumference' which computes the circumference of a robot wheel given the wheel's radius.
+     * Écris une méthode 'wheelCircumference' qui calcule la circonférence d'une roue de robot, étant donné le rayon de la roue.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * Use the value 3.14 for pi.
+     * Utilise la valeur de 3.14 pour pi.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * wheelCircumference(1) should return 6.28
+     * wheelCircumference(1) devrait retourner 6.28
      * 
      */
 
 
     /**
-     * Write a method named 'wheelRotations' which computes the number of rotations the weel is turning given:
-     * - The gear ratio of the gearbox.
-     *   For example, if the motor has to turn 5 rotations to make the wheel turn 1 rotation, the ratio is 1/5 = 0.2.
-     * - The number of rotations of the motor.
+     * Écris une méthode 'wheelRotations' qui calcule le nombres de rotations de roue étant donné le nombre de tours de moteur et le ratio de la boîte de transmission:
+     * 
+     * ---------   INDICES   --------------
+     * 
+     * Le ratio de la boîte de transmission est combien de tours tourne la roue quand le moteur tourne 1 tour.
+     * Exemple: si le moteur doit faire 5 tours pour que la roue fasse exactement 1 tour, le ratio est de 1/5 = 0.2.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * wheelRotations(1/5, 2.0) should return 0.4
+     * wheelRotations(0.2, 2.0) devrait retourner 0.4
      * 
      */
 
 
     /**
-     * Use the previous 2 methods in a new one named 'toDistance' which computes the distance the wheel traveled given:
-     * - The gear ratio of the gearbox.
-     * - The wheel radius.
-     * - The number of rotations of the motor.
+     * Utilise les 2 méthodes précédentes pour écrire une méthode 'toDistance' qui calcule la distance parcourue par les roues d'un robot étant donné:
+     * 
+     * - Le nombre de tours du moteur
+     * - Le ratio de transmission
+     * - Le rayon des roues
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * toDistance(1/5, 2.0, 10.0) should return 4.0
+     * toDistance(10.0, 0.2, 2.0) devrait retourner 25.12
      * 
      */
 

@@ -23,7 +23,7 @@ public class AboutObjectsKoans {
 
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutObjects.class)
-        .fr(koans.french.AboutObjects.class); // TODO
+        .fr(koans.french.AboutObjects.class);
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "toString")

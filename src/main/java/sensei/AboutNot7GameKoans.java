@@ -38,7 +38,7 @@ import engine.ResultAssertion;
 public class AboutNot7GameKoans {
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutNot7Game.class)
-        .fr(koans.french.AboutNot7Game.class); // TODO
+        .fr(koans.french.AboutNot7Game.class);
 
     private static final GameRoundv5Assertions GAME_ROUND_ASSERTIONS = new GameRoundv5Assertions(false);
 

@@ -11,7 +11,7 @@ import engine.Local;
 public class AboutDecimalNumbersKoans {
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutDecimalNumbers.class)
-        .fr(koans.french.AboutDecimalNumbers.class); // TODO
+        .fr(koans.french.AboutDecimalNumbers.class);
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "toCm", double.class)

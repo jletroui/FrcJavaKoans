@@ -14,7 +14,7 @@ import engine.Local;
 public class AboutClassesKoans {
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutClasses.class)
-        .fr(koans.french.AboutClasses.class); // TODO
+        .fr(koans.french.AboutClasses.class);
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "cube", int.class)

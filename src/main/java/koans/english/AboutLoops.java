@@ -4,7 +4,7 @@ public class AboutLoops {
     /**
      * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console times times.
      * 
-     * ---------   TIPS --------------
+     * ---------   TIPS   --------------
      * 
      * To do things multiple time in Java, you can use the 'while' loop.
      * A while loop looks a lot like a if condition, except it will execute its block of code again and again while the condition stays true. Ex:
@@ -82,7 +82,7 @@ public class AboutLoops {
      /**
      * Write a method named 'sevensOrEights' with 1 integer parameter 'n', which displays all multiples of 7 or 8 between 1 and n.
      * 
-     * ---------   TIPS --------------
+     * ---------   TIPS   --------------
      * 
      * Reuse the 'isMultiple' method in the AboutMoreMethods class. To reuse a method in an other class, write the class name, then a '.', before calling the method. Ex:
      * 
@@ -107,7 +107,7 @@ public class AboutLoops {
      /**
      * Write a method 'exponent' which computes the exponent of an integer by an other.
      * 
-     * ---------   TIPS --------------
+     * ---------   TIPS   --------------
      * 
      * Exponent will be noted '^' in comments. Example: 10^3.
      * x^n is x multiplied by itself n times. Ex:
@@ -126,7 +126,7 @@ public class AboutLoops {
      /**
      * Write a method 'exponent2' which do the same as the previous one, except it also handles the case where n is 0.
      * 
-     * ---------   TIPS --------------
+     * ---------   TIPS   --------------
      * 
      * x^0 is always 1. Ex:
      * 
@@ -144,7 +144,7 @@ public class AboutLoops {
      /**
      * Write a method 'factorial' which computes the factorial of an integer.
      * 
-     * ---------   TIPS --------------
+     * ---------   TIPS   --------------
      * 
      * Factorial is noted '!'. Example: 3!.
      * The factorial of a number n is the product of all numbers between 1 and n. Ex:

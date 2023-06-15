@@ -19,7 +19,7 @@ import engine.Local;
 public class AboutConditionsKoans {
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutConditions.class)
-        .fr(koans.french.AboutConditions.class); // TODO
+        .fr(koans.french.AboutConditions.class);
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sign", int.class)

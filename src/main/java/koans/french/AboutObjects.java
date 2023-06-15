@@ -2,177 +2,220 @@ package koans.french;
 
 public class AboutObjects {
     /**
-     * Create a class 'geom.Point' with 2 final private decimal members 'x' and 'y'. The constructor should take 'x' and 'y' as parameters.
+     * Crée une classe 'geom.Point' avec 2 champs décimaux (toujours privés et finaux) 'x' et 'y'. Le constructeur devrait prendre 'x' et 'y' en paramètres.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * Up to now, we only attached methods to the classes themselves. But classes can be much more powerful than that.
+     * Jusqu'à maintenant, nous avons seulement attaché des méthodes aux classes elle-même. Cela permet d'organiser les méthodes dans ton programme.
+     * Mais les classes peuvent être bien plus puissantes que de simples 'répertoires à méthodes'.
      * 
-     * A class can serve as a template for things called objects. Objects are grouping methods and data.
+     * Une classe peut servir de gabarit pour des éléments de code appelés 'objets'. Des objets groupent ensemble des valeurs et des méthodes qui peuvent agir sur ces valeurs.
+     * La classe devient alors un gabarit qui permet de créer plusieurs objets différents, qui ont tous la même structure de méthode et de valeurs.
      * 
-     * For example, we could say we need to represent a Person in the code, such that each person could have a name and an age, and an 'introduce' method.
+     * Par exemple, disons que nous voulons, dans le code, représenter des personnes qui peuvent s'introduire. Un objet personne pourrait donc avoir: un nom, un âge, et une méthode 'introduce'.
      * 
-     * The name and age are kind of variables attached to the object, and can be different from one person to the other. A 'variable' attached to an object is called a 'field'.
+     * Le nom et l'âge sont des sortes de variables attachées à l'objet personne. Les valeurs de ces variables peuvent être différentes d'un objet à l'autre.
+     * Une telle 'variable' est appelée un 'champ de la classe'.
      * 
-     * The 'introduce' method, similarly, is attached to the object. Calling it on 2 different persons can produce a different result if it is using fields.
+     * De la même façon, la méthode 'introduce' est attachée à l'objet. L'appeler sur 2 objets personne différents va produire un résultat différent, puis que la valeur des champs pourront être différentes d'un objet à l'autre.
      * 
-     * You can create an object of a given class by calling a very special method called a constructor. The constructor... constructs an object of the given class.
+     * Tu peux créer un objet d'une classe en appelant une méthode très spéciale appelée 'constructeur'. Le constructeur... construit un objet de la classe.
      * 
-     * The result of a constructor is a value, which type is the class itself.
-     * You call a constructor by using the 'new' keyword, and the name of the class.
-     * Let's see how that goes with a Person class:
+     * Le résultat d'un constructeur est une valeur, dont le type est la classe elle-même.
+     * Tu peux appeler un constructeur en utilisant le mot clef 'new', suivit du nom de la classe.
+     * Par exemple, pour la classe Person:
      * 
-     *     // The constructor of a person takes their name and their age
+     *     // Dans cet exemple, le constructeur de Person prend un nom et et âge
      *     Person julien = new Person("Julien", 44);
-     *     Person stephane = new Person("Stephane", 26);
+     *     Person stephane = new Person("Stéphane", 26);
      * 
-     * Now that we have 2 person objects, we can call their methods. We said in our example persons had an 'introduce' method. Let's call it:
+     * Une fois que nous avons des objets, nous pouvons appeler leurs méthodes. Par exemple, si les objets Person ont une méthode 'introduce':
      * 
      *     julien.introduce();
      * 
-     * Result in the console:
+     * Résultat dans la console:
      * 
-     * Hello, my name is Julien and I am 44
+     * Salut, mon nom est Julien et j'ai 44 ans
      * 
-     * What happens if we call the same method on stephane?
+     * Que se passe-t-il quand nous appelons la même méthode sur l'objet 'stephane'?
      * 
      *     stephane.introduce();
      * 
-     * Result in the console:
+     * Résultat dans la console:
      * 
-     * Hello, my name is Stephane and I am 26
+     * Salut, mon nom est Stéphane et j'ai 26 ans
      * 
-     * A different result! This is because a method attached to an object can access the object's fields, which can be different from one object to the other.
+     * Même méthode, mais un résultat différent! C'est parce que la méthode est appelée sur un object qui accède aux champs de l'objet.
+     * Comme les valeurs des champs sont différents d'un object à l'autre, la méthode produit un résultat différent.
      * 
-     * What happens if we call the method on the class itself?
+     * Qu'arrive-t-il si nous essayons d'appeler la méthode sur la classe elle-même?
      * 
-     *     Person.introduce(); // Error, this is not valid Java
+     *     Person.introduce(); // Erreur, this ce n'est pas du code Java valide
      * 
-     * This is producing an error, because the method is attached to the objects of the Person class, not the class itself.
-     * By default, a method is attached to the objects of the class. If you want to attach a method on the class itself, you have to say it is 'static'.
-     * 'static' means 'attached to the class'.
+     * Cela produit une erreur, car la méthode est attachée aux _objets_ de la classe Person, pas à la classe Person elle-même.
+     * Par défaut, une méthode est attachée aux objets de la classe. Si tu veux attacher une méthode à la classe elle-même, tu dois dire qu'elle est 'static'.
+     * 'static' veut dire 'attaché à la classe'.
      * 
-     * So how do we declare class fields? Like so:
+     * Maintenant, comment on déclare des champs dans une classe? Comme ceci:
      * 
      *     public class Person {
-     *         // Fields go at the beginning of the class.
+     *         // Les champs vont au début de la classe.
      *         private final String name;
      *         private final int age;
      *         
      *         public introduce() {
-     *             // In an object's method, we can use object fields
-     *             System.out.println("Hello, my name is " + name + " and I am " + age);
+     *             // Dans une méthode attachée à l'objet, nous pouvons utiliser les valeurs des champs, comme si c'était de simples variables
+     *             System.out.println("Salut, mon nom est " + name + " et j'ai " + age + " ans");
      *         }
      *     }
      * 
-     * Like variables, fields have a type and a name. Unlike variables, we must specify if they are visible or not by code outside the class.
-     * Although Java allows to have fields visible outside the class, it is a bad code design. So they always should be 'private'.
-     * They also should be 'final', meaning that once their values is assigned in the constructor, they will never change.
+     * Comme les variables, les champs ont un type et un nom. Par contre, nous devons également spécifier s'ils sont visibles en dehors de la classe.
+     * Bien que Java permette d'avoir des champs visibles en dehors de la classe, c'est une mauvaise pratique qui facilite la création de bugs non intentionnels.
+     * Donc, ils devraient tous être privés ('private' en Java).
+     * Les champs devraient aussi être 'final', ce qui signifie que leur valeurs sont assignées une fois pour toute dans le constructeur, et ne changera jamais au cours de la vie d'un objet.
      * 
-     * But what about the constructor? Constructors are special methods.
-     * They don't specify a return type, because the return type of a constructor is always the Class.
-     * And their name is simply the name of the class. Ex:
+     * Et comment déclarer un constructeur? Le constructeur est une méthode un peu spéciale.
+     * D'abord, nous n'avons pas besoin de déclarer un type de retour, puisqu'il retourne toujours un objet du type de la classe.
+     * Et le nom doit être le nom de la classe. Ex:
      * 
      *     public class Person {
-     *         // Fields go at the beginning of the class.
      *         private final String name;
      *         private final int age;
      *         
-     *         // No return type. Name = name of the class.
+     *         // Pas de type de retour. Nom = nom de la class.
      *         public Person(String name, int age) {
-     *             // We set the value of the object's fields in the constructor.
+     *             // Nous pouvons assigner les valeurs des champs de l'objet dans le constructeur.
      *             this.name = name;
      *             this.age = age; 
      *         }
      * 
      *         public introduce() {
-     *             // In an object's method, we can use object fields
      *             System.out.println("Hello, my name is " + name + " and I am " + age);
      *         }
      *     }
      * 
-     * We use the 'this' keyword to differentiate the constructor parameters 'name' and 'age' from the object's fields.
-     * 'this' is a kind of special variable pointing to the current object. So 'this.[name of a field]' refers to the object's field.
+     * Tu peux voir que nous utilisons le mot clef 'this' pour faire la différence entre les champs de l'objets et les paramètres du constructeur, qui ont les même noms.
+     * 'this' est comme un champ spécial qui contient l'objet courant. Donc 'this.[nom d'un champ ou d'une méthode]' réfère à un champ ou une méthode de l'objet courant.
+     * Par défaut, dans une méthode, un nom sans 'this' réfère à un paramètre ou une variable de la méthode.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * we can create a new geom.Point object
+     * nous pouvons créer un nouvel objet geom.Point
      * 
      */
 
 
     /**
-     * Create a method 'toString' in 'geom.Point' which returns a text representation of a Point object as follow:
+     * Écris une méthode 'toString' in 'geom.Point' qui retourne une représentation d'un objet de type Point selon ce gabarit:
      * 
-     * Point([x value], [y value])
+     * Point([valeur de x], [valeur de y])
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * new Point(2.5, 4.3).toString() should return the String "Point(2.5, 4.3)"
+     * new Point(2.5, 4.3).toString() devrait retourner le texte "Point(2.5, 4.3)"
      * 
      */
 
 
     /**
-     * Create a method 'translate' in 'geom.Point' which takes 2 translation coordinates in x and y, and returns a new point object, which is the initial point translated by the given coordinates.
+     * Écris une méthode 'translate' dans 'geom.Point' qui prend 2 coordonnées de translation 'tx' et 'ty', et retourne un nouveau objet Point, qui est le point translaté par les coordonnées tx et ty.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * When we translate by xT and yT a point A of coordinates xA and xB, the resulting point has the coordinates xA+xT and yA+yT.
+     * Quand on translate un point A de coordonnées x et y, le point résultant a les coordonnées x + tx et y + ty.
      * 
-     * You will need to create a new object of type point to return it, so you might need a refresher on how to create objects in the first exercise of this series.
+     * Tu vas avoir besoin de créer un nouvel objet de type Point pour le retourner. Tu auras donc peut-être besoin de te raffraichir la mémoire en regardant les indices du premier exercice de cette série.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * new Point(2.5, 4.3).translate(2, -1) should return a point with coordinates 4.5 and 3.3
+     * new Point(2.5, 4.3).translate(2, -1) devrait retourner un nouveau point avec les coordonnées 4.5 et 3.3
      * 
      */
 
 
     /**
-     * Create a class 'geom.Triangle' with 3 final private Point members 'a', 'b', and 'c'. The constructor should take 'a', 'b', and 'c' as parameters.
+     * Crée une classe 'geom.Triangle' avec 3 champs privés 'a', 'b', et 'c' de type Point. Le constructeur devrait prendre 'a', 'b', et 'c' en paramètres.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * we can create a new geom.Triangle object
+     * nous pouvons créer un nouvel objet geom.Triangle
      * 
      */
 
 
     /**
-     * Using 'Point.toString', write a method 'toString' in 'geom.Triangle' which returns a text representation of a Triangle object as follow:
+     * En utilisant 'Point.toString', écris une méthode 'toString' dans 'geom.Triangle' qui retourne une représentation textuelle d'un objet Triangle suivant ce gabarit:
      * 
-     * Triangle(Point([xA value], [yA value]), Point([xB value], [yB value]), Point([xC value], [yC value]))
+     * Triangle(Point([valeur x de 'a'], [valeur y de 'a']), Point([valeur x de 'b'], [valeur y de 'b']), Point([valeur x de 'c'], [valeur y de 'c']))
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * new Triangle(new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(3.0, 3.0)).toString() should return the String "Triangle(Point(1.0, 1.0), Point(2.0, 2.0), Point(3.0, 3.0))"
+     * new Triangle(new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(3.0, 3.0)).toString() devrait retourner le texte "Triangle(Point(1.0, 1.0), Point(2.0, 2.0), Point(3.0, 3.0))"
      * 
      */
 
 
     /**
-     * Using 'Point.translate', write a method 'translate' in 'geom.Triangle' which takes 2 translation coordinates in x and y, and returns a new triangle object, which is the initial triangle translated by the given coordinates.
+     * En utilisant 'Point.translate', écris une méthode 'translate' dans 'geom.Triangle' qui prend 2 coordonnées de translation 'tx' et 'ty', et retourne un nouvel objet Triangle, qui est le triangle initial, translaté par tx et ty.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * new Triangle(new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(3.0, 3.0)).translate(2.0, -1.0) should return a triangle with:
+     * Le code suivant:
      * 
-     *   - Point a = Point(3.0, 0.0)
-     *   - Point b = Point(4.0, 1.0)
-     *   - Point c = Point(5.0, 2.0)
+     *     Triangle myTriangle = new Triangle(new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(3.0, 3.0)).translate(2.0, -1.0);
+     * 
+     * Devrait résulter en 'myTriangle' étant un objet Triangle avec:
+     * 
+     *   - myTriangle.a qui vaut Point(3.0, 0.0)
+     *   - myTriangle.b qui vaut Point(4.0, 1.0)
+     *   - myTriangle.c qui vaut Point(5.0, 2.0)
      * 
      */
+
+
+
+    /**
+     * Crée une classe 'geom.Circle' avec les champs 'center' (Point), et 'radius' (double). Le constructeur prend 'center' et 'radius' en paramètres.
+     * En utilisant 'Point.toString', écris une méthode 'toString' dans 'geom.Circle' qui retourne une représentation textuelle d'un objet Circle suivant ce gabarit:
+     * 
+     * Circle(Point([valeur x de 'center'], [valeur y de 'center']), [valeur de 'radius'])
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * new Circle(new Point(2.0, 1.0), 3.6).toString() devrait retourner le texte "Circle(Point(2.0, 1.0), 3.6)"
+     * 
+     */
+
+
+    /**
+     * En utilisant 'Point.translate', écris une méthode 'translate' dans 'geom.Circle' qui prend 2 coordonnées de translation 'tx' et 'ty', et retourne un nouvel objet Circle, qui est le cercle initial, translaté par tx et ty.
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * Le code suivant:
+     * 
+     *     Circle myCircle = new Circle(new Point(1.0, 1.0), 3.6).translate(2.0, -1.0);
+     * 
+     * Devrait résulter en 'myCircle' étant un objet Circle avec:
+     * 
+     *   - myCircle.center qui vaut Point(3.0, 0.0)
+     *   - myCircle.radius qui vaut 3.6
+     * 
+     */     
 }

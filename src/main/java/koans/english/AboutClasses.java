@@ -46,7 +46,7 @@ public class AboutClasses {
 
 
     /**
-     * Using utils.MathUtils.cube, create a method 'displayCube' in AboutClasses which displays the cube of a number in the console.
+     * Using utils.MathUtils.cube, create a method 'displayCube' in koans.english.AboutClasses which displays the cube of a number in the console.
      * 
      * ---------   TIPS --------------
      * 
@@ -91,7 +91,7 @@ public class AboutClasses {
 
 
     /**
-     * Using utils.math.OtherMathUtils.max, create a method 'displayMax' in AboutClasses which display the greater of 2 integers.
+     * Using utils.math.OtherMathUtils.max, create a method 'displayMax' in koans.english.AboutClasses which display the greater of 2 integers.
      * 
      * -------------------------------
      * 
@@ -103,11 +103,11 @@ public class AboutClasses {
 
 
     /**
-     * Using the min method created in a previous Koan, create a method 'displayMin' in AboutClasses which display the lesser of 2 integers.
+     * Using the 'min' method created in a previous Koan, create a method 'displayMin' in koans.english.AboutClasses which display the lesser of 2 integers.
      * 
      * ---------   TIPS   --------------
      * 
-     * You do not need to import a class already in the same package as the current class, and can use it directly.
+     * Reminder: you do not need to import a class already in the same package as the current class, and can use it directly.
      * 
      * -------------------------------
      * 

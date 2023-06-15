@@ -14,6 +14,7 @@ public class AboutLoops {
      *         // Cela va prendre 3 exécutions de ce boc de code avant que la condition ne devienne fausse.
      *         // Donc Java va l'exécuter 3 fois, puis va passer au reste du code.
      *         System.out.println("Toujours en train d'exécuter");
+     *         // On peut modifier la valeur d'une variable existente. Nous en profitons ici.
      *         times = times -1;
      *     }
      * 

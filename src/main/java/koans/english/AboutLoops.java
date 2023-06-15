@@ -14,6 +14,7 @@ public class AboutLoops {
      *         // It will take 3 executions of this block of code before the condition becomes false.
      *         // So Java will execute it 3 times, and then move on to the rest of the code.
      *         System.out.println("Still executing");
+     *         // We can modify the value of an existing variable. We take advantage of this capability here.
      *         times = times -1;
      *     }
      * 

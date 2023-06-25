@@ -21,7 +21,7 @@ public class AboutClasses {
      * 
      *     koans.english.AboutClasses
      * 
-     * To create a class, create a file named '[class name].java' in its package folder. You may have to create the folder first.
+     * To create a class, create a file named '[class name].java' in its package folder. You may have to create the folder first if this is the first class of this package.
      * 
      * For example, a 'frc.Robot' class would go in a 'Robot.java' file within the 'src/main/java/frc' folder.
      * 
@@ -46,7 +46,7 @@ public class AboutClasses {
 
 
     /**
-     * Using utils.MathUtils.cube, create a method 'displayCube' in AboutClasses which displays the cube of a number in the console.
+     * Using utils.MathUtils.cube, create a method 'displayCube' in koans.english.AboutClasses which displays the cube of a number in the console.
      * 
      * ---------   TIPS --------------
      * 
@@ -67,6 +67,8 @@ public class AboutClasses {
      *             Robot.tunOnDELs(); // Use an imported class by calling one of its methods
      *         }
      *     }
+     * 
+     * Note: to use a class once it is imported, you do not need to specify its package again. Its name is enough.
      * 
      * -------------------------------
      * 
@@ -89,7 +91,7 @@ public class AboutClasses {
 
 
     /**
-     * Using utils.math.OtherMathUtils.max, create a method 'displayMax' in AboutClasses which display the greater of 2 integers.
+     * Using utils.math.OtherMathUtils.max, create a method 'displayMax' in koans.english.AboutClasses which display the greater of 2 integers.
      * 
      * -------------------------------
      * 
@@ -101,7 +103,11 @@ public class AboutClasses {
 
 
     /**
-     * Using the min method created in a previous Koan, create a method 'displayMin' in AboutClasses which display the lesser of 2 integers.
+     * Using the 'min' method created in a previous Koan, create a method 'displayMin' in koans.english.AboutClasses which display the lesser of 2 integers.
+     * 
+     * ---------   TIPS   --------------
+     * 
+     * Reminder: you do not need to import a class already in the same package as the current class, and can use it directly.
      * 
      * -------------------------------
      * 

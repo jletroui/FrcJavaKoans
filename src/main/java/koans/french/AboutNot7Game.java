@@ -5,338 +5,339 @@ import static engine.Helpers.readLine;
 
 public class AboutNot7Game {
     /**
-     * These koans are a bit special, because they put everything your learnt so far into practice.
+     * Les Koans suivants sont un peu spéciaux, car vous allez mettre en pratique tout ce que vous avez appris.
      * 
-     * You will gradually code everything necessary for a 2 players game called 'Not 7!'.
+     * Vous allez graduellement coder un jeu pour 2 appelé 'Pas 7!'.
      * 
-     * Each player has only one turn. On its turn, the player will throw 2 dice as many times as they wish.
+     * Dans ce jeu, chaque joueur a seulement 1 tour. À son tour, le joueur va lancer 2 dés, le nombre de fois qu'iel le désire.
      * 
-     * However, if at any time the result for one throw is 7, the player loose immediately.
+     * Cependant, si à un quelconque moment, le résultat du lancer est 7, le joueur perd immédiatement.
      * 
-     * Otherwise, when the player decide to pass and stop throwing, their score is the sum of all the dice results so far.
+     * Sinon, quand le joueur décide de passer et d'arrêter de lancer les dés, son score est la somme de tous ses lancers.
      * 
-     * Here is a game example, in the console:
+     * Voici un exemple du jeu, dans la console:
      * 
-     * Player 1, it's your turn!
+     * Joueur 1, c'est votre tour!
      * 
-     * You threw 4 and 5.
-     * Your result so far: 9.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 3 and 1.
-     * Your result so far: 13.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 2 and 6.
-     * Your result so far: 21.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 5 et un 4.
+     * Votre résultat jusqu'à maintenant: 9.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 1 et un 3.
+     * Votre résultat jusqu'à maintenant: 13.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 6 et un 2.
+     * Votre résultat jusqu'à maintenant: 21.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 21!
+     * Bravo, votre score est 21!
      * 
-     * Player 2, it's your turn!
+     * Joueur 2, c'est votre tour!
      * 
-     * You threw 2 and 3.
-     * Your result so far: 5.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 4 and 4.
-     * Your result so far: 13.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 2 and 1.
-     * Your result so far: 16.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 3 and 3.
-     * Your result so far: 22.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 3 et un 2.
+     * Votre résultat jusqu'à maintenant: 5.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 4 et un 4.
+     * Votre résultat jusqu'à maintenant: 13.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 1 et un 2.
+     * Votre résultat jusqu'à maintenant: 16.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 3 et un 3.
+     * Votre résultat jusqu'à maintenant: 22.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 22!
+     * Bravo, votre score est 22!
      * 
-     * Congratulations, player 2 wins!!!
+     * Bravo, le joueur 2 gagne!!!
      * 
      * 
      * 
-     * Here is an other game example, where one unlucky player is throwing a 7:
+     * Voici un autre exemple avec un joueur malchanceux qui tire un 7:
      * 
-     * Player 1, it's your turn!
+     * Joueur 1, c'est votre tour!
      * 
-     * You threw 3 and 2.
-     * Your result so far: 5.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 5 and 6.
-     * Your result so far: 16.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 2 et un 3.
+     * Votre résultat jusqu'à maintenant: 5.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 6 et un 5.
+     * Votre résultat jusqu'à maintenant: 16.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 16!
+     * Bravo, votre score est 16!
      * 
-     * Player 2, it's your turn!
+     * Joueur 2, c'est votre tour!
      * 
-     * You threw 2 and 3.
-     * Your result so far: 5.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 2 and 5.
-     * Oh no, Not 7! You loose!
+     * Vous avez lancé un 3 et un 2.
+     * Votre résultat jusqu'à maintenant: 5.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 5 et un 2.
+     * Oh non, Pas 7! Vous avez perdu!
      * 
-     * Congratulations, player 1 wins!!!
+     * Bravo, le joueur 1 gagne!!!
      */
 
 
     /**
-     * Write a method 'die6()' returning the result of a 6-face die throw as an integer.
+     * Écris une méthode 'die6()' retournant le résultat d'un dé à 6 faces.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * To generate a random number between 0 and 1, use the method random(). Ex:
+     * Pour générer un nombre aléatoire entre 0 et 1, utilise la méthode random(). Ex:
      * 
-     *     double someNumber = random(); // someNumber can be anything between 0 and 1
+     *     double someNumber = random(); // 'someNumber' peut être n'importe quel double entre 0 et 1
      * 
-     * Try to think about what computations would be needed to go from a number between 0 and 1 to a number between 0 and 6.
+     * Essaie de penser à quelle opération arithmétique tu pourrais appliquer pour passer d'un mombre entre 0 et 1 à un nombre entre 0 et 6.
      * 
-     * Now, the result of the computation will be a decimal number, and you will need to round it to the next integer.
-     * For example, if the result of your previous computation is 3.2, you will need to round it to 4. You can do that with:
+     * Une fois trouvé, tu devras arrondire le nombre à l'entier suivant.
+     * Par exemple, si le résultat de l'opération précédente est 3.2, tu vas devoir l'arrondir à 4. Tu peux faire cela avec:
      * 
-     *     double rounded = Math.ceil(3.2) // rounded is 4.0
+     *     double rounded = Math.ceil(3.2) // 'rounded' vaut 4.0
      * 
-     * Finally, you will need to convert that decimal number to an int. You can do this conversion by specifying the type you want to convert into in parentheses. Ex:
+     * Finalement, ces 2 opérations te donnent un nombre décimal. Il va te falloir le convertir en entier.
+     * Tu peux faire cette conversion en mettant le type qui t'intéresse entre parenthèses devant une expression. Ex:
      * 
-     *     int roundedAsInt = (int)4.0; // from double to int
-     * 
-     * -------------------------------
-     * 
-     * Expected result:
-     * 
-     * die6() should return an int between 1 and 6 randomly
-     * 
-     */
-
-
-    /**
-     * Write a method 'askQuestion(String questionText)' asking a question to the user, and returns a boolean stating if the user answered 'y'.
+     *     int roundedAsInt = (int)4.0; // converti un 'double' représentant un entier en un 'int'
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * askQuestion("Do you want to continue [y/n]? ") should return true if the user entered 'y'
+     * die6() devrait retourner un entier entre 1 et 6 au hasard
      * 
      */
 
 
     /**
-     * Use die6() to write a method 'throwDice' throwing 2 dice, displaying the dice results in the console, and returning the sum of the 2 results.
+     * Écris une méthode 'askQuestion(String questionText)' qui pose une question à l'utilisateur, et retourne un booléen indiquant si l'utilisateur a répondu 'o'.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * when the thrown dice results are 2 and 3, throwDice() shoud display 'You threw 2 and 3.' and return 5.
+     * askQuestion("Voulez-vous continuer [o/n]? ") devrait retourner true si l'utilisateur tape 'o'
      * 
      */
 
 
     /**
-     * Use 'throwDice' and 'askQuestion' to write a method 'gameRoundv1' which repeatedly, while the user says 'y':
-     * 
-     * - throw 2 dice
-     * - ask if the user wants to throw the dice again
-     * 
-     * ---------   TIPS --------------
-     * 
-     * Use a loop with a condition on the return value of the askQuestion() method.
-     * You will have to create a boolean variable initialized with 'true' so that during the loop, you record whether the user wants to continue.
+     * Utilise die6() pour écrire une méthode 'throwDice' qui lance 2 dés, affiche le résultat dans la console, et retourne la somme des 2 dés.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * when the thrown dice results are 2 and 3, gameRoundv1() shoud display:
+     * Quand le résultat des dés est 2 et 3, throwDice() devrait afficher 'Vous avez lancé un 3 et un 2.' et retourner 5.
      * 
-     * You threw 2 and 3.
-     * Do you want to throw again [y/n]?
-     * 
-     * If the user answers 'y', then it should go for an other round.
-     * If the user answers 'n', then it should stop.
      */
 
 
     /**
-     * write a method 'gameRoundv2' which does the same as gameRoundv1, but it is also displaying the sum of the results so far.
+     * Utilise 'throwDice' et 'askQuestion' pour écrire une méthode 'gameRoundv1' qui va de façon répétée, tant que l'utilisateur répond 'o':
+     * 
+     * - lancer 2 dés
+     * - demander si l'utilisateur veut continuer à lancer les dés
+     * 
+     * ---------   INDICES   --------------
+     * 
+     * Utilise une boucle avec une condition sur la valeur retournée par la méthode askQuestion().
+     * Tu vas devoir avoir une variable booléenne initialisée avec 'true', de façon à ce que tu puisse y enregistrer ce que l'utilisateur répond à la fin de la boucle.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * when the thrown dice results are 2 and 3, gameRoundv2() shoud display:
+     * Quand le résultat des dés est 2 et 3, gameRoundv1() devrait afficher:
      * 
-     * You threw 2 and 3.
-     * Your result so far: 5.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 3 et un 2.
+     * Voulez-vous continuer à lancer [o/n]?
      * 
-     * If the user answers 'y', then it should go for an other round.
-     * If the user answers 'n', then it should stop.
+     * Si l'utilisateur répond 'o', alors la méthode doit recommencer un nouveau lancé.
+     * Si l'utilisateur répond 'n', alors la méthode devrait arrêter.
      */
 
 
     /**
-     * write a method 'gameRoundv3' which does the same as gameRoundv2, but it is also returning the result once the player choose to stop.
+     * Écris une méthode 'gameRoundv2' qui fait la même chose que gameRoundv1, mais qui affiche également la somme des résultats jusqu'à maintenant.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * when the thrown dice results are 2 and 3, gameRoundv3() shoud display:
+     * Quand le résultat des dés est 2 et 3, gameRoundv2() devrait afficher:
      * 
-     * You threw 2 and 3.
-     * Your result so far: 5.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 3 et un 2.
+     * Votre résultat jusqu'à maintenant: 5.
+     * Voulez-vous continuer à lancer [o/n]?
      * 
-     * If the user answers 'n', then it should stop and return 5.
+     * Si l'utilisateur répond 'o', alors la méthode doit recommencer un nouveau lancé.
+     * Si l'utilisateur répond 'n', alors la méthode devrait arrêter.
+     */
+
+
+    /**
+     * Écris une méthode 'gameRoundv3' qui fait la même chose que gameRoundv2, mais qui retourne aussi le score total une fois que l'utilisateur choisi de s'arrêter.
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * Quand le résultat des dés est 2 et 3, gameRoundv3() devrait afficher:
+     * 
+     * Vous avez lancé un 3 et un 2.
+     * Votre résultat jusqu'à maintenant: 5.
+     * Voulez-vous continuer à lancer [o/n]?
+     * 
+     * Si l'utilisateur répond 'n', alors la méthode devrait arrêter et retourner 5.
      */       
 
 
     /**
-     * write a method 'gameRoundv4' which does the same as gameRoundv3, but it is also stopping if the dice result is 7.
-     * If stopping that way, the return value of gameRoundv4() should be 0.
+     * Écris une méthode 'gameRoundv4' qui fait la même chose que gameRoundv3, mais qui s'arrête également si le résultat du lancer est 7.
+     * Si la méthode s'arrête de cette manière, une ligne vide devrait être affichée à la fin et le résultat retourné devrait être 0.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * when the thrown dice results are 4 and 3, gameRoundv4() shoud return 0 and display:
+     * Quand le résultat des dés est 4 et 3, gameRoundv4() devrait retourner 0 et afficher:
      * 
-     * You threw 4 and 3.
-     * Oh no, Not 7! You loose!
+     * Vous avez lancé un 3 et un 4.
+     * Oh non, Pas 7! Vous avez perdu!
      * 
      */
 
 
     /**
-     * write a method 'gameRoundv5' which does the same as gameRoundv4, but in case of the player stopping before throwing a 7,
-     *   it also display their score between empty lines.
+     * Écris une méthode 'gameRoundv5' qui fait la même chose que gameRoundv4, mais si le joueur s'arrête avant d'avoir fait un 7,
+     *   elle affiche aussi son score entre des lignes vides.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * when the thrown dice results are 4 and 3, gameRoundv5() shoud return 0 and display:
+     * Quand le résultat des dés est 4 et 3, gameRoundv5() devrait retourner 0 et afficher:
      * 
-     * You threw 4 and 3.
-     * Oh no, Not 7! You loose!
+     * Vous avez lancé un 3 et un 4.
+     * Oh non, Pas 7! Vous avez perdu!
      * 
      * 
-     * when the thrown dice results are 4 and 5, and the player answers 'n', gameRoundv5() shoud return 9 and display:
+     * Quand le résultat des dés est 4 et 5, et que le joueur répond 'n', gameRoundv5() devrait retourner 9 et afficher:
      * 
-     * You threw 4 and 5.
-     * Your result so far: 9.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 5 et un 4.
+     * Votre résultat jusqu'à maintenant: 9.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 9!
+     * Bravo, votre score est 9!
      * 
      */
 
 
     /**
-     * Using 'gameRoundv5', write a method 'not7Gamev1' displays which player's round it is, and make this player play their round.
+     * En utilisant 'gameRoundv5', écris une méthode 'not7Gamev1' qui affiche le joueur dont c'est le tour, et fait jouer son tour au joueur.
      * 
      * -------------------------------
      * 
-     * Example of game:
+     * Example de partie:
      * 
-     * Player 1, it's your turn!
+     * Joueur 1, c'est votre tour!
      * 
-     * You threw 4 and 5.
-     * Your result so far: 9.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 3 and 1.
-     * Your result so far: 13.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 2 and 6.
-     * Your result so far: 21.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 5 et un 4.
+     * Votre résultat jusqu'à maintenant: 9.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 1 et un 3.
+     * Votre résultat jusqu'à maintenant: 13.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 6 et un 2.
+     * Votre résultat jusqu'à maintenant: 21.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 21!
+     * Bravo, votre score est 21!
      * 
-     * Player 2, it's your turn!
+     * Joueur 2, c'est votre tour!
      * 
-     * You threw 2 and 3.
-     * Your result so far: 5.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 4 and 4.
-     * Your result so far: 13.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 2 and 1.
-     * Your result so far: 16.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 3 and 3.
-     * Your result so far: 22.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 3 et un 2.
+     * Votre résultat jusqu'à maintenant: 5.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 4 et un 4.
+     * Votre résultat jusqu'à maintenant: 13.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 1 et un 2.
+     * Votre résultat jusqu'à maintenant: 16.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 3 et un 3.
+     * Votre résultat jusqu'à maintenant: 22.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 22!
+     * Bravo, votre score est 22!
      * 
      */
 
 
     /**
-     * Write a method 'not7Gamev2' which does the same as not7Gamev1, but is also displaying who the winner is.
-     * In case of tie, simply display: 'Tie!'.
+     * Écris une méthode 'not7Gamev2' qui fait la même chose que not7Gamev1, mais qui affiche également qui est le gagnant.
+     * En cas d'égalité, elle affiche simplement: 'Égalité!'.
      * 
      * -------------------------------
      * 
-     * Example of game:
+     * Example de partie:
      * 
-     * Player 1, it's your turn!
+     * Joueur 1, c'est votre tour!
      * 
-     * You threw 4 and 5.
-     * Your result so far: 9.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 3 and 1.
-     * Your result so far: 13.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 2 and 6.
-     * Your result so far: 21.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 5 et un 4.
+     * Votre résultat jusqu'à maintenant: 9.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 1 et un 3.
+     * Votre résultat jusqu'à maintenant: 13.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 6 et un 2.
+     * Votre résultat jusqu'à maintenant: 21.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 21!
+     * Bravo, votre score est 21!
      * 
-     * Player 2, it's your turn!
+     * Joueur 2, c'est votre tour!
      * 
-     * You threw 2 and 3.
-     * Your result so far: 5.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 4 and 4.
-     * Your result so far: 13.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 2 and 1.
-     * Your result so far: 16.
-     * Do you want to throw again [y/n]?
-     * y
-     * You threw 3 and 3.
-     * Your result so far: 22.
-     * Do you want to throw again [y/n]?
+     * Vous avez lancé un 3 et un 2.
+     * Votre résultat jusqu'à maintenant: 5.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 4 et un 4.
+     * Votre résultat jusqu'à maintenant: 13.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 1 et un 2.
+     * Votre résultat jusqu'à maintenant: 16.
+     * Voulez-vous continuer à lancer [o/n]?
+     * o
+     * Vous avez lancé un 3 et un 3.
+     * Votre résultat jusqu'à maintenant: 22.
+     * Voulez-vous continuer à lancer [o/n]?
      * n
      * 
-     * Well done, your score is 22!
+     * Bravo, votre score est 22!
      * 
-     * Congratulations, player 2 wins!!!
+     * Bravo, le joueur 2 gagne!!!
      * 
      */
  
@@ -344,21 +345,22 @@ public class AboutNot7Game {
     /**
      * BONUS:
      * 
-     * If you made it that far, congratulations! You now know a lot about programming!!!
-     * Before the next Koan though, what about the ability to launch your game so you can play with a friend?
+     * Si tu t'es rendu jusque là, félicitations! Tu connais maintenant les bases de la programmation!!!
+     * Avant le prochain Koan, cependant, que dirais tu d'être capable de lancer ton jeu, afin de pouvoir jouer avec un ami?
      * 
-     * In Java, in order for a program to know what to execute, you have to create a method called 'main' somewhere.
-     * The method must look exactly like that:
+     * En Java, pour qu'un programme sache quoi exécuter, tu as besoin de créer une méthode spéciale appelée 'main' quelque part.
+     * La signature de la méthode doit être exactement comme celle ci:
      * 
      *     public static void main(String[] args) {
-     *       // The code to execute when the program starts
+     *       // Le code à exécuter lorsque le programme démarre
      *     }
      * 
-     * For example, the Koans are running because the class 'EnglishPathToEnlightment' on which you right-click to start the Koans, contains such a method.
+     * Par exemple, tu as peut-être remarqué que les Koans s'exécutent car la classe 'FrenchPathToEnlightment', sur laquelle tu fais un clic droit, possède une telle méthode.
      * 
-     * So go ahead, and create such a method in this AboutNot7Game class and call your 'not7Gamev2' method in it.
+     * Alors n'hésites pas, et crée une telle méthode ici dans la classe 'AboutNot7Game', et appelle ta méthode 'not7Gamev2' à l'intérieur.
      * 
-     * Then, right click on AboutNot7Game.java in the explorer and choose 'Run Java'. Your game is running for real!
+     * Puis, pour démarrer ton jeu, fais simplement un clic droit sur le fichier src\main\java\koans\french\AboutNot7Game.java, et choisis 'Run Java'.
+     * Ton jeu s'exécute pour vrai!
      * 
      */
 

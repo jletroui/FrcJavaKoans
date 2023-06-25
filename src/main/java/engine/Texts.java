@@ -74,10 +74,10 @@ public class Texts {
         .fr(Color.green("Ton progrès jusqu'à maintenant: [") + "%s" + Color.green("]") + " %d/%d");
     static Local<String> AND =
         local(", and %s")
-        .fr("et %s");
+        .fr(" et %s");
     static Local<String> EXPECTED_TO_FIND_FIELD_IN_CLASS =
         local("Expected to find a '%s' field in class %s, but did not find any.")
-        .fr("Attendu à trouver un membre '%s' dans la classe %s, mais ne le trouve pas.");
+        .fr("Attendu à trouver un champ '%s' dans la classe %s, mais ne le trouve pas.");
 
     // Assertions
     
@@ -182,12 +182,12 @@ public class Texts {
         .fr("Ok: %s a retourné %d à partir du nombre aléatoire %s.");        
     static Local<String> EXPECTED_FIELD_TO_BE_PRIVATE =
         local("Expected '%s' field in class %s to be private, but it is not.")
-        .fr("Attendu à ce que le membre '%s' dans la classe %s soit privé, mais il ne l'est pas.");
+        .fr("Attendu à ce que le champ '%s' dans la classe %s soit privé, mais il ne l'est pas.");
     static Local<String> EXPECTED_FIELD_TO_BE_FINAL =
         local("Expected '%s' field in class %s to be final, but it is not.")
-        .fr("Attendu à ce que le membre '%s' dans la classe %s soit final, mais il ne l'est pas.");
+        .fr("Attendu à ce que le champ '%s' dans la classe %s soit final, mais il ne l'est pas.");
     static Local<String> EXPECTED_FIELD_TO_BE_OF_TYPE =
         local("Expected '%s' field in class %s to be a '%s', but it is a '%s'.")
-        .fr("Attendu à ce que le membre '%s' dans la classe %s soit un '%s', mais il est un '%s'.");
+        .fr("Attendu à ce que le champ '%s' dans la classe %s soit un '%s', mais il est un '%s'.");
 
 }

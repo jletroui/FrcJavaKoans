@@ -42,10 +42,18 @@ public class AboutConditions {
      *     } else {
      *         // Code executed only if number is not greater than 10
      *     }
-     * 
-     * Note: double bars // allow to write a comment until the end of the line. Ex:
+
+     * Note1: double bars // allow to write a comment until the end of the line. Ex:
      * 
      *     String text = "Hello"; // Assign the value "Hello" to the variable 'text'.
+     * 
+     * Note 2: you can return from multiple places in the method's body. Ex:
+     * 
+     *     if (number > 10) {
+     *         return 1; // Stop the method execution right there and return 1.
+     *     } else {
+     *         return 0; // Stop the method execution right there and return 0.
+     *     }
      * 
      * -------------------------------
      * 

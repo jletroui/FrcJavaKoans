@@ -20,7 +20,7 @@ import engine.Local;
 public class AboutMethodsKoans {
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutMethods.class)
-        .fr(koans.french.AboutMethods.class); // TODO
+        .fr(koans.french.AboutMethods.class);
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "computeAgeIn5And10And20YearsConsole")

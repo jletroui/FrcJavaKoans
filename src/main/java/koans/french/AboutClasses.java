@@ -2,112 +2,119 @@ package koans.french;
 
 public class AboutClasses {
     /**
-     * Create a class 'utils.MathUtils'. In this class, create a method 'cube' which takes an integer and returns it's cube.
+     * Crée une classe 'utils.MathUtils'. Dans cette classe, écris une méthode 'cube' qui prend un entier en paramètre et retourne son cube.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * In Java, all your methods must go into classes. Classes are organizing methods together.
+     * En Java, toutes tes méthodes doivent aller dans des classes. Les classes organisent les méthodes ensemble.
      * 
-     * Classes are themselves organized into folders called 'packages'.
+     * Les classes sont elles-même organisées dans des répertoires appelés 'packages'.
      * 
-     * Packages start at the Java project root folder, generally 'src/main/java'.
-     * For example, the package 'koans' is located in 'src/main/java/koans'.
+     * Les packages commencent à la racine Java du projet, généralement 'src/main/java'.
+     * Par exemple, le package 'koans' est situé dans le répertoire 'src/main/java/koans'.
      * 
-     * Packages can be nested in each other. For example: package 'english' is located within package 'koans'.
-     * Classes in the package 'koans.english' go to 'src/main/java/koans/english'.
+     * Les packages peuvent être imbriqués les uns dans les autres. Par exemple: le package 'french' est situé dans le package 'koans'.
+     * Les classes du package 'koans.french' sont situées dans 'src/main/java/koans/french'.
      * 
-     * Notice: in Java, when we need to locate something within something else, we use the dot notation.
-     * For example, the class 'AboutClasses' within the 'english' package within the 'koans' package is noted:
+     * Note: tu l'as peut être remarqué, en Java, pour localiser quelque chose situé dans quelque chose d'autre, on utilise la notation '.'.
+     * Par exemple, la classe 'AboutClasses' dans le package 'english' dans le package 'koans' est notée:
      * 
      *     koans.english.AboutClasses
      * 
-     * To create a class, create a file named '[class name].java' in its package folder. You may have to create the folder first.
+     * Pour créer une classe, crée un fichier nomé '[nom classe].java' dans le répertoire de son package.
+     * Tu pourrais avoir besoin de créer le répertoire en premier, si c'est la première classe du package.
      * 
-     * For example, a 'frc.Robot' class would go in a 'Robot.java' file within the 'src/main/java/frc' folder.
+     * Par exemple, une classe 'frc.Robot' irait dans un fichier 'Robot.java' dans le répertoire 'src/main/java/frc'.
      * 
-     * In your file, declare your class this way:
+     * Dans le fichier de la classe, on déclare la classe ainsi:
      * 
-     *     // The very first line must declare the Class' package
+     *     // La toute première ligne doit déclarer dans quel package cette classe se situe
      *     package frc;
      * 
      *     public class Robot {
-     *         // Methods of class Robot will go here
+     *         // Les méthodes de la class Robot vont ici
      *     }
      * 
-     * Reminder: The cube of a number is that number multiplied 3 times by itself.
+     * Rappel: le cube d'un nombre est ce nombre multiplié 3 fois par lui-même.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * utils.MathUtils.cube(2) should return 8
+     * utils.MathUtils.cube(2) devrait retourner 8
      * 
      */
 
 
     /**
-     * Using utils.MathUtils.cube, create a method 'displayCube' in AboutClasses which displays the cube of a number in the console.
+     * En utilisant utils.MathUtils.cube, écris une méthode 'displayCube' dans koans.french.AboutClasses qui affiche le cube d'un nombre dans la console.
      * 
-     * ---------   TIPS --------------
+     * ---------   INDICES   --------------
      * 
-     * To call a method in a class, you must first "import" that class with its package name.
-     * Imports go after the package declaration, but before the class. Ex:
+     * Pour appeler une méthode dans une classe qui n'est pas dans le même package, tu dois d'abord "l'importer".
+     * Les imports vont juste après la déclaration du package, mais avant la déclaration de la classe. Ex:
      * 
-     *     // The package of the class you are currently creating
+     *     // Le package de la classe que l'on est en train de déclarer
      *     package mypackage;
      *
-     *     // Import all the classes you will be using in this file here
+     *     // Exemples d'imports de classes que l'on pourrait utiliser dans ce fichier Java
      *     import frc.Robot;
      *     import utils.MathUtils;
      * 
-     * You can then call methods on imported classes:
+     * Une fois importées, tu peux utiliser des méthodes dans ces autres classes:
      * 
      *     public class MyClass {
      *         public static void illuminateRobot() {
-     *             Robot.tunOnDELs(); // Use an imported class by calling one of its methods
+     *             Robot.tunOnDELs(); // Utilisation d'une classe importée en appelant une de ses méthodes
      *         }
      *     }
      * 
+     * Note: pour utiliser une classe une fois qu'elle est importée, pas besoin de répéter le nom de son package. Le nom de la classe suffit.
+     * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * displayCube(3) should display '27' in the console.
+     * displayCube(3) devrait afficher '27' dans la console.
      */
 
 
     /**
-     * Create a class 'utils.math.OtherMathUtils'. In this class, create a method 'max' which takes 2 integers and returns the greatest of them.
+     * Crée une classe 'utils.math.OtherMathUtils'. Dans cette classe, crée une méthode 'max' qui prends 2 entiers, et retourne le plus grand des 2.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * utils.math.OtherMathUtils.max(2, 3) should return 3
-     * 
-     */
-
-
-    /**
-     * Using utils.math.OtherMathUtils.max, create a method 'displayMax' in AboutClasses which display the greater of 2 integers.
-     * 
-     * -------------------------------
-     * 
-     * Expected result:
-     * 
-     * displayMax(5, -1) should display '5' in the console.
+     * utils.math.OtherMathUtils.max(2, 3) devrait retourner 3
      * 
      */
 
 
     /**
-     * Using the min method created in a previous Koan, create a method 'displayMin' in AboutClasses which display the lesser of 2 integers.
+     * En utilisant utils.math.OtherMathUtils.max, écris une méthode 'displayMax' dans koans.french.AboutClasses qui affiche le plus grand de 2 entiers.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * displayMin(5, -1) should display '-1' in the console.
+     * displayMax(5, -1) devrait afficher '5' dans la console.
+     * 
+     */
+
+
+    /**
+     * En utilisant la méthode 'min' créée dans un précédent Koan, écris une méthode 'displayMin' dans koans.french.AboutClasses qui affiche le plus petit de 2 entiers.
+     * 
+     * ---------   INDICES   --------------
+     * 
+     * Rappel: tu n'as pas besoin d'importer les classes qui font partie du même package que ta classe courante. Tu peux utiliser ces classes directement.
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * displayMin(5, -1) devrait afficher '-1' dans la console.
      * 
      */
 

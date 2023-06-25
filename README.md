@@ -1,6 +1,6 @@
 # Java Koans for the FRC
 
-Java Koans for the FRC is an interactive, step by step, course to teach Java to students engaged in the [First Robotics Competition](https://www.firstinspires.org/robotics/frc). It requires no previous experience in programming. It does not intend to teach the entirety of the Java language, but rather most of the fundamentals required to start programming a FRC robot.
+Java Koans for the FRC is an interactive, step by step, course to teach Java to students engaged in the [First Robotics Competition](https://www.firstinspires.org/robotics/frc). It requires no previous experience in programming. It does not intend to teach the entirety of the Java language, but rather most of the fundamentals required to start learning how to program a FRC robot.
 
 ## Getting Started
 
@@ -206,15 +206,15 @@ Congratulations, you completed your first koan! You can now look at the next koa
 
 ## Mentors
 
-Not all teams have access to a mentor with programming knowledge. This course intent to come batteries included, with 100% of the information needed by a motivated student to learn Java from Scratch without any other ressource at hand.
+Not all teams have access to a mentor with programming knowledge. This course intent to come batteries included, with 100% of the information needed by a motivated student to learn Java from Scratch without any other ressource at hand. However, this is best used with assisting mentors.
 
-Knowledgeable mentors can enhance this course by providing students guidance, especially for the content of this README.
+I have found that it learning goes faster if mentors are not giving solutions to students' issues, and instead ask them open questions about what they don't understand about the exercise. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous faster when it will be time to program and debug a robot.
 
-As for the koans themselves, mentors are encouraged to not give solutions to students' issues, and instead ask them open questions about what they don't understand about the koan text. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous when it will be time to program and debug a robot.
-
-That being said, any improvement to the clarity and conciseness of the textual material of this course would be highly appreciated and pull requests are very welcomed!
+If you are interested in contributing, please take a look at [CONTRIBUTING.md](CONTRIBUTING.md) :)
 
 ## Credits
+
+Created by a mentor from the [3550 Robotronix team](https://www.instagram.com/3550robotronix/) (Montréal, Canada).
 
 Heavily inspired by the wonderful [Ruby Koans](https://www.rubykoans.com/).
 

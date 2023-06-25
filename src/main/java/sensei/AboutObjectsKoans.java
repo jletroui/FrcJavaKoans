@@ -23,7 +23,7 @@ public class AboutObjectsKoans {
 
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutObjects.class)
-        .fr(koans.french.AboutObjects.class); // TODO
+        .fr(koans.french.AboutObjects.class);
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "toString")
@@ -100,6 +100,38 @@ public class AboutObjectsKoans {
             .whenCallingWith(1.0, 1.0)
             .then(
                 assertReturnValueStringRepresentationEquals(global("Triangle(Point(3.0, 3.0), Point(1.0, 1.0), Point(3.0, 0.0))"), "geom.Triangle")
+            ),                
+        new Koan(CLASS, "toString")
+            .inClass("geom.Circle", POINT, type(double.class))
+            .beforeCalling(
+                assertFieldIsPrivate("center"),
+                assertFieldIsFinal("center"),
+                assertFieldType("center", POINT),
+                assertFieldIsPrivate("radius"),
+                assertFieldIsFinal("radius"),
+                assertFieldType("radius", type(double.class))
+            )
+            .withObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
+            .whenCalling()
+            .then(
+                assertReturnValueEquals(global("Circle(Point(2.0, 2.0), 1.7)"))
+            ),
+        new Koan(CLASS, "translate", double.class, double.class)
+            .inClass("geom.Circle", POINT, type(double.class))
+            .withObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
+            .whenCallingWith(0.0, 0.0)
+            .then(
+                assertReturnValueStringRepresentationEquals(global("Circle(Point(2.0, 2.0), 1.7)"), "geom.Circle")
+            )
+            .withObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
+            .whenCallingWith(1.0, -2.5)
+            .then(
+                assertReturnValueStringRepresentationEquals(global("Circle(Point(3.0, -0.5), 1.7)"), "geom.Circle")
+            )
+            .withObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
+            .whenCallingWith(1.0, 1.0)
+            .then(
+                assertReturnValueStringRepresentationEquals(global("Circle(Point(3.0, 3.0), 1.7)"), "geom.Circle")
             )                
     );
 }

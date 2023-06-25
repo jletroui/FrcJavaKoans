@@ -22,7 +22,7 @@ import engine.Local;
 public class AboutConsoleAndVariablesKoans {
     private static final Local<Class<?>> CLASS =
         localClass(koans.english.AboutConsoleAndVariables.class)
-        .fr(koans.french.AboutConsoleAndVariables.class); // TODO
+        .fr(koans.french.AboutConsoleAndVariables.class);
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sayHelloInConsole")

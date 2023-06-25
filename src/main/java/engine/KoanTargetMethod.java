@@ -67,7 +67,7 @@ public class KoanTargetMethod {
             final var resolved = params[i].resolve();
             localized[i] = resolved instanceof Local ? new Value(((Local)resolved).get(locale)) : params[i];
         }
-        return params;
+        return localized;
     }
 
     private static String formatParams(Value[] params) {

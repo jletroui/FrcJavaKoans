@@ -43,9 +43,17 @@ public class AboutConditions {
      *         // Code exécuté seulement si 'number' n'est pas plus grand que 10
      *     }
      * 
-     * Note: les doubles barres obliques '//' permettent d'écrire un commentaire jusqu'à la fin de la ligne. Ex:
+     * Note 1: les doubles barres obliques '//' permettent d'écrire un commentaire jusqu'à la fin de la ligne. Ex:
      * 
      *     String text = "Hello"; // Assigne la valeur "Hello" à la variable 'text'.
+     * 
+     * Note 2: tu peux retourner de plusieurs endroits dans le corps d'une méthode. Ex:
+     * 
+     *     if (number > 10) {
+     *         return 1; // Stoppe l'exécution de la méthode ici et retourne la valeur 1.
+     *     } else {
+     *         return 0; // Stoppe l'exécution de la méthode ici et retourne la valeur 0.
+     *     }
      * 
      * -------------------------------
      * 

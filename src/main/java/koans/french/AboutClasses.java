@@ -10,18 +10,19 @@ public class AboutClasses {
      * 
      * Les classes sont elles-même organisées dans des répertoires appelés 'packages'.
      * 
-     * Les pacakges commencent à la racine Java du projet, généralement 'src/main/java'.
+     * Les packages commencent à la racine Java du projet, généralement 'src/main/java'.
      * Par exemple, le package 'koans' est situé dans le répertoire 'src/main/java/koans'.
      * 
      * Les packages peuvent être imbriqués les uns dans les autres. Par exemple: le package 'french' est situé dans le package 'koans'.
-     * Les classes du package 'koans.english' sont situées dans 'src/main/java/koans/english'.
+     * Les classes du package 'koans.french' sont situées dans 'src/main/java/koans/french'.
      * 
      * Note: tu l'as peut être remarqué, en Java, pour localiser quelque chose situé dans quelque chose d'autre, on utilise la notation '.'.
      * Par exemple, la classe 'AboutClasses' dans le package 'english' dans le package 'koans' est notée:
      * 
      *     koans.english.AboutClasses
      * 
-     * Pour créer une classe, crée un fichier nomé '[nom classe].java' dans le répertoire de son package. Tu pourrais avoir besoin de créer le répertoire en premier, si c'est la première classe du package.
+     * Pour créer une classe, crée un fichier nomé '[nom classe].java' dans le répertoire de son package.
+     * Tu pourrais avoir besoin de créer le répertoire en premier, si c'est la première classe du package.
      * 
      * Par exemple, une classe 'frc.Robot' irait dans un fichier 'Robot.java' dans le répertoire 'src/main/java/frc'.
      * 

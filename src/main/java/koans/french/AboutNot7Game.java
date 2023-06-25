@@ -5,7 +5,7 @@ import static engine.Helpers.readLine;
 
 public class AboutNot7Game {
     /**
-     * Les Koan suivants sont un peu spéciaux, car vous allez mettre en pratique tout ce que vous avez appris.
+     * Les Koans suivants sont un peu spéciaux, car vous allez mettre en pratique tout ce que vous avez appris.
      * 
      * Vous allez graduellement coder un jeu pour 2 appelé 'Pas 7!'.
      * 
@@ -150,7 +150,7 @@ public class AboutNot7Game {
      * ---------   INDICES   --------------
      * 
      * Utilise une boucle avec une condition sur la valeur retournée par la méthode askQuestion().
-     * Tu vas devoir avoir une variable booléenne initialisée avec 'true', de façon à ce que tu puisse y enregistrer ce que l'utilisateur répond dans la boucle.
+     * Tu vas devoir avoir une variable booléenne initialisée avec 'true', de façon à ce que tu puisse y enregistrer ce que l'utilisateur répond à la fin de la boucle.
      * 
      * -------------------------------
      * 
@@ -203,7 +203,7 @@ public class AboutNot7Game {
 
     /**
      * Écris une méthode 'gameRoundv4' qui fait la même chose que gameRoundv3, mais qui s'arrête également si le résultat du lancer est 7.
-     * Si la méthode s'arrête de cette manière, le résultat retourné devrait être 0.
+     * Si la méthode s'arrête de cette manière, une ligne vide devrait être affichée à la fin et le résultat retourné devrait être 0.
      * 
      * -------------------------------
      * 
@@ -293,7 +293,7 @@ public class AboutNot7Game {
 
     /**
      * Écris une méthode 'not7Gamev2' qui fait la même chose que not7Gamev1, mais qui affiche également qui est le gagnant.
-     * En cas d'égalité, elle affiche simplement: 'Tie!'.
+     * En cas d'égalité, elle affiche simplement: 'Égalité!'.
      * 
      * -------------------------------
      * 

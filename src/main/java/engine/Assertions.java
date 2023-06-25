@@ -67,7 +67,7 @@ public class Assertions {
                 return false;
             }
             if (!lineContent.get().equals("")) {
-                p.println(Color.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD), lineContent.get());
+                p.println(Color.red(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_INSTEAD), lineContent.get());
                 return false;
             }
 

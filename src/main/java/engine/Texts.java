@@ -74,7 +74,7 @@ public class Texts {
         .fr(Color.green("Ton progrès jusqu'à maintenant: [") + "%s" + Color.green("]") + " %d/%d");
     static Local<String> AND =
         local(", and %s")
-        .fr("et %s");
+        .fr(" et %s");
     static Local<String> EXPECTED_TO_FIND_FIELD_IN_CLASS =
         local("Expected to find a '%s' field in class %s, but did not find any.")
         .fr("Attendu à trouver un champ '%s' dans la classe %s, mais ne le trouve pas.");

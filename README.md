@@ -208,7 +208,7 @@ Congratulations, you completed your first koan! You can now look at the next koa
 
 Not all teams have access to a mentor with programming knowledge. This course intent to come batteries included, with 100% of the information needed by a motivated student to learn Java from Scratch without any other ressource at hand. However, this is best used with assisting mentors.
 
-I have found that it learning goes faster if mentors are not giving solutions to students' issues, and instead ask them open questions about what they don't understand about the exercise. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous faster when it will be time to program and debug a robot.
+We have found that students learn faster if mentors are not giving solutions to students' issues, but instead ask them open questions about what they don't understand about the exercise instructions or displayed error. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous faster when it will be time to program and debug a robot.
 
 If you are interested in contributing, please take a look at [CONTRIBUTING.md](CONTRIBUTING.md) :)
 

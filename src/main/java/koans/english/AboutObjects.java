@@ -11,14 +11,14 @@ public class AboutObjects {
      * 
      * A class can serve as a template for code elements called 'objects'. Objects are grouping together values and methods which can act on those values.
      * 
-     * For example, let's say we want to represent, in the code, persons who can introduce themselves. A person object could therefore have: a name, an age, and an 'introduce' method.
+     * For example, let's say we want to represent, in the code, persons who can introduce themselves. A 'person' object could therefore have: a name, an age, and an 'introduce' method.
      * 
-     * The name and age are kind of variables attached to the person object. Their values can be different from one person to the other.
+     * The name and age are kind of variables attached to the 'person' object. Their values can be different from one 'person' object to the other.
      * A 'variable' attached to an object is called a 'field'.
      * 
-     * The 'introduce' method, similarly, is attached to the object. Calling it on 2 different persons can produce a different result if it is using fields.
+     * The 'introduce' method, similarly, is attached to the object. Calling it on 2 different 'person' objects can produce a different result.
      * 
-     * You can create an object of a given class by calling a very special method called a constructor. The constructor... constructs an object of the given class.
+     * You can create an object out of a given class by calling a very special method called a constructor. The constructor... constructs an object out of the given class.
      * 
      * The result of a constructor is a value, which type is the class itself.
      * You call a constructor by using the 'new' keyword, and the name of the class.
@@ -28,7 +28,7 @@ public class AboutObjects {
      *     Person julien = new Person("Julien", 44);
      *     Person stephane = new Person("Stephane", 26);
      * 
-     * Now that we have 2 person objects, we can call their methods. We said in our example persons had an 'introduce' method. Let's call it:
+     * Now we have 2 'Person' objects, so we can call their methods. We said in our example 'Person' objects had an 'introduce' method. Let's call it:
      * 
      *     julien.introduce();
      * 
@@ -68,11 +68,12 @@ public class AboutObjects {
      *     }
      * 
      * Like variables, fields have a type and a name. Unlike variables, we must specify if they are visible or not by code outside the class.
-     * Although Java allows to have fields visible outside the class, it is a bad code design which often create unintended bugs. So they always should be 'private'.
-     * They also should be 'final', meaning that once their values is assigned in the constructor once and for all, and they will never change during an object's lifetime.
+     * Although Java allows to have fields visible outside the class, it is a bad code design which often create unintended bugs.
+     * So they always should be 'private', meaning we can only use them inside the class.
+     * They also should be 'final', meaning that their values is assigned in the constructor once and for all, and they will never change during an object's lifetime.
      * 
-     * But what about declaring a constructor? Constructors are special methods.
-     * They don't specify a return type, because the return type of a constructor is always the Class.
+     * But what about declaring the constructor itself? Constructors are very special methods.
+     * They don't specify a return type, because the return type of a constructor is always the class.
      * And their name is simply the name of the class. Ex:
      * 
      *     public class Person {
@@ -80,7 +81,9 @@ public class AboutObjects {
      *         private final String name;
      *         private final int age;
      *         
-     *         // No return type. Name = name of the class.
+     *         // The constructor of the class Person
+     *         // Return type of the method: none.
+     *         // Name of the method: same as the name of the class.
      *         public Person(String name, int age) {
      *             // We set the value of the object's fields in the constructor.
      *             this.name = name;
@@ -95,7 +98,7 @@ public class AboutObjects {
      * 
      * We use the 'this' keyword to differentiate the constructor parameters 'name' and 'age' from the object's fields, which have the same names.
      * 'this' is a kind of special variable pointing to the current object. So 'this.[name of a field]' refers to the object's field.
-     * By default, in a method, a name without 'this' refer to a parameter or a variable of the method.
+     * By default, in a method, a name without 'this' refer to a parameter or a variable of the method, not the class field.
      * 
      * -------------------------------
      * 

@@ -61,7 +61,7 @@ public class AboutClasses {
      *     import frc.Robot;
      *     import utils.MathUtils;
      * 
-     * Une fois importées, tu peux utiliser des méthodes dans ces autres classes:
+     * Une fois importées, tu peux utiliser des méthodes de ces autres classes:
      * 
      *     public class MyClass {
      *         public static void illuminateRobot() {

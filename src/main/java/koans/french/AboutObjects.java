@@ -6,20 +6,20 @@ public class AboutObjects {
      * 
      * ---------   INDICES   --------------
      * 
-     * Jusqu'à maintenant, nous avons seulement attaché des méthodes aux classes elle-même. Cela permet d'organiser les méthodes dans ton programme.
+     * Jusqu'à maintenant, nous avons seulement attaché des méthodes aux classes elles-même. Cela permet d'organiser les méthodes dans ton programme.
      * Mais les classes peuvent être bien plus puissantes que de simples 'répertoires à méthodes'.
      * 
      * Une classe peut servir de gabarit pour des éléments de code appelés 'objets'. Des objets groupent ensemble des valeurs et des méthodes qui peuvent agir sur ces valeurs.
      * La classe devient alors un gabarit qui permet de créer plusieurs objets différents, qui ont tous la même structure de méthode et de valeurs.
      * 
-     * Par exemple, disons que nous voulons, dans le code, représenter des personnes qui peuvent s'introduire. Un objet personne pourrait donc avoir: un nom, un âge, et une méthode 'introduce'.
+     * Par exemple, disons que nous voulons, dans le code, représenter des personnes qui peuvent se présenter. Un objet 'personne' pourrait donc avoir: un nom, un âge, et une méthode 'introduce'.
      * 
-     * Le nom et l'âge sont des sortes de variables attachées à l'objet personne. Les valeurs de ces variables peuvent être différentes d'un objet à l'autre.
-     * Une telle 'variable' est appelée un 'champ de la classe'.
+     * Le nom et l'âge sont des sortes de variables attachées à un objet de type 'personne'. Les valeurs de ces variables peuvent être différentes d'un objet 'personne' à l'autre.
+     * Une telle 'variable' est appelée un 'champ de l'objet'.
      * 
-     * De la même façon, la méthode 'introduce' est attachée à l'objet. L'appeler sur 2 objets personne différents va produire un résultat différent, puis que la valeur des champs pourront être différentes d'un objet à l'autre.
+     * De la même façon, la méthode 'introduce' est attachée à l'objet. L'appeler sur 2 objets 'personne' différents va produire un résultat différent, puis que la valeur des champs pourront être différentes d'un objet à l'autre.
      * 
-     * Tu peux créer un objet d'une classe en appelant une méthode très spéciale appelée 'constructeur'. Le constructeur... construit un objet de la classe.
+     * Tu peux créer un objet à partir d'une classe en appelant une méthode très spéciale appelée 'constructeur'. Le constructeur... construit un objet à partir de la classe.
      * 
      * Le résultat d'un constructeur est une valeur, dont le type est la classe elle-même.
      * Tu peux appeler un constructeur en utilisant le mot clef 'new', suivit du nom de la classe.
@@ -71,18 +71,20 @@ public class AboutObjects {
      * 
      * Comme les variables, les champs ont un type et un nom. Par contre, nous devons également spécifier s'ils sont visibles en dehors de la classe.
      * Bien que Java permette d'avoir des champs visibles en dehors de la classe, c'est une mauvaise pratique qui facilite la création de bugs non intentionnels.
-     * Donc, ils devraient tous être privés ('private' en Java).
+     * Donc, ils devraient tous être privés ('private' en Java), c'est à dire utilisable seulement à l'intérieur de la classe.
      * Les champs devraient aussi être 'final', ce qui signifie que leur valeurs sont assignées une fois pour toute dans le constructeur, et ne changera jamais au cours de la vie d'un objet.
      * 
      * Et comment déclarer un constructeur? Le constructeur est une méthode un peu spéciale.
      * D'abord, nous n'avons pas besoin de déclarer un type de retour, puisqu'il retourne toujours un objet du type de la classe.
-     * Et le nom doit être le nom de la classe. Ex:
+     * Et le nom de cette méthode spéciale doit être le nom de la classe. Ex:
      * 
      *     public class Person {
      *         private final String name;
      *         private final int age;
      *         
-     *         // Pas de type de retour. Nom = nom de la class.
+     *         // Le constructeur de la class Person
+     *         // Type de retour de la méthode: aucun.
+     *         // Nom de la méthode: même nom que la classe.
      *         public Person(String name, int age) {
      *             // Nous pouvons assigner les valeurs des champs de l'objet dans le constructeur.
      *             this.name = name;
@@ -96,7 +98,7 @@ public class AboutObjects {
      * 
      * Tu peux voir que nous utilisons le mot clef 'this' pour faire la différence entre les champs de l'objets et les paramètres du constructeur, qui ont les même noms.
      * 'this' est comme un champ spécial qui contient l'objet courant. Donc 'this.[nom d'un champ ou d'une méthode]' réfère à un champ ou une méthode de l'objet courant.
-     * Par défaut, dans une méthode, un nom sans 'this' réfère à un paramètre ou une variable de la méthode.
+     * Par défaut, dans une méthode, un nom sans 'this' réfère à un paramètre ou une variable de la méthode, et non un champ de la classe.
      * 
      * -------------------------------
      * 

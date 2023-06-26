@@ -44,6 +44,11 @@ public class AboutObjectsKoans {
             .whenCalling()
             .then(
                 assertReturnValueEquals(global("Point(2.0, 2.0)"))
+            )
+            .withObjectConstructedWith(-2.0, 4.5)
+            .whenCalling()
+            .then(
+                assertReturnValueEquals(global("Point(-2.0, 4.5)"))
             ),
         new Koan(CLASS, "translate", double.class, double.class)
             .inClass("geom.Point", DOUBLE, DOUBLE)
@@ -83,6 +88,11 @@ public class AboutObjectsKoans {
             .whenCalling()
             .then(
                 assertReturnValueEquals(global("Triangle(Point(2.0, 2.0), Point(0.0, 0.0), Point(2.0, -1.0))"))
+            )
+            .withObjectConstructedWith(value(POINT, 0.0, -2.0), value(POINT, 0.0, 0.0), value(POINT, 2.5, 5.3))
+            .whenCalling()
+            .then(
+                assertReturnValueEquals(global("Triangle(Point(0.0, -2.0), Point(0.0, 0.0), Point(2.5, 5.3))"))
             ),
         new Koan(CLASS, "translate", double.class, double.class)
             .inClass("geom.Triangle", POINT, POINT, POINT)
@@ -115,6 +125,11 @@ public class AboutObjectsKoans {
             .whenCalling()
             .then(
                 assertReturnValueEquals(global("Circle(Point(2.0, 2.0), 1.7)"))
+            )
+            .withObjectConstructedWith(value(POINT, -2.5, 8.2), value(4.5))
+            .whenCalling()
+            .then(
+                assertReturnValueEquals(global("Circle(Point(-2.5, 8.2), 4.5)"))
             ),
         new Koan(CLASS, "translate", double.class, double.class)
             .inClass("geom.Circle", POINT, type(double.class))

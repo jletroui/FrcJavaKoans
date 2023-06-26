@@ -4,7 +4,7 @@
 
 Although there are some resources to teach Java to kids, we did not find any really suited to our needs as FRC mentors.
 
-Note: below, we are often advocating for saving student's attention / motivation / time. We are not implying students could not read a book, or study a blog. It's just that, pragmatically, we would rather spend their attention and time on programming a competition robot than teaching them programming basics. And thus, saving attention, time, and learning energy during the "programming basics" phase of rookie training is like investing for the more crucial parts of the season. This has also real impact on student retention and engagement in our team.
+Note: below, we are often advocating for saving student's attention / motivation / time. We are not implying students could not read a book, or study a blog. It's just that, pragmatically, we would rather spend their attention and time on programming a competition robot than teaching them programming basics. And thus, saving attention, time, and learning energy during the "programming basics" phase of rookie training is like investing for the more crucial parts of the season. We believe it could also have an impact on student retention and engagement in our team.
 
 ### Terseness
 

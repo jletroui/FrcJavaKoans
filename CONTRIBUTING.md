@@ -1,10 +1,16 @@
+# Table of content
+
+- [Design decisions](#design-decisions)
+    - [Rationale for a FRC-specific Java basics curiculum](#rationale-for-a-frc-specific-java-basics-curiculum)
+    - [What the FRC Java Koans is _not_](#what-the-frc-java-koans-is-not)
+    - [Technical aspects](#technical-aspects)
+- [Contributing](#contributing)
+
 # Design decisions
 
 ## Rationale for a FRC-specific Java basics curiculum
 
 Although there are some resources to teach Java to kids, we did not find any really suited to our needs as FRC mentors.
-
-Note: below, we are often advocating for saving student's attention / motivation / time. We are not implying students could not read a book, or study a blog. It's just that, pragmatically, we would rather spend their attention and time on programming a competition robot than teaching them programming basics. And thus, saving attention, time, and learning energy during the "programming basics" phase of rookie training is like investing for the more crucial parts of the season. We believe it could also have an impact on student retention and engagement in our team.
 
 ### Terseness
 
@@ -43,7 +49,7 @@ Despite the obvious need to read and write some level of english in order te pro
 
 We expressed above a concern for saving student's attention / motivation / time. We are not implying students could not read a book, or study a blog. It's just that, pragmatically, we would rather spend their attention and engagement on programming a competition robot than teaching them programming basics. And thus, saving attention, time, and learning energy during the "programming basics" phase of rookies training is like investing for the more crucial parts of the season. We also believe reducing the learning curve could have a positive impact on student retention and engagement in our team.
 
-## What the FRC Java Koans is _not_:
+## What the FRC Java Koans is _not_
 
 - A complete and detailed Java course
 - A robot programming course
@@ -57,10 +63,12 @@ We expressed above a concern for saving student's attention / motivation / time.
 - Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool.
 - Java 11, because as of 2023, this is the version used by default in WPILib's VSCode.
 
-### Compromises
+### Compromises and limitations
 
+- The koans are, for now, not looking at the code within methods. Therefore, some instructions compliance cannot be assessed. For example: 'using method xyz()'.
 - In exercises relying on the standard input, it would have been nice to let students use `System.console().readLine()`. However, since `System.console()` is caching the standard input stream, we did not find a way to switch back and forth a silenced stream and the real one. Hence the static `Helpers.readLine()` method.
 - Similarly, because we need to control the seed, we could not let the students use `Math.random()`. Here again, we provide students a `Helpers.random()` method.
+- Because we decided to have actual random seeds, the 'Not 7!' koans exercices are not catching all the non-compliance all the time. Which means a student could believe they completed a koan, when they did not. They would receive feedback about this koan later, when they would have started another koan.
 
 # Contributing
 

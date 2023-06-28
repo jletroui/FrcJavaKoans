@@ -11,6 +11,7 @@
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Learning to code with the Java Koans for the FRC](#learning-to-code-with-the-java-koans-for-the-frc)
+- [Java cheat sheet](#java-cheat-sheet)
 - [Mentors](#mentors)
 - [Credits](#credits)
 - [License](#license)
@@ -221,6 +222,10 @@ That's a completely different message! This is because we successfully completed
 
 Congratulations, you completed your first koan! You can now look at the next koan in the `src/main/java/koans/english/AboutConsoleAndVariables.java` file and try to figure out how to complete the next koan!
 
+## Java cheat sheet
+
+To help you remember the bits of Java syntax you are learning while completing your koans, you can print a copy of the [Java Cheat Sheet](./JavaCheatSheet.pdf).
+
 ## Mentors
 
 This course intent to come batteries included, with 100% of the information needed by a motivated student to learn Java from Scratch without any other ressource at hand. However, it is best used with assisting mentors.
@@ -250,6 +255,7 @@ Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and D
 - [Aperçu](#aperçu)
 - [Comment démarrer](#comment-démarrer)
 - [Apprendre à programmer avec les Koans Java pour la FRC](#apprendre-à-programmer-avec-les-koans-java-pour-la-frc)
+- [Aide mémoire Java](#aide-mémoire-Java)
 - [Mentors](#mentors-fr)
 - [Attributions et remerciements](#attributions-et-remerciements)
 - [License](#license-fr)
@@ -464,6 +470,10 @@ Et exécutons les koans de nouveau:
 C'est un message différent cette fois! C'est parceque nous avons complété avec succès le premier koan! Le maître nous parle de notre progrès et du prochain koan.
 
 Félicitations! Tu as complété ton premier koan! Tu peux maintenant regarder le koan suivant dans `src/main/java/koans/french/AboutConsoleAndVariables.java` et essayer de trouver comment le compléter.
+
+## Aide mémoire Java
+
+Pour t'aider à retenir les morceaux de syntaxe Java que tu apprends en complétant tes koans, tu peux imprimer une copie de l'[Aide mémoire Java](./AideMémoireJava.pdf).
 
 <a name="mentors-fr"></a>
 ## Mentors

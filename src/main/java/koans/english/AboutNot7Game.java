@@ -5,15 +5,15 @@ import static engine.Helpers.readLine;
 
 public class AboutNot7Game {
     /**
-     * These koans are a bit special, because they put everything your learnt so far into practice.
+     * These koans are a bit special because they put everything you learned so far into practice.
      * 
      * You will gradually code everything necessary for a 2 players game called 'Not 7!'.
      * 
      * Each player has only one turn. On its turn, the player will throw 2 dice as many times as they wish.
      * 
-     * However, if at any time the result for one throw is 7, the player loose immediately.
+     * However, if at any time the result for one throw is 7, the player loses immediately.
      * 
-     * Otherwise, when the player decide to pass and stop throwing, their score is the sum of all the dice results so far.
+     * Otherwise, when the player decides to pass and stop throwing, their score is the sum of all the dice results so far.
      * 
      * Here is a game example, in the console:
      * 
@@ -59,7 +59,7 @@ public class AboutNot7Game {
      * 
      * 
      * 
-     * Here is an other game example, where one unlucky player is throwing a 7:
+     * Here is another game example, where one unlucky player is throwing a 7:
      * 
      * Player 1, it's your turn!
      * 
@@ -81,7 +81,7 @@ public class AboutNot7Game {
      * Do you want to throw again [y/n]?
      * y
      * You threw 2 and 5.
-     * Oh no, Not 7! You loose!
+     * Oh no, Not 7! You lose!
      * 
      * Congratulations, player 1 wins!!!
      */
@@ -135,7 +135,7 @@ public class AboutNot7Game {
      * 
      * Expected result:
      * 
-     * when the thrown dice results are 2 and 3, throwDice() shoud display 'You threw 2 and 3.' and return 5.
+     * When the thrown dice results are 2 and 3, throwDice() should display 'You threw 2 and 3.' and return 5.
      * 
      */
 
@@ -155,12 +155,12 @@ public class AboutNot7Game {
      * 
      * Expected result:
      * 
-     * when the thrown dice results are 2 and 3, gameRoundv1() shoud display:
+     * When the thrown dice results are 2 and 3, gameRoundv1() should display:
      * 
      * You threw 2 and 3.
      * Do you want to throw again [y/n]?
      * 
-     * If the user answers 'y', then it should go for an other throw.
+     * If the user answers 'y', then it should go for another throw.
      * If the user answers 'n', then it should stop.
      */
 
@@ -172,25 +172,25 @@ public class AboutNot7Game {
      * 
      * Expected result:
      * 
-     * when the thrown dice results are 2 and 3, gameRoundv2() shoud display:
+     * When the thrown dice results are 2 and 3, gameRoundv2() should display:
      * 
      * You threw 2 and 3.
      * Your result so far: 5.
      * Do you want to throw again [y/n]?
      * 
-     * If the user answers 'y', then it should go for an other round.
+     * If the user answers 'y', then it should go for another round.
      * If the user answers 'n', then it should stop.
      */
 
 
     /**
-     * write a method 'gameRoundv3' which does the same as gameRoundv2, but it is also returning the result once the player choose to stop.
+     * write a method 'gameRoundv3' which does the same as gameRoundv2, but it is also returning the result once the player chooses to stop.
      * 
      * -------------------------------
      * 
      * Expected result:
      * 
-     * when the thrown dice results are 2 and 3, gameRoundv3() shoud display:
+     * When the thrown dice results are 2 and 3, gameRoundv3() should display:
      * 
      * You threw 2 and 3.
      * Your result so far: 5.
@@ -208,7 +208,7 @@ public class AboutNot7Game {
      * 
      * Expected result:
      * 
-     * when the thrown dice results are 4 and 3, gameRoundv4() shoud return 0 and display:
+     * When the thrown dice results are 4 and 3, gameRoundv4() should return 0 and display:
      * 
      * You threw 4 and 3.
      * Oh no, Not 7! You loose!
@@ -218,19 +218,19 @@ public class AboutNot7Game {
 
     /**
      * write a method 'gameRoundv5' which does the same as gameRoundv4, but in case of the player stopping before throwing a 7,
-     *   it also display their score between empty lines.
+     *   it also displays their score between empty lines.
      * 
      * -------------------------------
      * 
      * Expected result:
      * 
-     * when the thrown dice results are 4 and 3, gameRoundv5() shoud return 0 and display:
+     * When the thrown dice results are 4 and 3, gameRoundv5() should return 0 and display:
      * 
      * You threw 4 and 3.
      * Oh no, Not 7! You loose!
      * 
      * 
-     * when the thrown dice results are 4 and 5, and the player answers 'n', gameRoundv5() shoud return 9 and display:
+     * When the thrown dice results are 4 and 5, and the player answers 'n', gameRoundv5() should return 9 and display:
      * 
      * You threw 4 and 5.
      * Your result so far: 9.
@@ -292,7 +292,7 @@ public class AboutNot7Game {
 
     /**
      * Write a method 'not7Gamev2' which does the same as not7Gamev1, but is also displaying who the winner is.
-     * In case of tie, simply display: 'Tie!'.
+     * In case of a tie, simply display: 'Tie!'.
      * 
      * -------------------------------
      * 
@@ -358,7 +358,7 @@ public class AboutNot7Game {
      * 
      * So go ahead, and create such a method in this AboutNot7Game class and call your 'not7Gamev2' method in it.
      * 
-     * Then, right click on AboutNot7Game.java in the explorer and choose 'Run Java'. Your game is running for real!
+     * Then, right-click on AboutNot7Game.java in the explorer and choose 'Run Java'. Your game is running for real!
      * 
      */
 

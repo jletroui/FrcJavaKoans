@@ -6,8 +6,8 @@ public class AboutLoops {
      * 
      * ---------   TIPS   --------------
      * 
-     * To do things multiple time in Java, you can use the 'while' loop.
-     * A while loop looks a lot like a if condition, except it will execute its block of code again and again while the condition stays true. Ex:
+     * To do things multiple times in Java, you can use the 'while' loop.
+     * A while loop looks a lot like an if condition, except it will execute its block of code again and again while the condition stays true. Ex:
      * 
      *     int times = 3;
      *     while (times > 0) {
@@ -124,7 +124,7 @@ public class AboutLoops {
 
 
      /**
-     * Write a method 'exponent2' which do the same as the previous one, except it also handles the case where n is 0.
+     * Write a method 'exponent2' which does the same as the previous one, except it also handles the case where n is 0.
      * 
      * ---------   TIPS   --------------
      * 

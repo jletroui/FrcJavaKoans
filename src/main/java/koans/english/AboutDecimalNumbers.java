@@ -12,7 +12,7 @@ public class AboutDecimalNumbers {
      * 
      *     double pi = 3.14;
      * 
-     * To convert from inches to centimaters, simply multiply by 2.54.
+     * To convert from inches to centimeters, simply multiply by 2.54.
      * 
      * -------------------------------
      * 
@@ -36,7 +36,7 @@ public class AboutDecimalNumbers {
 
 
     /**
-     * Write a method named 'rectangleArea' which computes the area of a rectangle, given the length of one of its sides.
+     * Write a method named 'rectangleArea' which computes the area of a rectangle, given the length of its sides.
      * 
      * -------------------------------
      * 
@@ -64,12 +64,12 @@ public class AboutDecimalNumbers {
 
 
     /**
-     * Write a method named 'wheelRotations' which computes the number of rotations of the weel given the number of rotations of the motor and the gear ratio.
+     * Write a method named 'wheelRotations' which computes the number of rotations of the wheel given the number of rotations of the motor and the gear ratio.
      * 
      * ---------   TIPS  --------------
      * 
-     * The gear ratio is how many rotations the wheel is turning when the motor rotate 1 turn.
-     * For example, if the motor has to turn 5 rotations to make the wheel turn 1 rotation, the ratio is 1/5 = 0.2.
+     * The gear ratio is how many rotations the wheel is turning when the motor rotates once.
+     * For example, if the motor has to turn 5 rotations to make the wheel rotate once, the ratio is 1/5 = 0.2.
      * 
      * -------------------------------
      * 

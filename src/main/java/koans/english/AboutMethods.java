@@ -33,8 +33,8 @@ public class AboutMethods {
      * 
      * ---------   TIPS --------------
      * 
-     * A method is a new mini program. You already know what a method is, because each exercise you completed made you code the _body_ of a method.
-     * It is time to create your own method, and make it execute yourself.
+     * A method is a new mini-program. You already know what a method is, because each exercise you completed made you code the _body_ of a method.
+     * It is time to create your own method and make it execute yourself.
      * To create a method, place yourself somewhere within the '{' and '}' of the class, but outside the existing methods. Ex:
      *                                                                        <-- wrong place, outside the class
      *     public class AboutMethods {
@@ -48,22 +48,22 @@ public class AboutMethods {
      * 
      * Then, you will have to write the _signature_ of a method, which is telling Java about several things.
      * We will care for now only about 2 things: its _name_ and its _parameters_.
-     * You need to give a name to the method, in the same way you give a name to a variable: so when you want to refer to it, Java knows what you are refering to.
+     * You need to give a name to the method, in the same way you give a name to a variable: so when you want to refer to it, Java knows what you are referring to.
      * The parameters are a way for the part of the program wanting to execute the method to give it some 'configuration'. Let's see how to write a signature:
      * 
      *     public static void [name of the method]([parameter 1 type] [parameter 1 name], [parameter 2 type] [parameter 2 name], ...) {
      *
      *     }
      * 
-     * The signature starts with 'public static void', which we will ignore for now. Next come the name of the method.
-     * It is very important to choose a name which tells very well to the reader why you created the method (as opposed to, say, what the method is doing inside).
-     * For example, let's say we want to create a method that takes a text, and output it in the console with exclamation marks, like if it was yelling.
+     * The signature starts with 'public static void', which we will ignore for now. Next comes the name of the method.
+     * It is very important to choose a name that tells very well to the reader why you created the method (as opposed to, say, what the method is doing inside).
+     * For example, let's say we want to create a method that takes a text and outputs it in the console with exclamation marks as if it was yelling.
      * Avoid names like "displayInConsoleAndAddExclamations". The reader will be able to already see that in the code within the method.
-     * Prefer names that express what the intent is, in as plain english as possible. For example "yell".
+     * Prefer names that express what the intent is, in as plain English as possible. For example "yell".
      * 
-     * Next come the parameters. Parameter list is given between parentheses. If your method have no parameters, just write '()' after its name.
+     * Next come the parameters. The parameter list is given between parentheses. If your method has no parameters, just write '()' after its name.
      * If you have more than one parameter, separate each of them with ','.
-     * A parameter is a bit like a variable for the method, except it's not the method who is deciding what the value is.
+     * A parameter is a bit like a variable for the method, except it's not the method that is deciding what the value is.
      * The method will instead _receive_ the value from the rest of the program. So it does not know what the value is, and this is ok.
      * It can still use that value like a normal variable. In our example, the yelling method will need to know which text to yell.
      * So the type will be text, or 'String' in Java.
@@ -74,7 +74,7 @@ public class AboutMethods {
      *                       name  param type  param name
      *                          v     v           v
      *     public static void yell(String textToYell) {
-     *          System.out.println(textToYell + " !!!");  
+     *          System.out.println(textToYell + "!!!");  
      *     }
      *                                ^
      *       Inside the method, the parameter is used like a regular variable
@@ -116,7 +116,7 @@ public class AboutMethods {
     }
 
     /**
-     * Write a method which has a parameter for an integer number, and returns the square of that number.
+     * Write a method that has a parameter for an integer number, and returns the square of that number.
      * 
      * ---------   TIPS --------------
      * 
@@ -126,11 +126,11 @@ public class AboutMethods {
      * 
      *     public static void [name of the method]()
      *                     ^
-     *                 the type of return
+     *                 The type of return
      * 
      * 'void' meant that our methods did not return anything.
      * To make a method return something, we must tell Java what type of value we want the method to return.
-     * For example, let's say we want to make a method divide an integer number per 2:
+     * For example, let's say we want to make a method divide an integer number by 2:
      * 
      *     public static int half(int number) { ... }
      *                    ^
@@ -149,8 +149,8 @@ public class AboutMethods {
      * 
      *     System.out.println(half(10));
      * 
-     * In this example, Java will call the method, and replace the call by the return value.
-     * In this example, this would be equivalent to write:
+     * In this example, Java will call the method, and replace the call with the return value.
+     * In this example, this would be equivalent to writing:
      * 
      *     System.out.println(5);
      * 
@@ -187,7 +187,7 @@ public class AboutMethods {
 
 
     /**
-     * Write a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animals.
+     * Write a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animal.
      * There are 3 int parameters: chickenCount, pigCount, cowCount.
      * 
      * -------------------------------

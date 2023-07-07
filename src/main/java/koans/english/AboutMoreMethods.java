@@ -26,7 +26,7 @@ public class AboutMoreMethods {
 
 
      /**
-     * Write a 'remainder' method which has 2 integer parameters:
+     * Write a 'remainder' method that has 2 integer parameters:
      * 
      * - first one is a dividend
      * - second one is a divisor
@@ -40,7 +40,7 @@ public class AboutMoreMethods {
      *     int result = 13 / 3; // 'result' value is 4
      * 
      * The remainder is what's left of the dividend which is not divided.
-     * For example, when we divide 13 by 3, 12 is fully divided (in 4), and the reminder is 13 - 12 = 1. 
+     * For example, when we divide 13 by 3, 12 is fully divided (in 4), and the remainder is 13 - 12 = 1. 
      * 
      * -------------------------------
      * 
@@ -52,12 +52,12 @@ public class AboutMoreMethods {
 
 
     /**
-     * Write a 'isEven' method which has an integer parameter, and return true if the number is even, false otherwise.
+     * Write an 'isEven' method which has an integer parameter, and return true if the number is even, false otherwise.
      * Use the previous method 'remainder' to compute the result.
      * 
      * ---------   TIPS --------------
      * 
-     * The type of a value which can be either true or false is called a 'boolean' in Java.
+     * The type of a value that can be either true or false is called a 'boolean' in Java.
      * You already encountered booleans: conditions are using booleans. But you can use booleans outside of conditions. Ex:
      * 
      *     boolean result = 3 > 4; // 'result' value is false
@@ -68,7 +68,7 @@ public class AboutMoreMethods {
      *         // Some code returning a boolean
      *     }
      * 
-     * To compute wether or not a number is even, think about what happens to the remainder when you divide that number by 2.
+     * To compute whether or not a number is even, think about what happens to the remainder when you divide that number by 2.
      * 
      * -------------------------------
      * 
@@ -80,7 +80,7 @@ public class AboutMoreMethods {
 
      
     /**
-     * Write a 'isMultiple' method which has 2 integer parameters and return true if the second one is a multiple of the first one.
+     * Write an 'isMultiple' method which has 2 integer parameters and return true if the second one is a multiple of the first one.
      * Use the method 'remainder' to compute the result.
      * 
      * ---------   TIPS --------------
@@ -97,7 +97,7 @@ public class AboutMoreMethods {
 
      
     /**
-     * Use the previous 'isMultiple' method to code a 'fizzBuzz' method with a integer parameter which displays in the console:
+     * Use the previous 'isMultiple' method to code a 'fizzBuzz' method with an integer parameter which displays in the console:
      * 
      * - "Fizz" if the integer is a multiple of 3
      * - "Buzz" if the integer is a multiple of 5

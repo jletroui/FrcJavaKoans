@@ -24,7 +24,7 @@ Java Koans for the FRC is an interactive, step by step, course to teach Java to 
 
 You will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) first to run the Java Koans for the FRC.
 
-Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v0.3/FrcJavaKoans.zip) of the Java Koans.
+Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.0/FrcJavaKoans.zip) of the Java Koans.
 
 Then, extract it somewhere on your computer. For example, in a `/src` folder within your `Documents` folder.
 
@@ -268,7 +268,7 @@ Les Koans Java pour la FRC forment un cours interactif, pas à pas, pour enseign
 
 Si ce n'est déjà fait, tu vas devoir installer [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) pour pouvoir exécuter les Koans Java pour la FRC.
 
-Une fois installé, télécharge [la dernière version](https://github.com/jletroui/FrcJavaKoans/releases/download/v0.3/FrcJavaKoans.zip) des Koans Java.
+Une fois installé, télécharge [la dernière version](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.0/FrcJavaKoans.zip) des Koans Java.
 
 Ensuite, décompresse les quelque part sur ton ordinateur. Par exemple, dans un répertoire `/src` dans ton répertoire `Documents`.
 

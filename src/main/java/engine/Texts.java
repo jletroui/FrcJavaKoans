@@ -91,7 +91,7 @@ public class Texts {
         local("Ok: displayed an empty line in the console.")
         .fr("Ok: affiché une ligne vide dans la console.");
     static Local<String> EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING =
-        local("Expected to see '%s' in the console%s, but did not saw it!")
+        local("Expected to see '%s' in the console%s, but did not see it!")
         .fr("Attendu à voir '%s' dans la console%s, mais ne l'a pas vu!");
     static Local<String> EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD =
         local("Expected to see '%s' in the console%s, but saw '%s' instead!")

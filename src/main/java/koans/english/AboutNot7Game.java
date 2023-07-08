@@ -211,7 +211,7 @@ public class AboutNot7Game {
      * When the thrown dice results are 4 and 3, gameRoundv4() should return 0 and display:
      * 
      * You threw 4 and 3.
-     * Oh no, Not 7! You loose!
+     * Oh no, Not 7! You lose!
      * 
      */
 
@@ -227,7 +227,7 @@ public class AboutNot7Game {
      * When the thrown dice results are 4 and 3, gameRoundv5() should return 0 and display:
      * 
      * You threw 4 and 3.
-     * Oh no, Not 7! You loose!
+     * Oh no, Not 7! You lose!
      * 
      * 
      * When the thrown dice results are 4 and 5, and the player answers 'n', gameRoundv5() should return 9 and display:

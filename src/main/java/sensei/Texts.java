@@ -77,7 +77,7 @@ public class Texts {
         local("Your result so far: %s.")
         .fr("Votre résultat jusqu'à maintenant: %s.");            
     static final Local<String> OH_NO_NOT7_YOU_LOOSE = 
-        local("Oh no, Not 7! You loose!")
+        local("Oh no, Not 7! You lose!")
         .fr("Oh non, Pas 7! Vous avez perdu!");
     static final Local<String> WELL_DONE_YOUR_SCORE_IS = 
         local("Well done, your score is %s!")

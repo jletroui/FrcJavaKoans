@@ -14,7 +14,7 @@ public class AboutConsoleAndVariables {
      * 
      * Tu peux utiliser la méthode System.out.println([une valeur]) pour afficher une valeur dans la console.
      * 
-     * Tu peux dire à Java qu'une valeur est un texte en l'entourant par des guillements. Ex:
+     * Tu peux dire à Java qu'une valeur est un texte en l'entourant par des guillemets. Ex:
      * 
      *      "Ceci est du texte"
      * 

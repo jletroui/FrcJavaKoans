@@ -12,6 +12,7 @@
 - [Getting Started](#getting-started)
 - [Learning to code with the Java Koans for the FRC](#learning-to-code-with-the-java-koans-for-the-frc)
 - [Java cheat sheet](#java-cheat-sheet)
+- [And then what?](#and-then-what)
 - [Mentors](#mentors)
 - [Credits](#credits)
 - [License](#license)
@@ -226,6 +227,15 @@ Congratulations, you completed your first koan! You can now look at the next koa
 
 To help you remember the bits of Java syntax you are learning while completing your koans, you can print a copy of the [Java Cheat Sheet](./JavaCheatSheet.pdf).
 
+## And then what?
+
+After completing the koans, you are ready to learn how to program an actual robot. Mykah, from [team 9153 - Bearcat Robotics](https://sites.google.com/lincolnschoolscb.org/9153-bearcat-robotics/home), is maintaining a [wonderful compendium of FRC programming resources](https://docs.google.com/document/d/1jcBLAyJ3iTbsYSnWMVWqHaK8uywGTaTjF98eY_xxpl0/edit#heading=h.21bclvyus8vm) from which you can dig for your next steps.
+<br/>
+
+> Experience is the name everyone gives to their mistakes.
+
+*Oscar Wilde*
+
 ## Mentors
 
 This course intent to come batteries included, with 100% of the information needed by a motivated student to learn Java from Scratch without any other ressource at hand. However, it is best used with assisting mentors.
@@ -256,6 +266,7 @@ Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and D
 - [Comment démarrer](#comment-démarrer)
 - [Apprendre à programmer avec les Koans Java pour la FRC](#apprendre-à-programmer-avec-les-koans-java-pour-la-frc)
 - [Aide mémoire Java](#aide-mémoire-Java)
+- [Et ensuite?](#et-ensuite)
 - [Mentors](#mentors-fr)
 - [Attributions et remerciements](#attributions-et-remerciements)
 - [License](#license-fr)
@@ -313,7 +324,7 @@ Ouvre ce fichier dans VS Code:
 
 ![open src/main/java/koans/french/AboutConsoleAndVariables.java](images/open_first_koan_fr.png)
 
-Wow, il y a beaucoup de choses la dedans! Pour comprendre tout ça, nous avons besoin d'apprendre quelques notions de Java.
+Wow, il y a beaucoup de choses là dedans! Pour comprendre tout ça, nous avons besoin d'apprendre quelques notions de Java.
 
 ### Fichiers Java
 
@@ -335,7 +346,7 @@ Ensuite dans le fichier, nous pouvons voir ceci:
 public class AboutConsoleAndVariables {
 ```
 
-Cela instruit Java que nous créons une classe `AboutConsoleAndVariables`. Tous le code Java est organisé en classes. Tu peux voir une classe comme un tiroir ou une étagère qui contient des morceaux de code. Tu peux seulement avoir une classe par fichier Java, et le nom du fichier doit correspondre au nom de la classe, avec l'extension `.java`. C'est pourquoi le fichier que nous regardons présentement est nommé `AboutConsoleAndVariables.java`.
+Cela instruit Java que nous créons une classe `AboutConsoleAndVariables`. Tout le code Java est organisé en classes. Tu peux voir une classe comme un tiroir ou une étagère qui contient des morceaux de code. Tu peux seulement avoir une classe par fichier Java, et le nom du fichier doit correspondre au nom de la classe, avec l'extension `.java`. C'est pourquoi le fichier que nous regardons présentement est nommé `AboutConsoleAndVariables.java`.
 
 Tout le code de la classe est compris entre l'accolade ouvrante `{` et la fermante `}` tout à la fin du fichier.
 
@@ -357,7 +368,7 @@ Ensuite, nous pouvons voir ces lignes, en vert:
      * 
      * Tu peux utiliser la méthode System.out.println([une valeur]) pour afficher une valeur dans la console.
      * 
-     * Tu peux dire à Java qu'une valeur est un texte en l'entourant par des guillements. Ex:
+     * Tu peux dire à Java qu'une valeur est un texte en l'entourant par des guillemets. Ex:
      * 
      *      "Ceci est du texte"
      * 
@@ -388,13 +399,13 @@ Après le but du koan, le maître te donne des indices pour résoudre le koan. P
 
 **Note**: quand tu vois dans les instructions du maître des crochets '[' et ']', ce n'est pas quelque chose à taper dans le programme directement. C'est un espace à remplacer par quelque chose d'autre.
 
-Finalement, la dernière section des instruction te montre quel résultat ton code est supposé produire. Attention! Les petits détails comme la grammaire et les espaces sont importants!
+Finalement, la dernière section des instructions te montre quel résultat ton code est supposé produire. Attention! Les petits détails comme la grammaire et les espaces sont importants!
 
-Lorsque tu essaie de résoudre un koan, prends ton temps pour comprendre toute l'information qui t'es donnée dans les instructions pour te faciliter la tâche.
+Lorsque tu essaies de résoudre un koan, prends ton temps pour comprendre toute l'information qui t'es donnée dans les instructions pour te faciliter la tâche.
 
 ### La méthode du koan
 
-Nous arrivons enfin à la partie du fichier où tu va pouvoir écrire du code en Java! En Java, tous le code qui s'exécute doit faire partie d'un "morceau de code" que l'on appelle une méthode. Une méthode n'est rien d'autre qu'un mini-programme. Voici la méthode du premier koan:
+Nous arrivons enfin à la partie du fichier où tu vas pouvoir écrire du code en Java! En Java, tout le code qui s'exécute doit faire partie d'un "morceau de code" que l'on appelle une méthode. Une méthode n'est rien d'autre qu'un mini-programme. Voici la méthode du premier koan:
 
 ```java
     public static void sayHelloInConsole() {
@@ -402,7 +413,7 @@ Nous arrivons enfin à la partie du fichier où tu va pouvoir écrire du code en
     }
 ```
 
-Nous allons ignorer les mots clefs `public static void` pour l'instant. Ce qui vient après est le nom de la méthode: `sayHelloInConsole`. Toutes les méthodes ont en nom en Java, ce qui permet d'y faire référence plus tard, si tu veux exécuter le code la méthode. Après le nom viennent les parenthèses: `()`. C'est le signe qui dit à Java que `sayHelloInConsole` est une méthode. Et finalment, les fameuses accolades ouvrante `{` et fermante `}`. Tout le code que tu vas écrire devra se trouver entre les 2 accolades d'une méthode, et nulle part ailleurs. Si tu écris du code en dehors, Java va te montrer une erreur.
+Nous allons ignorer les mots clefs `public static void` pour l'instant. Ce qui vient après est le nom de la méthode: `sayHelloInConsole`. Toutes les méthodes ont un nom en Java, ce qui permet d'y faire référence plus tard, si tu veux exécuter le code la méthode. Après le nom viennent les parenthèses: `()`. C'est le signe qui dit à Java que `sayHelloInConsole` est une méthode. Et finalment, les fameuses accolades ouvrante `{` et fermante `}`. Tout le code que tu vas écrire devra se trouver entre les 2 accolades d'une méthode, et nulle part ailleurs. Si tu écris du code en dehors, Java va te montrer une erreur.
 
 Alors essayons de résoudre ce premier koan. Nous devons donc afficher "Hello!" dans la console. Le premier indice nous dit:
 
@@ -410,7 +421,7 @@ Alors essayons de résoudre ce premier koan. Nous devons donc afficher "Hello!" 
      * En Java, toutes les instructions de code sur une ligne doivent se terminer avec un ';'.
 ```
 
-Trés bien, alors tapons tout de suite un ';' à la fin de la ligne pour ne pas oublier:
+Très bien, alors tapons tout de suite un ';' à la fin de la ligne pour ne pas oublier:
 
 ```java
     public static void sayHelloInConsole() {
@@ -424,7 +435,7 @@ Le prochain indice nous dit:
      * Tu peux utiliser la méthode System.out.println([une valeur]) pour afficher une valeur dans la console.
 ```
 
-Nous savons que nous pouvons utiliser cette command, et nous allons devoir remplacer `[some value]` par le texte _Hello!_ plus tard. Tapons cette commande sans sa valeur pour le moment:
+Nous savons que nous pouvons utiliser cette commande, et que nous allons devoir remplacer `[some value]` par le texte _Hello!_ plus tard. Tapons cette commande sans sa valeur pour le moment:
 
 ```java
     public static void sayHelloInConsole() {
@@ -435,7 +446,7 @@ Nous savons que nous pouvons utiliser cette command, et nous allons devoir rempl
 Le dernier indice nous explique comment écrire une valeur textuelle:
 
 ```
-     * Tu peux dire à Java qu'une valeur est un texte en l'entourant par des guillements.
+     * Tu peux dire à Java qu'une valeur est un texte en l'entourant par des guillemets.
 ```
 
 Parfait! Alors plaçons notre valeur dans la commande tapée précédemment:
@@ -454,7 +465,7 @@ Maintenant que nous avons complété notre koan, demandons au maître ce qu'il e
 ![Second result](images/result2_fr.png)
 
 
-Oups, nous avons fait une erreur! Le maître s'attendais à ce que l'on affiche _Hello!_, mais nous avons oublié le point d'exclamation. Corrigeons ceci dans `src/main/java/koans/french/AboutConsoleAndVariables.java`:
+Oups, nous avons fait une erreur! Le maître s'attendait à ce que l'on affiche _Hello!_, mais nous avons oublié le point d'exclamation. Corrigeons ceci dans `src/main/java/koans/french/AboutConsoleAndVariables.java`:
 
 ```java
     public static void sayHelloInConsole() {
@@ -467,7 +478,7 @@ Et exécutons les koans de nouveau:
 ![Third result](images/result3_fr.png)
 
 
-C'est un message différent cette fois! C'est parceque nous avons complété avec succès le premier koan! Le maître nous parle de notre progrès et du prochain koan.
+C'est un message différent cette fois! C'est parce que nous avons complété avec succès le premier koan! Le maître nous parle de notre progrès et du prochain koan.
 
 Félicitations! Tu as complété ton premier koan! Tu peux maintenant regarder le koan suivant dans `src/main/java/koans/french/AboutConsoleAndVariables.java` et essayer de trouver comment le compléter.
 
@@ -475,12 +486,22 @@ Félicitations! Tu as complété ton premier koan! Tu peux maintenant regarder l
 
 Pour t'aider à retenir les morceaux de syntaxe Java que tu apprends en complétant tes koans, tu peux imprimer une copie de l'[Aide mémoire Java](./AideMémoireJava.pdf).
 
+## Et ensuite?
+
+Une fois avoir complété les koans, tu es prêt·e pour apprendre à programmer un vrai robot. Mykah, de [l'équipe 9153 - Bearcat Robotics](https://sites.google.com/lincolnschoolscb.org/9153-bearcat-robotics/home), entretient [un excellent recueil de ressources pour la programmation FRC](https://docs.google.com/document/d/1jcBLAyJ3iTbsYSnWMVWqHaK8uywGTaTjF98eY_xxpl0/edit#heading=h.21bclvyus8vm). Tu pourras sûrement y trouver tes prochains apprentissages.
+
+<br/>
+
+> Expérience est le nom que les gens donnent aux erreurs qu'ils ont faites.
+
+*Oscar Wilde*
+
 <a name="mentors-fr"></a>
 ## Mentors
 
 Ce cours se veut fournir toute l'information nécessaire pour qu'un élève motivé puisse apprendre le Java sans aucune autre ressource à sa disposition. Cependant, l'expérience est bien meilleure avec l'assistance de mentors.
 
-Nous avons trouvé que les élèves passent à travers le cours plus rapidement, et intègrent mieux les notions si le ou la mentor ne lui donne pas de solution à ses problèmes. À la place, le ou la mentor peut garder l'élève dans une posture active en lui demandant ce qu'iel ne comprends pas dans l'énnoncé de l'exercice, ou du message d'erreur, et le / la guider dans des stratégies pour comprendre par iel même. La programmation consiste, la plupart du temps, à trouver quel petit détail nous avons oublié. En aidant les élèves à trouver les ressources pour résoudre les problèmes eux-même, ils deviennent au final autonomes plus rapidement lorsqu'ils débogueront un programme de robot.
+Nous avons trouvé que les élèves passent à travers le cours plus rapidement, et intègrent mieux les notions si le ou la mentor ne lui donne pas de solution à ses problèmes. À la place, le ou la mentor peut garder l'élève dans une posture active en lui demandant ce qu'iel ne comprend pas dans l'énoncé de l'exercice, ou du message d'erreur, et le / la guider dans des stratégies pour comprendre par iel même. La programmation consiste, la plupart du temps, à trouver quel petit détail nous avons oublié. En aidant les élèves à trouver les ressources pour résoudre les problèmes eux-même, ils deviennent au final autonomes plus rapidement lorsqu'ils débogueront un programme de robot.
 
 Si vous êtes intéressés à contribuer à ce cours, rendez-vous sur la page [CONTRIBUTING.md](CONTRIBUTING.md) :)
 

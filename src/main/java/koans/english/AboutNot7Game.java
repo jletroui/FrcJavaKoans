@@ -141,10 +141,10 @@ public class AboutNot7Game {
 
 
     /**
-     * Use 'throwDice' and 'askQuestion' to write a method 'gameRoundv1' which repeatedly, while the user says 'y':
+     * Use 'throwDice' and 'askQuestion' to write a method called 'gameRoundv1' which repeatedly, while the user says 'y':
      * 
-     * - throw 2 dice
-     * - ask if the user wants to throw the dice again
+     * - throws 2 dice
+     * - asks if the user wants to throw the dice again
      * 
      * ---------   TIPS --------------
      * 
@@ -166,7 +166,7 @@ public class AboutNot7Game {
 
 
     /**
-     * write a method 'gameRoundv2' which does the same as gameRoundv1, but it is also displaying the sum of the results so far.
+     * Write a method called 'gameRoundv2' that does the same thing as gameRoundv1, but it also displays the sum of the results so far.
      * 
      * -------------------------------
      * 
@@ -184,7 +184,7 @@ public class AboutNot7Game {
 
 
     /**
-     * write a method 'gameRoundv3' which does the same as gameRoundv2, but it is also returning the result once the player chooses to stop.
+     * Write a method called 'gameRoundv3' that does the same thing as gameRoundv2, but it also returns the result once the player chooses to stop.
      * 
      * -------------------------------
      * 
@@ -201,8 +201,8 @@ public class AboutNot7Game {
 
 
     /**
-     * write a method 'gameRoundv4' which does the same as gameRoundv3, but it is also stopping if the dice result is 7.
-     * If stopping that way, the return value of gameRoundv4() should be 0.
+     * Write a method called 'gameRoundv4' that does the same thing as gameRoundv3, but it stops if the dice result is exactly 7.
+     * If it does stop that way, 'gameRoundv4' should display "Oh no, Not 7! You Lose!", with an empty line after it and return 0.
      * 
      * -------------------------------
      * 
@@ -217,8 +217,8 @@ public class AboutNot7Game {
 
 
     /**
-     * write a method 'gameRoundv5' which does the same as gameRoundv4, but in case of the player stopping before throwing a 7,
-     *   it also displays their score between empty lines.
+     * Write a method called 'gameRoundv5' that does the same thing as gameRoundv4, but in the case of the player stopping before throwing a 7,
+     *   it should display their score between empty lines.
      * 
      * -------------------------------
      * 
@@ -243,7 +243,7 @@ public class AboutNot7Game {
 
 
     /**
-     * Using 'gameRoundv5', write a method 'not7Gamev1' which displays which player's round it is, and make this player play their round.
+     * Using 'gameRoundv5', write a method called 'not7Gamev1' that displays which player's round it is, and makes that player play their round.
      * 
      * -------------------------------
      * 
@@ -291,7 +291,7 @@ public class AboutNot7Game {
 
 
     /**
-     * Write a method 'not7Gamev2' which does the same as not7Gamev1, but is also displaying who the winner is.
+     * Write a method called 'not7Gamev2' that does the same thing as not7Gamev1, but is also displays who the winner is.
      * In case of a tie, simply display: 'Tie!'.
      * 
      * -------------------------------
@@ -344,11 +344,11 @@ public class AboutNot7Game {
     /**
      * BONUS:
      * 
-     * If you made it that far, congratulations! You now know a lot about programming!!!
+     * If you made it this far, congratulations! You now know a lot about programming!!!
      * Before the next Koan though, what about the ability to launch your game so you can play with a friend?
      * 
      * In Java, in order for a program to know what to execute, you have to create a method called 'main' somewhere.
-     * The method must look exactly like that:
+     * The method must look exactly like this:
      * 
      *     public static void main(String[] args) {
      *       // The code to execute when the program starts

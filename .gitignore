@@ -4,3 +4,4 @@ bin
 out
 FrcJavaKoans.zip
 .VSCodeCounter
+.vscode/launch.json

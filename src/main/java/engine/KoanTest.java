@@ -43,6 +43,10 @@ public class KoanTest {
         return new KoanTest(koan, params, constructorParams, assertions, stdInInputs, seed);
     }
 
+    public KoanTest withSeed(long seed) {
+        return new KoanTest(koan, params, constructorParams, assertions, stdInInputs, seed);
+    }
+
     public String[] stdInInputs(Locale locale) {
         return stdInInputs.stream()
             .map(p -> p.get(locale))

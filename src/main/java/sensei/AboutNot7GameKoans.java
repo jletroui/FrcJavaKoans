@@ -47,6 +47,10 @@ public class AboutNot7GameKoans {
             .whenCalling()
             .then(
                 assertReturnValueWithRandomEquals(rand -> die(rand))
+            )
+            .whenCalling()
+            .then(
+                assertReturnValueWithRandomEquals(rand -> die(rand))
             ),
         new Koan(CLASS, "askQuestion", String.class)
             .useConsole()
@@ -66,6 +70,12 @@ public class AboutNot7GameKoans {
             ),
         new Koan(CLASS, "throwDice")
             .useConsole()
+            .whenCalling()
+            .then(
+                assertReturnValueWithRandomEquals(2, expectedDieSumResult(0, 1)),
+                assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(0), expectedDieResult(1)),
+                assertNoMoreLineInStdOut()
+            )
             .whenCalling()
             .then(
                 assertReturnValueWithRandomEquals(2, expectedDieSumResult(0, 1)),
@@ -111,11 +121,24 @@ public class AboutNot7GameKoans {
         new Koan(CLASS, "gameRoundv4")
             .useConsoleAndShowStdinInputs()
             .whenCalling()
+            .withSeed(1010) // 7 directly
+            .then(
+                AboutNot7GameKoans::gameRoundv4Assertions
+            )
+            .whenCalling()
+            .withSeed(1000) // non 7 result and n
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             )
             .whenCalling()
+            .withSeed(1001) // o, o, et 7
+            .withStdInInputs(List.of(Y, Y))
+            .then(
+                AboutNot7GameKoans::gameRoundv4Assertions
+            )
+            .whenCalling()
+            .withSeed(1003) // o, o, n
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
@@ -123,17 +146,34 @@ public class AboutNot7GameKoans {
         new Koan(CLASS, "gameRoundv5")
             .useConsoleAndShowStdinInputs()
             .whenCalling()
+            .withSeed(1010) // 7 directly
             .withStdInInputs(List.of(N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
             )
             .whenCalling()
+            .withSeed(1000) // non 7 result and n
+            .withStdInInputs(List.of(N))
+            .then(
+                new GameRoundv5Assertions(true),
+                assertNoMoreLineInStdOut()
+            )
+            .whenCalling()
+            .withSeed(1003) // o, o, n
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
+            )
+            .whenCalling()
+            .withSeed(1001) // o, o, et 7
+            .withStdInInputs(List.of(Y, Y))
+            .then(
+                new GameRoundv5Assertions(true),
+                assertNoMoreLineInStdOut()
             ),
+        // Since the display of who is playing is not random dependant, not using seeds here.
         new Koan(CLASS, "not7Gamev1")
             .useConsoleAndShowStdinInputs()
             .whenCalling()
@@ -158,9 +198,24 @@ public class AboutNot7GameKoans {
                 GAME_ROUND_ASSERTIONS,
                 assertNoMoreLineInStdOut()
             ),
+        // Since the display of who has won is random dependant, use seeds.
         new Koan(CLASS, "not7Gamev2")
             .useConsoleAndShowStdinInputs()
             .whenCalling()
+            .withSeed(2002) // Player 2 wins
+            .withStdInInputs(List.of(N))
+            .then(
+                assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                assertNextStdOutLineEquals(PLAYER_2_ITS_YOUR_TURN),
+                assertNextStdOutLineIsEmpty(),
+                GAME_ROUND_ASSERTIONS,
+                AboutNot7GameKoans::assertWinnerLine,
+                assertNoMoreLineInStdOut()
+            )
+            .whenCalling()
+            .withSeed(2000) // Player 1 wins
             .withStdInInputs(List.of(N, N))
             .then(
                 assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
@@ -173,7 +228,8 @@ public class AboutNot7GameKoans {
                 assertNoMoreLineInStdOut()
             )
             .whenCalling()
-            .withStdInInputs(List.of(Y, Y, N, Y, Y, N))
+            .withSeed(2005) // Tie
+            .withStdInInputs(List.of(N, N))
             .then(
                 assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
                 assertNextStdOutLineIsEmpty(),

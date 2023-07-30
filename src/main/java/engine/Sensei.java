@@ -37,27 +37,38 @@ public class Sensei {
     }
 
     private boolean tryOffer(Koan koan, int successfulCount) {
+        for(var test: koan.tests) {
+            var success = tryOffer(test, successfulCount);
+            if (!success) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean tryOffer(KoanTest test, int successfulCount) {
         // Execute silently the first time.
         // We do not want to display all the outputs of the successful koans to the student.
         p = Printer.SILENT;
-        var succeeded = offer(koan, successfulCount);
+        var succeeded = offer(test, successfulCount);
 
         if (!succeeded) {
             // If failed, execute verbosely the second time, in order to give feedback to the student.
             p = consolePrinter;
-            return offer(koan, successfulCount);
+            return offer(test, successfulCount);
         }
 
         return true;
     }
 
-    private boolean offer(Koan koan, int successfulCount) {
+    private boolean offer(KoanTest test, int successfulCount) {
+        var koan = test.koan;
         observe(koan);
         encourage();
         
         var success = false;
         try {
-            success = executeCalls(koan);
+            success = executeCall(test);
         } catch (IllegalAccessException iae) {
             // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
             concludeConsole(koan);
@@ -102,17 +113,6 @@ public class Sensei {
         showProgress(successfulCount);
 
         return success;
-    }
-
-    private boolean executeCalls(Koan koan) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
-        for(var test: koan.tests) {
-            final var success = executeCall(test);
-            if (!success) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private boolean executeCall(KoanTest test) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {

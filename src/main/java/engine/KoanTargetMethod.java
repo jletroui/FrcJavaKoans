@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class KoanTargetMethod {
     public final KoanTest koanTest;
-    public final Method method;
+    private final Method method;
     public final Class<?> clasz;
-    public final Object object;
+    private final Object object;
     private final Value[] localizedParams;
     private final Value[] localizedConstructorParams;
 

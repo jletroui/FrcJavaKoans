@@ -193,24 +193,11 @@ public class Koan {
     }
 
     public Koan whenCalling() {
-        return new Koan(
-            koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            onObject,
-            new KoanTest[] { new KoanTest(this, new Object[0], constructorParams) },
-            usesConsole,
-            showStdInInputs,
-            exerciseClassName,
-            exerciseClassPackage,
-            koanAssertions
-        );
+        return whenCallingWith();
     }
 
     public Koan withStdInInputs(List<Localizable<String>> inputs) {
-        return withUpdatedTest(call -> call.withStdInInputs(inputs));
+        return withUpdatedTest(kTest -> kTest.withStdInInputs(inputs));
     }
 
     public Koan withStdInInputs(String... inputs) {
@@ -221,8 +208,12 @@ public class Koan {
         );
     }
 
+    public Koan withSeed(long seed) {
+        return withUpdatedTest(kTest -> kTest.withSeed(seed));
+    }
+
     public Koan then(ResultAssertion... assertions) {
-        return withUpdatedTest(call -> call.withAssertions(assertions));
+        return withUpdatedTest(kTest -> kTest.withAssertions(assertions));
     }
 
     public String koanClassName(Locale locale) {

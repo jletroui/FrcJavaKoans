@@ -11,6 +11,7 @@
 - [Overview](#overview)
 - [Getting Started](#getting-started)
 - [Learning to code with the Java Koans for the FRC](#learning-to-code-with-the-java-koans-for-the-frc)
+- [Using Browser Based IDE](#using-browser-based-ide)
 - [Java cheat sheet](#java-cheat-sheet)
 - [And then what?](#and-then-what)
 - [Mentors](#mentors)
@@ -227,6 +228,15 @@ That's a completely different message! This is because we successfully completed
 
 Congratulations, you completed your first koan! You can now look at the next koan in the `src/main/java/koans/english/AboutConsoleAndVariables.java` file and try to figure out how to complete the next koan!
 
+## Using Browser Based IDE
+This repository is configured for easy use with GitHub Codespaces. GitHub Codespaces provides a cloud-based development environment. It allows you to effortlessly set up and access a consistent development environment directly from your web browser. This is useful when your students only have access to Chromebooks or for other reasons are not able to install and configure VS Code.
+
+To get started with GitHub Codespaces, simply click the "Code" button and select "Create codespace on Master" to create or access your development environment.
+
+![Codespace](images/codespace_button.png)
+
+For more information GitHub Codespaces, including cost, check out [Codespaces Description](https://github.com/features/codespaces)
+
 ## Java cheat sheet
 
 To help you remember the bits of Java syntax you are learning while completing your koans, you can print a copy of the [Java Cheat Sheet](./JavaCheatSheet.pdf).
@@ -269,6 +279,7 @@ Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and D
 - [Aperçu](#aperçu)
 - [Comment démarrer](#comment-démarrer)
 - [Apprendre à programmer avec les Koans Java pour la FRC](#apprendre-à-programmer-avec-les-koans-java-pour-la-frc)
+- [Utilisation d'un IDE basé sur le navigateur](#utilisation_dun_ide_basé_sur_le_navigateur)
 - [Aide mémoire Java](#aide-mémoire-Java)
 - [Et ensuite?](#et-ensuite)
 - [Mentors](#mentors-fr)
@@ -489,6 +500,15 @@ Et exécutons les koans de nouveau:
 C'est un message différent cette fois! C'est parce que nous avons complété avec succès le premier koan! Le maître nous parle de notre progrès et du prochain koan.
 
 Félicitations! Tu as complété ton premier koan! Tu peux maintenant regarder le koan suivant dans `src/main/java/koans/french/AboutConsoleAndVariables.java` et essayer de trouver comment le compléter.
+
+## Utilisation d'un IDE basé sur le navigateur
+Ce dépôt est configuré pour une utilisation aisée avec GitHub Codespaces. GitHub Codespaces fournit un environnement de développement basé sur le cloud. Il vous permet de configurer et d'accéder facilement à un environnement de développement cohérent directement depuis votre navigateur web. Cela est particulièrement utile lorsque vos étudiants n'ont accès qu'à des Chromebooks ou pour d'autres raisons ne peuvent pas installer et configurer Visual Studio Code.
+
+Pour commencer avec GitHub Codespaces, cliquez simplement sur le bouton "Code" et sélectionnez "Créer un espace de code sur Master" pour créer ou accéder à votre environnement de développement.
+
+![Codespace](images/codespace_button.png)
+
+
 
 ## Aide mémoire Java
 

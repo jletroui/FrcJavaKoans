@@ -279,7 +279,7 @@ Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and D
 - [Aperçu](#aperçu)
 - [Comment démarrer](#comment-démarrer)
 - [Apprendre à programmer avec les Koans Java pour la FRC](#apprendre-à-programmer-avec-les-koans-java-pour-la-frc)
-- [Utilisation d'un IDE basé sur le navigateur](#utilisation%20d'un%20IDE%20bas%C3%A9%20sur%20le%20navigateur)
+- [Utilisation d'un IDE basé sur le navigateur](#utilisation-dun-IDE-bas%C3%A9-sur-le-navigateur)
 - [Aide mémoire Java](#aide-mémoire-Java)
 - [Et ensuite?](#et-ensuite)
 - [Mentors](#mentors-fr)

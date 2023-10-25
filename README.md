@@ -9,7 +9,8 @@
 ## Table of content
 
 - [Overview](#overview)
-- [Getting Started](#getting-started)
+- [Getting Started with VS Code](#getting-started-with-vs-code)
+- [Getting Started with GitHub Codespaces](#getting-started-with-github-codespaces)
 - [Learning to code with the Java Koans for the FRC](#learning-to-code-with-the-java-koans-for-the-frc)
 - [Java cheat sheet](#java-cheat-sheet)
 - [And then what?](#and-then-what)
@@ -21,9 +22,10 @@
 
 Java Koans for the FRC is an interactive, step by step, course to teach Java to students engaged in the [First Robotics Competition](https://www.firstinspires.org/robotics/frc). It requires no previous experience in programming. It does not intend to teach the entirety of the Java language, but rather most of the fundamentals required to start learning how to program a FRC robot.
 
-## Getting Started
+## Getting Started with VS Code
+To get started you will need to either install VS Code or use GitHub Codespaces, which is a browser based IDE. If you are unable to install VS Code, because you're on a Chromebook or do not have permissions to install an application, you can skip ahead to [Getting Started with GitHub Codespaces](#getting-started-with-github-codespaces)
 
-You will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) first to run the Java Koans for the FRC.
+To install VS Code, you will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) first to run the Java Koans for the FRC.
 
 Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.0/FrcJavaKoans.zip) of the Java Koans.
 
@@ -43,6 +45,15 @@ And open the folder in which you extracted the koans (for example, `C:\Users\Jan
 Note: VS Code will ask you if you trust the code within the folder. You'll have to answer 'yes' to proceed.
 
 You are ready to go!
+
+## Getting Started with GitHub Codespaces
+GitHub Codespaces provides a cloud-based development environment. It allows you to effortlessly set up and access a consistent development environment directly from your web browser. This is useful when your students only have access to Chromebooks or for other reasons are not able to install and configure VS Code.
+
+To get started with GitHub Codespaces, simply click the "Code" button and select "Create codespace on Master" to create or access your development environment.
+
+![Codespace](images/codespace_button.png)
+
+For more information GitHub Codespaces, including cost, check out [Codespaces Description](https://github.com/features/codespaces)
 
 ## Learning to code with the Java Koans for the FRC
 
@@ -267,8 +278,10 @@ Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and D
 ## Sommaire
 
 - [Aperçu](#aperçu)
-- [Comment démarrer](#comment-démarrer)
+- [Comment commencer avec VS Code](#comment-commencer-avec-vs-code)
+- [Comment commencer avec GitHub Codespaces](#comment-commencer-avec-github-codespaces)
 - [Apprendre à programmer avec les Koans Java pour la FRC](#apprendre-à-programmer-avec-les-koans-java-pour-la-frc)
+- [Utilisation d'un IDE basé sur le navigateur](#utilisation-dun-IDE-bas%C3%A9-sur-le-navigateur)
 - [Aide mémoire Java](#aide-mémoire-Java)
 - [Et ensuite?](#et-ensuite)
 - [Mentors](#mentors-fr)
@@ -279,7 +292,8 @@ Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and D
 
 Les Koans Java pour la FRC forment un cours interactif, pas à pas, pour enseigner le Java à des élèves engagés dans la [Compétition Robotique First](https://www.firstinspires.org/robotics/frc). Il ne requiert aucune expérience préalable en programmation. L'intention n'est pas d'être un cours complet sur Java, mais plutôt d'apprendre juste ce qu'il faut des fondamentaux pour pouvoir commencer à apprendre à programmer un robot FRC avec WPILib.
 
-## Comment démarrer
+## Comment commencer avec VS Code
+Pour commencer, vous devrez soit installer VS Code, soit utiliser GitHub Codespaces, qui est un environnement de développement intégré basé sur navigateur. Si vous ne pouvez pas installer VS Code, par exemple si vous utilisez un Chromebook ou si vous n'avez pas les autorisations nécessaires pour installer une application, vous pouvez passer à l'étape suivante [Comment commencer avec GitHub Codespaces](#comment-commencer-avec-github-codespaces).
 
 Si ce n'est déjà fait, tu vas devoir installer [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) pour pouvoir exécuter les Koans Java pour la FRC.
 
@@ -301,6 +315,13 @@ Et ouvre le répertoire dans lequel tu as décompressé les Koans (par exemple: 
 Note: VS Code va te demander si tu fais confiance à ce code. Tu vas devoir répondre "oui".
 
 Tu es maintenant prêt·e!
+
+## Comment commencer avec GitHub Codespaces
+Ce dépôt est configuré pour une utilisation aisée avec GitHub Codespaces. GitHub Codespaces fournit un environnement de développement basé sur le cloud. Il vous permet de configurer et d'accéder facilement à un environnement de développement cohérent directement depuis votre navigateur web. Cela est particulièrement utile lorsque vos étudiants n'ont accès qu'à des Chromebooks ou pour d'autres raisons ne peuvent pas installer et configurer Visual Studio Code.
+
+Pour commencer avec GitHub Codespaces, cliquez simplement sur le bouton "Code" et sélectionnez "Créer un espace de code sur Master" pour créer ou accéder à votre environnement de développement.
+
+![Codespace](images/codespace_button.png)
 
 ## Apprendre à programmer avec les Koans Java pour la FRC
 

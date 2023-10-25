@@ -1,0 +1,16 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"postCreateCommand": "cd /opt && wget 'https://github.com/wpilibsuite/vscode-wpilib/releases/download/v2023.4.3/vscode-wpilib-2023.4.3.vsix'",
+	"features": {
+	},
+	"customizations": {
+	  "vscode": {
+		"settings": {
+			"java.server.launchMode": "Standard",
+			"redhat.telemetry.enabled": true
+		},
+		"extensions": ["/opt/vscode-wpilib-2023.4.3.vsix","vscjava.vscode-java-pack","vscjava.vscode-gradle", "redhat.java", "vscjava.vscode-java-debug", "vscjava.vscode-java-dependency", "ms-vscode.cpptools"]
+	  }
+	}
+  }
+  

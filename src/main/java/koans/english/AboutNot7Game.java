@@ -123,7 +123,15 @@ public class AboutNot7Game {
      * 
      * Expected result:
      * 
-     * askQuestion("Do you want to continue [y/n]? ") should return true if the user entered 'y'
+     * askQuestion("Do you want to continue [y/n]? ") should:
+     *   - display "Do you want to continue [y/n]? " in the console
+     *   - let the user answer by entering text in the console
+     *   - return true if the user entered 'y'
+     * 
+     * askQuestion("Do you like oranges [y/n]? ") should:
+     *   - display "Do you like oranges [y/n]? " in the console
+     *   - let the user answer by entering text in the console
+     *   - return false if the user entered 'n'
      * 
      */
 

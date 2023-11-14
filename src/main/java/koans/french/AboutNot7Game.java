@@ -124,7 +124,15 @@ public class AboutNot7Game {
      * 
      * Résultat attendu:
      * 
-     * askQuestion("Voulez-vous continuer [o/n]? ") devrait retourner true si l'utilisateur tape 'o'
+     * askQuestion("Voulez-vous continuer [o/n]? ") devrait:
+     *   - afficher "Voulez-vous continuer [o/n]? " dans la console
+     *   - laisser l'utilisateur répondre avec du texte
+     *   - retourner true si l'utilisateur tape 'o'
+
+     * askQuestion("Aimez vous les oranges [o/n]? ") devrait:
+     *   - afficher "Aimez vous les oranges [o/n]? " dans la console
+     *   - laisser l'utilisateur répondre avec du texte
+     *   - retourner false si l'utilisateur tape 'n'
      * 
      */
 

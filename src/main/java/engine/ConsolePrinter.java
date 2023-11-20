@@ -12,16 +12,25 @@ public class ConsolePrinter implements Printer {
 
     @Override
     public void println() {
-        System.out.println();
+        synchronized(System.out) {
+            System.out.println();
+            System.out.flush();
+        }
     }
 
     @Override
     public void println(String template, Object... params) {
-        System.out.println(String.format(template, params));
+        synchronized(System.out) {
+            System.out.println(String.format(template, params));
+            System.out.flush();
+        }
     }
 
     @Override
     public void println(Localizable<String> template, Object... params) {
-        System.out.println(String.format(template.get(locale), params));
+        synchronized(System.out) {
+            System.out.println(String.format(template.get(locale), params));
+            System.out.flush();
+        }
     } 
 }

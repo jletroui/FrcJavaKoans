@@ -30,6 +30,12 @@ public class Texts {
     static Local<String> THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR =
         local("The method %s() appears to produce an error: %s.")
         .fr("La méthode %s() a produit une erreur: %s.");
+    static Local<String> THE_METHOD_SEEMS_TO_NOT_FINISH =
+        local("The method %s() appears to not finish. Did you code an infinite loop?")
+        .fr("La méthode %s() semble ne jamais terminer. As tu codé une boucle infinie?");
+    static Local<String> THE_METHOD_SEEMS_TO_RECURSE_INFINITELY =
+        local("The method %s() appears to not finish. Did you call the method in itself, forming an infinite loop?")
+        .fr("La méthode %s() semble ne jamais terminer. As tu appelé la méthode dans elle-même, formant une boucle infinie?");
     static Local<String> THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR =
         local("The constructor of %s appears to produce an error: %s.")
         .fr("Le constructeur de %s a produit une erreur: %s.");

@@ -106,8 +106,7 @@ public class StdStreamsInterceptor {
             returnValue = executeFunc.run();
         }
         finally {
-            System.setOut(realOut);
-            System.setIn(realIn);
+            reset();
             Helpers.cleanupStdInForKoan();
             printStream.close();
         }
@@ -117,5 +116,10 @@ public class StdStreamsInterceptor {
             silent ? stdInputs : ((StdInInterceptor)inputStream).lines(),
             returnValue
         );
+    }
+
+    public static void reset() {
+        System.setOut(realOut);
+        System.setIn(realIn);
     }
 }

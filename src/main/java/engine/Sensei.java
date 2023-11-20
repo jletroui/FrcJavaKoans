@@ -3,6 +3,7 @@ package engine;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static engine.Texts.*;
 
@@ -10,6 +11,7 @@ import static engine.Texts.*;
  * The main engine class, executing the series of koans.
  */
 public class Sensei {
+    private static final long TIMEOUT_INFINITE_LOOPS_MS = 2000;
     private final Locale locale;
     private final Printer consolePrinter;
     private Printer p = Printer.SILENT;
@@ -55,7 +57,8 @@ public class Sensei {
         if (!succeeded) {
             // If failed, execute verbosely the second time, in order to give feedback to the student.
             p = consolePrinter;
-            return offer(test, successfulCount);
+            offer(test, successfulCount);
+            return false;
         }
 
         return true;
@@ -66,53 +69,75 @@ public class Sensei {
         observe(koan);
         encourage();
         
-        var success = false;
+        AtomicBoolean success = new AtomicBoolean(false);
+
+        var thread = new Thread(() -> {
+            try {
+                success.set(executeCall(test));
+            } catch (IllegalAccessException iae) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
+            } catch (IllegalArgumentException iae) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
+                p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, iae.getMessage());
+            } catch (InvocationTargetException ite) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                if (ite.getTargetException() instanceof StackOverflowError) {
+                    p.println(Color.red(THE_METHOD_SEEMS_TO_RECURSE_INFINITELY), koan.methodName);
+                } else {
+                    p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, ite.getCause().getMessage());
+                }
+            } catch (NoStaticMethodException nsme) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale).replace(".", "/"));
+            } catch (NoDynamicMethodException ndme) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
+            } catch (NoSuchConstructorException nsce) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                displayConstructorNotFound(koan);
+            } catch (NoSuchMethodException mnfe) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                displayMethodNotFound(koan);
+            } catch (ClassNotFoundException cnfe) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.exerciseClassName.get(), koan.exerciseClassPackage.get());
+            } catch (InstantiationException ie) {
+                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+                concludeConsole(koan);
+                // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
+                p.println(Color.red(THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR), koan.exerciseClassName.get());
+            }
+        });
+
+        thread.setDaemon(true);
+        thread.start();
         try {
-            success = executeCall(test);
-        } catch (IllegalAccessException iae) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
+            thread.join(TIMEOUT_INFINITE_LOOPS_MS);
+        }
+        catch(InterruptedException ie) {
+            throw new IllegalStateException("Something very weird happened. We should not have been interrupted.");
+        }
+
+        if (thread.isAlive()) {
+            StdStreamsInterceptor.reset();
             concludeConsole(koan);
-            p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
-        } catch (IllegalArgumentException iae) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
-            p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, iae.getMessage());
-        } catch (InvocationTargetException ite) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, ite.getCause().getMessage());
-        } catch (NoStaticMethodException nsme) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale).replace(".", "/"));
-        } catch (NoDynamicMethodException ndme) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
-        } catch (NoSuchConstructorException nsce) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            displayConstructorNotFound(koan);
-        } catch (NoSuchMethodException mnfe) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            displayMethodNotFound(koan);
-        } catch (ClassNotFoundException cnfe) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.exerciseClassName.get(), koan.exerciseClassPackage.get());
-        } catch (InstantiationException ie) {
-            // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-            concludeConsole(koan);
-            // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
-            p.println(Color.red(THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR), koan.exerciseClassName.get());
+            p.println(Color.red(THE_METHOD_SEEMS_TO_NOT_FINISH), koan.methodName);
         }
 
         offerToMeditate(koan);
         showProgress(successfulCount);
 
-        return success;
+        return success.get();
     }
 
     private boolean executeCall(KoanTest test) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {

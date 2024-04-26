@@ -25,6 +25,10 @@ public class Factories {
         return new Global<T>(item);
     }
 
+    public static Global<Class<?>> globalClass(Class<?> enItem) {
+        return new Global<>(enItem);
+    }
+
     public static  <T> Local<T> local(T enItem) {
         return new Local<T>(enItem);
     }

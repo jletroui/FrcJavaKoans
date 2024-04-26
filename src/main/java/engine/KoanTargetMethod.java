@@ -6,71 +6,55 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 public class KoanTargetMethod {
-    public final KoanTest koanTest;
+    final KoanTest koanTest;
     private final Method method;
-    public final Class<?> clasz;
-    private final Object object;
-    private final Value[] localizedParams;
-    private final Value[] localizedConstructorParams;
+    private final Class<?> clasz;
+    final Object object;
+    private final Object[] localizedParams;
+    private final Object[] localizedConstructorParams;
 
-    public KoanTargetMethod(KoanTest koanTest, Locale locale) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public KoanTargetMethod(KoanTest koanTest, Locale locale) throws InvocationTargetException {
         this.koanTest = koanTest;
-        
-        this.clasz = koanTest.koan.exerciseClassName.isPresent() ? Class.forName(koanTest.koan.exerciseClassName(locale)) : koanTest.koan.koanClass.get(locale);
-        this.method = clasz.getMethod(koanTest.koan.methodName, koanTest.koan.methodParamTypes);
+        this.clasz = koanTest.koan.koanClass.get(locale).unsafeResolve();
 
-        if (koanTest.koan.onObject) {
-            try {
-                var constructor = clasz.getConstructor(resolveParamTypes(koanTest.koan.constructorParamTypes));
-                this.localizedConstructorParams = localize(locale, koanTest.constructorParams);
-                var constructorParams = Value.resolve(localizedConstructorParams);
-                this.object = constructor.newInstance(constructorParams);
-            } catch(NoSuchMethodException nsme) {
-                throw new NoSuchConstructorException();
-            }
-            if (Modifier.isStatic(method.getModifiers())) {
-                throw new NoDynamicMethodException();
-            }
-        } else {
-            if (!Modifier.isStatic(method.getModifiers())) {
-                throw new NoStaticMethodException();
-            }
-            this.object = null;
-            this.localizedConstructorParams = new Value[0];
+        try {
+            this.method = clasz.getMethod(koanTest.koan.methodName, koanTest.koan.methodParamTypes);
+        } catch(NoSuchMethodException nsme) {
+            throw new KoanBugException(String.format("The method %s is not found, which should have been already caught by a missing assertion in this or a previous Koans.", koanTest.koan.methodName));
         }
 
-        this.localizedParams = localize(locale, koanTest.params);
+        if (koanTest.koan.onObject) {
+            if (Modifier.isStatic(method.getModifiers())) {
+                throw new KoanBugException(String.format("The method %s is not static, which should have been already caught by a missing assertion in this or a previous Koans.", koanTest.koan.methodName));
+            }
+
+            this.object = koanTest.koan.koanClass.get(locale).unsafeInstantiate(locale, koanTest.constructorParams);
+            this.localizedConstructorParams = Value.resolve(locale, koanTest.constructorParams);
+        } else {
+            if (!Modifier.isStatic(method.getModifiers())) {
+                throw new KoanBugException(String.format("The method %s is static, which should have been already caught by a missing assertion in this or a previous Koans.", koanTest.koan.methodName));
+            }
+            this.object = null;
+            this.localizedConstructorParams = new Object[0];
+        }
+
+        this.localizedParams = Value.resolve(locale, koanTest.params);
     }
 
-    public Object invoke() throws IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
-        return method.invoke(object, Value.resolve(localizedParams));
+    public Object invoke() throws InvocationTargetException {
+        try {
+            return method.invoke(object, localizedParams);
+        } catch(IllegalAccessException iae) {
+                throw new KoanBugException(String.format("The method %s is not accessible, which should have been already caught by a missing assertion in this or a previous Koans.", koanTest.koan.methodName));
+        }
+
     }
 
     public boolean hasParameters() {
         return localizedParams.length > 0;
     }
 
-    private static Class<?>[] resolveParamTypes(Type[] params) throws ClassNotFoundException {
-        final var res = new Class<?>[params.length];
-
-        for(int i = 0; i<params.length; i++) {
-            res[i] = params[i].resolve();
-        }
-
-        return res;
-    }
-
-    @SuppressWarnings("rawtypes")
-    private static Value[] localize(Locale locale, Value[] params) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
-        var localized = new Value[params.length];
-        for(int i=0; i<params.length; i++) {
-            final var resolved = params[i].resolve();
-            localized[i] = resolved instanceof Local ? new Value(((Local)resolved).get(locale)) : params[i];
-        }
-        return localized;
-    }
-
-    private static String formatParams(Value[] params) {
+    private static String formatParams(Object[] params) {
         return String.join(
             ", ",
             Arrays.stream(params)

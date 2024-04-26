@@ -220,4 +220,102 @@ public class AboutObjects {
      * 
      */
 
+    /**
+     * Create a class 'frc.RobotAutoScore' with non final fields 'notesInSpeaker' (int), 'notesInAmp' (int), initialized to 0. The constructor should take no parameters.
+     * Write a method 'toString' in 'frc.RobotAutoScore' which returns a text representation of a RobotAutoScore object as follow:
+     * 
+     * RobotScore: notes in speaker = [notesInSpeaker value]; notes in amp = [notesInAmp value]
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new RobotAutoScore().toString() should return the String "RobotScore: notes in speaker = 0; notes in amp = 0"
+     * 
+     */
+
+    /**
+     * Write a method 'noteScoredInSpeaker' in 'frc.RobotAutoScore' which takes no parameter, and increases the value of the 'notesInSpeaker' field by 1.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * The following code:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInSpeaker();
+     *     System.out.println(robotScore);
+     * 
+     * Should display:
+     * 
+     *   RobotScore: notes in speaker = 1; notes in amp = 0
+     * 
+     */
+
+    /**
+     * Write a method 'noteScoredInAmp' in 'frc.RobotAutoScore' which takes no parameter, and increase the value of the 'notesInAmp' field by 1.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * The following code:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInAmp();
+     *     System.out.println(robotScore);
+     * 
+     * Should display:
+     * 
+     *   RobotScore: notes in speaker = 0; notes in amp = 1
+     * 
+     */
+
+
+    /**
+     * Write a method 'totalScore' in 'frc.RobotAutoScore' which takes no parameter, and return the total score (2 points for amp notes, 5 points for speaker notes).
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * The following code:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInSpeaker();
+     *     robotScore.noteScoredInAmp();
+     *     System.out.println(robotScore.totalScore());
+     * 
+     * Should display:
+     * 
+     *   7
+     * 
+     */
+
+    /**
+     * Create a class 'frc.AllianceAutoScore' with final fields 'robotAScore' (RobotAutoScore), 'robotBScore' (RobotAutoScore) and 'robotCScore' (RobotAutoScore). The constructor should take a value for these as parameters.
+     * Write a method 'totalScore' in 'frc.AllianceAutoScore' which compute the total score for the alliance.
+     * 
+     * RobotScore: notes in speaker = [notesInSpeaker value]; notes in amp = [notesInAmp value]
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     *     RobotAutoScore robotAScore = new RobotAutoScore();
+     *     robotAScore.noteScoredInSpeaker();
+     *     robotAScore.noteScoredInAmp();
+     *     RobotAutoScore robotBScore = new RobotAutoScore();
+     *     RobotAutoScore robotCScore = new RobotAutoScore();
+     *     robotAScore.noteScoredInSpeaker();
+     *     AllianceAutoScore allianceScore = new AllianceAutoScore(robotAScore, robotBScore, robotCScore);
+     *     System.out.println(allianceScore.totalScore());
+     * 
+     * Should display:
+     * 
+     *   12
+     * 
+     */
+    
 }

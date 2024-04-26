@@ -20,74 +20,74 @@ public class AboutLoopsKoans {
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "helloNTimes", int.class)
             .useConsole()
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertNextStdOutLineEquals(global("Hello")),
                 assertNextStdOutLineEquals(global("Hello")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(3)
+            .whenCalledWith(3)
             .then(
                 assertNextStdOutLineEquals(global("Hello")),
                 assertNextStdOutLineEquals(global("Hello")),
                 assertNextStdOutLineEquals(global("Hello")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "displayNumbers", int.class)
             .useConsole()
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertNextStdOutLineEquals(global("1")),
                 assertNextStdOutLineEquals(global("2")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(3)
+            .whenCalledWith(3)
             .then(
                 assertNextStdOutLineEquals(global("1")),
                 assertNextStdOutLineEquals(global("2")),
                 assertNextStdOutLineEquals(global("3")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(1)
+            .whenCalledWith(1)
             .then(
                 assertNextStdOutLineEquals(global("1")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "displayReverseNumbers", int.class)
             .useConsole()
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertNextStdOutLineEquals(global("2")),
                 assertNextStdOutLineEquals(global("1")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(3)
+            .whenCalledWith(3)
             .then(
                 assertNextStdOutLineEquals(global("3")),
                 assertNextStdOutLineEquals(global("2")),
                 assertNextStdOutLineEquals(global("1")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(1)
+            .whenCalledWith(1)
             .then(
                 assertNextStdOutLineEquals(global("1")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "sevens", int.class)
             .useConsole()
-            .whenCallingWith(30)
+            .whenCalledWith(30)
             .then(
                 assertNextStdOutLineEquals(global("7")),
                 assertNextStdOutLineEquals(global("14")),
@@ -95,7 +95,7 @@ public class AboutLoopsKoans {
                 assertNextStdOutLineEquals(global("28")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(28)
+            .whenCalledWith(28)
             .then(
                 assertNextStdOutLineEquals(global("7")),
                 assertNextStdOutLineEquals(global("14")),
@@ -103,18 +103,18 @@ public class AboutLoopsKoans {
                 assertNextStdOutLineEquals(global("28")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(6)
+            .whenCalledWith(6)
             .then(
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(7)
+            .whenCalledWith(7)
             .then(
                 assertNextStdOutLineEquals(global("7")),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "sevensOrEights", int.class)
             .useConsole()
-            .whenCallingWith(20)
+            .whenCalledWith(20)
             .then(
                 assertNextStdOutLineEquals(global("7")),
                 assertNextStdOutLineEquals(global("8")),
@@ -122,7 +122,7 @@ public class AboutLoopsKoans {
                 assertNextStdOutLineEquals(global("16")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(16)
+            .whenCalledWith(16)
             .then(
                 assertNextStdOutLineEquals(global("7")),
                 assertNextStdOutLineEquals(global("8")),
@@ -130,75 +130,75 @@ public class AboutLoopsKoans {
                 assertNextStdOutLineEquals(global("16")),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(6)
+            .whenCalledWith(6)
             .then(
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(7)
+            .whenCalledWith(7)
             .then(
                 assertNextStdOutLineEquals(global("7")),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "exponent", int.class, int.class)
-            .whenCallingWith(2, 1)
+            .whenCalledWith(2, 1)
             .then(
                 assertReturnValueEquals(2)
             )
-            .whenCallingWith(2, 4)
+            .whenCalledWith(2, 4)
             .then(
                 assertReturnValueEquals(16)
             )
-            .whenCallingWith(5, 1)
+            .whenCalledWith(5, 1)
             .then(
                 assertReturnValueEquals(5)
             )
-            .whenCallingWith(5, 3)
+            .whenCalledWith(5, 3)
             .then(
                 assertReturnValueEquals(125)
             ),
         new Koan(CLASS, "exponent2", int.class, int.class)
-            .whenCallingWith(2, 1)
+            .whenCalledWith(2, 1)
             .then(
                 assertReturnValueEquals(2)
             )
-            .whenCallingWith(2, 4)
+            .whenCalledWith(2, 4)
             .then(
                 assertReturnValueEquals(16)
             )
-            .whenCallingWith(5, 1)
+            .whenCalledWith(5, 1)
             .then(
                 assertReturnValueEquals(5)
             )
-            .whenCallingWith(5, 3)
+            .whenCalledWith(5, 3)
             .then(
                 assertReturnValueEquals(125)
             )
-            .whenCallingWith(5, 0)
+            .whenCalledWith(5, 0)
             .then(
                 assertReturnValueEquals(1)
             ),
         new Koan(CLASS, "factorial", int.class)
-            .whenCallingWith(1)
+            .whenCalledWith(1)
             .then(
                 assertReturnValueEquals(1)
             )
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertReturnValueEquals(2)
             )
-            .whenCallingWith(3)
+            .whenCalledWith(3)
             .then(
                 assertReturnValueEquals(6)
             )
-            .whenCallingWith(4)
+            .whenCalledWith(4)
             .then(
                 assertReturnValueEquals(24)
             )
-            .whenCallingWith(5)
+            .whenCalledWith(5)
             .then(
                 assertReturnValueEquals(120)
             )
-            .whenCallingWith(6)
+            .whenCalledWith(6)
             .then(
                 assertReturnValueEquals(720)
             )

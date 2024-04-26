@@ -27,35 +27,35 @@ public class AboutConsoleAndVariablesKoans {
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sayHelloInConsole")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertNextStdOutLineEquals(global("Hello!")),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "computeTwoAndTwo")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertNextStdOutLineEquals(global("4")),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "createAndDisplayAVariable")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertNextStdOutLineEquals(global("4")),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "createAndDisplayAStringVariable")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertNextStdOutLineEquals(global("Hello!")),
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "askAndDisplayNameInConsole")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs("Juliette")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
@@ -66,7 +66,7 @@ public class AboutConsoleAndVariablesKoans {
             ),
         new Koan(CLASS, "askAndDisplayNameOnASingleLineInConsole")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs("Juliette")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
@@ -76,7 +76,7 @@ public class AboutConsoleAndVariablesKoans {
             ),
         new Koan(CLASS, "askNameAndAgeInConsole")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs("Juliette", "14")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
@@ -88,7 +88,7 @@ public class AboutConsoleAndVariablesKoans {
             ),
         new Koan(CLASS, "computeAgeIn5YearsConsole")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs("14")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_AGE),

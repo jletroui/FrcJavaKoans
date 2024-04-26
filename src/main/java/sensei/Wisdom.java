@@ -9,14 +9,14 @@ import engine.Koan;
  */
 public final class Wisdom {
     public static final List<List<Koan>> koans = List.of(
-        AboutConsoleAndVariablesKoans.koans,
-        AboutMethodsKoans.koans,
-        AboutConditionsKoans.koans,
-        AboutMoreMethodsKoans.koans,
-        AboutDecimalNumbersKoans.koans,
-        AboutLoopsKoans.koans,
-        AboutNot7GameKoans.koans,
-        AboutClassesKoans.koans,
+        // AboutConsoleAndVariablesKoans.koans,
+        // AboutMethodsKoans.koans,
+        // AboutConditionsKoans.koans,
+        // AboutMoreMethodsKoans.koans,
+        // AboutDecimalNumbersKoans.koans,
+        // AboutLoopsKoans.koans,
+        // AboutNot7GameKoans.koans,
+        // AboutClassesKoans.koans,
         AboutObjectsKoans.koans
     );
 }

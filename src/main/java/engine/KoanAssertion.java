@@ -9,5 +9,5 @@ public interface KoanAssertion {
      * @param p The printer to give feedback through.
      * @return Whether or not the assertion is successful or not.
      */
-    boolean validate(Printer p, KoanTargetMethod methodDetails) throws ClassNotFoundException;
+    boolean validate(Printer p, Locale locale, Koan koan);
 }

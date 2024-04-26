@@ -1,5 +1,8 @@
 package engine;
 
+import static engine.Texts.AND;
+
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -30,14 +33,14 @@ public class Helpers {
         return rng.nextDouble();
     }
 
-    static String formatSequence(double[] toFormat, String localizedAndTemplate) {
+    static String formatSequence(Locale locale, double[] toFormat) {
         return formatSequence(
-            Arrays.stream(toFormat).mapToObj(Double::toString).toArray(String[]::new),
-            localizedAndTemplate
+            locale,
+            Arrays.stream(toFormat).mapToObj(Double::toString).toArray(String[]::new)
         );
     }
 
-    static String formatSequence(Object[] toFormat, String localizedAndTemplate) {
+    static String formatSequence(Locale locale, Object[] toFormat) {
         if (toFormat == null || toFormat.length == 0) {
             return "";
         }
@@ -49,9 +52,20 @@ public class Helpers {
                 result.append(", ");
                 result.append(toFormat[i]);
             }
-            result.append(String.format(localizedAndTemplate, toFormat[toFormat.length - 1]));
+            result.append(String.format(AND.get(locale), toFormat[toFormat.length - 1]));
         }
 
         return result.toString();
+    }
+
+    static boolean isInstantiable(Class<?> clasz) {
+        int modifiers = clasz.getModifiers();
+        return
+            Modifier.isPublic(modifiers) &&
+            !clasz.isInterface() &&
+            !Modifier.isAbstract(modifiers) &&
+            !clasz.isArray() &&
+            !clasz.isPrimitive() &&
+            !clasz.equals(void.class);
     }
 }

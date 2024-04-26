@@ -1,6 +1,5 @@
 package engine;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 /**
@@ -91,11 +90,11 @@ public class KoanResult {
         return res;
     }
 
-    public boolean executeAssertions(Printer p) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    public boolean executeAssertions(Printer p) {
         return executeAssertions(p, targetMethod.koanTest.assertions);
     }
 
-    public boolean executeAssertions(Printer p, ResultAssertion... assertions) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    public boolean executeAssertions(Printer p, ResultAssertion... assertions) {
         for (ResultAssertion as : assertions) {
             if (!as.validate(p, this)) {
                 return false;

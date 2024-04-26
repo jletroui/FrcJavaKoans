@@ -1,6 +1,5 @@
 package engine;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Optional;
@@ -13,15 +12,15 @@ import static engine.Texts.*;
  * Library of various assertions which can be run about the result of a koan execution.
  */
 public class Assertions {
-    private static String resolveParam(KoanResult res, Object p) {
-        if (p instanceof FormatParam) {
-            return ((FormatParam)p).format(res);
+    private static String resolveTemplateParam(KoanResult res, Object param) {
+        if (param instanceof FormatParam) {
+            return ((FormatParam)param).format(res);
         }
 
-        return Optional.ofNullable(p).map((v) -> v.toString()).orElse("");
+        return Optional.ofNullable(param).map((v) -> v.toString()).orElse("");
     }
 
-    private static String whenCalling(KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static String whenCalling(KoanResult res) {
         if (res.targetMethod.hasParameters()) {
             return String.format(" when calling %s", res.targetMethod);
         }
@@ -35,7 +34,7 @@ public class Assertions {
     public static ResultAssertion assertNextStdOutLineEquals(Localizable<String> expectedTemplate, Object... params) {
         return (p, res) -> {
             final var realParams = Arrays.stream(params)
-                .map((param) -> Assertions.resolveParam(res, param))
+                .map((param) -> Assertions.resolveTemplateParam(res, param))
                 .toArray();
             final var expected = String.format(expectedTemplate.get(res.locale), realParams);
             final var lineContent = res.nextStdOutLine();
@@ -245,7 +244,7 @@ public class Assertions {
     private static ResultAssertion assertReturnValueWithRandomEquals(Function<KoanResult, double[]> randomNumbersFunc, ResToIntFunction buildExpected) {
         return (p, res) -> {
             var randomNumbers = randomNumbersFunc.apply(res);
-            var formatRandomNumbers = Helpers.formatSequence(randomNumbers, AND.get(res.locale));
+            var formatRandomNumbers = Helpers.formatSequence(res.locale, randomNumbers);
 
             int expected = buildExpected.apply(res);
             if (res.methodReturnValue == null) {
@@ -270,9 +269,127 @@ public class Assertions {
         }; 
     }
 
+    public static KoanAssertion assertClassIsInstantiable() {
+        return (p, locale, koan) -> {
+            try {
+                var clasz = koan.koanClass.get(locale).resolve();
+                if (!Helpers.isInstantiable(clasz)) {
+                    p.println(Color.red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), koan.koanClass.get(locale).className);
+                    return false;
+                }
+            } catch (ClassNotFoundException cnfe) {
+                    p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.koanClass.get(locale).simpleClassName, koan.koanClass.get(locale).packageName);
+                return false;
+            }
+
+            return true;
+        };
+    }
+    
+    public static KoanAssertion assertConstructorIsInvokable() {
+        return (p, locale, koan) -> {
+            var clasz = koan.koanClass.get(locale).unsafeResolve();
+
+            try {
+                var constructor = clasz.getConstructor(Type.unsafeResolveTypes(koan.constructorParamTypes));
+                if (!Modifier.isPublic(constructor.getModifiers())) {
+                    p.println(
+                        Color.red(EXPECTED_CONSTRUCTOR_TO_BE_PUBLIC),
+                        koan.koanClass.get(locale).simpleClassName
+                    );
+                }
+            }
+            catch(NoSuchMethodException nsme) {
+                if (koan.constructorParamTypes.length == 0) {
+                    p.println(
+                        Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS),
+                        koan.koanClass.get(locale).simpleClassName
+                    );
+                } else if (koan.constructorParamTypes.length == 1) {
+                    p.println(
+                        Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM),
+                        koan.koanClass.get(locale).simpleClassName,
+                        koan.constructorParamTypes[0]
+                    );
+                } else {
+                    final var expectedParams = Arrays
+                        .stream(koan.constructorParamTypes)
+                        .map(type -> "'" + type + "'")
+                        .toArray(String[]::new);
+                    p.println(
+                        Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS),
+                        koan.koanClass.get(locale).simpleClassName,
+                        Helpers.formatSequence(locale, expectedParams)
+                    );
+                }
+                return false;
+            }
+
+            return true;
+        };
+    }
+    
+    public static KoanAssertion assertMethodIsInvokable(String methodName, boolean isStatic, Type... paramTypes) {
+        return assertMethodIsInvokable(methodName, isStatic, Type.unsafeResolveTypes(paramTypes));
+    }
+
+    public static KoanAssertion assertMethodIsInvokable(String methodName, boolean isStatic, Class<?>... methodParamTypes) {
+        return (p, locale, koan) -> {
+            var clasz = koan.koanClass.get(locale).unsafeResolve();
+
+            try {
+                var method = clasz.getMethod(methodName, methodParamTypes);
+                if (isStatic && !Modifier.isStatic(method.getModifiers())) {
+                    p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
+                    return false;
+                }
+                if (!isStatic && Modifier.isStatic(method.getModifiers())) {
+                    p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
+                    return false;
+                }
+                if (!Modifier.isPublic(method.getModifiers())) {
+                    p.println(
+                        Color.red(EXPECTED_METHOD_TO_BE_PUBLIC),
+                        koan.koanClass.get(locale).simpleClassName
+                    );
+                }
+            }
+            catch(NoSuchMethodException nsme) {
+                if (methodParamTypes.length == 0) {
+                    p.println(
+                        Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
+                        methodName,
+                        clasz.getName().replace(".", "/")
+                    );
+                } else if (methodParamTypes.length == 1) {
+                    p.println(
+                        Color.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
+                        methodName,
+                        clasz.getName().replace(".", "/"),
+                        methodParamTypes[0].getSimpleName()
+                    );
+                } else {
+                    final var expectedParams = Arrays
+                        .stream(methodParamTypes)
+                        .map(type -> "'" + type.getSimpleName() + "'")
+                        .toArray(String[]::new);
+                    p.println(
+                        Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
+                        methodName,
+                        clasz.getName().replace(".", "/"),
+                        Helpers.formatSequence(locale, expectedParams)
+                    );
+                }
+                return false;
+            }
+
+            return true;
+        };
+    }
+    
     public static KoanAssertion assertFieldIsPrivate(String fieldName) {
-        return (p, methodDetails) -> {
-            var clasz = methodDetails.clasz;
+        return (p, locale, koan) -> {
+                var clasz = koan.koanClass.get(locale).unsafeResolve();
 
             try {
                 var field = clasz.getDeclaredField(fieldName);
@@ -291,8 +408,8 @@ public class Assertions {
     }
     
     public static KoanAssertion assertFieldIsFinal(String fieldName) {
-        return (p, methodDetails) -> {
-            var clasz = methodDetails.clasz;
+        return (p, locale, koan) -> {
+                var clasz = koan.koanClass.get(locale).unsafeResolve();
 
             try {
                 var field = clasz.getDeclaredField(fieldName);
@@ -311,12 +428,12 @@ public class Assertions {
     }    
     
     public static KoanAssertion assertFieldType(String fieldName, Type fieldType) {
-        return (p, methodDetails) -> {
-            var clasz = methodDetails.clasz;
+        return (p, locale, koan) -> {
+                var clasz = koan.koanClass.get(locale).unsafeResolve();
 
             try {
                 var field = clasz.getDeclaredField(fieldName);
-                if (!field.getType().equals(fieldType.resolve())) {
+                if (!field.getType().equals(fieldType.unsafeResolve())) {
                     p.println(Color.red(EXPECTED_FIELD_TO_BE_OF_TYPE), fieldName, clasz.getName(), fieldType, field.getType().getSimpleName());
                     return false;
                 }

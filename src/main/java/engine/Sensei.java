@@ -1,7 +1,6 @@
 package engine;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -74,10 +73,6 @@ public class Sensei {
         var thread = new Thread(() -> {
             try {
                 success.set(executeCall(test));
-            } catch (IllegalAccessException iae) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
             } catch (IllegalArgumentException iae) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
@@ -91,38 +86,18 @@ public class Sensei {
                 } else {
                     p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, ite.getCause().getMessage());
                 }
-            } catch (NoStaticMethodException nsme) {
+            } catch (KoanBugException kbe) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
-                p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale).replace(".", "/"));
-            } catch (NoDynamicMethodException ndme) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
-            } catch (NoSuchConstructorException nsce) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                displayConstructorNotFound(koan);
-            } catch (NoSuchMethodException mnfe) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                displayMethodNotFound(koan);
-            } catch (ClassNotFoundException cnfe) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.exerciseClassName.get(), koan.exerciseClassPackage.get());
-            } catch (InstantiationException ie) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
-                p.println(Color.red(THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR), koan.exerciseClassName.get());
+                p.println(Color.red(BUG_FOUND), kbe.getMessage());
             }
         });
 
         thread.setDaemon(true);
         thread.start();
         try {
-            thread.join(TIMEOUT_INFINITE_LOOPS_MS);
+            // thread.join(TIMEOUT_INFINITE_LOOPS_MS);
+            thread.join();
         }
         catch(InterruptedException ie) {
             throw new IllegalStateException("Something very weird happened. We should not have been interrupted.");
@@ -140,16 +115,19 @@ public class Sensei {
         return success.get();
     }
 
-    private boolean executeCall(KoanTest test) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
+    private boolean executeCall(KoanTest test) throws InvocationTargetException {
 
         test.setupRandomForKoan();
-        final var targetMethod = test.resolveTargetMethod(locale);
-        final var asserted = test.koan.executeAssertions(p, targetMethod);
-        if (!asserted) {
+        if (!test.koan.executeBeforeAssertions(p, locale)) {
             return false;
         }
 
+        final var targetMethod = test.resolveTargetMethod(locale);
         introduceConsole(targetMethod);
+
+        for(var prepCall: targetMethod.koanTest.objectPrepCalls) {
+            prepCall.invoke(targetMethod.object, locale);
+        }
 
         final var interceptionResult = StdStreamsInterceptor.capture(
             p == Printer.SILENT,
@@ -170,11 +148,17 @@ public class Sensei {
         return result.executeAssertions(p);
     }
 
-    private void introduceConsole(KoanTargetMethod targetMethod) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private void introduceConsole(KoanTargetMethod targetMethod) {
         if (targetMethod.koanTest.koan.usesConsole) {
-            if (targetMethod.koanTest.koan.showStdInInputs) {
+            if (targetMethod.koanTest.koan.showStdInInputs || targetMethod.koanTest.objectPrepCalls.length > 0) {
                 p.println();
-                p.println(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN_ANSWERING, Helpers.formatSequence(targetMethod.koanTest.stdInInputs(locale), AND.get(locale)));
+                p.println(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN);
+                if (targetMethod.koanTest.koan.showStdInInputs) {
+                    p.println(WHEN_ANSWERING, Helpers.formatSequence(locale, targetMethod.koanTest.stdInInputs(locale)));
+                }
+                for(var prepCall: targetMethod.koanTest.objectPrepCalls) {
+                    p.println(WHEN_CALLING, prepCall);
+                }
                 p.println();
             }
 
@@ -182,6 +166,13 @@ public class Sensei {
             p.println(CONSOLE, targetMethod);
             p.println("---------");
             p.println();
+        } else if (targetMethod.koanTest.objectPrepCalls.length > 0) {
+            p.println();
+            p.println(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN);
+            for(var prepCall: targetMethod.koanTest.objectPrepCalls) {
+                p.println(WHEN_CALLING, prepCall);
+            }
+            p.println();             
         }
     }
 
@@ -206,7 +197,7 @@ public class Sensei {
 
     private void observe(Koan koan) {
         p.println();
-        p.println(THINKING, koan.koanClassName(locale));
+        p.println(THINKING, koan.koanClass.get(locale).simpleClassName);
         p.println(Color.red(HAS_DAMAGED_YOUR_KARMA), koan.methodName);
     }
 
@@ -215,7 +206,7 @@ public class Sensei {
         p.println(
             PLEASE_MEDITATE_ON, 
             koan.methodName,
-            koan.koanClassName(locale)
+            koan.koanClass.get(locale).className
         );
         p.println();
     }
@@ -237,58 +228,5 @@ public class Sensei {
 
     private static String repeat(String s, int times) {
         return new String(new char[times]).replace("\0", s);
-    }
-    
-    private void displayMethodNotFound(Koan koan) {
-        if (koan.methodParamTypes.length == 0) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
-                koan.methodName,
-                koan.exerciseClassName(locale).replace(".", "/")
-            );
-        } else if (koan.methodParamTypes.length == 1) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
-                koan.methodName,
-                koan.exerciseClassName(locale).replace(".", "/"),
-                koan.methodParamTypes[0].getSimpleName()
-            );
-        } else {
-            final var expectedParams = Arrays
-                .stream(koan.methodParamTypes)
-                .map(type -> "'" + type.getSimpleName() + "'")
-                .toArray(String[]::new);
-            p.println(
-                Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
-                koan.methodName,
-                koan.exerciseClassName(locale).replace(".", "/"),
-                Helpers.formatSequence(expectedParams, AND.get(locale))
-            );
-        }
-    }
-    
-    private void displayConstructorNotFound(Koan koan) {
-        if (koan.constructorParamTypes.length == 0) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS),
-                koan.exerciseClassName(locale)
-            );
-        } else if (koan.constructorParamTypes.length == 1) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM),
-                koan.exerciseClassName(locale),
-                koan.constructorParamTypes[0]
-            );
-        } else {
-            final var expectedParams = Arrays
-                .stream(koan.constructorParamTypes)
-                .map(type -> "'" + type + "'")
-                .toArray(String[]::new);
-            p.println(
-                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS),
-                koan.exerciseClassName(locale),
-                Helpers.formatSequence(expectedParams, AND.get(locale))
-            );
-        }
     }
 }

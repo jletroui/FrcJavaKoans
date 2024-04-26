@@ -2,7 +2,9 @@ package engine;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Implements Localizable for items which do vary from one locale to the other.
@@ -23,10 +25,11 @@ public class Local<T> implements Localizable<T> {
         return this;
     }
 
-    public Local<T> map(Function<T, T> mapFunc) {
-        var newItems = Map.copyOf(items);
-        items.replaceAll((locale, item) -> mapFunc.apply(item));
-        return new Local<T>(newItems);
+    public <U> Local<U> map(final Function<T, U> mapFunc) {
+        var newItems = items.entrySet()
+            .stream()
+            .collect(Collectors.toMap(Entry::getKey, entry -> mapFunc.apply(entry.getValue())));
+        return new Local<U>(newItems);
     }
 
     public T get(Locale locale) {

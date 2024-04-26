@@ -25,7 +25,7 @@ public class AboutMethodsKoans {
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "computeAgeIn5And10And20YearsConsole")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs("14", "6", "10")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_AGE),
@@ -41,7 +41,7 @@ public class AboutMethodsKoans {
             ),
         new Koan(CLASS, "computeAgeIn5And10And20YearsConsoleWithMethod")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs("14", "6", "10")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_AGE),
@@ -56,53 +56,53 @@ public class AboutMethodsKoans {
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, "square", int.class)
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertReturnValueEquals(4)
             )
-            .whenCallingWith(-2)
+            .whenCalledWith(-2)
             .then(
                 assertReturnValueEquals(4)
             )
-            .whenCallingWith(3)
+            .whenCalledWith(3)
             .then(
                 assertReturnValueEquals(9)
             )
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertReturnValueEquals(0)
             ),
         new Koan(CLASS, "opposite", int.class)
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertReturnValueEquals(-2)
             )
-            .whenCallingWith(-2)
+            .whenCalledWith(-2)
             .then(
                 assertReturnValueEquals(2)
             )
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertReturnValueEquals(0)
             ),
         new Koan(CLASS, "legs", int.class, int.class, int.class)
-            .whenCallingWith(2, 3, 4)
+            .whenCalledWith(2, 3, 4)
             .then(
                 assertReturnValueEquals(32)
             )
-            .whenCallingWith(3, 0, 0)
+            .whenCalledWith(3, 0, 0)
             .then(
                 assertReturnValueEquals(6)
             )
-            .whenCallingWith(0, 3, 0)
+            .whenCalledWith(0, 3, 0)
             .then(
                 assertReturnValueEquals(12)
             )
-            .whenCallingWith(0, 0, 3)
+            .whenCalledWith(0, 0, 3)
             .then(
                 assertReturnValueEquals(12)
             )
-            .whenCallingWith(0, 0, 0)
+            .whenCalledWith(0, 0, 0)
             .then(
                 assertReturnValueEquals(0)
             )

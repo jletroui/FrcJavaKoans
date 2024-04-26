@@ -31,7 +31,7 @@ public class StdStreamsInterceptor {
     }
 
     public interface ReflectionRunnable {
-        Object run() throws IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException;
+        Object run() throws InvocationTargetException;
     }
 
     private static class OutputStreamMultiplexer extends OutputStream {
@@ -93,7 +93,7 @@ public class StdStreamsInterceptor {
         boolean silent,
         ReflectionRunnable executeFunc,
         String[] stdInputs
-    ) throws IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
+    ) throws InvocationTargetException {
         var bos = new ByteArrayOutputStream();
         var printStream = new PrintStream(silent ? bos : new OutputStreamMultiplexer(bos, realOut), true);
 

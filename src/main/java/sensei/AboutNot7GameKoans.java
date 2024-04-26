@@ -21,7 +21,6 @@ import static sensei.Texts.Y;
 import static sensei.Texts.YOUR_RESULT_SO_FAR;
 import static sensei.Texts.YOU_THREW;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,24 +43,24 @@ public class AboutNot7GameKoans {
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "die6")
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertReturnValueWithRandomEquals(rand -> die(rand))
             )
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertReturnValueWithRandomEquals(rand -> die(rand))
             ),
         new Koan(CLASS, "askQuestion", String.class)
             .useConsole()
-            .whenCallingWith(DO_YOU_WANT_TO_CONTINUE)
+            .whenCalledWith(DO_YOU_WANT_TO_CONTINUE)
             .withStdInInputs(List.of(Y))
             .then(
                 assertNextStdOutLineEquals(DO_YOU_WANT_TO_CONTINUE),
                 assertReturnValueEquals(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(DO_YOU_WANT_TO_CONTINUE)
+            .whenCalledWith(DO_YOU_WANT_TO_CONTINUE)
             .withStdInInputs(List.of(N))
             .then(
                 assertNextStdOutLineEquals(DO_YOU_WANT_TO_CONTINUE),
@@ -70,13 +69,13 @@ public class AboutNot7GameKoans {
             ),
         new Koan(CLASS, "throwDice")
             .useConsole()
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertReturnValueWithRandomEquals(2, expectedDieSumResult(0, 1)),
                 assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(0), expectedDieResult(1)),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .whenCalled()
             .then(
                 assertReturnValueWithRandomEquals(2, expectedDieSumResult(0, 1)),
                 assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(0), expectedDieResult(1)),
@@ -84,60 +83,60 @@ public class AboutNot7GameKoans {
             ),
         new Koan(CLASS, "gameRoundv1")
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv1Assertions
             )
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv1Assertions
             ),
         new Koan(CLASS, "gameRoundv2")
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv2Assertions
             )
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv2Assertions
             ),
         new Koan(CLASS, "gameRoundv3")
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv3Assertions
             )
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv3Assertions
             ),
         new Koan(CLASS, "gameRoundv4")
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .whenCalled()
             .withSeed(1010) // 7 directly
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(1000) // non 7 result and n
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(1001) // o, o, et 7
             .withStdInInputs(List.of(Y, Y))
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(1003) // o, o, n
             .withStdInInputs(List.of(Y, Y, N))
             .then(
@@ -145,28 +144,28 @@ public class AboutNot7GameKoans {
             ),
         new Koan(CLASS, "gameRoundv5")
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .whenCalled()
             .withSeed(1010) // 7 directly
             .withStdInInputs(List.of(N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(1000) // non 7 result and n
             .withStdInInputs(List.of(N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(1003) // o, o, n
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(1001) // o, o, et 7
             .withStdInInputs(List.of(Y, Y))
             .then(
@@ -176,7 +175,7 @@ public class AboutNot7GameKoans {
         // Since the display of who is playing is not random dependant, not using seeds here.
         new Koan(CLASS, "not7Gamev1")
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(N, N))
             .then(
                 assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
@@ -187,7 +186,7 @@ public class AboutNot7GameKoans {
                 GAME_ROUND_ASSERTIONS,
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .whenCalled()
             .withStdInInputs(List.of(Y, Y, N, Y, Y, N))
             .then(
                 assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
@@ -201,7 +200,7 @@ public class AboutNot7GameKoans {
         // Since the display of who has won is random dependant, use seeds.
         new Koan(CLASS, "not7Gamev2")
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .whenCalled()
             .withSeed(2002) // Player 2 wins
             .withStdInInputs(List.of(N))
             .then(
@@ -214,7 +213,7 @@ public class AboutNot7GameKoans {
                 AboutNot7GameKoans::assertWinnerLine,
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(2000) // Player 1 wins
             .withStdInInputs(List.of(N, N))
             .then(
@@ -227,7 +226,7 @@ public class AboutNot7GameKoans {
                 AboutNot7GameKoans::assertWinnerLine,
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .whenCalled()
             .withSeed(2005) // Tie
             .withStdInInputs(List.of(N, N))
             .then(
@@ -242,7 +241,7 @@ public class AboutNot7GameKoans {
             )
     );
 
-    private static boolean gameRoundv1Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv1Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -267,7 +266,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv2Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv2Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -293,7 +292,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv3Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv3Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -320,7 +319,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv4Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv4Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
         var asserted = true;
@@ -372,7 +371,7 @@ public class AboutNot7GameKoans {
         }
 
         @Override
-        public boolean validate(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+        public boolean validate(Printer p, KoanResult res) {
             var wantsToContinue = true;
             var asserted = true;
             var loopOffset = res == lastResultSeen ? loopCount : 0;
@@ -429,7 +428,7 @@ public class AboutNot7GameKoans {
         }
     }
 
-    private static boolean assertWinnerLine(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean assertWinnerLine(Printer p, KoanResult res) {
         var expected = TIE;
         if (GAME_ROUND_ASSERTIONS.player1Score() > GAME_ROUND_ASSERTIONS.player2Score()) {
             expected = PLAYER_1_WINS;

@@ -23,61 +23,61 @@ public class AboutConditionsKoans {
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, "sign", int.class)
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertReturnValueEquals(POSITIVE)
             )
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertReturnValueEquals(POSITIVE)
             )
-            .whenCallingWith(-2)
+            .whenCalledWith(-2)
             .then(
                 assertReturnValueEquals(NEGATIVE)
             ),
         new Koan(CLASS, "signOrZero", int.class)
-            .whenCallingWith(2)
+            .whenCalledWith(2)
             .then(
                 assertReturnValueEquals(POSITIVE)
             )
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertReturnValueEquals(ZERO)
             )
-            .whenCallingWith(-2)
+            .whenCalledWith(-2)
             .then(
                 assertReturnValueEquals(NEGATIVE)
             ),
         new Koan(CLASS, "gradeComment", int.class)
-            .whenCallingWith(0)
+            .whenCalledWith(0)
             .then(
                 assertReturnValueEquals(OOPS)
             )
-            .whenCallingWith(1)
+            .whenCalledWith(1)
             .then(
                 assertReturnValueEquals(YOU_FAILED)
             )
-            .whenCallingWith(59)
+            .whenCalledWith(59)
             .then(
                 assertReturnValueEquals(YOU_FAILED)
             )
-            .whenCallingWith(60)
+            .whenCalledWith(60)
             .then(
                 assertReturnValueEquals(YOU_PASS)
             )            
-            .whenCallingWith(99)
+            .whenCalledWith(99)
             .then(
                 assertReturnValueEquals(YOU_PASS)
             )            
-            .whenCallingWith(100)
+            .whenCalledWith(100)
             .then(
                 assertReturnValueEquals(GOT_EVERYTHING_RIGHT)
             )            
-            .whenCallingWith(101)
+            .whenCalledWith(101)
             .then(
                 assertReturnValueEquals(YOU_CHEAT)
             )            
-            .whenCallingWith(-1)
+            .whenCalledWith(-1)
             .then(
                 assertReturnValueEquals(YOU_CHEAT)
             )            

@@ -2,26 +2,27 @@ package engine.test;
 
 import static engine.Assertions.assertNextStdOutLineEquals;
  import static engine.Assertions.assertNoMoreLineInStdOut;
-import static engine.Factories.global;
+import static engine.Localizable.global;
 
 import java.util.List;
 
 import engine.Color;
-import engine.Global;
 import engine.Koan;
+import engine.Localizable;
 import engine.test.simulation.StudentSolutions;
+import static engine.script.Expression.callKoanMethod;
 import static engine.Texts.*;
 import static engine.test.UnitTestExpectation.assertSuccess;
 import static engine.test.UnitTestExpectation.assertFailure;
 
 public class ConsoleUnitTests {
-    private static Global<Class<?>> CLASS = global(StudentSolutions.class);
+    private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
     public static final List<UnitTest> items = List.of(
         new UnitTest(
-            new Koan(CLASS, "simpleConsoleOutput")
+            new Koan(CLASS, "simpleConsoleOutput()")
                 .useConsole()
-                .whenCalled()
+                .when(callKoanMethod("simpleConsoleOutput"))
                 .then(
                     assertNextStdOutLineEquals(global("hello")),
                     assertNoMoreLineInStdOut()
@@ -33,7 +34,7 @@ public class ConsoleUnitTests {
         new UnitTest(
             new Koan(CLASS, "noMethod")
                 .useConsole()
-                .whenCalled()
+                .when(callKoanMethod("noMethod"))
                 .then(
                     assertNextStdOutLineEquals(global("hello"))
                 ),

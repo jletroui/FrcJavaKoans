@@ -1,106 +1,126 @@
 package sensei;
 
 import static engine.Assertions.assertReturnValueEquals;
-import static engine.Factories.localClass;
+import static engine.Assertions.assertKoanMethodIsInvokable;
+import static engine.Localizable.localClass;
+import static engine.script.Expression.callKoanMethod;
 
 import java.util.List;
 
 import engine.Koan;
-import engine.Local;
+import engine.Localizable;
 
 public class AboutDecimalNumbersKoans {
-    private static final Local<Class<?>> CLASS =
+    private static final Localizable<Class<?>> CLASS =
         localClass(koans.english.AboutDecimalNumbers.class)
         .fr(koans.french.AboutDecimalNumbers.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "toCm", double.class)
-            .whenCalledWith(0.0)
+        new Koan(CLASS, "toCm()")
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("toCm", double.class)
+            )
+            .when(callKoanMethod("toCm", 0.0))
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCalledWith(1.0)
+            .when(callKoanMethod("toCm", 1.0))
             .then(
                 assertReturnValueEquals(2.54)
             )
-            .whenCalledWith(2.0)
+            .when(callKoanMethod("toCm", 2.0))
             .then(
                 assertReturnValueEquals(5.08)
             ),
-        new Koan(CLASS, "toInches", double.class)
-            .whenCalledWith(0.0)
+        new Koan(CLASS, "toInches()")
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("toInches", double.class)
+            )
+            .when(callKoanMethod("toInches", 0.0))
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCalledWith(2.54)
+            .when(callKoanMethod("toInches", 2.54))
             .then(
                 assertReturnValueEquals(1.0)
             )
-            .whenCalledWith(5.08)
+            .when(callKoanMethod("toInches", 5.08))
             .then(
                 assertReturnValueEquals(2.0)
             ),
-        new Koan(CLASS, "rectangleArea", double.class, double.class)
-            .whenCalledWith(0.0, 0.0)
+        new Koan(CLASS, "rectangleArea()")
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("rectangleArea", double.class)
+            )
+            .when(callKoanMethod("rectangleArea", 0.0, 0.0))
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCalledWith(0.0, 4.0)
+            .when(callKoanMethod("rectangleArea", 0.0, 4.0))
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCalledWith(1.0, 4.0)
+            .when(callKoanMethod("rectangleArea", 1.0, 4.0))
             .then(
                 assertReturnValueEquals(4.0)
             )
-            .whenCalledWith(3.5, 3.0)
+            .when(callKoanMethod("rectangleArea", 3.5, 3.0))
             .then(
                 assertReturnValueEquals(10.5)
             ),
-        new Koan(CLASS, "wheelCircumference", double.class)
-            .whenCalledWith(0.0)
+        new Koan(CLASS, "wheelCircumference()")
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("wheelCircumference", double.class)
+            )
+            .when(callKoanMethod("wheelCircumference", 0.0))
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCalledWith(1.0)
+            .when(callKoanMethod("wheelCircumference", 1.0))
             .then(
                 assertReturnValueEquals(6.28)
             )
-            .whenCalledWith(2.0)
+            .when(callKoanMethod("wheelCircumference", 2.0))
             .then(
                 assertReturnValueEquals(12.56)
             ),
-        new Koan(CLASS, "wheelRotations", double.class, double.class)
-            .whenCalledWith(1.0, 0.0)
+        new Koan(CLASS, "wheelRotations()")
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("wheelRotations", double.class, double.class)
+            )
+            .when(callKoanMethod("wheelRotations", 1.0, 0.0))
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCalledWith(1.0, 0.15)
+            .when(callKoanMethod("wheelRotations", 1.0, 0.15))
             .then(
                 assertReturnValueEquals(0.15)
             )
-            .whenCalledWith(10.0, 0.15)
+            .when(callKoanMethod("wheelRotations", 10.0, 0.15))
             .then(
                 assertReturnValueEquals(1.5)
             ),
-        new Koan(CLASS, "toDistance", double.class, double.class, double.class)
-            .whenCalledWith(1.0, 0.0, 4.0)
+        new Koan(CLASS, "toDistance()")
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("toDistance", double.class, double.class, double.class)
+            )
+            .when(callKoanMethod("toDistance", 1.0, 0.0, 4.0))
             .then(
                 assertReturnValueEquals(0.0)
             )
-            .whenCalledWith(1.0, 1.0, 1.0)
+            .when(callKoanMethod("toDistance", 1.0, 1.0, 1.0))
             .then(
                 assertReturnValueEquals(6.28)
             )
-            .whenCalledWith(10.0, 1.0, 1.0)
+            .when(callKoanMethod("toDistance", 10.0, 1.0, 1.0))
             .then(
                 assertReturnValueEquals(62.8)
             )
-            .whenCalledWith(1.0, 0.15, 4.0)
+            .when(callKoanMethod("toDistance", 1.0, 0.15, 4.0))
             .then(
                 assertReturnValueEquals(3.768)
             )
-            .whenCalledWith(10.0, 0.15, 3.0)
+            .when(callKoanMethod("toDistance", 10.0, 0.15, 3.0))
             .then(
                 assertReturnValueEquals(28.26)
             )

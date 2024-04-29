@@ -3,8 +3,9 @@ package sensei;
 import static engine.Assertions.assertAskedInStdIn;
 import static engine.Assertions.assertNextStdOutLineEquals;
 import static engine.Assertions.assertNoMoreLineInStdOut;
-import static engine.Factories.global;
-import static engine.Factories.localClass;
+import static engine.Assertions.assertKoanMethodIsInvokable;
+import static engine.Localizable.localClass;
+import static engine.Localizable.global;
 import static engine.FormatParam.addToStdInInput;
 import static engine.FormatParam.stdInInput;
 import static sensei.Texts.IN_5_YEARS_YOU_WILL_BE;
@@ -13,49 +14,65 @@ import static sensei.Texts.WHAT_IS_YOUR_NAME;
 import static sensei.Texts.YOUR_NAME_IS;
 import static sensei.Texts.YOUR_NAME_IS_AND_YOUR_AGE_IS;
 import static sensei.Texts.YOUR_NAME_IS_SINGLE_LINE;
+import static engine.script.Expression.callKoanMethod;
 
 import java.util.List;
 
 import engine.Koan;
-import engine.Local;
+import engine.Localizable;
 
 public class AboutConsoleAndVariablesKoans {
-    private static final Local<Class<?>> CLASS =
+    private static final Localizable<Class<?>> CLASS =
         localClass(koans.english.AboutConsoleAndVariables.class)
         .fr(koans.french.AboutConsoleAndVariables.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "sayHelloInConsole")
+        new Koan(CLASS, "sayHelloInConsole()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("sayHelloInConsole")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .then(
                 assertNextStdOutLineEquals(global("Hello!")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "computeTwoAndTwo")
+        new Koan(CLASS, "computeTwoAndTwo()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("computeTwoAndTwo")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .then(
                 assertNextStdOutLineEquals(global("4")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "createAndDisplayAVariable")
+        new Koan(CLASS, "createAndDisplayAVariable()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("createAndDisplayAVariable")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .then(
                 assertNextStdOutLineEquals(global("4")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "createAndDisplayAStringVariable")
+        new Koan(CLASS, "createAndDisplayAStringVariable()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("createAndDisplayAStringVariable")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .then(
                 assertNextStdOutLineEquals(global("Hello!")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "askAndDisplayNameInConsole")
+        new Koan(CLASS, "askAndDisplayNameInConsole()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("askAndDisplayNameInConsole")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .withStdInInputs("Juliette")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
@@ -64,9 +81,12 @@ public class AboutConsoleAndVariablesKoans {
                 assertNextStdOutLineEquals(global("%s"), stdInInput(0)),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "askAndDisplayNameOnASingleLineInConsole")
+        new Koan(CLASS, "askAndDisplayNameOnASingleLineInConsole()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("askAndDisplayNameOnASingleLineInConsole")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .withStdInInputs("Juliette")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
@@ -74,9 +94,12 @@ public class AboutConsoleAndVariablesKoans {
                 assertNextStdOutLineEquals(YOUR_NAME_IS_SINGLE_LINE, stdInInput(0)),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "askNameAndAgeInConsole")
+        new Koan(CLASS, "askNameAndAgeInConsole()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("askNameAndAgeInConsole")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .withStdInInputs("Juliette", "14")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_NAME),
@@ -86,9 +109,12 @@ public class AboutConsoleAndVariablesKoans {
                 assertNextStdOutLineEquals(YOUR_NAME_IS_AND_YOUR_AGE_IS, stdInInput(0), stdInInput(1)),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "computeAgeIn5YearsConsole")
+        new Koan(CLASS, "computeAgeIn5YearsConsole()")
             .useConsole()
-            .whenCalled()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("computeAgeIn5YearsConsole")
+            )
+            .when(callKoanMethod("sayHelloInConsole"))
             .withStdInInputs("14")
             .then(
                 assertNextStdOutLineEquals(WHAT_IS_YOUR_AGE),

@@ -1,17 +1,16 @@
 package engine;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import engine.test.CapturingPrinter;
+import engine.script.ScriptRunner;
 import engine.test.Line;
 
 public class TestSensei {
     public static final Locale TEST_LOCALE = Locale.en;
 
     public record TestResult(int testIndex, KoanTest test, boolean succeeded, CapturingPrinter output) {
-        public boolean hasCaptured(Line... lines) {
+        public boolean hasCaptured(final Line... lines) {
             return output.hasCaptured(lines);
         }
 
@@ -20,12 +19,7 @@ public class TestSensei {
         }
 
         public String toString() {
-            return String.format("%s.%s[%d]", test.koan.koanClass.get(TEST_LOCALE).simpleClassName, test.koan.methodName, testIndex);
-        }
-    }
-    private record KoanTestIndex(int testIndex, KoanTest test) {
-        TestResult toResult(boolean succeed, CapturingPrinter output) {
-            return new TestResult(testIndex, test, succeed, output);
+            return String.format("%s/%s[%d]", test.koan.koanClass.get(TEST_LOCALE).simpleClassName, test.koan.koanName, testIndex);
         }
     }
 
@@ -37,38 +31,38 @@ public class TestSensei {
             .toList();
     }
 
-    private static TestResult executeTest(KoanTestIndex testIndex) {
-        var test = testIndex.test;
-        var capturingPrinter = new CapturingPrinter(TEST_LOCALE);
-        try {
-            test.setupRandomForKoan();
-            if (!test.koan.executeBeforeAssertions(capturingPrinter, TEST_LOCALE)) {
+    private record KoanTestIndex(int testIndex, KoanTest test) {
+        TestResult toResult(final boolean succeed, final CapturingPrinter output) {
+            return new TestResult(testIndex, test, succeed, output);
+        }
+    }
+
+    private static TestResult executeTest(final KoanTestIndex testIndex) {
+        final var test = testIndex.test;
+        final var capturingPrinter = new CapturingPrinter(TEST_LOCALE);
+
+        test.setupRandomForKoan();
+
+        for(var assertion: test.koan.beforeAssertions) {
+            if (!assertion.validate(capturingPrinter, TEST_LOCALE, test.koan)) {
                 return testIndex.toResult(false, capturingPrinter);
             }
-
-            final var targetMethod = test.resolveTargetMethod(TEST_LOCALE);
-
-            for(var prepCall: targetMethod.koanTest.objectPrepCalls) {
-                prepCall.invoke(targetMethod.object, TEST_LOCALE);
-            }
-
-            final var interceptionResult = StdStreamsInterceptor.capture(
-                true,
-                targetMethod::invoke,
-                test.stdInInputs(TEST_LOCALE)
-            );
-
-            final var result = new KoanResult(
-                TEST_LOCALE,
-                targetMethod,
-                interceptionResult.stdOutLines,
-                interceptionResult.stdInLines,
-                interceptionResult.returnValue
-            );
-
-            return testIndex.toResult(result.executeAssertions(capturingPrinter), capturingPrinter);
-        } catch(InvocationTargetException ite) {
-            throw new RuntimeException("Oops, test method thrown an exception", ite);
         }
+
+        final var interceptionResult = StdStreamsInterceptor.capture(
+            true,
+            () -> ScriptRunner.execute(test.koan.koanClass, TEST_LOCALE, test.script),
+            test.stdInInputs(TEST_LOCALE)
+        );
+
+        final var result = new KoanResult(
+            TEST_LOCALE,
+            test,
+            interceptionResult.stdOutLines,
+            interceptionResult.stdInLines,
+            interceptionResult.returnValue
+        );
+
+        return testIndex.toResult(result.executeAssertions(capturingPrinter), capturingPrinter);
     }
 }

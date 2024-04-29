@@ -297,8 +297,6 @@ public class AboutObjects {
      * Create a class 'frc.AllianceAutoScore' with final fields 'robotAScore' (RobotAutoScore), 'robotBScore' (RobotAutoScore) and 'robotCScore' (RobotAutoScore). The constructor should take a value for these as parameters.
      * Write a method 'totalScore' in 'frc.AllianceAutoScore' which compute the total score for the alliance.
      * 
-     * RobotScore: notes in speaker = [notesInSpeaker value]; notes in amp = [notesInAmp value]
-     * 
      * -------------------------------
      * 
      * Expected result:

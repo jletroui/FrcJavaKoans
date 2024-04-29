@@ -1,266 +1,315 @@
 package sensei;
 
-import static engine.Assertions.assertFieldIsFinal;
-import static engine.Assertions.assertFieldIsPrivate;
-import static engine.Assertions.assertFieldType;
-import static engine.Assertions.assertMethodIsInvokable;
+import static engine.Assertions.assertConstructorIsInvokable;
+import static engine.Assertions.assertPrivateFinalField;
+import static engine.Assertions.assertPrivateField;
+import static engine.Assertions.assertObjectMethodIsInvokable;
 import static engine.Assertions.assertReturnValueEquals;
 import static engine.Assertions.assertReturnValueStringRepresentationEquals;
-import static engine.Factories.global;
-import static engine.Factories.type;
-import static engine.Factories.value;
-import static engine.ObjectPreCall.invokeMethod;
+import static engine.Localizable.localClass;
+import static engine.Localizable.global;
+import static engine.Type.type;
+import static engine.script.Expression.newObject;
+import static engine.script.Expression.assignVariable;
+import static engine.script.Expression.variable;
 
 import java.util.List;
 
 import engine.Koan;
+import engine.Localizable;
 import engine.Type;
 
 public class AboutObjectsKoans {
+    private static final Localizable<Class<?>> CLASS =
+        localClass(koans.english.AboutObjects.class)
+        .fr(koans.french.AboutObjects.class);
     private static final Type DOUBLE = type(double.class);
     private static final Type POINT = type("geom.Point");
+    private static final Type ROBOT_AUTO_SCORE = type("frc.RobotAutoScore");
 
     public static final List<Koan> koans = List.of(
-        // new Koan("geom.Point", "toString")
-        //     .usingConstructor(DOUBLE, DOUBLE)
-        //     .beforeTesting(
-        //         assertFieldIsPrivate("x"),
-        //         assertFieldIsFinal("x"),
-        //         assertFieldType("x", DOUBLE),
-        //         assertFieldIsPrivate("y"),
-        //         assertFieldIsFinal("y"),
-        //         assertFieldType("y", DOUBLE)
+        // new Koan(CLASS, "geom.Point.toString()")
+        //     .beforeFirstTest(
+        //         assertConstructorIsInvokable("geom.Point", DOUBLE, DOUBLE),
+        //         assertPrivateFinalField("geom.Point", "x", DOUBLE),
+        //         assertPrivateFinalField("geom.Point", "y", DOUBLE)
         //     )
-        //     .onObjectConstructedWith(2.0, 2.0)
-        //     .whenCalled(),
-        // new Koan("geom.Point", "toString")
-        //     .usingConstructor(DOUBLE, DOUBLE)
-        //     .onObjectConstructedWith(2.0, 2.0)
-        //     .whenCalled()
+        //     .when(
+        //         newObject("geom.Point", 2.0, 2.0).call("toString")
+        //     )
         //     .then(
         //         assertReturnValueEquals(global("Point(2.0, 2.0)"))
         //     )
-        //     .onObjectConstructedWith(-2.0, 4.5)
-        //     .whenCalled()
+        //     .when(
+        //         newObject("geom.Point", -2.0, 4.5).call("toString")
+        //     )
         //     .then(
         //         assertReturnValueEquals(global("Point(-2.0, 4.5)"))
         //     ),
-        // new Koan("geom.Point", "translate", double.class, double.class)
-        //     .usingConstructor(DOUBLE, DOUBLE)
-        //     .onObjectConstructedWith(2.0, 2.0)
-        //     .whenCalledWith(0.0, 0.0)
+        // new Koan(CLASS, "geom.Point.translate()")
+        //     .beforeFirstTest(
+        //         assertObjectMethodIsInvokable("geom.Point", "translate",  double.class, double.class)
+        //     )
+        //     .when(
+        //         newObject("geom.Point", 2.0, 2.0).call("translate", 0.0, 0.0)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Point(2.0, 2.0)"), "geom.Point")
         //     )
-        //     .onObjectConstructedWith(2.0, 2.0)
-        //     .whenCalledWith(1.0, -2.5)
+        //     .when(
+        //         newObject("geom.Point", 2.0, 2.0).call("translate", 1.0, -2.5)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Point(3.0, -0.5)"), "geom.Point")
         //     )
-        //     .onObjectConstructedWith(-2.0, 2.0)
-        //     .whenCalledWith(1.0, 1.0)
+        //     .when(
+        //         newObject("geom.Point", -2.0, 2.0).call("translate", 1.0, 1.0)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Point(-1.0, 3.0)"), "geom.Point")
         //     ),
-        // new Koan("geom.Triangle", "toString")
-        //     .usingConstructor(POINT, POINT, POINT)
-        //     .beforeTesting(
-        //         assertFieldIsPrivate("a"),
-        //         assertFieldIsFinal("a"),
-        //         assertFieldType("a", POINT),
-        //         assertFieldIsPrivate("b"),
-        //         assertFieldIsFinal("b"),
-        //         assertFieldType("b", POINT),
-        //         assertFieldIsPrivate("c"),
-        //         assertFieldIsFinal("c"),
-        //         assertFieldType("c", POINT)
+        // new Koan(CLASS, "geom.Triangle.toString()")
+        //     .beforeFirstTest(
+        //         assertConstructorIsInvokable("geom.Triangle", POINT, POINT, POINT),
+        //         assertPrivateFinalField("geom.Triangle", "a", POINT),
+        //         assertPrivateFinalField("geom.Triangle", "b", POINT),
+        //         assertPrivateFinalField("geom.Triangle", "c", POINT)
         //     )
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(POINT, 0.0, 0.0), value(POINT, 2.0, -1.0))
-        //     .whenCalled(),
-        // new Koan("geom.Triangle", "toString")
-        //     .usingConstructor(POINT, POINT, POINT)
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(POINT, 0.0, 0.0), value(POINT, 2.0, -1.0))
-        //     .whenCalled()
+        //     .when(
+        //         newObject(
+        //             "geom.Triangle",
+        //             newObject("geom.Point", 2.0, 2.0),
+        //             newObject("geom.Point", 0.0, 0.0),
+        //             newObject("geom.Point", 2.0, -1.0)
+        //         ).call("toString")
+        //     )
         //     .then(
         //         assertReturnValueEquals(global("Triangle(Point(2.0, 2.0), Point(0.0, 0.0), Point(2.0, -1.0))"))
         //     )
-        //     .onObjectConstructedWith(value(POINT, 0.0, -2.0), value(POINT, 0.0, 0.0), value(POINT, 2.5, 5.3))
-        //     .whenCalled()
+        //     .when(
+        //         newObject(
+        //             "geom.Triangle",
+        //             newObject("geom.Point", 0.0, -2.0),
+        //             newObject("geom.Point", 0.0, 0.0),
+        //             newObject("geom.Point", 2.5, 5.3)
+        //         ).call("toString")
+        //     )
         //     .then(
         //         assertReturnValueEquals(global("Triangle(Point(0.0, -2.0), Point(0.0, 0.0), Point(2.5, 5.3))"))
         //     ),
-        // new Koan("geom.Triangle", "translate", double.class, double.class)
-        //     .usingConstructor(POINT, POINT, POINT)
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(POINT, 0.0, 0.0), value(POINT, 2.0, -1.0))
-        //     .whenCalledWith(0.0, 0.0)
+        // new Koan(CLASS, "geom.Triangle.translate()")
+        //     .beforeFirstTest(
+        //         assertObjectMethodIsInvokable("geom.Triangle", "translate",  double.class, double.class)
+        //     )
+        //     .when(
+        //         newObject(
+        //             "geom.Triangle",
+        //             newObject("geom.Point", 2.0, 2.0),
+        //             newObject("geom.Point", 0.0, 0.0),
+        //             newObject("geom.Point", 2.0, -1.0)
+        //         ).call("translate", 0.0, 0.0)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Triangle(Point(2.0, 2.0), Point(0.0, 0.0), Point(2.0, -1.0))"), "geom.Triangle")
         //     )
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(POINT, 0.0, 0.0), value(POINT, 2.0, -1.0))
-        //     .whenCalledWith(1.0, -2.5)
+        //     .when(
+        //         newObject(
+        //             "geom.Triangle",
+        //             newObject("geom.Point", 2.0, 2.0),
+        //             newObject("geom.Point", 0.0, 0.0),
+        //             newObject("geom.Point", 2.0, -1.0)
+        //         ).call("translate", 1.0, -2.5)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Triangle(Point(3.0, -0.5), Point(1.0, -2.5), Point(3.0, -3.5))"), "geom.Triangle")
         //     )
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(POINT, 0.0, 0.0), value(POINT, 2.0, -1.0))
-        //     .whenCalledWith(1.0, 1.0)
+        //     .when(
+        //         newObject(
+        //             "geom.Triangle",
+        //             newObject("geom.Point", 2.0, 2.0),
+        //             newObject("geom.Point", 0.0, 0.0),
+        //             newObject("geom.Point", 2.0, -1.0)
+        //         ).call("translate", 1.0, 1.0)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Triangle(Point(3.0, 3.0), Point(1.0, 1.0), Point(3.0, 0.0))"), "geom.Triangle")
         //     ),                
-        // new Koan("geom.Circle", "toString")
-        //     .usingConstructor(POINT, DOUBLE)
-        //     .beforeTesting(
-        //         assertFieldIsPrivate("center"),
-        //         assertFieldIsFinal("center"),
-        //         assertFieldType("center", POINT),
-        //         assertFieldIsPrivate("radius"),
-        //         assertFieldIsFinal("radius"),
-        //         assertFieldType("radius", DOUBLE)
+        // new Koan(CLASS, "geom.Circle.toString()")
+        //     .beforeFirstTest(
+        //         assertConstructorIsInvokable("geom.Circle", POINT, DOUBLE),
+        //         assertPrivateFinalField("geom.Circle", "center", POINT),
+        //         assertPrivateFinalField("geom.Circle", "radius", DOUBLE)
         //     )
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
-        //     .whenCalled()
+        //     .when(
+        //         newObject("geom.Circle", newObject("geom.Point", 2.0, 2.0), 1.7).call("toString")
+        //     )
         //     .then(
         //         assertReturnValueEquals(global("Circle(Point(2.0, 2.0), 1.7)"))
         //     )
-        //     .onObjectConstructedWith(value(POINT, -2.5, 8.2), value(4.5))
-        //     .whenCalled()
+        //     .when(
+        //         newObject("geom.Circle", newObject("geom.Point", -2.5, 8.2), 4.5).call("toString")
+        //     )
         //     .then(
         //         assertReturnValueEquals(global("Circle(Point(-2.5, 8.2), 4.5)"))
         //     ),
-        // new Koan("geom.Circle", "translate", double.class, double.class)
-        //     .usingConstructor(POINT, DOUBLE)
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
-        //     .whenCalledWith(0.0, 0.0)
+        // new Koan(CLASS, "geom.Circle.translate()")
+        //     .beforeFirstTest(
+        //         assertObjectMethodIsInvokable("geom.Circle", "translate",  double.class, double.class)
+        //     )
+        //     .when(
+        //         newObject("geom.Circle", newObject("geom.Point", 2.0, 2.0), 1.7).call("translate", 0.0, 0.0)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Circle(Point(2.0, 2.0), 1.7)"), "geom.Circle")
         //     )
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
-        //     .whenCalledWith(1.0, -2.5)
+        //     .when(
+        //         newObject("geom.Circle", newObject("geom.Point", 2.0, 2.0), 1.7).call("translate", 1.0, -2.5)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Circle(Point(3.0, -0.5), 1.7)"), "geom.Circle")
         //     )
-        //     .onObjectConstructedWith(value(POINT, 2.0, 2.0), value(1.7))
-        //     .whenCalledWith(1.0, 1.0)
+        //     .when(
+        //         newObject("geom.Circle", newObject("geom.Point", 2.0, 2.0), 1.7).call("translate", 1.0, 1.0)
+        //     )
         //     .then(
         //         assertReturnValueStringRepresentationEquals(global("Circle(Point(3.0, 3.0), 1.7)"), "geom.Circle")
         //     ),
-        // new Koan("frc.RobotAutoScore", "toString")
-        //     .usingConstructor()
-        //     .beforeTesting(
-        //         assertFieldIsPrivate("notesInSpeaker"),
-        //         assertFieldType("notesInSpeaker",  type(int.class)),
-        //         assertFieldIsPrivate("notesInAmp"),
-        //         assertFieldType("notesInAmp",  type(int.class))
+        // new Koan(CLASS, "frc.RobotAutoScore.toString()")
+        //     .beforeFirstTest(
+        //         assertConstructorIsInvokable("frc.RobotAutoScore"),
+        //         assertPrivateField("frc.RobotAutoScore", "notesInSpeaker",  type(int.class)),
+        //         assertPrivateField("frc.RobotAutoScore", "notesInAmp",  type(int.class))
         //     )
-        //     .onObjectConstructedWith()
-        //     .whenCalled()
+        //     .when(
+        //         newObject("frc.RobotAutoScore").call("toString")
+        //     )
         //     .then(
         //         assertReturnValueEquals(global("RobotScore: notes in speaker = 0; notes in amp = 0"))
         //     ),
-        // new Koan("frc.RobotAutoScore", "toString")
-        //     .usingConstructor()
-        //     .beforeTesting(
-        //         assertMethodIsInvokable("noteScoredInSpeaker", false, new Type[0])
+        // new Koan(CLASS, "frc.RobotAutoScore.noteScoredInSpeaker()")
+        //     .beforeFirstTest(
+        //         assertObjectMethodIsInvokable("frc.RobotAutoScore", "noteScoredInSpeaker")
         //     )
-        //     .onObjectConstructedWith()
-        //     .onObjectPreparedWith(
-        //         invokeMethod("noteScoredInSpeaker")
+        //     .when(
+        //         assignVariable("autoScore", newObject("frc.RobotAutoScore")),
+        //         variable("autoScore").call("noteScoredInSpeaker"),
+        //         variable("autoScore").call("toString")
         //     )
-        //     .whenCalled()
         //     .then(
         //         assertReturnValueEquals(global("RobotScore: notes in speaker = 1; notes in amp = 0"))
         //     )
-        //     .onObjectConstructedWith()
-        //     .onObjectPreparedWith(
-        //         invokeMethod("noteScoredInSpeaker"),
-        //         invokeMethod("noteScoredInSpeaker")
+        //     .when(
+        //         assignVariable("autoScore", newObject("frc.RobotAutoScore")),
+        //         variable("autoScore").call("noteScoredInSpeaker"),
+        //         variable("autoScore").call("noteScoredInSpeaker"),
+        //         variable("autoScore").call("toString")
         //     )
-        //     .whenCalled()
         //     .then(
         //         assertReturnValueEquals(global("RobotScore: notes in speaker = 2; notes in amp = 0"))
         //     ),
-        // new Koan("frc.RobotAutoScore", "toString")
-        //     .usingConstructor()
-        //     .beforeTesting(
-        //         assertMethodIsInvokable("noteScoredInAmp", false, new Type[0])
+        // new Koan(CLASS, "frc.RobotAutoScore.noteScoredInAmp()")
+        //     .beforeFirstTest(
+        //         assertObjectMethodIsInvokable("frc.RobotAutoScore", "noteScoredInAmp")
         //     )
-        //     .onObjectConstructedWith()
-        //     .onObjectPreparedWith(
-        //         invokeMethod("noteScoredInAmp")
+        //     .when(
+        //         assignVariable("autoScore", newObject("frc.RobotAutoScore")),
+        //         variable("autoScore").call("noteScoredInAmp"),
+        //         variable("autoScore").call("toString")
         //     )
-        //     .whenCalled()
         //     .then(
         //         assertReturnValueEquals(global("RobotScore: notes in speaker = 0; notes in amp = 1"))
         //     )
-        //     .onObjectConstructedWith()
-        //     .onObjectPreparedWith(
-        //         invokeMethod("noteScoredInAmp"),
-        //         invokeMethod("noteScoredInAmp")
+        //     .when(
+        //         assignVariable("autoScore", newObject("frc.RobotAutoScore")),
+        //         variable("autoScore").call("noteScoredInAmp"),
+        //         variable("autoScore").call("noteScoredInAmp"),
+        //         variable("autoScore").call("toString")
         //     )
-        //     .whenCalled()
         //     .then(
         //         assertReturnValueEquals(global("RobotScore: notes in speaker = 0; notes in amp = 2"))
         //     ),
-        new Koan("frc.RobotAutoScore", "totalScore")
-            .usingConstructor()
-            .onObjectConstructedWith()
-            .whenCalled()
+        // new Koan(CLASS, "frc.RobotAutoScore.totalScore()")
+        //     .beforeFirstTest(
+        //         assertObjectMethodIsInvokable("frc.RobotAutoScore", "totalScore")
+        //     )
+        //     .when(
+        //         newObject("frc.RobotAutoScore").call("totalScore")
+        //     )
+        //     .then(
+        //         assertReturnValueEquals(0)
+        //     )
+        //     .when(
+        //         assignVariable("autoScore", newObject("frc.RobotAutoScore")),
+        //         variable("autoScore").call("noteScoredInAmp"),
+        //         variable("autoScore").call("totalScore")
+        //     )
+        //     .then(
+        //         assertReturnValueEquals(2)
+        //     )
+        //     .when(
+        //         assignVariable("autoScore", newObject("frc.RobotAutoScore")),
+        //         variable("autoScore").call("noteScoredInSpeaker"),
+        //         variable("autoScore").call("totalScore")
+        //     )
+        //     .then(
+        //         assertReturnValueEquals(5)
+        //     )
+        //     .when(
+        //         assignVariable("autoScore", newObject("frc.RobotAutoScore")),
+        //         variable("autoScore").call("noteScoredInAmp"),
+        //         variable("autoScore").call("noteScoredInSpeaker"),
+        //         variable("autoScore").call("totalScore")
+        //     )
+        //     .then(
+        //         assertReturnValueEquals(7)
+        //     ),
+        new Koan(CLASS, "frc.AllianceAutoScore.totalScore()")
+            .beforeFirstTest(
+                assertConstructorIsInvokable("frc.AllianceAutoScore", ROBOT_AUTO_SCORE, ROBOT_AUTO_SCORE, ROBOT_AUTO_SCORE),
+                assertPrivateFinalField("frc.AllianceAutoScore", "robotAScore",  ROBOT_AUTO_SCORE),
+                assertPrivateFinalField("frc.AllianceAutoScore", "robotBScore",  ROBOT_AUTO_SCORE),
+                assertPrivateFinalField("frc.AllianceAutoScore", "robotCScore",  ROBOT_AUTO_SCORE),
+                assertObjectMethodIsInvokable("frc.AllianceAutoScore", "totalScore")
+            )
+            .when(
+                newObject(
+                    "frc.AllianceAutoScore",
+                    newObject("frc.RobotAutoScore"),
+                    newObject("frc.RobotAutoScore"),
+                    newObject("frc.RobotAutoScore")
+                ).call("totalScore")
+            )
             .then(
                 assertReturnValueEquals(0)
             )
-            .onObjectConstructedWith()
-            .onObjectPreparedWith(
-                invokeMethod("noteScoredInAmp")
+            .when(
+                assignVariable("robot1Score", newObject("frc.RobotAutoScore")),
+                assignVariable("robot2Score", newObject("frc.RobotAutoScore")),
+                assignVariable("robot3Score", newObject("frc.RobotAutoScore")),
+                variable("robot2Score").call("noteScoredInAmp"),
+                newObject("frc.AllianceAutoScore", variable("robot1Score"), variable("robot2Score"), variable("robot3Score")).call("totalScore")
             )
-            .whenCalled()
             .then(
                 assertReturnValueEquals(2)
             )
-            .onObjectConstructedWith()
-            .onObjectPreparedWith(
-                invokeMethod("noteScoredInSpeaker")
+            .when(
+                assignVariable("robot1Score", newObject("frc.RobotAutoScore")),
+                assignVariable("robot2Score", newObject("frc.RobotAutoScore")),
+                assignVariable("robot3Score", newObject("frc.RobotAutoScore")),
+                variable("robot3Score").call("noteScoredInSpeaker"),
+                newObject("frc.AllianceAutoScore", variable("robot1Score"), variable("robot2Score"), variable("robot3Score")).call("totalScore")
             )
-            .whenCalled()
             .then(
                 assertReturnValueEquals(5)
             )
-            .onObjectConstructedWith()
-            .onObjectPreparedWith(
-                invokeMethod("noteScoredInAmp"),
-                invokeMethod("noteScoredInSpeaker")
+            .when(
+                assignVariable("robot1Score", newObject("frc.RobotAutoScore")),
+                assignVariable("robot2Score", newObject("frc.RobotAutoScore")),
+                assignVariable("robot3Score", newObject("frc.RobotAutoScore")),
+                variable("robot1Score").call("noteScoredInAmp"),
+                variable("robot2Score").call("noteScoredInSpeaker"),
+                newObject("frc.AllianceAutoScore", variable("robot1Score"), variable("robot2Score"), variable("robot3Score")).call("totalScore")
             )
-            .whenCalled()
-            .then(
-                assertReturnValueEquals(7)
-            ),
-        new Koan("frc.AllianceAutoScore", "totalScore")
-            .usingConstructor(type("frc.RobotAutoScore"), type("frc.RobotAutoScore"), type("frc.RobotAutoScore"))
-            .onObjectConstructedWith(value(type("frc.RobotAutoScore")), value(type("frc.RobotAutoScore")), value(type("frc.RobotAutoScore")))
-            .whenCalled()
-            .then(
-                assertReturnValueEquals(0)
-            )
-            .onObjectConstructedWith()
-            .onObjectPreparedWith(
-                invokeMethod("noteScoredInAmp")
-            )
-            .whenCalled()
-            .then(
-                assertReturnValueEquals(2)
-            )
-            .onObjectConstructedWith()
-            .onObjectPreparedWith(
-                invokeMethod("noteScoredInSpeaker")
-            )
-            .whenCalled()
-            .then(
-                assertReturnValueEquals(5)
-            )
-            .onObjectConstructedWith()
-            .onObjectPreparedWith(
-                invokeMethod("noteScoredInAmp"),
-                invokeMethod("noteScoredInSpeaker")
-            )
-            .whenCalled()
             .then(
                 assertReturnValueEquals(7)
             )

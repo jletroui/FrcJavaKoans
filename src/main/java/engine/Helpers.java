@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Helpers {
-    private static Random rng = new Random();
+    private static final Random rng = new Random();
     private static Scanner scanner = null;
 
     static void cleanupStdInForKoan() {
@@ -25,7 +25,7 @@ public class Helpers {
         return scanner.nextLine();
     }
 
-    static void setupRandomForKoan(long seed) {
+    static void setupRandomForKoan(final long seed) {
         rng.setSeed(seed);
     }
 
@@ -33,18 +33,18 @@ public class Helpers {
         return rng.nextDouble();
     }
 
-    static String formatSequence(Locale locale, double[] toFormat) {
+    static String formatSequence(final Locale locale, final double[] toFormat) {
         return formatSequence(
             locale,
             Arrays.stream(toFormat).mapToObj(Double::toString).toArray(String[]::new)
         );
     }
 
-    static String formatSequence(Locale locale, Object[] toFormat) {
+    static String formatSequence(final Locale locale, final Object[] toFormat) {
         if (toFormat == null || toFormat.length == 0) {
             return "";
         }
-        var result = new StringBuilder();
+        final var result = new StringBuilder();
         result.append(toFormat[0]);
 
         if (toFormat.length > 1) {
@@ -58,8 +58,8 @@ public class Helpers {
         return result.toString();
     }
 
-    static boolean isInstantiable(Class<?> clasz) {
-        int modifiers = clasz.getModifiers();
+    static boolean isInstantiable(final Class<?> clasz) {
+        final int modifiers = clasz.getModifiers();
         return
             Modifier.isPublic(modifiers) &&
             !clasz.isInterface() &&

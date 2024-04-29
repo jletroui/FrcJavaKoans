@@ -6,13 +6,14 @@ import java.util.Optional;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.Function;
 
+import static engine.Localizable.global;
 import static engine.Texts.*;
 
 /**
  * Library of various assertions which can be run about the result of a koan execution.
  */
 public class Assertions {
-    private static String resolveTemplateParam(KoanResult res, Object param) {
+    private static String resolveTemplateParam(final KoanResult res, final Object param) {
         if (param instanceof FormatParam) {
             return ((FormatParam)param).format(res);
         }
@@ -20,18 +21,15 @@ public class Assertions {
         return Optional.ofNullable(param).map((v) -> v.toString()).orElse("");
     }
 
-    private static String whenCalling(KoanResult res) {
-        if (res.targetMethod.hasParameters()) {
-            return String.format(" when calling %s", res.targetMethod);
-        }
-        return "";
+    private static String whenCalling(final KoanResult res) {
+        return String.format(" when calling %s", res.resultExpressionSourceCode);
     }
 
-    public static ResultAssertion assertIf(boolean condition, ResultAssertion inner) {
+    public static ResultAssertion assertIf(final boolean condition, final ResultAssertion inner) {
         return (p, res) -> condition ? inner.validate(p, res) : true;
     }
 
-    public static ResultAssertion assertNextStdOutLineEquals(Localizable<String> expectedTemplate, Object... params) {
+    public static ResultAssertion assertNextStdOutLineEquals(final Localizable<String> expectedTemplate, final Object... params) {
         return (p, res) -> {
             final var realParams = Arrays.stream(params)
                 .map((param) -> Assertions.resolveTemplateParam(res, param))
@@ -103,18 +101,18 @@ public class Assertions {
 
     public static ResultAssertion assertReturnValueEquals(final int expected) {
         return (p, res) -> {
-            if (res.methodReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.targetMethod, expected);
+            if (res.executionResult == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
                 return false;
-            } else if (!(res.methodReturnValue instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.targetMethod, res.methodReturnValue.getClass().getSimpleName());
+            } else if (!(res.executionResult instanceof Integer)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
                 return false;
-            } else if (((Integer)res.methodReturnValue).intValue() != expected) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED), res.targetMethod, expected, ((Integer)res.methodReturnValue).intValue());
+            } else if (((Integer)res.executionResult).intValue() != expected) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED), res.resultExpressionSourceCode, expected, ((Integer)res.executionResult).intValue());
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT), res.targetMethod, expected);
+            p.println(Color.green(OK_RETURNED_INT), res.resultExpressionSourceCode, expected);
             return true;
         }; 
     }
@@ -127,97 +125,97 @@ public class Assertions {
 
     public static ResultAssertion assertReturnValueEquals(final double expected) {
         return (p, res) -> {
-            if (res.methodReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL), res.targetMethod, expected);
+            if (res.executionResult == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
                 return false;
-            } else if (!(res.methodReturnValue instanceof Double)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE), res.targetMethod, res.methodReturnValue.getClass().getSimpleName());
+            } else if (!(res.executionResult instanceof Double)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
                 return false;
-            } else if (!equals((Double)res.methodReturnValue, expected)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED), res.targetMethod, expected, ((Double)res.methodReturnValue).doubleValue());
+            } else if (!equals((Double)res.executionResult, expected)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED), res.resultExpressionSourceCode, expected, ((Double)res.executionResult).doubleValue());
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_DOUBLE), res.targetMethod, expected);
+            p.println(Color.green(OK_RETURNED_DOUBLE), res.resultExpressionSourceCode, expected);
             return true;
         }; 
     }
 
     public static ResultAssertion assertReturnValueEquals(final boolean expected) {
         return (p, res) -> {
-            if (res.methodReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL), res.targetMethod, expected);
+            if (res.executionResult == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
                 return false;
-            } else if (!(res.methodReturnValue instanceof Boolean)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE), res.targetMethod, res.methodReturnValue.getClass().getSimpleName());
+            } else if (!(res.executionResult instanceof Boolean)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
                 return false;
-            } else if (((Boolean)res.methodReturnValue).booleanValue() != expected) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED), res.targetMethod, expected, ((Boolean)res.methodReturnValue).booleanValue());
+            } else if (((Boolean)res.executionResult).booleanValue() != expected) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED), res.resultExpressionSourceCode, expected, ((Boolean)res.executionResult).booleanValue());
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_BOOLEAN), res.targetMethod, expected);
+            p.println(Color.green(OK_RETURNED_BOOLEAN), res.resultExpressionSourceCode, expected);
             return true;
         }; 
     }
 
     public static ResultAssertion assertReturnValueEquals(final Localizable<String> expected) {
         return (p, res) -> {
-            if (res.methodReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL), res.targetMethod, expected.get(res.locale));
+            if (res.executionResult == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected.get(res.locale));
                 return false;
-            } else if (!(res.methodReturnValue instanceof String)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE), res.targetMethod, res.methodReturnValue.getClass().getSimpleName());
+            } else if (!(res.executionResult instanceof String)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
                 return false;
-            } else if (!((String)res.methodReturnValue).equals(expected.get(res.locale))) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED), res.targetMethod, expected.get(res.locale), (String)res.methodReturnValue);
+            } else if (!((String)res.executionResult).equals(expected.get(res.locale))) {
+                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED), res.resultExpressionSourceCode, expected.get(res.locale), (String)res.executionResult);
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_STRING), res.targetMethod, expected.get(res.locale));
+            p.println(Color.green(OK_RETURNED_STRING), res.resultExpressionSourceCode, expected.get(res.locale));
             return true;
         }; 
     }
 
     public static ResultAssertion assertReturnValueStringRepresentationEquals(final Localizable<String> expected, final String expectedType) {
         return (p, res) -> {
-            if (res.methodReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_NULL), res.targetMethod, expected.get(res.locale));
+            if (res.executionResult == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected.get(res.locale));
                 return false;
-            } else if (!res.methodReturnValue.getClass().getName().equals(expectedType)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE), res.targetMethod, expectedType, res.methodReturnValue.getClass().getSimpleName());
+            } else if (!res.executionResult.getClass().getName().equals(expectedType)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, expectedType, res.executionResult.getClass().getSimpleName());
                 return false;
-            } else if (!res.methodReturnValue.toString().equals(expected.get(res.locale))) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED), res.targetMethod, expected.get(res.locale), res.methodReturnValue.toString());
+            } else if (!res.executionResult.toString().equals(expected.get(res.locale))) {
+                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED), res.resultExpressionSourceCode, expected.get(res.locale), res.executionResult.toString());
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED), res.targetMethod, expected.get(res.locale));
+            p.println(Color.green(OK_RETURNED), res.resultExpressionSourceCode, expected.get(res.locale));
             return true;
         }; 
     }
 
-    public static ResultAssertion assertReturnValueWithRandomEquals(DoubleToIntFunction expected) {
+    public static ResultAssertion assertReturnValueWithRandomEquals(final DoubleToIntFunction expected) {
         return (p, res) -> {
-            var randomNumber = res.randomNumber();
-            if (res.methodReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.targetMethod, expected.applyAsInt(randomNumber));
+            final var randomNumber = res.randomNumber();
+            if (res.executionResult == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected.applyAsInt(randomNumber));
                 return false;
-            } else if (!(res.methodReturnValue instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.targetMethod, res.methodReturnValue.getClass().getSimpleName());
+            } else if (!(res.executionResult instanceof Integer)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
                 return false;
-            } else if (((Integer)res.methodReturnValue).intValue() != expected.applyAsInt(randomNumber)) {
+            } else if (((Integer)res.executionResult).intValue() != expected.applyAsInt(randomNumber)) {
                 p.println(
                     Color.red(EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED), 
-                    res.targetMethod,
+                    res.resultExpressionSourceCode,
                     expected.applyAsInt(randomNumber),
                     randomNumber,
-                    ((Integer)res.methodReturnValue).intValue()
+                    ((Integer)res.executionResult).intValue()
                 );
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOM), res.targetMethod, expected.applyAsInt(randomNumber), randomNumber);
+            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOM), res.resultExpressionSourceCode, expected.applyAsInt(randomNumber), randomNumber);
             return true;
         }; 
     }
@@ -227,7 +225,7 @@ public class Assertions {
      * @param count the number of random numbers expected to be generated
      * @param buildExpected given the generated numbers, returns the expected result
      */
-    public static ResultAssertion assertReturnValueWithRandomEquals(int count, ResToIntFunction buildExpected) {
+    public static ResultAssertion assertReturnValueWithRandomEquals(final int count, final ResToIntFunction buildExpected) {
         return assertReturnValueWithRandomEquals(res -> res.randomNumbers(count), buildExpected);
     }
 
@@ -237,91 +235,83 @@ public class Assertions {
      * @param count the number of random numbers to pick
      * @param buildExpected given the generated numbers, returns the expected result
      */
-    public static ResultAssertion assertReturnValueWithRandomEquals(int fromOffset, int count, ResToIntFunction buildExpected) {
+    public static ResultAssertion assertReturnValueWithRandomEquals(final int fromOffset, final int count, final ResToIntFunction buildExpected) {
         return assertReturnValueWithRandomEquals(res -> res.randomNumbers(fromOffset, count), buildExpected);
     }
 
-    private static ResultAssertion assertReturnValueWithRandomEquals(Function<KoanResult, double[]> randomNumbersFunc, ResToIntFunction buildExpected) {
+    private static ResultAssertion assertReturnValueWithRandomEquals(final Function<KoanResult, double[]> randomNumbersFunc, final ResToIntFunction buildExpected) {
         return (p, res) -> {
-            var randomNumbers = randomNumbersFunc.apply(res);
-            var formatRandomNumbers = Helpers.formatSequence(res.locale, randomNumbers);
+            final var randomNumbers = randomNumbersFunc.apply(res);
+            final var formatRandomNumbers = Helpers.formatSequence(res.locale, randomNumbers);
 
-            int expected = buildExpected.apply(res);
-            if (res.methodReturnValue == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.targetMethod, expected);
+            final int expected = buildExpected.apply(res);
+            if (res.executionResult == null) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
                 return false;
-            } else if (!(res.methodReturnValue instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.targetMethod, res.methodReturnValue.getClass().getSimpleName());
+            } else if (!(res.executionResult instanceof Integer)) {
+                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
                 return false;
-            } else if (((Integer)res.methodReturnValue).intValue() != expected) {
+            } else if (((Integer)res.executionResult).intValue() != expected) {
                 p.println(
                     Color.red(EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED), 
-                    res.targetMethod,
+                    res.resultExpressionSourceCode,
                     expected,
                     formatRandomNumbers,
-                    ((Integer)res.methodReturnValue).intValue()
+                    ((Integer)res.executionResult).intValue()
                 );
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOMS), res.targetMethod, expected, formatRandomNumbers);
+            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOMS), res.resultExpressionSourceCode, expected, formatRandomNumbers);
             return true;
         }; 
     }
+    
+    public static BeforeTestAssertion assertConstructorIsInvokable(final String className, final Type... constructorParamTypes) {
+        return (p, locale, _koan) -> {
+            final var type = new Type(className);
 
-    public static KoanAssertion assertClassIsInstantiable() {
-        return (p, locale, koan) -> {
             try {
-                var clasz = koan.koanClass.get(locale).resolve();
+                final var clasz = type.resolve();
                 if (!Helpers.isInstantiable(clasz)) {
-                    p.println(Color.red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), koan.koanClass.get(locale).className);
+                    p.println(Color.red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), className);
                     return false;
                 }
-            } catch (ClassNotFoundException cnfe) {
-                    p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.koanClass.get(locale).simpleClassName, koan.koanClass.get(locale).packageName);
-                return false;
-            }
 
-            return true;
-        };
-    }
-    
-    public static KoanAssertion assertConstructorIsInvokable() {
-        return (p, locale, koan) -> {
-            var clasz = koan.koanClass.get(locale).unsafeResolve();
-
-            try {
-                var constructor = clasz.getConstructor(Type.unsafeResolveTypes(koan.constructorParamTypes));
+                final var constructor = clasz.getConstructor(Type.unsafeResolveTypes(constructorParamTypes));
                 if (!Modifier.isPublic(constructor.getModifiers())) {
                     p.println(
                         Color.red(EXPECTED_CONSTRUCTOR_TO_BE_PUBLIC),
-                        koan.koanClass.get(locale).simpleClassName
+                        type.simpleClassName
                     );
                 }
             }
             catch(NoSuchMethodException nsme) {
-                if (koan.constructorParamTypes.length == 0) {
+                if (constructorParamTypes.length == 0) {
                     p.println(
                         Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS),
-                        koan.koanClass.get(locale).simpleClassName
+                        type.simpleClassName
                     );
-                } else if (koan.constructorParamTypes.length == 1) {
+                } else if (constructorParamTypes.length == 1) {
                     p.println(
                         Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM),
-                        koan.koanClass.get(locale).simpleClassName,
-                        koan.constructorParamTypes[0]
+                        type.simpleClassName,
+                        constructorParamTypes[0]
                     );
                 } else {
                     final var expectedParams = Arrays
-                        .stream(koan.constructorParamTypes)
-                        .map(type -> "'" + type + "'")
+                        .stream(constructorParamTypes)
+                        .map(t -> "'" + t + "'")
                         .toArray(String[]::new);
                     p.println(
                         Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS),
-                        koan.koanClass.get(locale).simpleClassName,
+                        type.simpleClassName,
                         Helpers.formatSequence(locale, expectedParams)
                     );
                 }
+                return false;
+            } catch (ClassNotFoundException cnfe) {
+                    p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), type.simpleClassName,type.packageName);
                 return false;
             }
 
@@ -329,16 +319,30 @@ public class Assertions {
         };
     }
     
-    public static KoanAssertion assertMethodIsInvokable(String methodName, boolean isStatic, Type... paramTypes) {
-        return assertMethodIsInvokable(methodName, isStatic, Type.unsafeResolveTypes(paramTypes));
+    /**
+     * This asserts that the method in the current Koan class is invokable with the given param types.
+     * 
+     * Note: koan methods should always be static. It would be weird to ask the student to make the Koan class itself to be instantiable.
+     */
+    public static BeforeTestAssertion assertKoanMethodIsInvokable(final String methodName, final Class<?>... paramTypes) {
+        return (p, locale, koan) -> assertMethodIsInvokable(koan.koanClass, methodName, true, Type.toTypes(paramTypes)).validate(p, locale, koan);
     }
 
-    public static KoanAssertion assertMethodIsInvokable(String methodName, boolean isStatic, Class<?>... methodParamTypes) {
-        return (p, locale, koan) -> {
-            var clasz = koan.koanClass.get(locale).unsafeResolve();
+    public static BeforeTestAssertion assertStaticMethodIsInvokable(final String className, final String methodName, final Class<?>... paramTypes) {
+        return assertMethodIsInvokable(global(new Type(className)), methodName, true, Type.toTypes(paramTypes));
+    }
+
+    public static BeforeTestAssertion assertObjectMethodIsInvokable(final String className, final String methodName, final Class<?>... paramTypes) {
+        return assertMethodIsInvokable(global(new Type(className)), methodName, false, Type.toTypes(paramTypes));
+    }
+
+    private static BeforeTestAssertion assertMethodIsInvokable(final Localizable<Type> type, final String methodName, final boolean isStatic, final Type... paramTypes) {
+        return (p, locale, _koan) -> {
+            final var clasz = type.get(locale).unsafeResolve();
+            final var methodParamClasses = Type.unsafeResolveTypes(paramTypes);
 
             try {
-                var method = clasz.getMethod(methodName, methodParamTypes);
+                final var method = clasz.getMethod(methodName, methodParamClasses);
                 if (isStatic && !Modifier.isStatic(method.getModifiers())) {
                     p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
                     return false;
@@ -350,28 +354,28 @@ public class Assertions {
                 if (!Modifier.isPublic(method.getModifiers())) {
                     p.println(
                         Color.red(EXPECTED_METHOD_TO_BE_PUBLIC),
-                        koan.koanClass.get(locale).simpleClassName
+                        methodName
                     );
                 }
             }
             catch(NoSuchMethodException nsme) {
-                if (methodParamTypes.length == 0) {
+                if (methodParamClasses.length == 0) {
                     p.println(
                         Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
                         methodName,
                         clasz.getName().replace(".", "/")
                     );
-                } else if (methodParamTypes.length == 1) {
+                } else if (methodParamClasses.length == 1) {
                     p.println(
                         Color.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
                         methodName,
                         clasz.getName().replace(".", "/"),
-                        methodParamTypes[0].getSimpleName()
+                        methodParamClasses[0].getSimpleName()
                     );
                 } else {
                     final var expectedParams = Arrays
-                        .stream(methodParamTypes)
-                        .map(type -> "'" + type.getSimpleName() + "'")
+                        .stream(methodParamClasses)
+                        .map(t -> "'" + t.getSimpleName() + "'")
                         .toArray(String[]::new);
                     p.println(
                         Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
@@ -385,61 +389,42 @@ public class Assertions {
 
             return true;
         };
+    }  
+
+        
+    public static BeforeTestAssertion assertPrivateFinalField(final String className, final String fieldName, final Type fieldType) {
+        return assertField(className, fieldName, true, fieldType);
     }
-    
-    public static KoanAssertion assertFieldIsPrivate(String fieldName) {
+
+    public static BeforeTestAssertion assertPrivateField(final String className, final String fieldName, final Type fieldType) {
+        return assertField(className, fieldName, false, fieldType);
+    }
+
+    public static BeforeTestAssertion assertField(final String className, final String fieldName, final Boolean isFinal, final Type fieldType) {
         return (p, locale, koan) -> {
-                var clasz = koan.koanClass.get(locale).unsafeResolve();
+            final var type = new Type(className);
 
             try {
-                var field = clasz.getDeclaredField(fieldName);
+                final var clasz = type.unsafeResolve();
+                final var field = clasz.getDeclaredField(fieldName);
                 if (!Modifier.isPrivate(field.getModifiers())) {
-                    p.println(Color.red(EXPECTED_FIELD_TO_BE_PRIVATE), fieldName, clasz.getName());
+                    p.println(Color.red(EXPECTED_FIELD_TO_BE_PRIVATE), fieldName, className);
                     return false;
                 }
-            }
-            catch(NoSuchFieldException nsfe) {
-                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, clasz.getName());
-                return false;
-            }
-
-            return true;
-        };
-    }
-    
-    public static KoanAssertion assertFieldIsFinal(String fieldName) {
-        return (p, locale, koan) -> {
-                var clasz = koan.koanClass.get(locale).unsafeResolve();
-
-            try {
-                var field = clasz.getDeclaredField(fieldName);
-                if (!Modifier.isFinal(field.getModifiers())) {
-                    p.println(Color.red(EXPECTED_FIELD_TO_BE_FINAL), fieldName, clasz.getName());
+                if (isFinal && !Modifier.isFinal(field.getModifiers())) {
+                    p.println(Color.red(EXPECTED_FIELD_TO_BE_FINAL), fieldName, className);
+                    return false;
+                } else if (!isFinal && Modifier.isFinal(field.getModifiers())) {
+                    p.println(Color.red(EXPECTED_FIELD_TO_NOT_BE_FINAL), fieldName, className);
                     return false;
                 }
-            }
-            catch(NoSuchFieldException nsfe) {
-                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, clasz.getName());
-                return false;
-            }
-
-            return true;
-        };
-    }    
-    
-    public static KoanAssertion assertFieldType(String fieldName, Type fieldType) {
-        return (p, locale, koan) -> {
-                var clasz = koan.koanClass.get(locale).unsafeResolve();
-
-            try {
-                var field = clasz.getDeclaredField(fieldName);
                 if (!field.getType().equals(fieldType.unsafeResolve())) {
-                    p.println(Color.red(EXPECTED_FIELD_TO_BE_OF_TYPE), fieldName, clasz.getName(), fieldType, field.getType().getSimpleName());
+                    p.println(Color.red(EXPECTED_FIELD_TO_BE_OF_TYPE), fieldName, className, fieldType, field.getType().getSimpleName());
                     return false;
                 }
             }
             catch(NoSuchFieldException nsfe) {
-                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, clasz.getName());
+                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, className);
                 return false;
             }
 

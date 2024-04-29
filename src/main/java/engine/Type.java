@@ -3,20 +3,24 @@ package engine;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
+import engine.script.ExecutionContext;
+import engine.script.Expression;
+import engine.script.ScriptExecutionException;
+
 public class Type {
     private Class<?> clasz = null;
-    public String className;
+    public final String className;
     public final String simpleClassName;
     public final String packageName;
 
-    public Type(String className) {
+    public Type(final String className) {
         this.className = className;
         var lastDotIndex = className.lastIndexOf(".");
         this.simpleClassName = className.substring(lastDotIndex + 1);
         this.packageName = className.substring(0, lastDotIndex);
     }
 
-    public Type(Class<?> clasz) {
+    public Type(final Class<?> clasz) {
         this.clasz = clasz;
         this.className = clasz.getName();
         this.simpleClassName = clasz.getSimpleName();
@@ -41,13 +45,13 @@ public class Type {
         return clasz;
     }
 
-    public Object unsafeInstantiate(Locale locale, Value[] constructorParams) throws InvocationTargetException {
-        var clasz = unsafeResolve();
+    public Object unsafeInstantiate(final ExecutionContext ctx, final Expression[] constructorParams) {
+        final var clasz = unsafeResolve();
         if (!Helpers.isInstantiable(clasz)) {
             throw new KoanBugException(String.format("The class %s is not instantiable, which should have been already caught by a missing assertion in this or a previous Koans.", clasz.getSimpleName()));
         }
 
-        var constructorCandidates = Arrays
+        final var constructorCandidates = Arrays
             .stream(clasz.getConstructors())
             .filter(c -> c.getParameters().length == constructorParams.length)
             .toList();
@@ -68,7 +72,7 @@ public class Type {
         }
 
         try {
-            return constructorCandidates.get(0).newInstance(Value.resolve(locale, constructorParams));
+            return constructorCandidates.get(0).newInstance(Expression.executeAll(ctx, constructorParams));
         } catch (InstantiationException ie) {
             throw new KoanBugException(String.format(
                 "Koans should assert that class %s is instantiable.",
@@ -78,10 +82,14 @@ public class Type {
             throw new KoanBugException(String.format("The constructor of %s is not accessible, which should have been already caught by a missing assertion in this or a previous Koans.", clasz.getSimpleName()));
         } catch(SecurityException se) {
             throw new KoanBugException(String.format("Stop messing with class loaders ;). Cannot instantiate %s.", clasz.getSimpleName()));
+        } catch(IllegalArgumentException iae) {
+            throw new KoanBugException(String.format("The constructor of %s do not possess the right parameters, which should have been already caught by a missing assertion in this or a previous Koans.", clasz.getSimpleName()));
+        } catch(InvocationTargetException ite) {
+            throw new ScriptExecutionException(ite, String.format("new %s(...)", clasz.getSimpleName()));
         }
 }
 
-    public static Class<?>[] unsafeResolveTypes(Type[] types) {
+    public static Class<?>[] unsafeResolveTypes(final Type[] types) {
         final var res = new Class<?>[types.length];
 
         for(int i = 0; i<types.length; i++) {
@@ -89,6 +97,18 @@ public class Type {
         }
 
         return res;
+    }
+
+    public static Type type(String className) {
+        return new Type(className);
+    }
+
+    public static Type type(Class<?> clasz) {
+        return new Type(clasz);
+    }
+
+    public static Type[] toTypes(final Class<?>[] classes) {
+        return Arrays.stream(classes).map(Type::type).toArray(Type[]::new);
     }
 
     @Override

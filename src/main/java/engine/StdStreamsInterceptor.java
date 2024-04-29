@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.function.Supplier;
 
 /**
  * Intercepts the StdOut output and the StdIn input of koans so we can assert what the koan method does output to the console and read from it.
@@ -18,20 +18,16 @@ public class StdStreamsInterceptor {
     private static final PrintStream realOut = System.out;
     private static final InputStream realIn = System.in;
 
-    public static class InterceptionResult {
+    public static class InterceptionResult<T> {
         public final String[] stdOutLines;
         public final String[] stdInLines;
-        public final Object returnValue;
+        public final T returnValue;
 
-        public InterceptionResult(String[] stdOutLines, String[] stdInLines, Object returnValue) {
+        public InterceptionResult(String[] stdOutLines, String[] stdInLines, T returnValue) {
             this.stdOutLines = stdOutLines;
             this.stdInLines = stdInLines;
             this.returnValue = returnValue;
         }
-    }
-
-    public interface ReflectionRunnable {
-        Object run() throws InvocationTargetException;
     }
 
     private static class OutputStreamMultiplexer extends OutputStream {
@@ -89,11 +85,11 @@ public class StdStreamsInterceptor {
         return Arrays.copyOf(lines, lines.length - 1);
     }
 
-    public static InterceptionResult capture(
+    public static <T> InterceptionResult<T> capture(
         boolean silent,
-        ReflectionRunnable executeFunc,
+        Supplier<T> executeFunc,
         String[] stdInputs
-    ) throws InvocationTargetException {
+    ) {
         var bos = new ByteArrayOutputStream();
         var printStream = new PrintStream(silent ? bos : new OutputStreamMultiplexer(bos, realOut), true);
 
@@ -101,9 +97,9 @@ public class StdStreamsInterceptor {
 
         System.setOut(printStream);
         System.setIn(inputStream);
-        Object returnValue;
+        T returnValue;
         try {
-            returnValue = executeFunc.run();
+            returnValue = executeFunc.get();
         }
         finally {
             reset();
@@ -111,7 +107,7 @@ public class StdStreamsInterceptor {
             printStream.close();
         }
 
-        return new InterceptionResult(
+        return new InterceptionResult<T>(
             lines(bos),
             silent ? stdInputs : ((StdInInterceptor)inputStream).lines(),
             returnValue

@@ -5,6 +5,8 @@ import static engine.Helpers.readLine;
 
 public class AboutNot7Game {
     /**
+     * # Introduction au jeu 'Pas 7!'
+     * 
      * Les Koans suivants sont un peu spéciaux, car vous allez mettre en pratique tout ce que vous avez appris.
      * 
      * Vous allez graduellement coder un jeu pour 2 appelé 'Pas 7!'.
@@ -88,6 +90,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Lancer un dé
+     * 
      * Écris une méthode 'die6()' retournant le résultat d'un dé à 6 faces.
      * 
      * ---------   INDICES   --------------
@@ -118,6 +122,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Poser une question au joueur
+     * 
      * Écris une méthode 'askQuestion(String questionText)' qui pose une question à l'utilisateur, et retourne un booléen indiquant si l'utilisateur a répondu 'o'.
      * 
      * -------------------------------
@@ -138,6 +144,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Lancer 2 dés
+     * 
      * Utilise die6() pour écrire une méthode 'throwDice' qui lance 2 dés, affiche le résultat dans la console, et retourne la somme des 2 dés.
      * 
      * -------------------------------
@@ -150,6 +158,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programmer une manche du jeu: 1ère étape
+     * 
      * Utilise 'throwDice' et 'askQuestion' pour écrire une méthode 'gameRoundv1' qui va de façon répétée, tant que l'utilisateur répond 'o':
      * 
      * - lancer 2 dés
@@ -175,6 +185,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programmer une manche du jeu: 2ème étape
+     * 
      * Écris une méthode 'gameRoundv2' qui fait la même chose que gameRoundv1, mais qui affiche également la somme des résultats jusqu'à maintenant.
      * 
      * -------------------------------
@@ -193,6 +205,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programmer une manche du jeu: 3ème étape
+     * 
      * Écris une méthode 'gameRoundv3' qui fait la même chose que gameRoundv2, mais qui retourne aussi le score total une fois que l'utilisateur choisi de s'arrêter.
      * 
      * -------------------------------
@@ -210,6 +224,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programmer une manche du jeu: 4ème étape
+     * 
      * Écris une méthode 'gameRoundv4' qui fait la même chose que gameRoundv3, mais qui s'arrête également si le résultat du lancer est 7.
      * Si la méthode s'arrête de cette manière, une ligne vide devrait être affichée à la fin et le résultat retourné devrait être 0.
      * 
@@ -226,6 +242,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programmer une manche du jeu: dernière étape
+     * 
      * Écris une méthode 'gameRoundv5' qui fait la même chose que gameRoundv4, mais si le joueur s'arrête avant d'avoir fait un 7,
      *   elle affiche aussi son score entre des lignes vides.
      * 
@@ -252,6 +270,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programmer le jeu: 1ère étape
+     * 
      * En utilisant 'gameRoundv5', écris une méthode 'not7Gamev1' qui affiche le joueur dont c'est le tour, et fait jouer son tour au joueur.
      * 
      * -------------------------------
@@ -300,6 +320,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programmer le jeu: dernière étape
+     * 
      * Écris une méthode 'not7Gamev2' qui fait la même chose que not7Gamev1, mais qui affiche également qui est le gagnant.
      * En cas d'égalité, elle affiche simplement: 'Égalité!'.
      * 
@@ -351,7 +373,7 @@ public class AboutNot7Game {
  
 
     /**
-     * BONUS:
+     * # BONUS
      * 
      * Si tu t'es rendu jusque là, félicitations! Tu connais maintenant les bases de la programmation!!!
      * Avant le prochain Koan, cependant, que dirais tu d'être capable de lancer ton jeu, afin de pouvoir jouer avec un ami?

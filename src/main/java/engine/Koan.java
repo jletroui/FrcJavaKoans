@@ -6,19 +6,20 @@ import java.util.Objects;
 import java.util.function.Function;
 
 import engine.script.Expression;
+import engine.script.Type;
 
 /**
  * Stores all the information required to execute and assess the result of a koan.
  */
 public class Koan {
     final Localizable<Type> koanClass;
-    final String koanName;
+    final Localizable<String> koanName;
     final KoanTest[] tests;
     final boolean usesConsole;
     final boolean showStdInInputs;
     final BeforeTestAssertion[] beforeAssertions;
 
-    public Koan(final Localizable<Class<?>> koanClass, final String koanName) {
+    public Koan(final Localizable<Class<?>> koanClass, final Localizable<String> koanName) {
         this(
             koanClass.map(Type::new),
             koanName,
@@ -31,7 +32,7 @@ public class Koan {
 
     private Koan(
         final Localizable<Type> koanClass,
-        final String koanName,
+        final Localizable<String> koanName,
         final KoanTest[] tests,
         final boolean usesConsole,
         final boolean showStdInInputs,

@@ -8,10 +8,8 @@ import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Localizable.localClass;
 import static engine.FormatParam.addToStdInInput;
 import static engine.script.Expression.callKoanMethod;
-import static sensei.Texts.IN_10_YEARS_YOU_WILL_BE;
-import static sensei.Texts.IN_20_YEARS_YOU_WILL_BE;
-import static sensei.Texts.IN_5_YEARS_YOU_WILL_BE;
-import static sensei.Texts.WHAT_IS_YOUR_AGE;
+import static sensei.Texts.*;
+
 
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class AboutMethodsKoans {
         .fr(koans.french.AboutMethods.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "computeAgeIn5And10And20YearsConsole()")
+        new Koan(CLASS, REPETITIVE_TASKS)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("computeAgeIn5And10And20YearsConsole")
@@ -44,7 +42,7 @@ public class AboutMethodsKoans {
                 assertNextStdOutLineEquals(IN_20_YEARS_YOU_WILL_BE, addToStdInInput(2, 20)),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "computeAgeIn5And10And20YearsConsoleWithMethod()")
+        new Koan(CLASS, REPETITIVE_TASKS_METHODS_TO_THE_RESCUE)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("computeAgeIn5And10And20YearsConsoleWithMethod")
@@ -63,7 +61,7 @@ public class AboutMethodsKoans {
                 assertNextStdOutLineEquals(IN_20_YEARS_YOU_WILL_BE, addToStdInInput(2, 20)),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "square()")
+        new Koan(CLASS, METHODS_CAN_ALSO_RETURN_RESULTS)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("square", int.class)
             )
@@ -83,7 +81,7 @@ public class AboutMethodsKoans {
             .then(
                 assertReturnValueEquals(0)
             ),
-        new Koan(CLASS, "opposite()")
+        new Koan(CLASS, RETURNING_THE_OPPOSITE_OF_A_NUMBER)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("opposite", int.class)
             )
@@ -99,7 +97,7 @@ public class AboutMethodsKoans {
             .then(
                 assertReturnValueEquals(0)
             ),
-        new Koan(CLASS, "legs()")
+        new Koan(CLASS, HELPING_A_FARMER)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("legs", int.class, int.class, int.class)
             )

@@ -2,7 +2,6 @@ package engine.script;
 
 import engine.Locale;
 import engine.Localizable;
-import engine.Type;
 
 public final class ScriptRunner {
     /**

@@ -9,6 +9,7 @@ import static engine.Localizable.global;
 import static engine.Localizable.localClass;
 import static engine.script.Expression.callKoanMethod;
 import static engine.script.Expression.callStaticMethod;
+import static sensei.Texts.*;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class AboutClassesKoans {
         .fr(koans.french.AboutClasses.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "cube()")
+        new Koan(CLASS, CLASSES_AND_PACKAGES)
             .beforeFirstTest(
                 assertStaticMethodIsInvokable("utils.MathUtils", "cube", int.class)
             )
@@ -41,7 +42,7 @@ public class AboutClassesKoans {
             .then(
                 assertReturnValueEquals(-8)
             ),
-        new Koan(CLASS, "displayCube()")
+        new Koan(CLASS, USING_A_DIFFERENT_CLASS)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("displayCube", int.class)
@@ -66,7 +67,7 @@ public class AboutClassesKoans {
                 assertNextStdOutLineEquals(global("-8")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "max()")
+        new Koan(CLASS, AN_OTHER_CLASS_IN_A_NESTED_PACKAGE)
             .beforeFirstTest(
                 assertStaticMethodIsInvokable("utils.OtherMathUtils", "max", int.class, int.class)
             )
@@ -82,7 +83,7 @@ public class AboutClassesKoans {
             .then(
                 assertReturnValueEquals(4)
             ),
-        new Koan(CLASS, "displayMax()")
+        new Koan(CLASS, USING_A_CLASS_IN_A_NESTED_PACKAGE)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("displayMax", int.class, int.class)
@@ -102,7 +103,7 @@ public class AboutClassesKoans {
                 assertNextStdOutLineEquals(global("4")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "displayMin()")
+        new Koan(CLASS, USING_A_CLASS_FROM_A_PREVIOUS_KOAN)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("displayMin", int.class, int.class)

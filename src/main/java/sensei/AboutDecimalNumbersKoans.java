@@ -4,6 +4,7 @@ import static engine.Assertions.assertReturnValueEquals;
 import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Localizable.localClass;
 import static engine.script.Expression.callKoanMethod;
+import static sensei.Texts.*;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class AboutDecimalNumbersKoans {
         .fr(koans.french.AboutDecimalNumbers.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "toCm()")
+        new Koan(CLASS, CONVERTING_A_MEASURE_OF_LENGTH)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("toCm", double.class)
             )
@@ -32,7 +33,7 @@ public class AboutDecimalNumbersKoans {
             .then(
                 assertReturnValueEquals(5.08)
             ),
-        new Koan(CLASS, "toInches()")
+        new Koan(CLASS, CONVERTING_THE_OTHER_WAY)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("toInches", double.class)
             )
@@ -48,7 +49,7 @@ public class AboutDecimalNumbersKoans {
             .then(
                 assertReturnValueEquals(2.0)
             ),
-        new Koan(CLASS, "rectangleArea()")
+        new Koan(CLASS, COMPUTING_SOME_GEOMETRY)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("rectangleArea", double.class)
             )
@@ -68,7 +69,7 @@ public class AboutDecimalNumbersKoans {
             .then(
                 assertReturnValueEquals(10.5)
             ),
-        new Koan(CLASS, "wheelCircumference()")
+        new Koan(CLASS, COMPUTING_HOW_LONG_A_ROBOT_IS_TRAVELING_STEP_1)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("wheelCircumference", double.class)
             )
@@ -84,7 +85,7 @@ public class AboutDecimalNumbersKoans {
             .then(
                 assertReturnValueEquals(12.56)
             ),
-        new Koan(CLASS, "wheelRotations()")
+        new Koan(CLASS, COMPUTING_HOW_LONG_A_ROBOT_IS_TRAVELING_STEP_2)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("wheelRotations", double.class, double.class)
             )
@@ -100,7 +101,7 @@ public class AboutDecimalNumbersKoans {
             .then(
                 assertReturnValueEquals(1.5)
             ),
-        new Koan(CLASS, "toDistance()")
+        new Koan(CLASS, COMPUTING_HOW_LONG_A_ROBOT_IS_TRAVELING_FINAL_STEP)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("toDistance", double.class, double.class, double.class)
             )

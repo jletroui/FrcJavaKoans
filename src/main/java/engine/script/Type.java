@@ -1,11 +1,10 @@
-package engine;
+package engine.script;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-import engine.script.ExecutionContext;
-import engine.script.Expression;
-import engine.script.ScriptExecutionException;
+import engine.KoanBugException;
 
 public class Type {
     private Class<?> clasz = null;
@@ -47,7 +46,7 @@ public class Type {
 
     public Object unsafeInstantiate(final ExecutionContext ctx, final Expression[] constructorParams) {
         final var clasz = unsafeResolve();
-        if (!Helpers.isInstantiable(clasz)) {
+        if (!isInstantiable(clasz)) {
             throw new KoanBugException(String.format("The class %s is not instantiable, which should have been already caught by a missing assertion in this or a previous Koans.", clasz.getSimpleName()));
         }
 
@@ -109,6 +108,17 @@ public class Type {
 
     public static Type[] toTypes(final Class<?>[] classes) {
         return Arrays.stream(classes).map(Type::type).toArray(Type[]::new);
+    }
+
+    public static boolean isInstantiable(final Class<?> clasz) {
+        final int modifiers = clasz.getModifiers();
+        return
+            Modifier.isPublic(modifiers) &&
+            !clasz.isInterface() &&
+            !Modifier.isAbstract(modifiers) &&
+            !clasz.isArray() &&
+            !clasz.isPrimitive() &&
+            !clasz.equals(void.class);
     }
 
     @Override

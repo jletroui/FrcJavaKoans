@@ -4,6 +4,8 @@ import static engine.Helpers.readLine;
 
 public class AboutConsoleAndVariables {
     /**
+     * # Afficher du texte dans la console
+     * 
      * Afficher 'Hello!' dans la console.
      * 
      * ---------   INDICES   --------------
@@ -30,6 +32,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Afficher un calcul dans la console
+     * 
      * Fait calculer 2 + 2 à Java, et affiche le résultat dans la console.
      * 
      * ---------   INDICES   --------------
@@ -57,6 +61,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Créer une variable pour stocker une valeur
+     * 
      * Calcule 2 + 2 et stocke la valeur dans une variable. Affiche la valeur de la variable.
      * 
      * ---------   INDICES   --------------
@@ -98,6 +104,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Créer une variable pour stocker du texte
+     * 
      * Crée une variable de type texte appelée 'greeting' avec la valeur 'Hello!', et affiche la.
      * 
      * ---------   INDICES   --------------
@@ -117,6 +125,8 @@ public class AboutConsoleAndVariables {
 
 
     /**
+     * # Demander une réponse à l'utilisatrice·eur
+     * 
      * Demande un nom dans la console. Laisse l'utilisateur répondre. Stocke la réponse dans une variable de type 'String'. Affiche 'Ton nom est:', puis la réponse.
      * 
      * ---------   INDICES   --------------
@@ -149,6 +159,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Jouer avec du texte
+     * 
      * La même chose que 'askAndDisplayNameInConsole', mais en affichant le résultat sur une seule ligne.
      * 
      * ---------   INDICES   --------------
@@ -193,6 +205,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Jouer plus avec du texte
+     * 
      * Demande un nom, puis un âge. Affiche les 2 sur une même ligne.
      * 
      * ---------   INDICES   --------------
@@ -220,6 +234,8 @@ public class AboutConsoleAndVariables {
 
     
     /**
+     * # Jouer avec du texte et des nombre en même temps
+     * 
      * Demande un âge. Affiche l'âge dans 5 ans.
      * 
      * ---------   INDICES   --------------

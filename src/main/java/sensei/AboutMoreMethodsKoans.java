@@ -7,6 +7,7 @@ import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Localizable.localClass;
 import static engine.Localizable.global;
 import static engine.script.Expression.callKoanMethod;
+import static sensei.Texts.*;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class AboutMoreMethodsKoans {
         .fr(koans.french.AboutMoreMethods.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "abs()")
+        new Koan(CLASS, COMPUTING_THE_ABSOLUTE_VALUE_OF_A_NUMBER)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("abs", int.class)
             )
@@ -35,7 +36,7 @@ public class AboutMoreMethodsKoans {
             .then(
                 assertReturnValueEquals(2)
             ),
-        new Koan(CLASS, "min()")
+        new Koan(CLASS, WHAT_S_THE_MIN_VALUE)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("min", int.class, int.class)
             )
@@ -55,7 +56,7 @@ public class AboutMoreMethodsKoans {
             .then(
                 assertReturnValueEquals(-3)
             ),
-        new Koan(CLASS, "remainder()")
+        new Koan(CLASS, COMPUTING_THE_REMAINDER_OF_AN_INTEGER_DIVISION)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("remainder", int.class, int.class)
             )
@@ -79,7 +80,7 @@ public class AboutMoreMethodsKoans {
             .then(
                 assertReturnValueEquals(1)
             ),
-        new Koan(CLASS, "isEven()")
+        new Koan(CLASS, COMPUTING_WHETHER_A_NUMBER_IS_EVEN_OR_NOT)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("isEven", int.class)
             )
@@ -103,7 +104,7 @@ public class AboutMoreMethodsKoans {
             .then(
                 assertReturnValueEquals(true)
             ),
-        new Koan(CLASS, "isMultiple()")
+        new Koan(CLASS, COMPUTING_WHETHER_A_NUMBER_IS_A_MULTIPLE_OF_ANOTHER)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("isMultiple", int.class, int.class)
             )
@@ -123,7 +124,7 @@ public class AboutMoreMethodsKoans {
             .then(
                 assertReturnValueEquals(false)
             ),
-        new Koan(CLASS, "fizzBuzz()")
+        new Koan(CLASS, FIZZ_BUZZ)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("fizzBuzz", int.class)

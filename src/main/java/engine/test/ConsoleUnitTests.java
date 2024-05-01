@@ -6,7 +6,7 @@ import static engine.Localizable.global;
 
 import java.util.List;
 
-import engine.Color;
+import engine.ConsoleFmt;
 import engine.Koan;
 import engine.Localizable;
 import engine.test.simulation.StudentSolutions;
@@ -20,7 +20,7 @@ public class ConsoleUnitTests {
     
     public static final List<UnitTest> items = List.of(
         new UnitTest(
-            new Koan(CLASS, "simpleConsoleOutput()")
+            new Koan(CLASS, global("simpleConsoleOutput()"))
                 .useConsole()
                 .when(callKoanMethod("simpleConsoleOutput"))
                 .then(
@@ -28,18 +28,18 @@ public class ConsoleUnitTests {
                     assertNoMoreLineInStdOut()
                 ),
             assertSuccess(
-                new Line.Localized(Color.green(OK_DISPLAYED_IN_CONSOLE), "hello", "")
+                new Line.Localized(ConsoleFmt.green(OK_DISPLAYED_IN_CONSOLE), "hello", "")
             )
         ),
         new UnitTest(
-            new Koan(CLASS, "noMethod")
+            new Koan(CLASS, global("noMethod"))
                 .useConsole()
                 .when(callKoanMethod("noMethod"))
                 .then(
                     assertNextStdOutLineEquals(global("hello"))
                 ),
             assertFailure(
-                new Line.Localized(Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
+                new Line.Localized(ConsoleFmt.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
             )
         )
     );

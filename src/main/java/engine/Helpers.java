@@ -2,7 +2,6 @@ package engine;
 
 import static engine.Texts.AND;
 
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -56,16 +55,5 @@ public class Helpers {
         }
 
         return result.toString();
-    }
-
-    static boolean isInstantiable(final Class<?> clasz) {
-        final int modifiers = clasz.getModifiers();
-        return
-            Modifier.isPublic(modifiers) &&
-            !clasz.isInterface() &&
-            !Modifier.isAbstract(modifiers) &&
-            !clasz.isArray() &&
-            !clasz.isPrimitive() &&
-            !clasz.equals(void.class);
     }
 }

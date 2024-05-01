@@ -117,19 +117,21 @@ Next, we can see these lines, colored in green:
 
 ```java
     /**
+     * # Displaying some text in the console
+     * 
      * Display 'Hello!' in the console.
      * 
      * ---------   TIPS --------------
      * 
      * All lines of code in Java must end with the ';' character. Ex:
      * 
-     * System.out.println("Apple");
+     *      System.out.println("Apple");
      * 
-     * You can use the method System.out.println([some value]) to write something in the console.
+     * You can use the method System.out.println([some value]) to display a value in the console.
      * 
      * You can tell Java that some value is text by enclosing it between double quotes. Ex:
      * 
-     * "This is text"
+     *      "This is text"
      * 
      * -------------------------------
      * 
@@ -140,7 +142,11 @@ Next, we can see these lines, colored in green:
      */
 ```
 
-These lines are forming what's called a 'comment'. All the text between a `/*` and a `*/` is a comment. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The master is putting each Koan's instructions for you in such a comment. You can find the goal of the koan at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koans? You saw this bit:
+These lines are forming what's called a 'comment'. All the text between a `/*` and a `*/` is a comment. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The master is putting each Koan's instructions for you in such a comment.
+
+The first line of the comment tells you the title of the Koan: `# Displaying some text in the console`.
+
+Then comes the goal of the koan at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koans? You saw this bit:
 
 ```
 Console:
@@ -387,6 +393,8 @@ Ensuite, nous pouvons voir ces lignes, en vert:
 
 ```java
     /**
+     * # Afficher du texte dans la console
+     * 
      * Afficher 'Hello!' dans la console.
      * 
      * ---------   INDICES   --------------
@@ -412,7 +420,9 @@ Ensuite, nous pouvons voir ces lignes, en vert:
 
 Ces lignes forment ce qu'on appelle un 'commentaire'. Tout le texte vert entre `/**` et `*/` est un commentaire. Un commentaire est une information destinée à des humains, et est ignoré par Java. Ce n'est pas du code. C'est très utile pour documenter ton code quand tu écris du Java. Le maître se sert d'un de ces commentaires pour placer les instructions de chacun de ses koans.
 
-Tu peux trouver l'objectif du koan en haut du commentaire: `Afficher 'Hello!' dans la console.`. La console est la façon la plus simple pour un programme Java d'afficher quelque chose dans un terminal. Tu te souviens de ce qui a été affiché lorsque tu as exécuté les koans? Tu as vu ce bout de texte:
+La première ligne du commentaire te donne le titre du Koan: `# Afficher du texte dans la console`.
+
+Ensuite, tu peux trouver l'objectif du koan en haut du commentaire: `Afficher 'Hello!' dans la console.`. La console est la façon la plus simple pour un programme Java d'afficher quelque chose dans un terminal. Tu te souviens de ce qui a été affiché lorsque tu as exécuté les koans? Tu as vu ce bout de texte:
 
 ```
 Console:

@@ -2,6 +2,8 @@ package koans.french;
 
 public class AboutLoops {
     /**
+     * # Première boucle
+     * 
      * Écris une méthode 'helloNTimes' avec un paramètre entier 'times', qui affiche 'Hello' dans la console 'times' fois.
      * 
      * ---------   INDICES   --------------
@@ -31,6 +33,8 @@ public class AboutLoops {
 
 
      /**
+     * # Afficher où nous sommes dans une boucle
+     * 
      * Écris une méthode 'displayNumbers' avec un paramètre entier 'n', qui affiche les nombres entre 1 et 'n'.
      * 
      * -------------------------------
@@ -47,6 +51,8 @@ public class AboutLoops {
 
 
      /**
+     * # Compter à l'envers
+     * 
      * Écris une méthode 'displayReverseNumbers' avec un paramètre entier 'n', qui affiche les nombres entre 1 et 'n', en ordre inverse.
      * 
      * -------------------------------
@@ -63,6 +69,8 @@ public class AboutLoops {
 
 
      /**
+     * # Multiples de 7
+     * 
      * Écris une méthode 'sevens' avec un paramètre entier 'n', qui affiche tous les multiples de 7 entre 1 et n.
      * 
      * -------------------------------
@@ -80,6 +88,8 @@ public class AboutLoops {
 
 
      /**
+     * # Multiple de 7 ou 8
+     * 
      * Écris une méthode 'sevensOrEights' avec un paramètre entier 'n', qui affiche tous les multiples de 7 ou 8 entre 1 et n.
      * 
      * ---------   INDICES   --------------
@@ -105,6 +115,8 @@ public class AboutLoops {
 
 
      /**
+     * # Exposants
+     * 
      * Écris une méthode'exponent' qui calcule un entier à l'exposant d'un autre entier.
      * 
      * ---------   INDICES   --------------
@@ -124,6 +136,8 @@ public class AboutLoops {
 
 
      /**
+     * # Exposants, incluant 0
+     * 
      * Écris une méthode'exponent2' qui fait la même chose, mais qui gère également le cas où n est 0.
      * 
      * ---------   INDICES   --------------
@@ -142,6 +156,8 @@ public class AboutLoops {
 
 
      /**
+     * # Factorielle
+     * 
      * Écris une méthode'factorial' qui calcule la factorielle d'un entier.
      * 
      * ---------   INDICES   --------------

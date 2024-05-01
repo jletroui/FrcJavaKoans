@@ -4,6 +4,8 @@ import static engine.Helpers.readLine;
 
 public class AboutMethods {
     /**
+     * # Repetitive tasks
+     * 
      * Ask for an age. Display the age in 5 years.
      * Ask for an age a second time. Display the new age in 10 years.
      * Ask for an age a third time. Display the new age in 20 years.
@@ -28,6 +30,8 @@ public class AboutMethods {
     }
 
     /**
+     * # Repetitive tasks: methods to the rescue
+     * 
      * Now, that was a bit tedious to repeat 3 times almost the same thing, was it not?
      * Do it again, but this time, with a new method in this class.
      * 
@@ -116,13 +120,15 @@ public class AboutMethods {
     }
 
     /**
+     * # Methods can also return results
+     * 
      * Write a method that has a parameter for an integer number, and returns the square of that number.
      * 
      * ---------   TIPS --------------
      * 
      * Up to now, methods were only "doing stuff", like displaying text to the console. But they were not communicating anything to the rest of the program.
      * A very useful thing in programmation is when methods can not only receive information _from_ the rest of the program (via its parameters) but also give back information _to_ the rest of the program.
-     * To give back information, the method can return one, and only one value, called 'the return value'. Up to now, the methods we saw started with:
+     * When a method gives back information, it is called 'returning a value'. It can return one, and only one value, called 'the return value'. Up to now, the methods we saw started with:
      * 
      *     public static void [name of the method]()
      *                     ^
@@ -171,6 +177,8 @@ public class AboutMethods {
 
     
     /**
+     * # Returning the opposite of a number
+     * 
      * Write a method named 'opposite' which has a parameter for an integer number, and returns the opposite of that number.
      * 
      * ---------   TIPS --------------
@@ -187,6 +195,8 @@ public class AboutMethods {
 
 
     /**
+     * # Helping a farmer
+     * 
      * Write a method named 'legs' which helps a farmer counts the number of legs of her animals, given the count of each type of animal.
      * There are 3 int parameters: chickenCount, pigCount, cowCount.
      * 

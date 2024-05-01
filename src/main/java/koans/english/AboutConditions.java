@@ -2,6 +2,8 @@ package koans.english;
 
 public class AboutConditions {
     /**
+     * # If construct, and conditions
+     * 
      * Write a method named 'sign' which has a parameter for an integer number, and returns a text:
      * 
      * - if the number is greater than or equal to zero, it returns the text "positive"
@@ -65,6 +67,8 @@ public class AboutConditions {
 
 
     /**
+     * # Else if construct
+     * 
      * Write a method named 'signOrZero' which has a parameter for an integer number, and returns a text:
      * 
      * - if the number is greater than zero, it returns the text "positive"
@@ -94,6 +98,8 @@ public class AboutConditions {
 
 
     /**
+     * # An exam's grade
+     *  
      * Write a method named 'gradeComment' which has a parameter for an integer number representing an exam grade, and returns a text:
      * 
      * - if the grade is less than 0 or greater than 100, it returns the text "You cheat!"

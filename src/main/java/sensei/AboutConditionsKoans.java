@@ -4,14 +4,8 @@ import static engine.Assertions.assertReturnValueEquals;
 import static engine.Localizable.localClass;
 import static engine.script.Expression.callKoanMethod;
 import static engine.Assertions.assertKoanMethodIsInvokable;
-import static sensei.Texts.GOT_EVERYTHING_RIGHT;
-import static sensei.Texts.NEGATIVE;
-import static sensei.Texts.OOPS;
-import static sensei.Texts.POSITIVE;
-import static sensei.Texts.YOU_CHEAT;
-import static sensei.Texts.YOU_FAILED;
-import static sensei.Texts.YOU_PASS;
-import static sensei.Texts.ZERO;
+import static sensei.Texts.*;
+
 
 import java.util.List;
 
@@ -24,7 +18,7 @@ public class AboutConditionsKoans {
         .fr(koans.french.AboutConditions.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "sign()")
+        new Koan(CLASS, IF_CONSTRUCT_AND_CONDITIONS)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("sign", int.class)
             )
@@ -40,7 +34,7 @@ public class AboutConditionsKoans {
             .then(
                 assertReturnValueEquals(NEGATIVE)
             ),
-        new Koan(CLASS, "signOrZero()")
+        new Koan(CLASS, ELSE_IF_CONSTRUCT)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("signOrZero", int.class)
             )
@@ -56,7 +50,7 @@ public class AboutConditionsKoans {
             .then(
                 assertReturnValueEquals(NEGATIVE)
             ),
-        new Koan(CLASS, "gradeComment()")
+        new Koan(CLASS, AN_EXAM_S_GRADE)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("gradeComment", int.class)
             )

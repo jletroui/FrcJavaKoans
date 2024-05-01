@@ -5,7 +5,6 @@ import java.util.Map;
 
 import engine.Locale;
 import engine.Localizable;
-import engine.Type;
 
 public final class ExecutionContext {
     public final Class<?> koanClass;

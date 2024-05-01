@@ -3,7 +3,7 @@ package engine.test;
 import java.util.List;
 import java.util.Map;
 
-import engine.Color;
+import engine.ConsoleFmt;
 import engine.TestSensei;
 import engine.TestSensei.TestResult;
 
@@ -15,7 +15,7 @@ public class TestRunner {
         true, "success",
         false, "failure"
     );
-    private static final String RED_FAILURE =  Color.red("FAILURE");
+    private static final String RED_FAILURE =  ConsoleFmt.red("FAILURE");
 
     public static void main(String[] args) {
         var totalCount = 0;

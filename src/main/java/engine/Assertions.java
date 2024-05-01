@@ -6,6 +6,11 @@ import java.util.Optional;
 import java.util.function.DoubleToIntFunction;
 import java.util.function.Function;
 
+import engine.ConsoleFmt.Formats;
+import engine.script.Type;
+
+import static engine.ConsoleFmt.code;
+import static engine.ConsoleFmt.format;
 import static engine.Localizable.global;
 import static engine.Texts.*;
 
@@ -38,19 +43,19 @@ public class Assertions {
             final var lineContent = res.nextStdOutLine();
 
             if (lineContent.isEmpty()) {
-                p.println(Color.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING), expected, whenCalling(res));
+                p.println(ConsoleFmt.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING), expected, whenCalling(res));
                 return false;
             }
             if (!lineContent.get().equals(expected)) {
                 if (lineContent.get().equals("")) {
-                    p.println(Color.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING), expected, whenCalling(res));
+                    p.println(ConsoleFmt.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING), expected, whenCalling(res));
                 } else {
-                    p.println(Color.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD), expected, whenCalling(res), lineContent.get());
+                    p.println(ConsoleFmt.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD), expected, whenCalling(res), lineContent.get());
                 }
                 return false;
             }
 
-            p.println(Color.green(OK_DISPLAYED_IN_CONSOLE), expected, whenCalling(res));
+            p.println(ConsoleFmt.green(OK_DISPLAYED_IN_CONSOLE), expected, whenCalling(res));
             return true;
         };
     }
@@ -60,15 +65,15 @@ public class Assertions {
             final var lineContent = res.nextStdOutLine();
 
             if (lineContent.isEmpty()) {
-                p.println(Color.red(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_NOTHING));
+                p.println(ConsoleFmt.red(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_NOTHING));
                 return false;
             }
             if (!lineContent.get().equals("")) {
-                p.println(Color.red(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_INSTEAD), lineContent.get());
+                p.println(ConsoleFmt.red(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_INSTEAD), lineContent.get());
                 return false;
             }
 
-            p.println(Color.green(OK_DISPLAYED_EMPTY_LINE_IN_CONSOLE));
+            p.println(ConsoleFmt.green(OK_DISPLAYED_EMPTY_LINE_IN_CONSOLE));
             return true;
         };
     }
@@ -78,7 +83,7 @@ public class Assertions {
             final var lineContent = res.nextStdOutLine();
 
             if (!lineContent.isEmpty()) {
-                p.println(Color.red(EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD), whenCalling(res), lineContent.get());
+                p.println(ConsoleFmt.red(EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD), whenCalling(res), lineContent.get());
                 return false;
             }
 
@@ -91,10 +96,10 @@ public class Assertions {
             final var lineContent = res.nextStdInLine();
 
             if (lineContent.isPresent()) {
-                p.println(Color.green(OK_ASKED_FOR_LINE_IN_CONSOLE));
+                p.println(ConsoleFmt.green(OK_ASKED_FOR_LINE_IN_CONSOLE));
                 return true;
             }
-            p.println(Color.red(EXPECTED_FOR_USER_TO_ANSWER_IN_CONSOLE));
+            p.println(ConsoleFmt.red(EXPECTED_FOR_USER_TO_ANSWER_IN_CONSOLE));
             return false;
         };
     }
@@ -102,17 +107,17 @@ public class Assertions {
     public static ResultAssertion assertReturnValueEquals(final int expected) {
         return (p, res) -> {
             if (res.executionResult == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
+                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode), code(expected)));
                 return false;
             } else if (!(res.executionResult instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
+                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), code(res.executionResult.getClass().getSimpleName())));
                 return false;
             } else if (((Integer)res.executionResult).intValue() != expected) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED), res.resultExpressionSourceCode, expected, ((Integer)res.executionResult).intValue());
+                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(Integer.toString(expected)), code(res.executionResult.toString())));
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT), res.resultExpressionSourceCode, expected);
+            p.println(format(OK_RETURNED_INT, Formats.Green, code(res.resultExpressionSourceCode), code(expected)));
             return true;
         }; 
     }
@@ -126,17 +131,17 @@ public class Assertions {
     public static ResultAssertion assertReturnValueEquals(final double expected) {
         return (p, res) -> {
             if (res.executionResult == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
+                p.println(format(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
                 return false;
             } else if (!(res.executionResult instanceof Double)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
+                p.println(format(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), res.executionResult.getClass().getSimpleName()));
                 return false;
             } else if (!equals((Double)res.executionResult, expected)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED), res.resultExpressionSourceCode, expected, ((Double)res.executionResult).doubleValue());
+                p.println(format(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected, ((Double)res.executionResult).doubleValue()));
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_DOUBLE), res.resultExpressionSourceCode, expected);
+            p.println(format(OK_RETURNED_DOUBLE, Formats.Green, code(res.resultExpressionSourceCode), code(expected)));
             return true;
         }; 
     }
@@ -144,17 +149,17 @@ public class Assertions {
     public static ResultAssertion assertReturnValueEquals(final boolean expected) {
         return (p, res) -> {
             if (res.executionResult == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
+                p.println(format(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
                 return false;
             } else if (!(res.executionResult instanceof Boolean)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
+                p.println(format(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), res.executionResult.getClass().getSimpleName()));
                 return false;
             } else if (((Boolean)res.executionResult).booleanValue() != expected) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED), res.resultExpressionSourceCode, expected, ((Boolean)res.executionResult).booleanValue());
+                p.println(format(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected, ((Boolean)res.executionResult).booleanValue()));
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_BOOLEAN), res.resultExpressionSourceCode, expected);
+            p.println(format(OK_RETURNED_BOOLEAN, Formats.Green, code(res.resultExpressionSourceCode), code(expected)));
             return true;
         }; 
     }
@@ -162,17 +167,17 @@ public class Assertions {
     public static ResultAssertion assertReturnValueEquals(final Localizable<String> expected) {
         return (p, res) -> {
             if (res.executionResult == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected.get(res.locale));
+                p.println(format(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale)));
                 return false;
             } else if (!(res.executionResult instanceof String)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
+                p.println(format(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), res.executionResult.getClass().getSimpleName()));
                 return false;
             } else if (!((String)res.executionResult).equals(expected.get(res.locale))) {
-                p.println(Color.red(EXPECTED_TO_RETURN_STRING_BUT_RETURNED), res.resultExpressionSourceCode, expected.get(res.locale), (String)res.executionResult);
+                p.println(format(EXPECTED_TO_RETURN_STRING_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale), (String)res.executionResult));
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_STRING), res.resultExpressionSourceCode, expected.get(res.locale));
+            p.println(format(OK_RETURNED_STRING, Formats.Green, code(res.resultExpressionSourceCode), code(expected.get(res.locale))));
             return true;
         }; 
     }
@@ -180,17 +185,17 @@ public class Assertions {
     public static ResultAssertion assertReturnValueStringRepresentationEquals(final Localizable<String> expected, final String expectedType) {
         return (p, res) -> {
             if (res.executionResult == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected.get(res.locale));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale)));
                 return false;
             } else if (!res.executionResult.getClass().getName().equals(expectedType)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, expectedType, res.executionResult.getClass().getSimpleName());
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, expectedType, res.executionResult.getClass().getSimpleName()));
                 return false;
             } else if (!res.executionResult.toString().equals(expected.get(res.locale))) {
-                p.println(Color.red(EXPECTED_TO_RETURN_BUT_RETURNED), res.resultExpressionSourceCode, expected.get(res.locale), res.executionResult.toString());
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale), res.executionResult.toString()));
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED), res.resultExpressionSourceCode, expected.get(res.locale));
+            p.println(format(OK_RETURNED, Formats.Green, code(res.resultExpressionSourceCode), code(expected.get(res.locale))));
             return true;
         }; 
     }
@@ -199,23 +204,26 @@ public class Assertions {
         return (p, res) -> {
             final var randomNumber = res.randomNumber();
             if (res.executionResult == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected.applyAsInt(randomNumber));
+                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.applyAsInt(randomNumber)));
                 return false;
             } else if (!(res.executionResult instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
+                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName()));
                 return false;
             } else if (((Integer)res.executionResult).intValue() != expected.applyAsInt(randomNumber)) {
                 p.println(
-                    Color.red(EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED), 
-                    res.resultExpressionSourceCode,
-                    expected.applyAsInt(randomNumber),
-                    randomNumber,
-                    ((Integer)res.executionResult).intValue()
+                    format(
+                        EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED,
+                        Formats.Red, 
+                        code(res.resultExpressionSourceCode),
+                        code(expected.applyAsInt(randomNumber)),
+                        randomNumber,
+                        code(res.executionResult.toString())
+                    )
                 );
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOM), res.resultExpressionSourceCode, expected.applyAsInt(randomNumber), randomNumber);
+            p.println(format(OK_RETURNED_INT_FROM_RANDOM, Formats.Green, code(res.resultExpressionSourceCode), code(expected.applyAsInt(randomNumber)), randomNumber));
             return true;
         }; 
     }
@@ -246,23 +254,26 @@ public class Assertions {
 
             final int expected = buildExpected.apply(res);
             if (res.executionResult == null) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL), res.resultExpressionSourceCode, expected);
+                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
                 return false;
             } else if (!(res.executionResult instanceof Integer)) {
-                p.println(Color.red(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE), res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName());
+                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName()));
                 return false;
             } else if (((Integer)res.executionResult).intValue() != expected) {
                 p.println(
-                    Color.red(EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED), 
-                    res.resultExpressionSourceCode,
-                    expected,
-                    formatRandomNumbers,
-                    ((Integer)res.executionResult).intValue()
+                    format(
+                        EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED, 
+                        Formats.Red, 
+                        code(res.resultExpressionSourceCode),
+                        code(expected),
+                        formatRandomNumbers,
+                        code(res.executionResult.toString())
+                    )
                 );
                 return false;
             }
 
-            p.println(Color.green(OK_RETURNED_INT_FROM_RANDOMS), res.resultExpressionSourceCode, expected, formatRandomNumbers);
+            p.println(format(OK_RETURNED_INT_FROM_RANDOMS, Formats.Green, res.resultExpressionSourceCode, expected, formatRandomNumbers));
             return true;
         }; 
     }
@@ -273,15 +284,15 @@ public class Assertions {
 
             try {
                 final var clasz = type.resolve();
-                if (!Helpers.isInstantiable(clasz)) {
-                    p.println(Color.red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), className);
+                if (!Type.isInstantiable(clasz)) {
+                    p.println(ConsoleFmt.red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), className);
                     return false;
                 }
 
                 final var constructor = clasz.getConstructor(Type.unsafeResolveTypes(constructorParamTypes));
                 if (!Modifier.isPublic(constructor.getModifiers())) {
                     p.println(
-                        Color.red(EXPECTED_CONSTRUCTOR_TO_BE_PUBLIC),
+                        ConsoleFmt.red(EXPECTED_CONSTRUCTOR_TO_BE_PUBLIC),
                         type.simpleClassName
                     );
                 }
@@ -289,12 +300,12 @@ public class Assertions {
             catch(NoSuchMethodException nsme) {
                 if (constructorParamTypes.length == 0) {
                     p.println(
-                        Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS),
+                        ConsoleFmt.red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS),
                         type.simpleClassName
                     );
                 } else if (constructorParamTypes.length == 1) {
                     p.println(
-                        Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM),
+                        ConsoleFmt.red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM),
                         type.simpleClassName,
                         constructorParamTypes[0]
                     );
@@ -304,14 +315,14 @@ public class Assertions {
                         .map(t -> "'" + t + "'")
                         .toArray(String[]::new);
                     p.println(
-                        Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS),
+                        ConsoleFmt.red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS),
                         type.simpleClassName,
                         Helpers.formatSequence(locale, expectedParams)
                     );
                 }
                 return false;
             } catch (ClassNotFoundException cnfe) {
-                    p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), type.simpleClassName,type.packageName);
+                    p.println(ConsoleFmt.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), type.simpleClassName,type.packageName);
                 return false;
             }
 
@@ -344,16 +355,16 @@ public class Assertions {
             try {
                 final var method = clasz.getMethod(methodName, methodParamClasses);
                 if (isStatic && !Modifier.isStatic(method.getModifiers())) {
-                    p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
+                    p.println(ConsoleFmt.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
                     return false;
                 }
                 if (!isStatic && Modifier.isStatic(method.getModifiers())) {
-                    p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
+                    p.println(ConsoleFmt.red(EXPECTED_METHOD_TO_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
                     return false;
                 }
                 if (!Modifier.isPublic(method.getModifiers())) {
                     p.println(
-                        Color.red(EXPECTED_METHOD_TO_BE_PUBLIC),
+                        ConsoleFmt.red(EXPECTED_METHOD_TO_BE_PUBLIC),
                         methodName
                     );
                 }
@@ -361,13 +372,13 @@ public class Assertions {
             catch(NoSuchMethodException nsme) {
                 if (methodParamClasses.length == 0) {
                     p.println(
-                        Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
+                        ConsoleFmt.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
                         methodName,
                         clasz.getName().replace(".", "/")
                     );
                 } else if (methodParamClasses.length == 1) {
                     p.println(
-                        Color.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
+                        ConsoleFmt.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
                         methodName,
                         clasz.getName().replace(".", "/"),
                         methodParamClasses[0].getSimpleName()
@@ -378,7 +389,7 @@ public class Assertions {
                         .map(t -> "'" + t.getSimpleName() + "'")
                         .toArray(String[]::new);
                     p.println(
-                        Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
+                        ConsoleFmt.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
                         methodName,
                         clasz.getName().replace(".", "/"),
                         Helpers.formatSequence(locale, expectedParams)
@@ -408,23 +419,23 @@ public class Assertions {
                 final var clasz = type.unsafeResolve();
                 final var field = clasz.getDeclaredField(fieldName);
                 if (!Modifier.isPrivate(field.getModifiers())) {
-                    p.println(Color.red(EXPECTED_FIELD_TO_BE_PRIVATE), fieldName, className);
+                    p.println(ConsoleFmt.red(EXPECTED_FIELD_TO_BE_PRIVATE), fieldName, className);
                     return false;
                 }
                 if (isFinal && !Modifier.isFinal(field.getModifiers())) {
-                    p.println(Color.red(EXPECTED_FIELD_TO_BE_FINAL), fieldName, className);
+                    p.println(ConsoleFmt.red(EXPECTED_FIELD_TO_BE_FINAL), fieldName, className);
                     return false;
                 } else if (!isFinal && Modifier.isFinal(field.getModifiers())) {
-                    p.println(Color.red(EXPECTED_FIELD_TO_NOT_BE_FINAL), fieldName, className);
+                    p.println(ConsoleFmt.red(EXPECTED_FIELD_TO_NOT_BE_FINAL), fieldName, className);
                     return false;
                 }
                 if (!field.getType().equals(fieldType.unsafeResolve())) {
-                    p.println(Color.red(EXPECTED_FIELD_TO_BE_OF_TYPE), fieldName, className, fieldType, field.getType().getSimpleName());
+                    p.println(ConsoleFmt.red(EXPECTED_FIELD_TO_BE_OF_TYPE), fieldName, className, fieldType, field.getType().getSimpleName());
                     return false;
                 }
             }
             catch(NoSuchFieldException nsfe) {
-                p.println(Color.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, className);
+                p.println(ConsoleFmt.red(EXPECTED_TO_FIND_FIELD_IN_CLASS), fieldName, className);
                 return false;
             }
 

@@ -7,6 +7,7 @@ import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Localizable.localClass;
 import static engine.Localizable.global;
 import static engine.script.Expression.callKoanMethod;
+import static sensei.Texts.*;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class AboutLoopsKoans {
         .fr(koans.french.AboutLoops.class);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "helloNTimes()")
+        new Koan(CLASS, FIRST_LOOP)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("helloNTimes", int.class)
@@ -42,7 +43,7 @@ public class AboutLoopsKoans {
             .then(
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "displayNumbers()")
+        new Koan(CLASS, PRINTING_WHERE_WE_ARE_IN_A_LOOP)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("displayNumbers", int.class)
@@ -69,7 +70,7 @@ public class AboutLoopsKoans {
             .then(
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "displayReverseNumbers()")
+        new Koan(CLASS, COUNTING_IN_REVERSE)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("displayReverseNumbers", int.class)
@@ -96,7 +97,7 @@ public class AboutLoopsKoans {
             .then(
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "sevens()")
+        new Koan(CLASS, MULTIPLES_OF_7)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("sevens", int.class)
@@ -126,7 +127,7 @@ public class AboutLoopsKoans {
                 assertNextStdOutLineEquals(global("7")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "sevensOrEights()")
+        new Koan(CLASS, MULTIPLES_OF_7_OR_8)
             .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("sevensOrEights", int.class)
@@ -156,7 +157,7 @@ public class AboutLoopsKoans {
                 assertNextStdOutLineEquals(global("7")),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "exponent()")
+        new Koan(CLASS, EXPONENTS)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("exponent", int.class, int.class)
             )
@@ -176,7 +177,7 @@ public class AboutLoopsKoans {
             .then(
                 assertReturnValueEquals(125)
             ),
-        new Koan(CLASS, "exponent2()")
+        new Koan(CLASS, EXPONENTS_INCLUDING_0)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("exponent2", int.class, int.class)
             )
@@ -200,7 +201,7 @@ public class AboutLoopsKoans {
             .then(
                 assertReturnValueEquals(1)
             ),
-        new Koan(CLASS, "factorial()")
+        new Koan(CLASS, FACTORIAL)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("factorial", int.class)
             )

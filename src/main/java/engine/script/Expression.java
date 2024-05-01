@@ -9,7 +9,6 @@ import java.util.Set;
 import engine.KoanBugException;
 import engine.Locale;
 import engine.Localizable;
-import engine.Type;
 
 /**
  * Allows to specify expressions to be executed, whether the student class / method is already defined or not.

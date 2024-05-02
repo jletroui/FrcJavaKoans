@@ -23,11 +23,12 @@
 Java Koans for the FRC is an interactive, step by step, course to teach Java to students engaged in the [First Robotics Competition](https://www.firstinspires.org/robotics/frc). It requires no previous experience in programming. It does not intend to teach the entirety of the Java language, but rather most of the fundamentals required to start learning how to program a FRC robot.
 
 ## Getting Started with VS Code
+
 To get started you will need to either install VS Code or use GitHub Codespaces, which is a browser based IDE. If you are unable to install VS Code, because you're on a Chromebook or do not have permissions to install an application, you can skip ahead to [Getting Started with GitHub Codespaces](#getting-started-with-github-codespaces)
 
 To install VS Code, you will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) first to run the Java Koans for the FRC.
 
-Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.0/FrcJavaKoans.zip) of the Java Koans.
+Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.1/FrcJavaKoans.zip) of the Java Koans.
 
 Then, extract it somewhere on your computer. Go to the folder where you have downloaded the koans, righ-click on the koans zip file, and choose 'Extract All'. Choose your destination folder, for example, a `/src` folder within your `Documents` folder.
 
@@ -47,6 +48,7 @@ Note: VS Code will ask you if you trust the code within the folder. You'll have 
 You are ready to go!
 
 ## Getting Started with GitHub Codespaces
+
 GitHub Codespaces provides a cloud-based development environment. It allows you to effortlessly set up and access a consistent development environment directly from your web browser. This is useful when your students only have access to Chromebooks or for other reasons are not able to install and configure VS Code.
 
 To get started with GitHub Codespaces, simply click the "Code" button and select "Create codespace on Master" to create or access your development environment.
@@ -75,9 +77,11 @@ This will open what is called a _terminal_ at the bottom of the VS Code window a
 
 ![First result](images/result1.png)
 
-The master of the Java Koans is telling you a lot of things at once, so let's decompose a bit.
+The master of the Java Koans is telling you a lot of things at once, so let's decompose a bit:
 
-First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that you did not complete the `AboutConsoleAndVariables.sayHelloInConsole` koan. Which is normal, because you have not even started yet! Then it shows a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `sayHelloInConsole` in the `src/main/java/koans/english/AboutConsoleAndVariables.java` file.
+![First result, commented](images/result1_commented.png)
+
+First, it tells you that it is trying to teach you  `AboutConsoleAndVariables`. Then it tells you that you did not complete the `Displaying some text in the console` koan. Which is normal, because you have not even started yet! Then it shows a mysterious `Console` box, which we will ignore for now. At the very bottom, it tells you you can look for `Displaying some text in the console` in the `src/main/java/koans/english/AboutConsoleAndVariables.java` file.
 
 ### Opening the koan file
 
@@ -117,19 +121,21 @@ Next, we can see these lines, colored in green:
 
 ```java
     /**
+     * # Displaying some text in the console
+     * 
      * Display 'Hello!' in the console.
      * 
      * ---------   TIPS --------------
      * 
      * All lines of code in Java must end with the ';' character. Ex:
      * 
-     * System.out.println("Apple");
+     *      System.out.println("Apple");
      * 
-     * You can use the method System.out.println([some value]) to write something in the console.
+     * You can use the method System.out.println([some value]) to display a value in the console.
      * 
      * You can tell Java that some value is text by enclosing it between double quotes. Ex:
      * 
-     * "This is text"
+     *      "This is text"
      * 
      * -------------------------------
      * 
@@ -140,7 +146,11 @@ Next, we can see these lines, colored in green:
      */
 ```
 
-These lines are forming what's called a 'comment'. All the text between a `/*` and a `*/` is a comment. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The master is putting each Koan's instructions for you in such a comment. You can find the goal of the koan at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koans? You saw this bit:
+These lines are forming what's called a 'comment'. All the text between a `/*` and a `*/` is a comment. A comment is a piece of information that is ignored by Java. It is not code. It is very useful for documenting your code while you are writing Java. The master is putting each Koan's instructions for you in such a comment.
+
+The first line of the comment tells you the title of the Koan: `# Displaying some text in the console`.
+
+Then comes the goal of the koan at the top of each such comment: `Display 'Hello!' in the console.`. The console is the simplest way for a Java program to communicate with you by displaying simple text in a terminal. Remember what was displayed when running the Koans? You saw this bit:
 
 ```
 Console:
@@ -257,13 +267,30 @@ This course intent to come batteries included, with 100% of the information need
 
 We have found that students learn faster if mentors are not giving solutions to students' issues, but instead ask them open questions about what they don't understand about the exercise instructions or displayed error. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous faster when it will be time to program and debug a robot.
 
-If you are interested in contributing, please take a look at [CONTRIBUTING.md](CONTRIBUTING.md) :)
+### Topics included
+
+* Printing to and reading from the console
+* Variables
+* `int`, `boolean`, `String`, `double` basic types
+* `if`, `else`, `if else` construct
+* Methods
+* `while` loops
+* Packages and classes with static methods
+* Objects, constructors, fields
+
+### Contributing and learning more
+
+If you are interested in learning more about this course or contributing to it, please take a look at [CONTRIBUTING.md](CONTRIBUTING.md) :)
 
 ## Credits
 
 Created by a mentor from the [3550 Robotronix team](https://www.instagram.com/3550robotronix/) (Montréal, Canada).
 
 Heavily inspired by the wonderful [Ruby Koans](https://www.rubykoans.com/).
+
+The Github Codespaces feature is a contribution of `jmcconne10`.
+
+Typos have been fixed by `someonesomething`.
 
 Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and Dumitru.
 
@@ -293,11 +320,12 @@ Many thanks to early testers who gave me feedback: Andy, Noémie, Chenxin, and D
 Les Koans Java pour la FRC forment un cours interactif, pas à pas, pour enseigner le Java à des élèves engagés dans la [Compétition Robotique First](https://www.firstinspires.org/robotics/frc). Il ne requiert aucune expérience préalable en programmation. L'intention n'est pas d'être un cours complet sur Java, mais plutôt d'apprendre juste ce qu'il faut des fondamentaux pour pouvoir commencer à apprendre à programmer un robot FRC avec WPILib.
 
 ## Comment commencer avec VS Code
+
 Pour commencer, vous devrez soit installer VS Code, soit utiliser GitHub Codespaces, qui est un environnement de développement intégré basé sur navigateur. Si vous ne pouvez pas installer VS Code, par exemple si vous utilisez un Chromebook ou si vous n'avez pas les autorisations nécessaires pour installer une application, vous pouvez passer à l'étape suivante [Comment commencer avec GitHub Codespaces](#comment-commencer-avec-github-codespaces).
 
 Si ce n'est déjà fait, tu vas devoir installer [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) pour pouvoir exécuter les Koans Java pour la FRC.
 
-Une fois installé, télécharge [la dernière version](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.0/FrcJavaKoans.zip) des Koans Java.
+Une fois installé, télécharge [la dernière version](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.1/FrcJavaKoans.zip) des Koans Java.
 
 Ensuite, décompresse les quelque part sur ton ordinateur. Pour ce faire, va dans le répertoire où tu as téléchargé les koans, clic-droit dessus, et choisis "Extraire Tout". Choisis un répertoire de destination, par exemple, un répertoire `/src` dans ton répertoire `Documents`.
 
@@ -317,6 +345,7 @@ Note: VS Code va te demander si tu fais confiance à ce code. Tu vas devoir rép
 Tu es maintenant prêt·e!
 
 ## Comment commencer avec GitHub Codespaces
+
 Ce dépôt est configuré pour une utilisation aisée avec GitHub Codespaces. GitHub Codespaces fournit un environnement de développement basé sur le cloud. Il vous permet de configurer et d'accéder facilement à un environnement de développement cohérent directement depuis votre navigateur web. Cela est particulièrement utile lorsque vos étudiants n'ont accès qu'à des Chromebooks ou pour d'autres raisons ne peuvent pas installer et configurer Visual Studio Code.
 
 Pour commencer avec GitHub Codespaces, cliquez simplement sur le bouton "Code" et sélectionnez "Créer un espace de code sur Master" pour créer ou accéder à votre environnement de développement.
@@ -343,7 +372,9 @@ Cela va ouvrir ce que l'on appelle un _terminal_ dans le bas de la fenêtre de V
 
 ![Premier résultat](images/result1_fr.png)
 
-Le maître des Koans Java te dit beaucoup de choses d'un coup. Alors décomposons tout ça.
+Le maître des Koans Java te dit beaucoup de choses d'un coup. Alors décomposons tout ça:
+
+![Premier résultat, commenté](images/result1_commented_fr.png)
 
 Tout d'abord, il te dit qu'il essaie de t'enseigner `AboutConsoleAndVariables`. Ensuite, il te dit que tu n'as pas complété le koan `AboutConsoleAndVariables.sayHelloInConsole`. Ce qui est normal, car tu n'a même pas encore commencé! Ensuite, il te montre une boîte étrange appelée `Console`, que l'on va ignorer pour le moment. Tout en bas,il te dit que tu peux chercher `sayHelloInConsole` dans le fichier `src/main/java/koans/english/AboutConsoleAndVariables.java`.
 
@@ -387,6 +418,8 @@ Ensuite, nous pouvons voir ces lignes, en vert:
 
 ```java
     /**
+     * # Afficher du texte dans la console
+     * 
      * Afficher 'Hello!' dans la console.
      * 
      * ---------   INDICES   --------------
@@ -412,7 +445,9 @@ Ensuite, nous pouvons voir ces lignes, en vert:
 
 Ces lignes forment ce qu'on appelle un 'commentaire'. Tout le texte vert entre `/**` et `*/` est un commentaire. Un commentaire est une information destinée à des humains, et est ignoré par Java. Ce n'est pas du code. C'est très utile pour documenter ton code quand tu écris du Java. Le maître se sert d'un de ces commentaires pour placer les instructions de chacun de ses koans.
 
-Tu peux trouver l'objectif du koan en haut du commentaire: `Afficher 'Hello!' dans la console.`. La console est la façon la plus simple pour un programme Java d'afficher quelque chose dans un terminal. Tu te souviens de ce qui a été affiché lorsque tu as exécuté les koans? Tu as vu ce bout de texte:
+La première ligne du commentaire te donne le titre du Koan: `# Afficher du texte dans la console`.
+
+Ensuite, tu peux trouver l'objectif du koan en haut du commentaire: `Afficher 'Hello!' dans la console.`. La console est la façon la plus simple pour un programme Java d'afficher quelque chose dans un terminal. Tu te souviens de ce qui a été affiché lorsque tu as exécuté les koans? Tu as vu ce bout de texte:
 
 ```
 Console:
@@ -532,13 +567,30 @@ Ce cours se veut fournir toute l'information nécessaire pour qu'un élève moti
 
 Nous avons trouvé que les élèves passent à travers le cours plus rapidement, et intègrent mieux les notions si le ou la mentor ne lui donne pas de solution à ses problèmes. À la place, le ou la mentor peut garder l'élève dans une posture active en lui demandant ce qu'iel ne comprend pas dans l'énoncé de l'exercice, ou du message d'erreur, et le / la guider dans des stratégies pour comprendre par iel même. La programmation consiste, la plupart du temps, à trouver quel petit détail nous avons oublié. En aidant les élèves à trouver les ressources pour résoudre les problèmes eux-même, ils deviennent au final autonomes plus rapidement lorsqu'ils débogueront un programme de robot.
 
-Si vous êtes intéressés à contribuer à ce cours, rendez-vous sur la page [CONTRIBUTING.md](CONTRIBUTING.md) :)
+### Sujets inclus
+
+* Écrire dans, et lire de, la console
+* Variables
+* Types basiques `int`, `boolean`, `String`, `double`
+* Instructions `if`, `else`, `if else`
+* Méthodes
+* Boucles `while`
+* Packages et classes avec méthodes statiques
+* Objets, constructeurs, champs
+
+### En savoir plus, contribuer
+
+Si vous êtes intéressés à en apprendre plus ou à contribuer à ce cours, rendez-vous sur la page [CONTRIBUTING.md](CONTRIBUTING.md) :)
 
 ## Attributions et remerciements
 
 Créé par un mentor de [l'équipe 3550 Robotronix](https://www.instagram.com/3550robotronix/) (Montréal, Canada).
 
 Grandement inspiré par les merveilleux [Ruby Koans](https://www.rubykoans.com/).
+
+La fonctionnalité Github Codespaces est une contribution de `jmcconne10`.
+
+Plusieurs erreurs de texte ont été corrigées par `someonesomething`.
 
 Grand merci aux premiers testeurs qui ont donné leur avis: Andy, Noémie, Chenxin, et Dumitru.
 

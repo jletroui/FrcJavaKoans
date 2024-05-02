@@ -1,7 +1,5 @@
 package engine;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * An assertion is the main way to assert that the student succeeded a koan.
  */
@@ -12,5 +10,5 @@ public interface ResultAssertion {
      * @param result The details of the Koan execution.
      * @return Whether or not the assertion is successful or not.
      */
-    boolean validate(Printer p, KoanResult result) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException;
+    boolean validate(Printer p, KoanResult result);
 }

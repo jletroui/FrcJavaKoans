@@ -2,6 +2,8 @@ package koans.english;
 
 public class AboutClasses {
     /**
+     * # Classes and packages
+     * 
      * Create a class 'utils.MathUtils'. In this class, create a method 'cube' which takes an integer and returns it's cube.
      * 
      * ---------   TIPS --------------
@@ -46,6 +48,8 @@ public class AboutClasses {
 
 
     /**
+     * # Using a different class
+     * 
      * Using utils.MathUtils.cube, create a method 'displayCube' in koans.english.AboutClasses which displays the cube of a number in the console.
      * 
      * ---------   TIPS --------------
@@ -79,6 +83,8 @@ public class AboutClasses {
 
 
     /**
+     * # An other class in a nested package
+     * 
      * Create a class 'utils.math.OtherMathUtils'. In this class, create a method 'max' which takes 2 integers and returns the greatest of them.
      * 
      * -------------------------------
@@ -91,6 +97,8 @@ public class AboutClasses {
 
 
     /**
+     * # Using a class in a nested package
+     * 
      * Using utils.math.OtherMathUtils.max, create a method 'displayMax' in koans.english.AboutClasses which display the greater of 2 integers.
      * 
      * -------------------------------
@@ -103,6 +111,8 @@ public class AboutClasses {
 
 
     /**
+     * # Using a class from a previous Koan
+     * 
      * Using the 'min' method created in a previous Koan, create a method 'displayMin' in koans.english.AboutClasses which display the lesser of 2 integers.
      * 
      * ---------   TIPS   --------------

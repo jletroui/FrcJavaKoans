@@ -2,6 +2,8 @@ package koans.french;
 
 public class AboutConditions {
     /**
+     * # L'instruction if, et les conditions
+     * 
      * Écris une méthode 'sign' qui a un entier en paramètre, et retourne du texte:
      * 
      * - si le nombre est plus grand que ou égal à 0, retourne le texte "positif"
@@ -65,6 +67,8 @@ public class AboutConditions {
 
 
     /**
+     * # L'instruction else if
+     * 
      * Écris une méthode 'signOrZero' qui a un entier en paramètre, et retourne du texte:
      * 
      * - si le nombre est plus grand que à 0, retourne le texte "positif"
@@ -96,6 +100,8 @@ public class AboutConditions {
 
 
     /**
+     * # Une note d'examen
+     * 
      * Écris une méthode 'gradeComment' qui a un paramètre entier représentant une note d'examen, et retourne du texte:
      * 
      * - si la note est moins que 0 ou plus grande que 100, retourne le texte "Tu triches!"

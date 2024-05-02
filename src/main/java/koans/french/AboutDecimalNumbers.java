@@ -2,6 +2,8 @@ package koans.french;
 
 public class AboutDecimalNumbers {
     /**
+     * # Convertir une mesure de longueur
+     * 
      * Écris une méthode 'toCm' avec un paramètre pour un nombre de pouces, et qui retourne la conversion en centimètres.
      * 
      * ---------   INDICES   --------------
@@ -24,6 +26,8 @@ public class AboutDecimalNumbers {
 
 
     /**
+     * # Convertir dans l'autre sens
+     * 
      * Écris une méthode 'toInches' qui fait l'inverse de la méthode précédente.
      * 
      * -------------------------------
@@ -36,6 +40,8 @@ public class AboutDecimalNumbers {
 
 
     /**
+     * # Calculer de la géométrie
+     * 
      * Écris une méthode 'rectangleArea' qui calcule l'aire d'un rectangle, étant donné la longueur de ses cotés.
      * 
      * -------------------------------
@@ -48,6 +54,8 @@ public class AboutDecimalNumbers {
 
 
      /**
+     * # Calculer la distance parcourue par un robot, étape 1
+     * 
      * Écris une méthode 'wheelCircumference' qui calcule la circonférence d'une roue de robot, étant donné le rayon de la roue.
      * 
      * ---------   INDICES   --------------
@@ -64,6 +72,8 @@ public class AboutDecimalNumbers {
 
 
     /**
+     * # Calculer la distance parcourue par un robot, étape 2
+     * 
      * Écris une méthode 'wheelRotations' qui calcule le nombres de rotations de roue étant donné le nombre de tours de moteur et le ratio de la boîte de transmission:
      * 
      * ---------   INDICES   --------------
@@ -81,11 +91,15 @@ public class AboutDecimalNumbers {
 
 
     /**
+     * # Calculer la distance parcourue par un robot, étape finale
+     * 
      * Utilise les 2 méthodes précédentes pour écrire une méthode 'toDistance' qui calcule la distance parcourue par les roues d'un robot étant donné:
      * 
      * - Le nombre de tours du moteur
      * - Le ratio de transmission
      * - Le rayon des roues
+     * 
+     * Attention! Il ne faut pas refaire les calculs des méthodes précédentes. À la place, réutilises-les.
      * 
      * -------------------------------
      * 

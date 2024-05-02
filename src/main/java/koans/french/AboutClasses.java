@@ -2,6 +2,8 @@ package koans.french;
 
 public class AboutClasses {
     /**
+     * # Classes et packages
+     * 
      * Crée une classe 'utils.MathUtils'. Dans cette classe, écris une méthode 'cube' qui prend un entier en paramètre et retourne son cube.
      * 
      * ---------   INDICES   --------------
@@ -47,6 +49,8 @@ public class AboutClasses {
 
 
     /**
+     * # Utiliser une classe différente
+     * 
      * En utilisant utils.MathUtils.cube, écris une méthode 'displayCube' dans koans.french.AboutClasses qui affiche le cube d'un nombre dans la console.
      * 
      * ---------   INDICES   --------------
@@ -80,6 +84,8 @@ public class AboutClasses {
 
 
     /**
+     * # Une classe dans un package imbriqué
+     * 
      * Crée une classe 'utils.math.OtherMathUtils'. Dans cette classe, crée une méthode 'max' qui prends 2 entiers, et retourne le plus grand des 2.
      * 
      * -------------------------------
@@ -92,6 +98,8 @@ public class AboutClasses {
 
 
     /**
+     * # Utiliser une classe d'un package imbriqué
+     * 
      * En utilisant utils.math.OtherMathUtils.max, écris une méthode 'displayMax' dans koans.french.AboutClasses qui affiche le plus grand de 2 entiers.
      * 
      * -------------------------------
@@ -104,6 +112,8 @@ public class AboutClasses {
 
 
     /**
+     * # Utiliser une classe d'un Koan précédent
+     * 
      * En utilisant la méthode 'min' créée dans un précédent Koan, écris une méthode 'displayMin' dans koans.french.AboutClasses qui affiche le plus petit de 2 entiers.
      * 
      * ---------   INDICES   --------------

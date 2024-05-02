@@ -2,6 +2,8 @@ package koans.english;
 
 public class AboutLoops {
     /**
+     * # First loop
+     * 
      * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console times times.
      * 
      * ---------   TIPS   --------------
@@ -31,6 +33,8 @@ public class AboutLoops {
 
 
      /**
+     * # Printing where we are in a loop
+     * 
      * Write a method named 'displayNumbers' with an integer parameter 'n', which displays numbers between 1 and n.
      * 
      * -------------------------------
@@ -47,6 +51,8 @@ public class AboutLoops {
 
 
      /**
+     * # Counting in reverse
+     * 
      * Write a method named 'displayReverseNumbers' with an integer parameter 'n', which displays numbers between 1 and n in reverse order.
      * 
      * -------------------------------
@@ -63,6 +69,8 @@ public class AboutLoops {
 
 
      /**
+     * # Multiples of 7
+     * 
      * Write a method named 'sevens' with 1 integer parameter 'n', which displays all multiples of 7 between 1 and n.
      * 
      * -------------------------------
@@ -80,6 +88,8 @@ public class AboutLoops {
 
 
      /**
+     * # Multiples of 7 or 8
+     * 
      * Write a method named 'sevensOrEights' with 1 integer parameter 'n', which displays all multiples of 7 or 8 between 1 and n.
      * 
      * ---------   TIPS   --------------
@@ -105,6 +115,8 @@ public class AboutLoops {
 
 
      /**
+     * # Exponents
+     * 
      * Write a method 'exponent' which computes the exponent of an integer by an other.
      * 
      * ---------   TIPS   --------------
@@ -124,6 +136,8 @@ public class AboutLoops {
 
 
      /**
+     * # Exponents, including 0
+     * 
      * Write a method 'exponent2' which does the same as the previous one, except it also handles the case where n is 0.
      * 
      * ---------   TIPS   --------------
@@ -142,6 +156,8 @@ public class AboutLoops {
 
 
      /**
+     * # Factorial
+     * 
      * Write a method 'factorial' which computes the factorial of an integer.
      * 
      * ---------   TIPS   --------------

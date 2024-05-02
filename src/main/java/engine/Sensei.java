@@ -1,10 +1,18 @@
 package engine;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import engine.ConsoleFmt.Formats;
+import engine.script.Expression;
+import engine.script.ScriptExecutionException;
+import engine.script.ScriptRunner;
+
+import static engine.ConsoleFmt.code;
+import static engine.ConsoleFmt.format;
+import static engine.ConsoleFmt.strong;
+import static engine.ConsoleFmt.strongRed;
 import static engine.Texts.*;
 
 /**
@@ -28,7 +36,7 @@ public class Sensei {
 
     public void offerKoans() {
         for(int i = 0; i< allKoans.size(); i++) {
-            if (!tryOffer(allKoans.get(i), i)) {
+            if (!tryOfferKoan(allKoans.get(i), i)) {
                 return;
             }
         }
@@ -38,100 +46,75 @@ public class Sensei {
         consolePrinter.println();
     }
 
-    private boolean tryOffer(Koan koan, int successfulCount) {
+    private boolean tryOfferKoan(Koan koan, int successfulCount) {
         for(var test: koan.tests) {
-            var success = tryOffer(test, successfulCount);
-            if (!success) {
+            if (!tryOfferTest(test, successfulCount)) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean tryOffer(KoanTest test, int successfulCount) {
+    private boolean tryOfferTest(KoanTest test, int successfulCount) {
         // Execute silently the first time.
         // We do not want to display all the outputs of the successful koans to the student.
         p = Printer.SILENT;
-        var succeeded = offer(test, successfulCount);
+        final var succeeded = offerTest(test, successfulCount);
 
         if (!succeeded) {
             // If failed, execute verbosely the second time, in order to give feedback to the student.
             p = consolePrinter;
-            offer(test, successfulCount);
+            offerTest(test, successfulCount);
             return false;
         }
 
         return true;
     }
 
-    private boolean offer(KoanTest test, int successfulCount) {
-        var koan = test.koan;
-        observe(koan);
-        encourage();
-        
-        AtomicBoolean success = new AtomicBoolean(false);
+    private boolean offerTest(KoanTest test, int successfulCount) {
+        final var koan = test.koan;        
 
-        var thread = new Thread(() -> {
+        encourage(koan);
+
+        final AtomicBoolean success = new AtomicBoolean(false);
+        final var thread = new Thread(() -> {
             try {
                 success.set(executeCall(test));
-            } catch (IllegalAccessException iae) {
+            } catch (ScriptExecutionException see) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
-                p.println(Color.red(EXPECTED_METHOD_TO_BE_PUBLIC), koan.methodName);
-            } catch (IllegalArgumentException iae) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
-                p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, iae.getMessage());
-            } catch (InvocationTargetException ite) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                if (ite.getTargetException() instanceof StackOverflowError) {
-                    p.println(Color.red(THE_METHOD_SEEMS_TO_RECURSE_INFINITELY), koan.methodName);
+                if (see.getCause() instanceof InvocationTargetException ite && ite.getTargetException() instanceof StackOverflowError) {
+                    p.println(ConsoleFmt.red(THE_METHOD_SEEMS_TO_RECURSE_INFINITELY), see.methodName);
+                } else if (see.getCause() instanceof InvocationTargetException ite) {
+                    p.println(ConsoleFmt.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), see.methodName, ite.getCause().getMessage());
                 } else {
-                    p.println(Color.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), koan.methodName, ite.getCause().getMessage());
+                    throw see; // Serious bug
                 }
-            } catch (NoStaticMethodException nsme) {
+            } catch (KoanBugException kbe) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
-                p.println(Color.red(EXPECTED_METHOD_TO_BE_STATIC), koan.methodName, koan.exerciseClassName(locale).replace(".", "/"));
-            } catch (NoDynamicMethodException ndme) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                p.println(Color.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), koan.methodName, koan.exerciseClassName(locale));
-            } catch (NoSuchConstructorException nsce) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                displayConstructorNotFound(koan);
-            } catch (NoSuchMethodException mnfe) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                displayMethodNotFound(koan);
-            } catch (ClassNotFoundException cnfe) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                p.println(Color.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), koan.exerciseClassName.get(), koan.exerciseClassPackage.get());
-            } catch (InstantiationException ie) {
-                // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
-                concludeConsole(koan);
-                // Would be a bug in the Koan instances, since we are ensuring for the method with the right parameters.
-                p.println(Color.red(THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR), koan.exerciseClassName.get());
+                p.println(ConsoleFmt.red(BUG_FOUND), kbe.getMessage());
             }
         });
 
         thread.setDaemon(true);
         thread.start();
         try {
-            thread.join(TIMEOUT_INFINITE_LOOPS_MS);
+            if (test.hasStdInputs()) {
+                // Can't detect infinite loop when the user has to enter data through the console, because we don't know how much time to wait for.
+                thread.join();
+            } else {
+                thread.join(TIMEOUT_INFINITE_LOOPS_MS);
+            }
         }
         catch(InterruptedException ie) {
-            throw new IllegalStateException("Something very weird happened. We should not have been interrupted.");
+            throw new IllegalStateException(String.format("Something very weird happened. We should not have been interrupted: %s.", ie.getMessage()));
         }
 
         if (thread.isAlive()) {
             StdStreamsInterceptor.reset();
             concludeConsole(koan);
-            p.println(Color.red(THE_METHOD_SEEMS_TO_NOT_FINISH), koan.methodName);
+            p.println(ConsoleFmt.red(THE_CODE_TRIED_BY_THE_SENSEI_SEEMS_TO_NOT_FINISH), Expression.formatSourceCode(test.script, locale));
         }
 
         offerToMeditate(koan);
@@ -140,26 +123,27 @@ public class Sensei {
         return success.get();
     }
 
-    private boolean executeCall(KoanTest test) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException {
+    private boolean executeCall(final KoanTest test) {
 
         test.setupRandomForKoan();
-        final var targetMethod = test.resolveTargetMethod(locale);
-        final var asserted = test.koan.executeAssertions(p, targetMethod);
-        if (!asserted) {
-            return false;
+
+        for(var assertion: test.koan.beforeAssertions) {
+            if (!assertion.validate(p, locale, test.koan)) {
+                return false;
+            }
         }
 
-        introduceConsole(targetMethod);
+        introduceConsole(test);
 
         final var interceptionResult = StdStreamsInterceptor.capture(
             p == Printer.SILENT,
-            targetMethod::invoke,
+            () -> ScriptRunner.execute(test.koan.koanClass, locale, test.script),
             test.stdInInputs(locale)
         );
 
         final var result = new KoanResult(
             locale,
-            targetMethod,
+            test,
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
             interceptionResult.returnValue
@@ -170,22 +154,36 @@ public class Sensei {
         return result.executeAssertions(p);
     }
 
-    private void introduceConsole(KoanTargetMethod targetMethod) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
-        if (targetMethod.koanTest.koan.usesConsole) {
-            if (targetMethod.koanTest.koan.showStdInInputs) {
-                p.println();
-                p.println(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN_ANSWERING, Helpers.formatSequence(targetMethod.koanTest.stdInInputs(locale), AND.get(locale)));
-                p.println();
-            }
+    private void introduceConsole(final KoanTest test) {
+        final var testedExpression = code(test.script[test.script.length - 1].formatSourceCode(locale));
 
+        if (test.script.length > 1 || test.koan.showStdInInputs) {
+            p.println(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN); // Seulement si code de prep ou stdin input
+            if (test.koan.showStdInInputs) {
+                p.println(WHEN_ANSWERING, Helpers.formatSequence(locale, test.stdInInputs(locale)));
+            }
+            if (test.script.length > 1) {
+                p.println(WHEN_EXECUTING);
+                p.println();
+                p.println(format(Expression.formatPreparationSourceCode(test.script, locale, "    "), Formats.Code));
+                p.println(format(AND_FINALLY_LOOKING_THE_RESULT_OF, Formats.None, testedExpression));
+            } else {
+                p.println(format(WHEN_LOOKING_THE_RESULT_OF, Formats.None, testedExpression));
+            }
+        } else {
+            p.println(format(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN_LOOKING_AT, Formats.None, testedExpression));
+        }
+
+        p.println();
+        if (test.koan.usesConsole) {
             p.println();
-            p.println(CONSOLE, targetMethod);
+            p.println(CONSOLE);
             p.println("---------");
             p.println();
         }
     }
 
-    private void concludeConsole(Koan koan) {
+    private void concludeConsole(final Koan koan) {
         if (koan.usesConsole) {
             p.println();
             p.println("---------");
@@ -193,10 +191,13 @@ public class Sensei {
         }
     }
 
-    private void encourage() {
+    private void encourage(final Koan koan) {
+        p.println();
+        p.println(THINKING, koan.koanClass.get(locale).simpleClassName);
+        p.println(format(HAS_DAMAGED_YOUR_KARMA, Formats.Red, strongRed(koan.koanName.get(locale))));
         p.println();
         p.println(THE_MASTER_SAYS);
-        p.println(Color.cyan(YOU_HAVE_NOT_REACHED_ENLIGHTMENT));
+        p.println(ConsoleFmt.cyan(YOU_HAVE_NOT_REACHED_ENLIGHTMENT));
         p.println();
         p.println("---------");
         p.println();
@@ -204,23 +205,20 @@ public class Sensei {
         p.println();
     }
 
-    private void observe(Koan koan) {
-        p.println();
-        p.println(THINKING, koan.koanClassName(locale));
-        p.println(Color.red(HAS_DAMAGED_YOUR_KARMA), koan.methodName);
-    }
-
-    private void offerToMeditate(Koan koan) {
+    private void offerToMeditate(final Koan koan) {
         p.println();
         p.println(
-            PLEASE_MEDITATE_ON, 
-            koan.methodName,
-            koan.koanClassName(locale)
+            format(
+                PLEASE_MEDITATE_ON, 
+                Formats.None,
+                strong(koan.koanName.get(locale)),
+                koan.koanClass.get(locale).simpleClassName
+            )
         );
         p.println();
     }
 
-    private void showProgress(int successfulCount) {
+    private void showProgress(final int successfulCount) {
         if (successfulCount == 0) {
             // Let's not be discouraging...
             return;
@@ -228,67 +226,14 @@ public class Sensei {
 
         final var bar = String.format(
             "%s%s%s",
-            Color.green(repeat(".", successfulCount)),
-            Color.red("X"),
-            Color.cyan(repeat("_", allKoans.size() - successfulCount - 1)));
+            ConsoleFmt.green(repeat(".", successfulCount)),
+            ConsoleFmt.red("X"),
+            ConsoleFmt.cyan(repeat("_", allKoans.size() - successfulCount - 1)));
         p.println(YOUR_PROGRESS_THUS_FAR, bar, successfulCount, allKoans.size());
         p.println();
     }
 
-    private static String repeat(String s, int times) {
+    private static String repeat(final String s, final int times) {
         return new String(new char[times]).replace("\0", s);
-    }
-    
-    private void displayMethodNotFound(Koan koan) {
-        if (koan.methodParamTypes.length == 0) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),
-                koan.methodName,
-                koan.exerciseClassName(locale).replace(".", "/")
-            );
-        } else if (koan.methodParamTypes.length == 1) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM),
-                koan.methodName,
-                koan.exerciseClassName(locale).replace(".", "/"),
-                koan.methodParamTypes[0].getSimpleName()
-            );
-        } else {
-            final var expectedParams = Arrays
-                .stream(koan.methodParamTypes)
-                .map(type -> "'" + type.getSimpleName() + "'")
-                .toArray(String[]::new);
-            p.println(
-                Color.red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS),
-                koan.methodName,
-                koan.exerciseClassName(locale).replace(".", "/"),
-                Helpers.formatSequence(expectedParams, AND.get(locale))
-            );
-        }
-    }
-    
-    private void displayConstructorNotFound(Koan koan) {
-        if (koan.constructorParamTypes.length == 0) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS),
-                koan.exerciseClassName(locale)
-            );
-        } else if (koan.constructorParamTypes.length == 1) {
-            p.println(
-                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM),
-                koan.exerciseClassName(locale),
-                koan.constructorParamTypes[0]
-            );
-        } else {
-            final var expectedParams = Arrays
-                .stream(koan.constructorParamTypes)
-                .map(type -> "'" + type + "'")
-                .toArray(String[]::new);
-            p.println(
-                Color.red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS),
-                koan.exerciseClassName(locale),
-                Helpers.formatSequence(expectedParams, AND.get(locale))
-            );
-        }
     }
 }

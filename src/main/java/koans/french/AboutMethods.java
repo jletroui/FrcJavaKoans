@@ -4,6 +4,8 @@ import static engine.Helpers.readLine;
 
 public class AboutMethods {
     /**
+     * # Tâches répétitives
+     * 
      * Demande un âge. Affiche l'âge dans 5 ans.
      * Demande un âge une deuxième fois. Affiche cet âge dans 10 ans.
      * Demande un âge une troisième fois. Affiche cet âge dans 20 ans.
@@ -28,6 +30,8 @@ public class AboutMethods {
     }
 
     /**
+     * # Tâches répétitives: les méthodes à la rescousse
+     * 
      * Faisons une pause. Est-ce que ce n'était pas un peu pénible d'écrire 3 fois presque le même code?
      * Fais la même chose cette fois ci, mais en appelant 3 fois une nouvelle méthode que tu vas créer.
      * 
@@ -117,6 +121,8 @@ public class AboutMethods {
     }
 
     /**
+     * # Les méthodes peuvent aussi retourner des résultats
+     * 
      * Écris une méthode qui a un entier pour paramètre, et retourne le carré de ce nomre.
      * 
      * ---------   INDICES   --------------
@@ -124,7 +130,7 @@ public class AboutMethods {
      * Jusqu'à maintenant, les méthode que tu as écrite 'faisait des choses', comme afficher quelque chose dans la console.
      * Mais elles ne communiquaient aucun résultat au reste du programme.
      * En programmation, il est très utile, non seulement de recevoir des informations du reste du programme (via les paramètres), mais aussi de renvoyer de l'informaiton au reste du programme.
-     * Pour renvoyer de l'information au reste du programme, une méthode peut retourner une, et une seule valeur appelée 'la valeur de retour'.
+     * Quand une méthode renvoie de l'information au reste du programme, on appelle ça 'retourner une valeur'. Une méthode peut retourner une, et une seule valeur appelée 'la valeur de retour'.
      * Jusqu'à maintenant, les méthodes commencaient de cette façon:
      * 
      *     public static void [name of the method]()
@@ -173,6 +179,8 @@ public class AboutMethods {
     }    
 
     /**
+     * # Retourner l'opposé d'un nombre
+     * 
      * Écris une méthode appelée 'opposite' qui prend un paramètre entier, et retourne l'opposé de cet entier.
      * 
      * ---------   INDICES   --------------
@@ -189,6 +197,8 @@ public class AboutMethods {
 
 
     /**
+     * # Aider une fermière
+     * 
      * Écris une méthode appelée 'legs', qui aide une fermière à compter le nombre de pattes de ses animaux, étant donné le nombre de chaque type d'animaux.
      * Il y a 3 paramètres: le nombre de poulets, le nombre de cochons, et le nombre de vaches.
      * 

@@ -4,6 +4,8 @@ import static engine.Helpers.readLine;
 
 public class AboutConsoleAndVariables {
     /**
+     * # Displaying some text in the console
+     * 
      * Display 'Hello!' in the console.
      * 
      * ---------   TIPS --------------
@@ -30,6 +32,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Displaying some calculation in the console
+     * 
      * Make Java compute 2 + 2 for you, and display the result in the console.
      * 
      * ---------   TIPS --------------
@@ -55,6 +59,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Creating a variable to store a value
+     * 
      * Compute 2 + 2 and store the value in a variable. Display the value of the variable.
      * 
      * ---------   TIPS --------------
@@ -95,6 +101,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Creating a variable to store text
+     * 
      * Create a text variable called 'greeting' with the value 'Hello!' and display it in the console.
      * 
      * ---------   TIPS --------------
@@ -114,6 +122,8 @@ public class AboutConsoleAndVariables {
 
 
     /**
+     * # Asking for some user answer
+     * 
      * Display a ask for a name in the console. Let the user answer. Store the answer in a String variable. Display 'Your name is:' and then the answer.
      * 
      * ---------   TIPS --------------
@@ -146,6 +156,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Play with text content
+     * 
      * Same thing as before, but display the name on a single line.
      * 
      * ---------   TIPS --------------
@@ -190,6 +202,8 @@ public class AboutConsoleAndVariables {
     }
 
     /**
+     * # Playing more with text content
+     * 
      * Ask for a name, then for an age. Display both on the same line.
      * 
      * ---------   TIPS --------------
@@ -217,6 +231,8 @@ public class AboutConsoleAndVariables {
 
     
     /**
+     * # Playing with text and numbers at the same time
+     * 
      * Ask for an age. Display the age in 5 years.
      * 
      * ---------   TIPS --------------

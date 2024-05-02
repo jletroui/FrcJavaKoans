@@ -2,6 +2,8 @@ package koans.english;
 
 public class AboutObjects {
     /**
+     * # The first object
+     * 
      * Create a class 'geom.Point' with 2 final private decimal fields 'x' and 'y'. The constructor should take 'x' and 'y' as parameters.
      * 
      * ---------   TIPS --------------
@@ -110,6 +112,8 @@ public class AboutObjects {
 
 
     /**
+     * # An object method
+     * 
      * Create a method 'toString' in 'geom.Point' which returns a text representation of a Point object as follow:
      * 
      * Point([x value], [y value])
@@ -124,6 +128,8 @@ public class AboutObjects {
 
 
     /**
+     * # An other object method
+     * 
      * Create a method 'translate' in 'geom.Point' which takes 2 translation coordinates 'tx' and 'ty', and returns a new point object, which is the initial point translated by tx and ty.
      * 
      * ---------   TIPS --------------
@@ -142,6 +148,8 @@ public class AboutObjects {
 
 
     /**
+     * # An object... using other kind of objects
+     * 
      * Create a class 'geom.Triangle' with 3 final private Point fields 'a', 'b', and 'c'. The constructor should take 'a', 'b', and 'c' as parameters.
      * 
      * -------------------------------
@@ -154,6 +162,8 @@ public class AboutObjects {
 
 
     /**
+     * # Using other object's method
+     * 
      * Using 'Point.toString', write a method 'toString' in 'geom.Triangle' which returns a text representation of a Triangle object as follow:
      * 
      * Triangle(Point([x value of 'a'], [y value of 'a']), Point([x value of 'b'], [y value of 'b']), Point([x value of 'c'], [y value of 'c']))
@@ -168,6 +178,8 @@ public class AboutObjects {
 
 
     /**
+     * # Using another object's method
+     * 
      * Using 'Point.translate', write a method 'translate' in 'geom.Triangle' which takes 2 translation coordinates tx and ty, and returns a new Triangle object, which is the initial triangle translated by the given coordinates.
      * 
      * -------------------------------
@@ -188,6 +200,8 @@ public class AboutObjects {
 
 
     /**
+     * # Apply learnings: the Circle class
+     * 
      * Create a class 'geom.Circle' with fields 'center' (Point), and 'radius' (double). The constructor should take 'center', and 'radius' as parameters.
      * Using 'geom.Point.toString, write a method 'toString' in 'geom.Circle' which returns a text representation of a Circle object as follow:
      * 
@@ -203,6 +217,8 @@ public class AboutObjects {
 
 
     /**
+     * # Apply learnings: circle translation
+     * 
      * Using 'Point.translate', write a method 'translate' in 'geom.Circle' which takes 2 translation coordinates tx and ty, and returns a new Circle object, which is the initial circle translated by the given coordinates.
      * 
      * -------------------------------
@@ -220,4 +236,116 @@ public class AboutObjects {
      * 
      */
 
+
+    /**
+     * # Objects with mutating fields
+     * 
+     * Now, we want to program a scouting app for the 2024 game 'Crescendo', were robots have to score foam circles called 'notes' in a 'speaker' and an 'amplifier' (abbreviated 'amp').
+     * In auto mode, scoring a note in the speaker is worth 5 points, and scoring a note in the amp is worth 2 points. Let's design classes helping us compute the scores of robots during the autonomous period.
+     * Create a class 'frc.RobotAutoScore' with non final fields 'notesInSpeaker' (int), 'notesInAmp' (int), initialized to 0. The constructor should take no parameters.
+     * Write a method 'toString' in 'frc.RobotAutoScore' which returns a text representation of a RobotAutoScore object as follow:
+     * 
+     * RobotScore: notes in speaker = [notesInSpeaker value]; notes in amp = [notesInAmp value]
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * new RobotAutoScore().toString() should return the String "RobotScore: notes in speaker = 0; notes in amp = 0"
+     * 
+     */
+
+
+    /**
+     * # Mutate object's fields
+     * 
+     * Write a method 'noteScoredInSpeaker' in 'frc.RobotAutoScore' which takes no parameter, and increases the value of the 'notesInSpeaker' field by 1.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * The following code:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInSpeaker();
+     *     System.out.println(robotScore);
+     * 
+     * Should display:
+     * 
+     *   RobotScore: notes in speaker = 1; notes in amp = 0
+     * 
+     */
+
+
+    /**
+     * # More object's fields mutations
+     * 
+     * Write a method 'noteScoredInAmp' in 'frc.RobotAutoScore' which takes no parameter, and increase the value of the 'notesInAmp' field by 1.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * The following code:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInAmp();
+     *     System.out.println(robotScore);
+     * 
+     * Should display:
+     * 
+     *   RobotScore: notes in speaker = 0; notes in amp = 1
+     * 
+     */
+
+
+    /**
+     * # Computing the total score for a robot
+     * 
+     * Write a method 'totalScore' in 'frc.RobotAutoScore' which takes no parameter, and return the total score (2 points for amp notes, 5 points for speaker notes).
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * The following code:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInSpeaker();
+     *     robotScore.noteScoredInAmp();
+     *     System.out.println(robotScore.totalScore());
+     * 
+     * Should display:
+     * 
+     *   7
+     * 
+     */
+
+     
+    /**
+     * # Computing the total score for an entire alliance
+     * 
+     * Create a class 'frc.AllianceAutoScore' with final fields 'robotAScore' (RobotAutoScore), 'robotBScore' (RobotAutoScore) and 'robotCScore' (RobotAutoScore). The constructor should take a value for these as parameters.
+     * Write a method 'totalScore' in 'frc.AllianceAutoScore' which compute the total score for the alliance.
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     *     RobotAutoScore robotAScore = new RobotAutoScore();
+     *     robotAScore.noteScoredInSpeaker();
+     *     robotAScore.noteScoredInAmp();
+     *     RobotAutoScore robotBScore = new RobotAutoScore();
+     *     RobotAutoScore robotCScore = new RobotAutoScore();
+     *     robotAScore.noteScoredInSpeaker();
+     *     AllianceAutoScore allianceScore = new AllianceAutoScore(robotAScore, robotBScore, robotCScore);
+     *     System.out.println(allianceScore.totalScore());
+     * 
+     * Should display:
+     * 
+     *   12
+     * 
+     */
+    
 }

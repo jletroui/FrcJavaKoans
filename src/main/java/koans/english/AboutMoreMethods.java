@@ -2,6 +2,8 @@ package koans.english;
 
 public class AboutMoreMethods {
     /**
+     * # Computing the absolute value of a number
+     * 
      * Write a 'abs' method which has a parameter for an integer number, and returns the absolute value of that number
      * 
      * -------------------------------
@@ -14,6 +16,8 @@ public class AboutMoreMethods {
 
 
      /**
+     * # What's the min value?
+     * 
      * Write a 'min' method which has 2 integer parameters, and returns the smallest of those 2 numbers.
      * 
      * -------------------------------
@@ -26,6 +30,8 @@ public class AboutMoreMethods {
 
 
      /**
+     * # Computing the remainder of an integer division
+     * 
      * Write a 'remainder' method that has 2 integer parameters:
      * 
      * - first one is a dividend
@@ -52,6 +58,8 @@ public class AboutMoreMethods {
 
 
     /**
+     * # Computing whether a number is even or not
+     * 
      * Write an 'isEven' method which has an integer parameter, and return true if the number is even, false otherwise.
      * Use the previous method 'remainder' to compute the result.
      * 
@@ -80,6 +88,8 @@ public class AboutMoreMethods {
 
      
     /**
+     * # Computing whether a number is a multiple of another
+     * 
      * Write an 'isMultiple' method which has 2 integer parameters and return true if the second one is a multiple of the first one.
      * Use the method 'remainder' to compute the result.
      * 
@@ -97,12 +107,16 @@ public class AboutMoreMethods {
 
      
     /**
+     * # Fizz Buzz
+     * 
      * Use the previous 'isMultiple' method to code a 'fizzBuzz' method with an integer parameter which displays in the console:
      * 
      * - "Fizz" if the integer is a multiple of 3
      * - "Buzz" if the integer is a multiple of 5
      * - "FizzBuzz" if the integer is a multiple of 3 and 5
      * - the integer itself otherwise
+     * 
+     * Warning! Do not recode the computations already coded in the previous method. Instead, reuse it.
      * 
      * -------------------------------
      * 

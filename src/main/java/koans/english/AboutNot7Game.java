@@ -5,6 +5,8 @@ import static engine.Helpers.readLine;
 
 public class AboutNot7Game {
     /**
+     * # Introduction to the 'Not 7!' game
+     * 
      * These koans are a bit special because they put everything you learned so far into practice.
      * 
      * You will gradually code everything necessary for a 2 players game called 'Not 7!'.
@@ -88,6 +90,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Rolling a 6 sided die
+     * 
      * Write a method 'die6()' returning the result of a 6-face die throw as an integer.
      * 
      * ---------   TIPS --------------
@@ -117,6 +121,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Asking a question to the player
+     * 
      * Write a method 'askQuestion(String questionText)' asking a question to the user, and returns a boolean stating if the user answered 'y'.
      * 
      * -------------------------------
@@ -137,6 +143,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Rolling 2 dice
+     * 
      * Use die6() to write a method 'throwDice' throwing 2 dice, displaying the dice results in the console, and returning the sum of the 2 results.
      * 
      * -------------------------------
@@ -149,6 +157,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programming a round of the game: 1st step
+     * 
      * Use 'throwDice' and 'askQuestion' to write a method called 'gameRoundv1' which repeatedly, while the user says 'y':
      * 
      * - throws 2 dice
@@ -174,6 +184,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programming a round of the game: 2nd step
+     * 
      * Write a method called 'gameRoundv2' that does the same thing as gameRoundv1, but it also displays the sum of the results so far.
      * 
      * -------------------------------
@@ -192,6 +204,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programming a round of the game: 3rd step
+     * 
      * Write a method called 'gameRoundv3' that does the same thing as gameRoundv2, but it also returns the result once the player chooses to stop.
      * 
      * -------------------------------
@@ -209,6 +223,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programming a round of the game: 4th step
+     * 
      * Write a method called 'gameRoundv4' that does the same thing as gameRoundv3, but it stops if the dice result is exactly 7.
      * If it does stop that way, 'gameRoundv4' should display "Oh no, Not 7! You Lose!", with an empty line after it and return 0.
      * 
@@ -225,6 +241,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programming a round of the game: final step
+     * 
      * Write a method called 'gameRoundv5' that does the same thing as gameRoundv4, but in the case of the player stopping before throwing a 7,
      *   it should display their score between empty lines.
      * 
@@ -251,6 +269,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programming the game: 1st step
+     * 
      * Using 'gameRoundv5', write a method called 'not7Gamev1' that displays which player's round it is, and makes that player play their round.
      * 
      * -------------------------------
@@ -299,6 +319,8 @@ public class AboutNot7Game {
 
 
     /**
+     * # Programming the game: final step
+     * 
      * Write a method called 'not7Gamev2' that does the same thing as not7Gamev1, but is also displays who the winner is.
      * In case of a tie, simply display: 'Tie!'.
      * 
@@ -350,7 +372,7 @@ public class AboutNot7Game {
  
 
     /**
-     * BONUS:
+     * # BONUS
      * 
      * If you made it this far, congratulations! You now know a lot about programming!!!
      * Before the next Koan though, what about the ability to launch your game so you can play with a friend?

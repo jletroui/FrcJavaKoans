@@ -3,157 +3,69 @@ package engine;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
+
+import engine.script.Expression;
+import engine.script.Type;
 
 /**
  * Stores all the information required to execute and assess the result of a koan.
  */
 public class Koan {
-    final Localizable<Class<?>> koanClass;
-    public final String methodName;
-    public final Class<?>[] methodParamTypes;
-    public final Type[] constructorParamTypes;
-    public final boolean onObject;
-    private final Value[] constructorParams;
-    public final KoanTest[] tests;
-    public final boolean usesConsole;
-    public final boolean showStdInInputs;
-    public final Optional<String> exerciseClassName;
-    public final Optional<String> exerciseClassPackage;
-    public final KoanAssertion[] koanAssertions;
+    final Localizable<Type> koanClass;
+    final Localizable<String> koanName;
+    final KoanTest[] tests;
+    final boolean usesConsole;
+    final boolean showStdInInputs;
+    final BeforeTestAssertion[] beforeAssertions;
 
-    public Koan(Localizable<Class<?>> koanClass, String methodName, Class<?>... methodParamTypes) {
+    public Koan(final Localizable<Class<?>> koanClass, final Localizable<String> koanName) {
         this(
-            koanClass,
-            methodName,
-            methodParamTypes,
-            new Type[0],
-            new Value[0],
-            false,
+            koanClass.map(Type::new),
+            koanName,
             new KoanTest[0],
             false,
             false,
-            Optional.empty(),
-            Optional.empty(),
-            new KoanAssertion[0]
+            new BeforeTestAssertion[0]
         );
     }
 
     private Koan(
-        Localizable<Class<?>> koanClass,
-        String methodName,
-        Class<?>[] methodParamTypes,
-        Type[] constructorParamTypes,
-        Value[] constructorParams,
-        boolean onObject,
-        KoanTest[] tests,
-        boolean usesConsole,
-        boolean showStdInInputs,
-        Optional<String> exerciseClassName,
-        Optional<String> exerciseClassPackage,
-        KoanAssertion[] koanAssertions) {
+        final Localizable<Type> koanClass,
+        final Localizable<String> koanName,
+        final KoanTest[] tests,
+        final boolean usesConsole,
+        final boolean showStdInInputs,
+        final BeforeTestAssertion[] koanAssertions) {
         this.koanClass = Objects.requireNonNull(koanClass, "koanClass must not be null");
-        this.methodName = Objects.requireNonNull(methodName, "methodName must not be null");
-        this.methodParamTypes = Objects.requireNonNull(methodParamTypes, "methodParamTypes must not be null");
+        this.koanName = Objects.requireNonNull(koanName, "methodName must not be null");
         this.tests = Objects.requireNonNull(tests, "calls must not be null");
         this.usesConsole = usesConsole;
         this.showStdInInputs = showStdInInputs;
-        this.exerciseClassName = exerciseClassName;
-        this.exerciseClassPackage = exerciseClassPackage;
-        this.constructorParamTypes = constructorParamTypes;
-        this.constructorParams = constructorParams;
-        this.onObject = onObject;
-        this.koanAssertions = koanAssertions;
+        this.beforeAssertions = koanAssertions;
     }
 
-    public Koan whenCallingWith(Object... params) {
+    public Koan when(final Expression... script) {
         var newTests = Arrays.copyOf(tests, tests.length + 1);
         
-        newTests[newTests.length - 1] = new KoanTest(this, params, constructorParams);
+        newTests[newTests.length - 1] = new KoanTest(this, script);
         return new Koan(
             koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            onObject,
+            koanName,
             newTests,
             usesConsole,
             showStdInInputs,
-            exerciseClassName,
-            exerciseClassPackage,
-            koanAssertions
+            beforeAssertions
         );
     }
 
-    public Koan inClass(String className, Type... constructorParamTypes) {
-        var separatorIndex = className.lastIndexOf(".");
-
+    public Koan beforeFirstTest(final BeforeTestAssertion... koanAssertions) {
         return new Koan(
             koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            onObject,
+            koanName,
             tests,
             usesConsole,
             showStdInInputs,
-            Optional.of(className.substring(separatorIndex + 1)),
-            Optional.of(className.substring(0, separatorIndex)),
-            koanAssertions
-        );
-    }
-
-    public Koan beforeCalling(KoanAssertion... koanAssertions) {
-        return new Koan(
-            koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            onObject,
-            tests,
-            usesConsole,
-            showStdInInputs,
-            exerciseClassName,
-            exerciseClassPackage,
-            koanAssertions
-        );
-    }
-
-    public Koan withObjectConstructedWith(Value... constructorParams) {
-        return new Koan(
-            koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            true,
-            tests,
-            usesConsole,
-            showStdInInputs,
-            exerciseClassName,
-            exerciseClassPackage,
-            koanAssertions
-        );
-    }
-
-    public Koan withObjectConstructedWith(Object... constructorParams) {
-        var params = Arrays.stream(constructorParams).map(param -> new Value(param)).toArray(Value[]::new);
-        return new Koan(
-            koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            params,
-            true,
-            tests,
-            usesConsole,
-            showStdInInputs,
-            exerciseClassName,
-            exerciseClassPackage,
             koanAssertions
         );
     }
@@ -161,46 +73,30 @@ public class Koan {
     public Koan useConsole() {
         return new Koan(
             koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            onObject,
+            koanName,
             tests,
             true,
             showStdInInputs,
-            exerciseClassName,
-            exerciseClassPackage,
-            koanAssertions
+            beforeAssertions
         );
     }
 
     public Koan useConsoleAndShowStdinInputs() {
         return new Koan(
             koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            onObject,
+            koanName,
             tests,
             true,
             true,
-            exerciseClassName,
-            exerciseClassPackage,
-            koanAssertions
+            beforeAssertions
         );
     }
 
-    public Koan whenCalling() {
-        return whenCallingWith();
-    }
-
-    public Koan withStdInInputs(List<Localizable<String>> inputs) {
+    public Koan withStdInInputs(final List<Localizable<String>> inputs) {
         return withUpdatedTest(kTest -> kTest.withStdInInputs(inputs));
     }
 
-    public Koan withStdInInputs(String... inputs) {
+    public Koan withStdInInputs(final String... inputs) {
         return withStdInInputs(
             Arrays.stream(inputs)
                 .map(input -> (Localizable<String>)new Global<String>(input))
@@ -208,37 +104,15 @@ public class Koan {
         );
     }
 
-    public Koan withSeed(long seed) {
+    public Koan withSeed(final long seed) {
         return withUpdatedTest(kTest -> kTest.withSeed(seed));
     }
 
-    public Koan then(ResultAssertion... assertions) {
+    public Koan then(final ResultAssertion... assertions) {
         return withUpdatedTest(kTest -> kTest.withAssertions(assertions));
     }
 
-    public String koanClassName(Locale locale) {
-        return koanClass.get(locale).getSimpleName();
-    }
-
-    public String exerciseClassName(Locale locale) {
-        if (exerciseClassName.isEmpty()) {
-            return koanClass.get(locale).getName();
-        }
-
-        return String.format("%s.%s", exerciseClassPackage.get(), exerciseClassName.get());
-    }
-
-    boolean executeAssertions(Printer p, KoanTargetMethod targetMethod) throws ClassNotFoundException {
-        for(var assertion: koanAssertions) {
-            var asserted = assertion.validate(p, targetMethod);
-            if (!asserted) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private Koan withUpdatedTest(Function<KoanTest, KoanTest> newCall) {
+    private Koan withUpdatedTest(final Function<KoanTest, KoanTest> newCall) {
         if (tests.length == 0) {
             throw new IllegalArgumentException("No current call in Koan");
         }
@@ -247,17 +121,11 @@ public class Koan {
         newTests[newTests.length - 1] = newCall.apply(currentTest);
         return new Koan(
             koanClass,
-            methodName,
-            methodParamTypes,
-            constructorParamTypes,
-            constructorParams,
-            onObject,
+            koanName,
             newTests,
             usesConsole,
             showStdInInputs,
-            exerciseClassName,
-            exerciseClassPackage,
-            koanAssertions
+            beforeAssertions
         );
     }
 }

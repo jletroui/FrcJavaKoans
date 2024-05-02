@@ -6,22 +6,12 @@ import static engine.Assertions.assertNextStdOutLineIsEmpty;
 import static engine.Assertions.assertNoMoreLineInStdOut;
 import static engine.Assertions.assertReturnValueEquals;
 import static engine.Assertions.assertReturnValueWithRandomEquals;
-import static engine.Factories.localClass;
-import static sensei.Texts.DO_YOU_WANT_TO_CONTINUE;
-import static sensei.Texts.DO_YOU_WANT_TO_THROW_AGAIN;
-import static sensei.Texts.N;
-import static sensei.Texts.OH_NO_NOT7_YOU_LOOSE;
-import static sensei.Texts.PLAYER_1_ITS_YOUR_TURN;
-import static sensei.Texts.PLAYER_1_WINS;
-import static sensei.Texts.PLAYER_2_ITS_YOUR_TURN;
-import static sensei.Texts.PLAYER_2_WINS;
-import static sensei.Texts.TIE;
-import static sensei.Texts.WELL_DONE_YOUR_SCORE_IS;
-import static sensei.Texts.Y;
-import static sensei.Texts.YOUR_RESULT_SO_FAR;
-import static sensei.Texts.YOU_THREW;
+import static engine.Assertions.assertKoanMethodIsInvokable;
+import static engine.Localizable.localClass;
+import static engine.script.Expression.callKoanMethod;
+import static sensei.Texts.*;
 
-import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,143 +20,167 @@ import java.util.Optional;
 import engine.FormatParam;
 import engine.Koan;
 import engine.KoanResult;
-import engine.Local;
+import engine.Localizable;
 import engine.Printer;
 import engine.ResToIntFunction;
 import engine.ResultAssertion;
 
 public class AboutNot7GameKoans {
-    private static final Local<Class<?>> CLASS =
+    private static final Localizable<Class<?>> CLASS =
         localClass(koans.english.AboutNot7Game.class)
         .fr(koans.french.AboutNot7Game.class);
 
     private static final GameRoundv5Assertions GAME_ROUND_ASSERTIONS = new GameRoundv5Assertions(false);
 
     public static final List<Koan> koans = List.of(
-        new Koan(CLASS, "die6")
-            .whenCalling()
+        new Koan(CLASS, ROLLING_A_6_SIDED_DIE)
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("die6")
+            )
+            .when(callKoanMethod("die6"))
             .then(
                 assertReturnValueWithRandomEquals(rand -> die(rand))
             )
-            .whenCalling()
+            .when(callKoanMethod("die6"))
             .then(
                 assertReturnValueWithRandomEquals(rand -> die(rand))
             ),
-        new Koan(CLASS, "askQuestion", String.class)
+        new Koan(CLASS, ASKING_A_QUESTION_TO_THE_PLAYER)
             .useConsole()
-            .whenCallingWith(DO_YOU_WANT_TO_CONTINUE)
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("askQuestion", String.class)
+            )
+            .when(callKoanMethod("askQuestion", DO_YOU_WANT_TO_CONTINUE))
             .withStdInInputs(List.of(Y))
             .then(
                 assertNextStdOutLineEquals(DO_YOU_WANT_TO_CONTINUE),
                 assertReturnValueEquals(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCallingWith(DO_YOU_WANT_TO_CONTINUE)
+            .when(callKoanMethod("askQuestion", DO_YOU_WANT_TO_CONTINUE))
             .withStdInInputs(List.of(N))
             .then(
                 assertNextStdOutLineEquals(DO_YOU_WANT_TO_CONTINUE),
                 assertReturnValueEquals(false),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "throwDice")
+        new Koan(CLASS, ROLLING_2_DICE)
             .useConsole()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("throwDice")
+            )
+            .when(callKoanMethod("throwDice"))
             .then(
                 assertReturnValueWithRandomEquals(2, expectedDieSumResult(0, 1)),
                 assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(0), expectedDieResult(1)),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .when(callKoanMethod("throwDice"))
             .then(
                 assertReturnValueWithRandomEquals(2, expectedDieSumResult(0, 1)),
                 assertNextStdOutLineEquals(YOU_THREW, expectedDieResult(0), expectedDieResult(1)),
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, "gameRoundv1")
+        new Koan(CLASS, PROGRAMMING_A_ROUND_OF_THE_GAME_1ST_STEP)
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("gameRoundv1")
+            )
+            .when(callKoanMethod("gameRoundv1"))
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv1Assertions
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv1"))
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv1Assertions
             ),
-        new Koan(CLASS, "gameRoundv2")
+        new Koan(CLASS, PROGRAMMING_A_ROUND_OF_THE_GAME_2ND_STEP)
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("gameRoundv2")
+            )
+            .when(callKoanMethod("gameRoundv2"))
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv2Assertions
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv2"))
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv2Assertions
             ),
-        new Koan(CLASS, "gameRoundv3")
+        new Koan(CLASS, PROGRAMMING_A_ROUND_OF_THE_GAME_3RD_STEP)
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("gameRoundv3")
+            )
+            .when(callKoanMethod("gameRoundv3"))
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv3Assertions
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv3"))
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv3Assertions
             ),
-        new Koan(CLASS, "gameRoundv4")
+        new Koan(CLASS, PROGRAMMING_A_ROUND_OF_THE_GAME_4TH_STEP)
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("gameRoundv4")
+            )
+            .when(callKoanMethod("gameRoundv4"))
             .withSeed(1010) // 7 directly
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv4"))
             .withSeed(1000) // non 7 result and n
             .withStdInInputs(List.of(N))
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             )
-            .whenCalling()
-            .withSeed(1001) // o, o, et 7
+            .when(callKoanMethod("gameRoundv4"))
+            .withSeed(1001) // o, o, and 7
             .withStdInInputs(List.of(Y, Y))
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv4"))
             .withSeed(1003) // o, o, n
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 AboutNot7GameKoans::gameRoundv4Assertions
             ),
-        new Koan(CLASS, "gameRoundv5")
+        new Koan(CLASS, PROGRAMMING_A_ROUND_OF_THE_GAME_FINAL_STEP)
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("gameRoundv5")
+            )
+            .when(callKoanMethod("gameRoundv5"))
             .withSeed(1010) // 7 directly
             .withStdInInputs(List.of(N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv5"))
             .withSeed(1000) // non 7 result and n
             .withStdInInputs(List.of(N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv5"))
             .withSeed(1003) // o, o, n
             .withStdInInputs(List.of(Y, Y, N))
             .then(
                 new GameRoundv5Assertions(true),
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .when(callKoanMethod("gameRoundv5"))
             .withSeed(1001) // o, o, et 7
             .withStdInInputs(List.of(Y, Y))
             .then(
@@ -174,9 +188,12 @@ public class AboutNot7GameKoans {
                 assertNoMoreLineInStdOut()
             ),
         // Since the display of who is playing is not random dependant, not using seeds here.
-        new Koan(CLASS, "not7Gamev1")
+        new Koan(CLASS, PROGRAMMING_THE_GAME_1ST_STEP)
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("not7Gamev1")
+            )
+            .when(callKoanMethod("not7Gamev1"))
             .withStdInInputs(List.of(N, N))
             .then(
                 assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
@@ -187,7 +204,7 @@ public class AboutNot7GameKoans {
                 GAME_ROUND_ASSERTIONS,
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .when(callKoanMethod("not7Gamev1"))
             .withStdInInputs(List.of(Y, Y, N, Y, Y, N))
             .then(
                 assertNextStdOutLineEquals(PLAYER_1_ITS_YOUR_TURN),
@@ -199,9 +216,12 @@ public class AboutNot7GameKoans {
                 assertNoMoreLineInStdOut()
             ),
         // Since the display of who has won is random dependant, use seeds.
-        new Koan(CLASS, "not7Gamev2")
+        new Koan(CLASS, PROGRAMMING_THE_GAME_FINAL_STEP)
             .useConsoleAndShowStdinInputs()
-            .whenCalling()
+            .beforeFirstTest(
+                assertKoanMethodIsInvokable("not7Gamev2")
+            )
+            .when(callKoanMethod("not7Gamev2"))
             .withSeed(2002) // Player 2 wins
             .withStdInInputs(List.of(N))
             .then(
@@ -214,7 +234,7 @@ public class AboutNot7GameKoans {
                 AboutNot7GameKoans::assertWinnerLine,
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .when(callKoanMethod("not7Gamev2"))
             .withSeed(2000) // Player 1 wins
             .withStdInInputs(List.of(N, N))
             .then(
@@ -227,7 +247,7 @@ public class AboutNot7GameKoans {
                 AboutNot7GameKoans::assertWinnerLine,
                 assertNoMoreLineInStdOut()
             )
-            .whenCalling()
+            .when(callKoanMethod("not7Gamev2"))
             .withSeed(2005) // Tie
             .withStdInInputs(List.of(N, N))
             .then(
@@ -242,7 +262,7 @@ public class AboutNot7GameKoans {
             )
     );
 
-    private static boolean gameRoundv1Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv1Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -267,7 +287,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv2Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv2Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -293,7 +313,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv3Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv3Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
 
@@ -320,7 +340,7 @@ public class AboutNot7GameKoans {
         );
     }
 
-    private static boolean gameRoundv4Assertions(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean gameRoundv4Assertions(Printer p, KoanResult res) {
         int loopCount = 0;
         boolean wantsToContinue = true;
         var asserted = true;
@@ -372,7 +392,7 @@ public class AboutNot7GameKoans {
         }
 
         @Override
-        public boolean validate(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+        public boolean validate(Printer p, KoanResult res) {
             var wantsToContinue = true;
             var asserted = true;
             var loopOffset = res == lastResultSeen ? loopCount : 0;
@@ -429,7 +449,7 @@ public class AboutNot7GameKoans {
         }
     }
 
-    private static boolean assertWinnerLine(Printer p, KoanResult res) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    private static boolean assertWinnerLine(Printer p, KoanResult res) {
         var expected = TIE;
         if (GAME_ROUND_ASSERTIONS.player1Score() > GAME_ROUND_ASSERTIONS.player2Score()) {
             expected = PLAYER_1_WINS;

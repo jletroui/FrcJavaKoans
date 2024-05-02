@@ -1,29 +1,33 @@
 package engine;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 /**
  * Stores all the information about what happened during the execution of a koan.
  */
-public class KoanResult {
+public final class KoanResult {
     private final String[] stdOutLines;
     private int stdOutIndex = 0;
     private final String[] stdInLines;
     private int stdInIndex = 0;
-    public final Object methodReturnValue;
-    public final KoanTargetMethod targetMethod;
+    public final Object executionResult;
+    /**
+     * The source code of the last script expression, the one we are actually asserting the result and/or the console output.
+     */
+    public final String resultExpressionSourceCode;
+    public final KoanTest test;
     public final Locale locale;
 
-    public KoanResult(Locale locale, KoanTargetMethod targetMethod, String[] stdOutLines, String[] stdInLines, Object methodReturnValue) {
+    public KoanResult(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult) {
         this.locale = locale;
-        this.targetMethod = targetMethod;
+        this.test = test;
         this.stdOutLines = stdOutLines;
         this.stdInLines = stdInLines;
-        this.methodReturnValue = methodReturnValue;
+        this.executionResult = executionResult;
+        resultExpressionSourceCode = test.script[test.script.length - 1].formatSourceCode(locale);
     }
 
-    public Optional<String> inputLine(int inputIndex) {
+    public Optional<String> inputLine(final int inputIndex) {
         if (this.stdInLines.length <= inputIndex) {
             return Optional.empty();
         }
@@ -48,15 +52,15 @@ public class KoanResult {
      * Returns the random number generated during the koan execution.
      */
     public double randomNumber() {
-        targetMethod.koanTest.setupRandomForKoan();
+        test.setupRandomForKoan();
         return Helpers.random();
     }
 
     /**
      * Returns the first count random numbers generated during the koan execution.
      */
-    public double[] randomNumbers(int count) {
-        targetMethod.koanTest.setupRandomForKoan();
+    public double[] randomNumbers(final int count) {
+        test.setupRandomForKoan();
         var res = new double[count];
         for(int i=0; i<count; i++) {
             res[i] = Helpers.random();
@@ -67,8 +71,8 @@ public class KoanResult {
     /**
      * Returns the first count random numbers generated during the koan execution.
      */
-    public double[] randomNumbers(int fromOffset, int count) {
-        targetMethod.koanTest.setupRandomForKoan();
+    public double[] randomNumbers(final int fromOffset, final int count) {
+        test.setupRandomForKoan();
         var res = new double[count];
         for(int i=0; i< fromOffset + count; i++) {
             final var nb = Helpers.random();
@@ -82,8 +86,8 @@ public class KoanResult {
     /**
      * Returns the nth random number generated during the koan execution.
      */
-    public double randomNumber(int n) {
-        targetMethod.koanTest.setupRandomForKoan();
+    public double randomNumber(final int n) {
+        test.setupRandomForKoan();
         var res = 0.0;
         for(int i=0; i<=n; i++) {
             res = Helpers.random();
@@ -91,11 +95,11 @@ public class KoanResult {
         return res;
     }
 
-    public boolean executeAssertions(Printer p) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
-        return executeAssertions(p, targetMethod.koanTest.assertions);
+    public boolean executeAssertions(Printer p) {
+        return executeAssertions(p, test.assertions);
     }
 
-    public boolean executeAssertions(Printer p, ResultAssertion... assertions) throws IllegalAccessException, ClassNotFoundException, InstantiationException, InvocationTargetException {
+    public boolean executeAssertions(final Printer p, final ResultAssertion... assertions) {
         for (ResultAssertion as : assertions) {
             if (!as.validate(p, this)) {
                 return false;

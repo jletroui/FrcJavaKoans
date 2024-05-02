@@ -2,6 +2,8 @@ package koans.french;
 
 public class AboutObjects {
     /**
+     * # Le premier objet
+     * 
      * Crée une classe 'geom.Point' avec 2 champs décimaux (toujours privés et finaux) 'x' et 'y'. Le constructeur devrait prendre 'x' et 'y' en paramètres.
      * 
      * ---------   INDICES   --------------
@@ -110,6 +112,8 @@ public class AboutObjects {
 
 
     /**
+     * # Une méthode d'objet
+     * 
      * Écris une méthode 'toString' in 'geom.Point' qui retourne une représentation d'un objet de type Point selon ce gabarit:
      * 
      * Point([valeur de x], [valeur de y])
@@ -124,6 +128,8 @@ public class AboutObjects {
 
 
     /**
+     * # Une autre méthode d'objet
+     * 
      * Écris une méthode 'translate' dans 'geom.Point' qui prend 2 coordonnées de translation 'tx' et 'ty', et retourne un nouveau objet Point, qui est le point translaté par les coordonnées tx et ty.
      * 
      * ---------   INDICES   --------------
@@ -142,6 +148,8 @@ public class AboutObjects {
 
 
     /**
+     * # Un objet... utilisant d'autres objets
+     * 
      * Crée une classe 'geom.Triangle' avec 3 champs privés 'a', 'b', et 'c' de type Point. Le constructeur devrait prendre 'a', 'b', et 'c' en paramètres.
      * 
      * -------------------------------
@@ -154,6 +162,8 @@ public class AboutObjects {
 
 
     /**
+     * # Utiliser la méthode d'un autre objet
+     * 
      * En utilisant 'Point.toString', écris une méthode 'toString' dans 'geom.Triangle' qui retourne une représentation textuelle d'un objet Triangle suivant ce gabarit:
      * 
      * Triangle(Point([valeur x de 'a'], [valeur y de 'a']), Point([valeur x de 'b'], [valeur y de 'b']), Point([valeur x de 'c'], [valeur y de 'c']))
@@ -168,6 +178,8 @@ public class AboutObjects {
 
 
     /**
+     * # Utiliser une autre méthode d'un autre objet
+     * 
      * En utilisant 'Point.translate', écris une méthode 'translate' dans 'geom.Triangle' qui prend 2 coordonnées de translation 'tx' et 'ty', et retourne un nouvel objet Triangle, qui est le triangle initial, translaté par tx et ty.
      * 
      * -------------------------------
@@ -187,8 +199,9 @@ public class AboutObjects {
      */
 
 
-
     /**
+     * # Appliquer ses connaissances: la classe Circle
+     * 
      * Crée une classe 'geom.Circle' avec les champs 'center' (Point), et 'radius' (double). Le constructeur prend 'center' et 'radius' en paramètres.
      * En utilisant 'Point.toString', écris une méthode 'toString' dans 'geom.Circle' qui retourne une représentation textuelle d'un objet Circle suivant ce gabarit:
      * 
@@ -204,6 +217,8 @@ public class AboutObjects {
 
 
     /**
+     * # Appliquer ses connaissances: translation d'un cercle
+     * 
      * En utilisant 'Point.translate', écris une méthode 'translate' dans 'geom.Circle' qui prend 2 coordonnées de translation 'tx' et 'ty', et retourne un nouvel objet Circle, qui est le cercle initial, translaté par tx et ty.
      * 
      * -------------------------------
@@ -219,5 +234,118 @@ public class AboutObjects {
      *   - myCircle.center qui vaut Point(3.0, 0.0)
      *   - myCircle.radius qui vaut 3.6
      * 
-     */     
+     */
+
+
+    /**
+     * # Objets avec champs muables
+     * 
+     * Maintenant, programmons une application de scoutisme pour le jeu de 2024 'Crescendo', dans lequel les robot ont besoin de lancer des cercles en mousse dans un 'haut parleur' et un 'amplificateur' ('amp').
+     * En mode auto, envoyer une note dans le haut parleur rapporte 5 points, et dans l'amp, 2 points. Créons des classes pour nous aider à calculer le score de robots durant la période autonome.
+     * Créé une classe 'frc.RobotAutoScore' avec des champs non finaux 'notesInSpeaker' (int), 'notesInAmp' (int), initialisé à 0.
+     * Écris une méthode 'toString' dans 'frc.RobotAutoScore' qui retourne la représentation suivante d'un objet RobotAutoScore:
+     * 
+     * ScoreRobot: notes dans le haut parleur = [valeur de notesInSpeaker]; notes dans le amp = [valeur de notesInAmp]
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * new RobotAutoScore().toString() devrait retourner la String "ScoreRobot: notes dans le haut parleur = 0; notes dans le amp = 0"
+     * 
+     */
+
+
+    /**
+     * # Changer la valeur des champs d'un objet
+     * 
+     * Écris une méthode 'noteScoredInSpeaker' dans 'frc.RobotAutoScore' qui ne prend aucun paramètre, et augmente la valeur du champ 'notesInSpeaker' de 1.
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * Le code suivant:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInSpeaker();
+     *     System.out.println(robotScore);
+     * 
+     * Devrait afficher:
+     * 
+     *   ScoreRobot: notes dans le haut parleur = 1; notes dans le amp = 0
+     * 
+     */
+
+
+    /**
+     * # Plus de changement de valeur
+     * 
+     * Écris une méthode 'noteScoredInAmp' dans 'frc.RobotAutoScore' qui ne prend aucun paramètre, et augmente la valeur du champ 'notesInAmp' de 1.
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * Le code suivant:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInAmp();
+     *     System.out.println(robotScore);
+     * 
+     * Devrait afficher:
+     * 
+     *   ScoreRobot: notes dans le haut parleur = 0; notes dans le amp = 1
+     * 
+     */
+
+
+    /**
+     * # Calculer le score total d'un robot
+     * 
+     * Écris une méthode 'totalScore' dans 'frc.RobotAutoScore' qui ne prend aucun paramètre, et retourne le score total (2 points pour les notes dans le amp, et 5 point pour les notes dans le haut parleur).
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     * Le code suivant:
+     * 
+     *     RobotAutoScore robotScore = new RobotAutoScore();
+     *     robotScore.noteScoredInSpeaker();
+     *     robotScore.noteScoredInAmp();
+     *     System.out.println(robotScore.totalScore());
+     * 
+     * Devrait afficher:
+     * 
+     *   7
+     * 
+     */
+
+
+    /**
+     * # Calculer le score total d'une alliance au complet
+     * 
+     * Écris une classe 'frc.AllianceAutoScore' avec les champs finaux 'robotAScore', 'robotBScore' et 'robotCScore' (tous de type RobotAutoScore). Le constructeur prend une valeur pour chacun de ces champs en paramètres.
+     * Écris une méthode 'totalScore' dans 'frc.AllianceAutoScore' qui calcule le score total pour toute l'alliance.
+     * 
+     * -------------------------------
+     * 
+     * Résultat attendu:
+     * 
+     *     RobotAutoScore robotAScore = new RobotAutoScore();
+     *     robotAScore.noteScoredInSpeaker();
+     *     robotAScore.noteScoredInAmp();
+     *     RobotAutoScore robotBScore = new RobotAutoScore();
+     *     RobotAutoScore robotCScore = new RobotAutoScore();
+     *     robotAScore.noteScoredInSpeaker();
+     *     AllianceAutoScore allianceScore = new AllianceAutoScore(robotAScore, robotBScore, robotCScore);
+     *     System.out.println(allianceScore.totalScore());
+     * 
+     * Devrait afficher:
+     * 
+     *   12
+     * 
+     */
+        
 }

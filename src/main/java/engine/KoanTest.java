@@ -54,4 +54,8 @@ public class KoanTest {
     public void setupRandomForKoan() {
         Helpers.setupRandomForKoan(seed);
     }
+
+    public boolean hasStdInputs() {
+        return stdInInputs.size() > 0;
+    }
 }

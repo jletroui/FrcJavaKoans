@@ -127,17 +127,17 @@ public class Texts {
         local("Ok: displayed an empty line in the console.")
         .fr("Ok: affiché une ligne vide dans la console.");
     public static Localizable<String> EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING =
-        local("Expected to see '%s' in the console%s, but did not see it!")
-        .fr("Attendu à voir '%s' dans la console%s, mais ne l'a pas vu!");
+        local("Expected to see '%s' in the console when calling %s, but did not see it!")
+        .fr("Attendu à voir '%s' dans la console en appelant %s, mais ne l'a pas vu!");
     public static Localizable<String> EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD =
-        local("Expected to see '%s' in the console%s, but saw '%s' instead!")
-        .fr("Attendu à voir '%s' dans la console%s, mais vu '%s' à la place!");
+        local("Expected to see '%s' in the console when calling %s, but saw '%s' instead!")
+        .fr("Attendu à voir '%s' dans la console en appelant %s, mais vu '%s' à la place!");
     public static Localizable<String> OK_DISPLAYED_IN_CONSOLE =
         local("Ok: displayed '%s' in the console%s.")
         .fr("Ok: affiché '%s' dans la console%s.");
     public static Localizable<String> EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD =
-        local("Expected to not see anything more in the console%s, but saw '%s' instead!")
-        .fr("Attendu à ne plus rien voir dans la console%s, mais vu '%s' à la place!");
+        local("Expected to not see anything more in the console when calling %s, but saw '%s' instead!")
+        .fr("Attendu à ne plus rien voir dans la console en appelant %s, mais vu '%s' à la place!");
     public static Localizable<String> OK_ASKED_FOR_LINE_IN_CONSOLE =
         local("Ok: asked for a line in the console.")
         .fr("Ok: demandé du texte dans la console.");

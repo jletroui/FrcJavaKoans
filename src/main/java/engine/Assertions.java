@@ -26,10 +26,6 @@ public class Assertions {
         return Optional.ofNullable(param).map((v) -> v.toString()).orElse("");
     }
 
-    private static String whenCalling(final KoanResult res) {
-        return String.format(" when calling %s", res.resultExpressionSourceCode);
-    }
-
     public static ResultAssertion assertIf(final boolean condition, final ResultAssertion inner) {
         return (p, res) -> condition ? inner.validate(p, res) : true;
     }
@@ -43,19 +39,19 @@ public class Assertions {
             final var lineContent = res.nextStdOutLine();
 
             if (lineContent.isEmpty()) {
-                p.println(ConsoleFmt.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING), expected, whenCalling(res));
+                p.println(format(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, Formats.Red, expected, code(res.resultExpressionSourceCode)));
                 return false;
             }
             if (!lineContent.get().equals(expected)) {
                 if (lineContent.get().equals("")) {
-                    p.println(ConsoleFmt.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING), expected, whenCalling(res));
+                    p.println(format(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, Formats.Red, expected, code(res.resultExpressionSourceCode)));
                 } else {
-                    p.println(ConsoleFmt.red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD), expected, whenCalling(res), lineContent.get());
+                    p.println(format(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD, Formats.Red, expected, code(res.resultExpressionSourceCode), lineContent.get()));
                 }
                 return false;
             }
 
-            p.println(ConsoleFmt.green(OK_DISPLAYED_IN_CONSOLE), expected, whenCalling(res));
+            p.println(format(OK_DISPLAYED_IN_CONSOLE, Formats.Green, expected, code(res.resultExpressionSourceCode)));
             return true;
         };
     }
@@ -83,7 +79,7 @@ public class Assertions {
             final var lineContent = res.nextStdOutLine();
 
             if (!lineContent.isEmpty()) {
-                p.println(ConsoleFmt.red(EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD), whenCalling(res), lineContent.get());
+                p.println(format(EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD, Formats.Red, code(res.resultExpressionSourceCode), lineContent.get()));
                 return false;
             }
 

@@ -18,9 +18,11 @@ Most resources are using a fair amount of text and go into lots of details. Kids
 
 ### Only what's necessary, not more
 
-The primary goal of FRC Java Koans are not to teach all of Java capabilities and available sugar syntax, but rather the minimum required before mentors can start teaching how to program a robot with WPILib. Lots of resources are, for example, explaining how to express conditions (the if / else statement, but also the ternary operator and the switch / case statement). We chose a single one. The reason is that kids are coming for programming robots. We observed they are way more motivated to learn about a new syntax or concept once they have a robot moving, and that syntax or concept unlocks a new cool trick of the robot. So we are teaching the necessary remainder of Java during the robot programming lessons.
+The primary goal of FRC Java Koans are not to teach all of Java capabilities and available sugar syntax. But rather, teach them the minimum required before mentors can start teaching how to program a robot with WPILib. Lots of resources are, for example, explaining how to express conditions (the if / else statement, but also the ternary operator and the switch / case statement). We chose a single one. The reason is that kids are coming for programming robots. We observed they are way more motivated to learn about a new syntax or concept once they have a robot moving, and that syntax or concept unlocks a new cool trick of the robot. So we are teaching the necessary remainder of Java during the robot programming lessons.
 
-You might ask why not start right away with programming the robot then? The students are way too lost in the midst of pages of immensely arcane syntax, and we think it is actually slower to teach that way in the long run. In particular, it is requiring a lot more repetition, because they jump too fast from one concept they don't master to another, and don't register them the first times they hear about it.
+In particular: kids don't need to know about functionnal interfaces, arrays, or for loops to learn to program a basic `TimedRobot`. Therefore, we try to bring them as fast as possible to the point they can program a robot simply. Once they have a robot moving, teaching them functionnal interfaces (for example when teaching them commands) or arrays (when teaching them swerve drive programming) can usually be done while they are programming the robot. They appear to not require specific exercises to master those.
+
+You might ask why not start right away with programming the robot then? The students are way too lost in the midst of pages of arcane syntax, and we observed anecdotally it is slower to teach that way. In particular, it is requiring a lot more repetition, because they jump too fast from one concept they don't master to another, and don't register them the first time they hear about it.
 
 ### Enough exercises
 
@@ -61,7 +63,7 @@ We expressed above a concern for saving student's attention / motivation / time.
 
 - Strive to work on a bare WPILib installation: on VSCode with no need for a plugin.
 - Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool.
-- Java 11, because as of 2023, this is the version used by default in WPILib's VSCode.
+- Java 17, because as of 2024, this is the version used by default in WPILib's VSCode.
 
 ### Compromises and limitations
 

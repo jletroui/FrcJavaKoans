@@ -28,7 +28,7 @@ public class AboutConsoleAndVariables {
      * 
      */    
     public static void sayHelloInConsole() {
-        System.out.println("Hello!");
+
     }
 
     /**

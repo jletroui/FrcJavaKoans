@@ -133,8 +133,8 @@ public class Texts {
         local("Expected to see '%s' in the console when calling %s, but saw '%s' instead!")
         .fr("Attendu à voir '%s' dans la console en appelant %s, mais vu '%s' à la place!");
     public static Localizable<String> OK_DISPLAYED_IN_CONSOLE =
-        local("Ok: displayed '%s' in the console%s.")
-        .fr("Ok: affiché '%s' dans la console%s.");
+        local("Ok: displayed '%s' in the console when calling %s.")
+        .fr("Ok: affiché '%s' dans la console en appelant %s.");
     public static Localizable<String> EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD =
         local("Expected to not see anything more in the console when calling %s, but saw '%s' instead!")
         .fr("Attendu à ne plus rien voir dans la console en appelant %s, mais vu '%s' à la place!");

@@ -51,7 +51,7 @@ public class AboutDecimalNumbersKoans {
             ),
         new Koan(CLASS, COMPUTING_SOME_GEOMETRY)
             .beforeFirstTest(
-                assertKoanMethodIsInvokable("rectangleArea", double.class)
+                assertKoanMethodIsInvokable("rectangleArea", double.class, double.class)
             )
             .when(callKoanMethod("rectangleArea", 0.0, 0.0))
             .then(

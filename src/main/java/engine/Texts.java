@@ -144,66 +144,48 @@ public class Texts {
     public static Localizable<String> EXPECTED_FOR_USER_TO_ANSWER_IN_CONSOLE =
         local("Expected the user to be able to answer in the console, but they were not!")
         .fr("Attendu à ce que l'utilisateur puisse répondre dans la console, mais iel ne la pas pu!");
-    public static Localizable<String> EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL =
-        local("Expected %s to return %s but returned null instead!")
-        .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return an integer but returned a '%s' instead!")
-        .fr("Attendu à ce que %s retourne un entier mais a retourné un '%s' à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_INT_BUT_RETURNED =
-        local("Expected %s to return %s but returned %s instead!")
-        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
-    public static Localizable<String> OK_RETURNED_INT =
-        local("Ok: %s returned %s.")
-        .fr("Ok: %s a retourné %s.");
-    public static Localizable<String> EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL =
-        local("Expected %s to return %s but returned null instead!")
-        .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return a double but returned a '%s' instead!")
-        .fr("Attendu à ce que %s retourne un décimal mais a retourné un '%s' à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED =
-        local("Expected %s to return %s but returned %s instead!")
-        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
-    public static Localizable<String> OK_RETURNED_DOUBLE =
-        local("Ok: %s returned %s.")
-        .fr("Ok: %s a retourné %s.");
-    public static Localizable<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL =
-        local("Expected %s to return %s but returned null instead!")
-        .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return a boolean but returned a '%s' instead!")
-        .fr("Attendu à ce que %s retourne un booléen mais a retourné un '%s' à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED =
-        local("Expected %s to return %s but returned %s instead!")
-        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
-    public static Localizable<String> OK_RETURNED_BOOLEAN =
-        local("Ok: %s returned %s.")
-        .fr("Ok: %s a retourné %s.");
-    public static Localizable<String> EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL =
-        local("Expected %s to return \"%s\" but returned null instead!")
-        .fr("Attendu à ce que %s retourne \"%s\" mais a retourné null à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return a String but returned a %s instead!")
-        .fr("Attendu à ce que %s retourne une String mais a retourné un '%s' à la place!");
-    public static Localizable<String> EXPECTED_TO_RETURN_STRING_BUT_RETURNED =
-        local("Expected %s to return \"%s\" but returned \"%s\" instead!")
-        .fr("Attendu à ce que %s retourne \"%s\" mais a retourné \"%s\" à la place!");
-    public static Localizable<String> OK_RETURNED_STRING =
-        local("Ok: %s returned \"%s\".")
-        .fr("Ok: %s a retourné \"%s\".");
+    public static Localizable<String> EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL =
+        local("Expected %s to result in %s to be equal to %s but was null instead!")
+        .fr("Attendu à ce que %s résulte en %s égal à %s; mais était null à la place!");
     public static Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED_NULL =
         local("Expected %s to return %s but returned null instead!")
-        .fr("Attendu à ce que %s retourne un %s mais a retourné null à la place!");
+        .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
     public static Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE =
         local("Expected %s to return a %s but returned a %s instead!")
         .fr("Attendu à ce que %s retourne un %s mais a retourné un %s à la place!");
+    public static Localizable<String> EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE =
+        local("Expected %s to result in %s being a %s but was a %s instead!")
+        .fr("Attendu à ce que %s résulte en %s étant un %s mais était un %s à la place!");
+    public static Localizable<String> EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL =
+        local("Expected %s to result in %s being equal to %s but was equal to %s instead!")
+        .fr("Attendu à ce que %s résulte en %s étant égal à %s mais était égal à %s à la place!");
     public static Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED =
         local("Expected %s to return %s but returned %s instead!")
         .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
+    public static Localizable<String> OK_VARIABLE_EQUAL =
+        local("Ok: %s is equal to %s.")
+        .fr("Ok: %s est égal à %s.");
     public static Localizable<String> OK_RETURNED =
         local("Ok: %s returned %s.")
         .fr("Ok: %s a retourné %s.");
+    public static Localizable<String> EXPECTED_VARIABLE_TO_BE_INT_ARRAY_BUT_WAS_OTHER_TYPE =
+        local("Expected %s to result in %s being an integer array but was a '%s' instead!")
+        .fr("Attendu à ce que %s résulte en %s étant un tableau d'entiers mais était un '%s' à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return an integer but returned a '%s' instead!")
+        .fr("Attendu à ce que %s retourne un entier mais a retourné un '%s' à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_INT_ARRAY_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return an integer array but returned a '%s' instead!")
+        .fr("Attendu à ce que %s retourne un tableau d'entiers mais a retourné un '%s' à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return a double but returned a '%s' instead!")
+        .fr("Attendu à ce que %s retourne un décimal mais a retourné un '%s' à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return a boolean but returned a '%s' instead!")
+        .fr("Attendu à ce que %s retourne un booléen mais a retourné un '%s' à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return a String but returned a %s instead!")
+        .fr("Attendu à ce que %s retourne une String mais a retourné un '%s' à la place!");
     public static Localizable<String> EXPECTED_TO_LOOK_LIKE_BUT_LOOKED_LIKE =
         local("Expected object to look like \"%s\" but looked like \"%s\" instead!")
         .fr("Attendu à ce que l'objet ressemble à \"%s\" mais ressemble à \"%s\" à la place!");

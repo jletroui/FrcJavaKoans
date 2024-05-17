@@ -73,7 +73,14 @@ public sealed interface Expression {
      * Creates an expression representing a variable assignment.
      */
     public static Expression assignVariable(String variableName, Expression value) {
+        if (value == null) {
+            return assignVariable(variableName, new Literal(value));
+        }
         return new AssignVariable(variableName, value);
+    }
+
+    public static Expression assignVariable(String variableName, Object value) {
+        return assignVariable(variableName, new Literal(value));
     }
 
     /**
@@ -113,9 +120,17 @@ public sealed interface Expression {
             .toArray(Expression[]::new);
     }
 
-    static String formatLiteralSourceCode(final Object value) {
-        if (value instanceof String) {
+    public static String formatLiteralSourceCode(final Object value) {
+        if (value == null) {
+            return "null";
+        } else if (value instanceof String) {
             return String.format("\"%s\"", value);
+        } else if (value instanceof int[] arr) {
+            final var elts = String.join(
+                ",", 
+                Arrays.stream(arr).<String>mapToObj(Integer::toString).toList()
+            );
+            return String.format("new int[]{%s}", elts);    
         }
         return value.toString();
     }
@@ -196,7 +211,8 @@ final record Literal(Object value) implements Expression {
         Double.class,
         Boolean.class,
         Character.class,
-        String.class
+        String.class,
+        int[].class
     );
 
     public Literal {

@@ -10,7 +10,7 @@ import engine.TestSensei.TestResult;
 public class TestRunner {
     private static final List<List<UnitTest>> TO_RUN = List.of(
         ConsoleAssertionsUnitTests.items,
-        ResultAssertionsUnitTests.items
+        EqualityAssertionsUnitTests.items
     );
     private static final Map<Boolean, String> SUCCESS_WORDING = Map.of(
         true, "success",

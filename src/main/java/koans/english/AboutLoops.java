@@ -1,15 +1,42 @@
 package koans.english;
 
 public class AboutLoops {
-    /**
+     /**
      * # First loop
      * 
      * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console times times.
      * 
      * ---------   TIPS   --------------
      * 
-     * To do things multiple times in Java, you can use the 'while' loop.
-     * A while loop looks a lot like an if condition, except it will execute its block of code again and again while the condition stays true. Ex:
+     * To do things multiple times in Java, you can use the 'for' loop. While the condition is true the code
+     * within the loop will run on repeat.
+     * A for loop contains 3 attributes, Initialization, Condition, and Update
+     * 
+     *  - Initialization: This is a line of code that is run when the for loop starts. This is only run once and
+     *                    and typically is used to set the initial state of the itteration variable
+     * 
+     *  - Condition: This is a condition that is checked at the start of each cycle of the loop. 
+     *               If the condition is met it will end the loop before running the code inside again.
+     *               The condition typically includes some sort of logic check against the itteration variable.
+     * 
+     *  - Update: This is a line of code that is after each cycle of the loop. It is typically used to update the
+     *            itteration variable.
+     * 
+     *  Ex.
+     * 
+     *     for(int times = 0; times >= 3; times++) {
+     *         // It will take 3 executions of this block of code before the condition becomes true.
+     *         // So Java will execute it 3 times, and then move on to the rest of the code.
+     *         System.out.println("Still executing");
+     *     }
+     * 
+     * There is another loop type 'while' that can be used to repeat sections of code however it is dangerous 
+     * especially in robot code. A while loop will run forever until it's condition is met and this could cause
+     * your code to lock up if the condition is not met when expected.
+     * 
+     * A while loop looks a lot like an if condition, except it will execute its block of code again and again while the condition stays true. 
+     * 
+     * Ex:
      * 
      *     int times = 3;
      *     while (times > 0) {
@@ -19,6 +46,11 @@ public class AboutLoops {
      *         // We can modify the value of an existing variable. We take advantage of this capability here.
      *         times = times -1;
      *     }
+     * 
+     * -------------------------------
+     * 
+     *                              PLEASE ATTEMPT TO DO ALL EXERCIES USING FOR LOOPS
+     *                                        REFRAIN FROM USING WHILE LOOPS
      * 
      * -------------------------------
      * 

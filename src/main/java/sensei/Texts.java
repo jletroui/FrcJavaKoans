@@ -245,7 +245,15 @@ public class Texts {
         .fr("Bravo, le joueur 2 gagne!!!"); 
     static final Localizable<String> TIE = 
         local("Tie!")
-        .fr("Égalité!"); 
+        .fr("Égalité!");
+        
+    // About Arrays
+    static final Localizable<String> INDEXING_AN_ARRAY =
+        local("Indexing an array");
+    static final Localizable<String> SEARCHING_AN_ARRAY =
+        local("Searching an array");
+    static final Localizable<String> SORTING_AN_ARRAY =
+        local("Sorting an array");
 
     // AboutClasses
     static final Localizable<String> CLASSES_AND_PACKAGES = 

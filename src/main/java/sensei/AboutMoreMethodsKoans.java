@@ -16,9 +16,8 @@ import engine.Localizable;
 
 public class AboutMoreMethodsKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutMoreMethods.class)
-        .fr(koans.french.AboutMoreMethods.class);
-
+        localClass(koans.english.AboutMoreMethods.class);
+        
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, COMPUTING_THE_ABSOLUTE_VALUE_OF_A_NUMBER)
             .beforeFirstTest(

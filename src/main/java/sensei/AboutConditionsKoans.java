@@ -14,9 +14,8 @@ import engine.Localizable;
 
 public class AboutConditionsKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutConditions.class)
-        .fr(koans.french.AboutConditions.class);
-
+        localClass(koans.english.AboutConditions.class);
+        
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, IF_CONSTRUCT_AND_CONDITIONS)
             .beforeFirstTest(

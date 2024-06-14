@@ -17,9 +17,8 @@ import engine.Localizable;
 
 public class AboutLoopsKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutLoops.class)
-        .fr(koans.french.AboutLoops.class);
-
+        localClass(koans.english.AboutLoops.class);
+        
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, FIRST_LOOP)
             .useConsole()

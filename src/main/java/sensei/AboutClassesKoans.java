@@ -18,9 +18,8 @@ import engine.Localizable;
 
 public class AboutClassesKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutClasses.class)
-        .fr(koans.french.AboutClasses.class);
-
+        localClass(koans.english.AboutClasses.class);
+        
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, CLASSES_AND_PACKAGES)
             .beforeFirstTest(

@@ -27,9 +27,8 @@ import engine.ResultAssertion;
 
 public class AboutNot7GameKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutNot7Game.class)
-        .fr(koans.french.AboutNot7Game.class);
-
+        localClass(koans.english.AboutNot7Game.class);
+        
     private static final GameRoundv5Assertions GAME_ROUND_ASSERTIONS = new GameRoundv5Assertions(false);
 
     public static final List<Koan> koans = List.of(

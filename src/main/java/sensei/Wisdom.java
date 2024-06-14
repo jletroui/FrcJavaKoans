@@ -16,6 +16,7 @@ public final class Wisdom {
         AboutDecimalNumbersKoans.koans,
         AboutLoopsKoans.koans,
         AboutNot7GameKoans.koans,
+        AboutArraysKoans.koans,
         AboutClassesKoans.koans,
         AboutObjectsKoans.koans
     );

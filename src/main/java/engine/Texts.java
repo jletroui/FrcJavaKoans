@@ -192,6 +192,18 @@ public class Texts {
     public static Localizable<String> OK_RETURNED_STRING =
         local("Ok: %s returned \"%s\".")
         .fr("Ok: %s a retourné \"%s\".");
+    public static Localizable<String> EXPECTED_TO_RETURN_INT_ARRAY_BUT_RETURNED_NULL =
+        local("Expected %s to return %s but returned null instead!")
+        .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_INT_ARRAY_BUT_RETURNED_OTHER_TYPE =
+        local("Expected %s to return a int[] but returned a %s instead!")
+        .fr("Attendu à ce que %s retourne une int[] mais a retourné un '%s' à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_INT_ARRAY_BUT_RETURNED =
+        local("Expected %s to return %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s mais a retourné %s à la place!");
+    public static Localizable<String> OK_RETURNED_INT_ARRAY =
+        local("Ok: %s returned %s.")
+        .fr("Ok: %s a retourné %s.");
     public static Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED_NULL =
         local("Expected %s to return %s but returned null instead!")
         .fr("Attendu à ce que %s retourne un %s mais a retourné null à la place!");

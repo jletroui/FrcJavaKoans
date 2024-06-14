@@ -23,8 +23,8 @@ import engine.script.Type;
 
 public class AboutObjectsKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutObjects.class)
-        .fr(koans.french.AboutObjects.class);
+        localClass(koans.english.AboutObjects.class);
+        
     private static final Type DOUBLE = type(double.class);
     private static final Type POINT = type("geom.Point");
     private static final Type ROBOT_AUTO_SCORE = type("frc.RobotAutoScore");

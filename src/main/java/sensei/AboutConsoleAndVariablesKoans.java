@@ -18,9 +18,8 @@ import engine.Localizable;
 
 public class AboutConsoleAndVariablesKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutConsoleAndVariables.class)
-        .fr(koans.french.AboutConsoleAndVariables.class);
-
+        localClass(koans.english.AboutConsoleAndVariables.class);
+        
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, DISPLAYING_SOME_TEXT_IN_THE_CONSOLE)
             .useConsole()

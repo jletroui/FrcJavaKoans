@@ -13,9 +13,8 @@ import engine.Localizable;
 
 public class AboutDecimalNumbersKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutDecimalNumbers.class)
-        .fr(koans.french.AboutDecimalNumbers.class);
-
+        localClass(koans.english.AboutDecimalNumbers.class);
+        
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, CONVERTING_A_MEASURE_OF_LENGTH)
             .beforeFirstTest(

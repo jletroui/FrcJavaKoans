@@ -19,9 +19,8 @@ import engine.Localizable;
 
 public class AboutMethodsKoans {
     private static final Localizable<Class<?>> CLASS =
-        localClass(koans.english.AboutMethods.class)
-        .fr(koans.french.AboutMethods.class);
-
+        localClass(koans.english.AboutMethods.class);
+        
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, REPETITIVE_TASKS)
             .useConsole()

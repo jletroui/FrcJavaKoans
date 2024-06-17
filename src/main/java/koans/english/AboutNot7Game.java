@@ -168,6 +168,9 @@ public class AboutNot7Game {
      * 
      * Use a loop with a condition on the return value of the askQuestion() method.
      * You will have to create a boolean variable initialized with 'true' so that during the loop, you record whether the user wants to continue.
+     *
+     * You may use a while loop for this specific instance. 
+     * Implementation will be easy if a while loop is used, but be sure to define your condition and updated the values using in the conditions logic correctly.
      * 
      * -------------------------------
      * 

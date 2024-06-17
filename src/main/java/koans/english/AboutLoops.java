@@ -24,7 +24,7 @@ public class AboutLoops {
      * 
      *  Ex.
      * 
-     *     for(int times = 0; times >= 3; times++) {
+     *     for(int times = 0; times < 3; times++) {
      *         // It will take 3 executions of this block of code before the condition becomes true.
      *         // So Java will execute it 3 times, and then move on to the rest of the code.
      *         System.out.println("Still executing");

@@ -255,6 +255,10 @@ To help you remember the bits of Java syntax you are learning while completing y
 ## And then what?
 
 After completing the koans, you are ready to learn how to program an actual robot. Mykah, from [team 9153 - Bearcat Robotics](https://sites.google.com/lincolnschoolscb.org/9153-bearcat-robotics/home), is maintaining a [wonderful compendium of FRC programming resources](https://docs.google.com/document/d/1jcBLAyJ3iTbsYSnWMVWqHaK8uywGTaTjF98eY_xxpl0/edit#heading=h.21bclvyus8vm) from which you can dig for your next steps.
+
+Once you understand how to program a simple `TimedRobot`, you can come back here and practice with bonus koans you will find in `src/main/java/bonuses/english`. These koan series are independant of each other and can be followed in any order.
+To run them, right click on the one you are interested, for example `src/main/java/bonuses/english/AboutArrays.java` and choose `Run Java` directely on the koans file itself.
+
 <br/>
 
 > Experience is the name everyone gives to their mistakes.
@@ -267,6 +271,19 @@ This course intent to come batteries included, with 100% of the information need
 
 We have found that students learn faster if mentors are not giving solutions to students' issues, but instead ask them open questions about what they don't understand about the exercise instructions or displayed error. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous faster when it will be time to program and debug a robot.
 
+### Full curiculum suggestion
+
+1) Start with the students completing all the initial koan series ("EnglishPathToEnlightment").
+2) Not part of the FRC Java Koans: make them program their first robot with a simple `TimedRobot`. It is suggested to have a simple differential drive robot.
+  * Super simple auto mode making the robot go forward at 20% speed for 1 second.
+  * Simple teleop mode making the robot move with a joystick.
+3) Students can now follow the `src/main/java/bonuses/english/AboutInterfaces.java` (** COMING SOON **) bonus koans.
+4) Not part of the FRC Java Koans: make them program the simple robot again, but using [commands based programming](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html).
+
+Optional:
+
+Before teaching them to deal with a Swerve Drive, the students could follow `src/main/java/bonuses/english/AboutArrays.java` to learn arrays and `for` loops.
+
 ### Topics included
 
 * Printing to and reading from the console
@@ -277,6 +294,11 @@ We have found that students learn faster if mentors are not giving solutions to 
 * `while` loops
 * Packages and classes with static methods
 * Objects, constructors, fields
+
+In the bonus koans:
+
+* Arrays and `for` loops
+* Functional interfaces (** COMING SOON **)
 
 ### Contributing and learning more
 
@@ -554,6 +576,9 @@ Pour t'aider à retenir les morceaux de syntaxe Java que tu apprends en complét
 
 Une fois avoir complété les koans, tu es prêt·e pour apprendre à programmer un vrai robot. Mykah, de [l'équipe 9153 - Bearcat Robotics](https://sites.google.com/lincolnschoolscb.org/9153-bearcat-robotics/home), entretient [un excellent recueil de ressources pour la programmation FRC](https://docs.google.com/document/d/1jcBLAyJ3iTbsYSnWMVWqHaK8uywGTaTjF98eY_xxpl0/edit#heading=h.21bclvyus8vm). Tu pourras sûrement y trouver tes prochains apprentissages.
 
+Un fois que tu comprends comment programmer un simple `TimedRobot`, tu peux revenir ici et continuer à progresser avec les koans bonus que tu trouveras dans `src/main/java/bonuses/french`. Ces séries de koans sont indépendantes les unes des autres et peuvent être faites dans n'importe quel ordre.
+Pour les faire, choisis celle qui t'intéresse, par exemple `src/main/java/bonuses/french/AboutArrays.java` et choisis `Run Java` directement sur le fichier de la série lui-même.
+
 <br/>
 
 > Expérience est le nom que les gens donnent aux erreurs qu'ils ont faites.
@@ -567,6 +592,19 @@ Ce cours se veut fournir toute l'information nécessaire pour qu'un élève moti
 
 Nous avons trouvé que les élèves passent à travers le cours plus rapidement, et intègrent mieux les notions si le ou la mentor ne lui donne pas de solution à ses problèmes. À la place, le ou la mentor peut garder l'élève dans une posture active en lui demandant ce qu'iel ne comprend pas dans l'énoncé de l'exercice, ou du message d'erreur, et le / la guider dans des stratégies pour comprendre par iel même. La programmation consiste, la plupart du temps, à trouver quel petit détail nous avons oublié. En aidant les élèves à trouver les ressources pour résoudre les problèmes eux-même, ils deviennent au final autonomes plus rapidement lorsqu'ils débogueront un programme de robot.
 
+### Suggestion de curriculum complet
+
+1) Démarrez en faisant compléter à vos élèves la série de koans intiale complète ("FrenchPathToEnlightment").
+2) Non couvert par les FRC Java Koans: faites les programmer leur premier robot, avec un simple `TimedRobot`. Il est recommandé d'avoir un robot avec une simple base différentielle.
+  * Mode auto basique, faisant avancer le robot à 20% de sa vitesse pendant 1 seconde.
+  * Mode téléop faisant contrôler le robot avec un joystick.
+3) Les élèves peuvent ensuite suivre le koan bonus `src/main/java/bonuses/french/AboutInterfaces.java` (** BIENTÔT DISPONIBLE **).
+4) Non couvert par les FRC Java Koans: les élève peuvent programmer de nouveau le robot simple, mais cette fois ci [en programmation orientée commandes](https://docs.wpilib.org/fr/stable/docs/software/commandbased/index.html).
+
+Optionnel:
+
+Avant de leur enseigner la programmation d'une base Swerve, les élèves peuvent suivre `src/main/java/bonuses/english/AboutArrays.java` pour apprendre les tableaux et les boucles `for`.
+
 ### Sujets inclus
 
 * Écrire dans, et lire de, la console
@@ -577,6 +615,11 @@ Nous avons trouvé que les élèves passent à travers le cours plus rapidement,
 * Boucles `while`
 * Packages et classes avec méthodes statiques
 * Objets, constructeurs, champs
+
+In the bonus koans:
+
+* Tableaux et boucles `for`
+* Interfaces fonctionnelles (** BIENTÔT DISPONIBLE **)
 
 ### En savoir plus, contribuer
 

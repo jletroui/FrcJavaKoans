@@ -24,6 +24,8 @@ In particular: kids don't need to know about functionnal interfaces, arrays, or 
 
 You might ask why not start right away with programming the robot then? The students are way too lost in the midst of pages of arcane syntax, and we observed anecdotally it is slower to teach that way. In particular, it is requiring a lot more repetition, because they jump too fast from one concept they don't master to another, and don't register them the first time they hear about it.
 
+That being said, the bonus koans are providing additional material, but it is advised to use them only after students have started programming actual robots.
+
 ### Enough exercises
 
 Most of the resources have too few exercices. Or exercises not really relevant to the kind of thinking we need for programming robots with WPILib. On the other hand, (most) kids like to learn by practicing. So this curiculum is focused on having a good amount exercices. Of course "a good amount" is not an exact science, so we expect to tweak this as our experience teaching various profiles of rookies is growing.

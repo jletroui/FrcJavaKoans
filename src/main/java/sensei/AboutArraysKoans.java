@@ -51,7 +51,7 @@ public class AboutArraysKoans {
             .then(
                 assertNoMoreLineInStdOut()
             ),
-        new Koan(CLASS, PRINTING_WHERE_WE_ARE_IN_A_LOOP)
+        new Koan(CLASS, FIRST_ELEMENT_OF_AN_ARRAY)
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("first", int[].class)
             )
@@ -133,7 +133,7 @@ public class AboutArraysKoans {
             )
             .when(callKoanMethod("min", new int[0]))
             .then(
-                assertReturnValueEquals(-1)
+                assertReturnValueEquals(Integer.MAX_VALUE)
             )
             .when(callKoanMethod("min", new int[]{10, 4, 8, 2, 10}))
             .then(
@@ -149,7 +149,7 @@ public class AboutArraysKoans {
             )
             .when(callKoanMethod("min2", new int[0]))
             .then(
-                assertReturnValueEquals(-1)
+                assertReturnValueEquals(Integer.MAX_VALUE)
             )
             .when(callKoanMethod("min2", new int[]{10, 4, 8, 2, 10}))
             .then(
@@ -229,32 +229,32 @@ public class AboutArraysKoans {
             ),
         new Koan(CLASS, SWITCH_TWO_ELEMENTS)
             .beforeFirstTest(
-                assertKoanMethodIsInvokable("switch", int[].class)
+                assertKoanMethodIsInvokable("switchFirst2", int[].class)
             )
             .when(
                 assignVariable("a", new int[]{1, 5}),
-                callKoanMethod("switch", variable("a"))
+                callKoanMethod("switchFirst2", variable("a"))
             )
             .then(
                 assertVariableEquals("a", new int[]{5, 1})
             )
             .when(
                 assignVariable("a", new int[]{1}),
-                callKoanMethod("switch", variable("a"))
+                callKoanMethod("switchFirst2", variable("a"))
             )
             .then(
                 assertVariableEquals("a", new int[]{1})
             )
             .when(
                 assignVariable("a", new int[]{1, 2, 3}),
-                callKoanMethod("switch", variable("a"))
+                callKoanMethod("switchFirst2", variable("a"))
             )
             .then(
                 assertVariableEquals("a", new int[]{1, 2, 3})
             )
             .when(
                 assignVariable("a", new int[]{}),
-                callKoanMethod("switch", variable("a"))
+                callKoanMethod("switchFirst2", variable("a"))
             )
             .then(
                 assertVariableEquals("a", new int[]{})

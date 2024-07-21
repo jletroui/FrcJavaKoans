@@ -198,7 +198,7 @@ public sealed interface Expression {
         } catch(IllegalArgumentException iae) {
             throw new KoanBugException(String.format("The method %s do not possess the right parameters, which should have been already caught by a missing assertion in this or a previous Koans.", method.getName()));
         } catch(InvocationTargetException ite) {
-            throw new ScriptExecutionException(ite, String.format("%s.%s()", method.getClass().getSimpleName(), method.getName()));
+            throw new ScriptExecutionException(ite, String.format("%s.%s()", method.getDeclaringClass().getSimpleName(), method.getName()));
         }
     }
 }
@@ -223,7 +223,12 @@ final record Literal(Object value) implements Expression {
 
     @Override
     public Object execute(final ExecutionContext ctx) {
-        return value;
+        Object returnedLiteral = value;
+        // Make sure we clone mutable values first, so we preserve initial value if we later need to display it.
+        if (value instanceof int[] arrayValue) {
+            returnedLiteral = arrayValue.clone();
+        }
+        return returnedLiteral;
     }
 
     @Override

@@ -28,8 +28,8 @@ public class Texts {
         local("Expected  method %s to be public, but found it not public.")
         .fr("Attendu à ce que la méthode %s soit publique, mais ce n'est pas le cas.");
     public static Localizable<String> THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR =
-        local("The method %s() appears to produce an error: %s.")
-        .fr("La méthode %s() a produit une erreur: %s.");
+        local("The method %s appears to produce an error: %s.")
+        .fr("La méthode %s a produit une erreur: %s.");
     public static Localizable<String> THE_CODE_TRIED_BY_THE_SENSEI_SEEMS_TO_NOT_FINISH =
         local("The following code, tried by the Sensi, appears to not finish. Did you code an infinite loop?\n\n%s")
         .fr("Le code suivant, essayé par le Sensei, semble ne jamais terminer. As tu codé une boucle infinie?\n\n%s");

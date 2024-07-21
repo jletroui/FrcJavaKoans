@@ -87,9 +87,9 @@ public class AboutArrays {
      * Sometime, we would like to store a lot of values of the same type. Example: recording the battery level of a robot for every second during a 2m30s match (150 double values).
      * Having 150 variable of type 'double' would be very cumbersome to manipulate in our program. Instead, we would like a single variable, of a type storing all 150 values at once.
      * 
-     * Such a type is called an 'array'. To create an array of type and n values, you can write:
+     * Such a type is called an 'array'. To create an array of values of type 'SomeType' with n values, you can write:
      * 
-     *     SomeType[] someName = new SomeType[size];
+     *     SomeType[] myArray = new SomeType[n];
      * 
      * Ex:
      * 
@@ -125,7 +125,7 @@ public class AboutArrays {
      /**
      * # Last element of an array
      * 
-     * Write a method named 'first' with an array of integers 'array' as a parameter, which returns the last element of that array.
+     * Write a method named 'last' with an array of integers 'array' as a parameter, which returns the last element of that array.
      * 
      * ---------   TIPS   --------------
      * 
@@ -209,7 +209,7 @@ public class AboutArrays {
      * 
      * Write a method named 'min' with an array of integers 'array' as a parameter.
      * It returns the smallest number within the array.
-     * If the array is empty, it should return -1.
+     * If the array is empty, it should return Integer.MAX_VALUE, which is the largest possible int.
      * 
      * -------------------------------
      * 
@@ -235,7 +235,7 @@ public class AboutArrays {
      * 
      * Using a 'for :' loop, write a method named 'min2' with an array of integers 'array' as a parameter.
      * It returns the smallest number within the array.
-     * If the array is empty, it should return -1.
+     * If the array is empty, it should return Integer.MAX_VALUE, which is the largest possible int.
      * 
      * ---------   TIPS   --------------
      * 
@@ -358,7 +358,7 @@ public class AboutArrays {
      /**
      * # Switch two elements
      * 
-     * Write a method named 'switch' with takes an array 'array' as a parameter.
+     * Write a method named 'switchFirst2' with takes an array 'array' as a parameter.
      * If the array has 2 and only 2 elements, the method is switching them within the array.
      * Otherwise, it does nothing.
      * 
@@ -371,7 +371,7 @@ public class AboutArrays {
      *     var a = new int[2];
      *     a[0] = 10;
      *     a[1] = 3;
-     *     switch(a);
+     *     switchFirst2(a);
      * 
      * a should be [3, 10]. 
      * 
@@ -394,9 +394,8 @@ public class AboutArrays {
      *     a[0] = 10;
      *     a[1] = 3;
      *     a[2] = 20;
-     *     reverse(a);
      * 
-     * Should return the array [20, 3, 10]. 
+     * reverse(a) should return the array [20, 3, 10]. 
      * 
      */
 

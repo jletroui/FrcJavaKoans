@@ -10,65 +10,65 @@ public class AboutArrays {
     /**
      * # Boucles for
      * 
-     * Write a method named 'displayNumbers' with an integer parameter 'n', which displays numbers between 1 and n.
-     * Use a 'for' loop instead of a 'while' loop. Use the shortest form of incrementation / decrementation.
+     * Écris une méthod 'displayNumbers' avec un paramètre 'n' qui affiche les nombres entre 1 et n.
+     * Utilise une boucle 'for' à la place d'une boucle 'while'. Utilise la forme d'incrémentation / décrémentation la plus courte.
      * 
      * ---------   TIPS   --------------
      * 
-     * To do things multiple times in Java, you already know the 'while' loop.
-     * Most of the time, a 'while' loop has very similar code structure:
+     * Pour faire quelque chose plusieurs fois, tu connais déjà la boucle 'while'.
+     * La plupart du temps, les boucles 'while' ont une structure très similaire:
      * 
-     *     [Initialize a counter];
-     *     while ([Condition on the counter variable]) {
-     *         // Do stuff repetedly
-     *         [Modify the counter at the end of the loop];
+     *     [Initialise un compteur];
+     *     while ([Condition sur la variable compteur]) {
+     *         // Fait quelque chose de répétitif
+     *         [Modifie le compteur à la fin de la boucle];
      *     }
      * 
      * Ex:
      * 
-     *     int times = 3; // Initialize a counter
-     *     while (times > 0) { // Condition on the counter variable
-     *         System.out.println("Still executing"); // Do stuff repetedly
-     *         times = times -1; // Modify the counter at the end of the loop
+     *     int times = 3; // Initialise un compteur
+     *     while (times > 0) { // Condition sur la variable compteur
+     *         System.out.println("Toujours en train d'éxécuter"); // Fait quelque chose de répétitif
+     *         times = times -1; // Modifie le compteur
      *     }
      * 
-     * Since this pattern is used again and again, there is a shortcut in Java to make it terser. It's called a 'for' loop, where all 3 parts seen above are grouped on a single line:
+     * Comme la plulpart des boucles suivent ces étapes, il y a un raccourci en Java. Ce sont les boucles 'for', qui condensent les 3 parties ci dessus en une seule ligne.
      * 
-     *     for([Initialize a counter]; [Condition on the counter variable]; [Modify the counter at the end of the loop]) {
-     *         // do stuff repetedly
+     *     for([Initialise un compteur]; [Condition sur la variable compteur]; [Modifie le compteur]) {
+     *         // Fait quelque chose de répétitif
      *     }
      * 
      * Ex:
      *     
      *     for(int times = 3; times > 0; times = times -1) {
-     *         System.out.println("Still executing"); // Do stuff repetedly
+     *         System.out.println("Toujours en train d'éxécuter"); // Fait quelque chose de répétitif
      *     }
      * 
-     * There is even another shortcut: since incrementing or decrementing a number is something that happens very often, there is a short form:
+     * Il y a également un autre raccourci: comme incrémenter et décrémenter un nombre arrive souvent, il y a une forme courte:
      * 
-     *     a = a - 2; // Long form
-     *     a -= 2;    // Short form
-     *     b = b + 2; // Long form
-     *     b += 2;    // Short form
+     *     a = a - 2; // Forme longue
+     *     a -= 2;    // Forme courte
+     *     b = b + 2; // Forme longue
+     *     b += 2;    // Forme courte
      * 
-     * When we increment / decrement by one, there is an even shorter form:
+     * Et si on incrément / décrémente de 1, il y a une forme encore plus courte:
      * 
-     *     a -= 1; // Short form
-     *     a--;    // Shortest form
-     *     b += 1; // Short form
-     *     b++;    // Shortest form
+     *     a -= 1; // Forme courte
+     *     a--;    // Forme la plus courte
+     *     b += 1; // Forme courte
+     *     b++;    // Forme la plus courte
      * 
-     * Using this, our for loop can become even terser:
+     * En utilisant ceci, la boucle 'for' devient encore plus condensée:
      * 
      *     for(int times = 3; times > 0; times--) {
-     *         System.out.println("Still executing"); // Do stuff repetedly
+     *         System.out.println("Toujours en train d'éxécuter"); // Fait quelque chose de répétitif
      *     }
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * displayNumbers(3) should display:
+     * displayNumbers(3) devrait afficher:
      * 
      * 1
      * 2
@@ -80,42 +80,43 @@ public class AboutArrays {
      /**
      * # Premier élément d'un tableau
      * 
-     * Write a method named 'first' with an array of integers 'array' as a parameter, which returns the first element of that array.
+     * Écris une méthode 'first' qui prend un tableau d'entiers 'array' en paramètre, et qui retourne le premier élément de ce tableau.
      * 
      * ---------   TIPS   --------------
      * 
-     * Sometime, we would like to store a lot of values of the same type. Example: recording the battery level of a robot for every second during a 2m30s match (150 double values).
-     * Having 150 variable of type 'double' would be very cumbersome to manipulate in our program. Instead, we would like a single variable, of a type storing all 150 values at once.
+     * Parfois, nous avons besoin de stocker plusieurs valeurs d'un même type. Par exemple: pour enregistrer le niveau de batterie d'un robot à chaque seconde lors des 2m30s d'un match (150 valeurs de type double).
+     * Avoir 150 variables 'double' ne serait pas très pratique dans notre programme. Nous pouvons à la place créer une seule variable qui stocke les 150 valeurs d'un coup.
      * 
-     * Such a type is called an 'array'. To create an array of type and n values, you can write:
+     * Un tel type s'appelle un 'tableau' ('array' en anglais). Pour créer un tableau avec des valeurs d'un type 'SomeType', contenant n valeurs, tu peux écrire:
      * 
-     *     SomeType[] someName = new SomeType[size];
+     *     SomeType[] myArray = new SomeType[n];
      * 
      * Ex:
      * 
      *     double[] batteryLevels = new double[150];
-     * 
-     * An array is storing all values sequentially. You can access one value (called an 'element of the array') by using its position called an 'index'. Indices in arrays are starting at 0. You specify the index inside '[' and ']'.
-     * Therefore, if you want to display the 3rd element of 'batteryLevels':
+     *  
+     * Un tableau stocke les valeurs séquentiellement. Tu peux accéder à une valeur (appelée un 'élément du tableau') en utilisant sa position appelée un 'index'. Les index dans les tableaux commencent à 0.
+     * Tu peux spécifier un index à l'intérieur de '[' et ']'.
+     * Par exemple, pour afficher le 3e élément de 'batteryLevels':
      * 
      *     System.out.println(batteryLevels[2]);
      * 
-     * Similarly, if you want to store a value in the 2nd element:
+     * De la même façon, si tu veux stocker une valeur dans le 2e élément:
      * 
      *     bateryLevels[1] = 12.8;
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     var a = new int[2];
      *     a[0] = 10;
      *     a[1] = 20;
      *     System.out.println(first(a));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 10
      * 
@@ -123,29 +124,29 @@ public class AboutArrays {
 
 
      /**
-     * # Last element of an array
+     * # Dernier élément d'un tableau
      * 
-     * Write a method named 'first' with an array of integers 'array' as a parameter, which returns the last element of that array.
+     * Écris une méthode 'last' qui prend un tableau d'entiers 'array' en paramètre, et qui retourne le dernier élément de ce tableau.
      * 
      * ---------   TIPS   --------------
      * 
-     * To know the size of a given array you did not create yourself, you can use its 'length' field:
+     * Pour connaître la taille d'un tableau que tu n'a pas créé toi même, tu peux utilisant son champ 'length':
      * 
      *     double[] batteryLevels = new double[150];
      *     System.out.println(batteryLevels.length); // Display 150
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     var a = new int[2];
      *     a[0] = 10;
      *     a[1] = 20;
      *     System.out.println(last(a));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 20
      * 
@@ -153,17 +154,17 @@ public class AboutArrays {
 
 
      /**
-     * # Finding an element
+     * # Trouver un élément
      * 
-     * Write a method named 'findFirst' with an array of integers 'array' and a integer 'n' as parameters.
-     * It returns the first index of the given number within the array.
-     * If the element is not found, it should return -1.
+     * Écris une méthode 'findFirst' qui prend en paramètres un tableau d'entier 'array' et un entier 'n'.
+     * Elle retourne l'index du premier élément qui a la valeur n.
+     * Si l'élément n'est pas trouvé, elle retourne -1.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     var a = new int[2];
      *     a[0] = 10;
@@ -171,7 +172,7 @@ public class AboutArrays {
      *     a[2] = 20;
      *     System.out.println(findFirst(a, 20));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 1
      * 
@@ -179,17 +180,17 @@ public class AboutArrays {
 
 
      /**
-     * # Finding an element at the end
+     * # Trouver un élément à la fin
      * 
-     * Write a method named 'findLast' with an array of integers 'array' and a integer 'n' as parameters.
-     * It returns the last index of the given number within the array.
-     * If the element is not found, it should return -1.
+     * Écris une méthode 'findLast' qui prend en paramètres un tableau d'entier 'array' et un entier 'n'.
+     * Elle retourne l'index du dernier élément qui a la valeur n.
+     * Si l'élément n'est pas trouvé, elle retourne -1.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     var a = new int[2];
      *     a[0] = 10;
@@ -197,7 +198,7 @@ public class AboutArrays {
      *     a[2] = 20;
      *     System.out.println(findLast(a, 20));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 2
      * 
@@ -205,17 +206,17 @@ public class AboutArrays {
 
 
      /**
-     * # Finding the smallest element
+     * # Trouver l'élément le plus petit
      * 
-     * Write a method named 'min' with an array of integers 'array' as a parameter.
-     * It returns the smallest number within the array.
-     * If the array is empty, it should return -1.
+     * Écris une méthode 'min' qui prend un tableau d'entiers 'array' en paramètre.
+     * Elle retourne l'entier le plus petit dans le tableau.
+     * Si le tableau est vide, elle retourne la valeur Integer.MAX_VALUE, qui est le plus grand entier possible.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     var a = new int[2];
      *     a[0] = 10;
@@ -223,7 +224,7 @@ public class AboutArrays {
      *     a[2] = 20;
      *     System.out.println(min(a));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 2
      * 
@@ -231,51 +232,51 @@ public class AboutArrays {
 
 
      /**
-     * # Finding the smallest element, revisited
+     * # Trouver l'élément le plus petit, revisité.
      * 
-     * Using a 'for :' loop, write a method named 'min2' with an array of integers 'array' as a parameter.
-     * It returns the smallest number within the array.
-     * If the array is empty, it should return -1.
+     * En utilisant une boucle 'for :', écris une méthode 'min2' qui prend un tableau d'entier 'array' en paramètre.
+     * Elle retourne l'entier le plus petit dans le tableau.
+     * Si le tableau est vide, elle retourne la valeur Integer.MAX_VALUE, qui est le plus grand entier possible.
      * 
      * ---------   TIPS   --------------
      * 
-     * Believe it or not, but when it comes to looping through all elements of an array, there is yet another shortcut for the 'for' loop.
+     * Difficile à croire, mais quand il s'agit de faire une boucle à travers tous les élément d'un tableau, il y a encore un autre raccourcis.
      * 
-     * Since looking at all elements of an array is such a common place, there is a special syntax you can use:
+     * Comme faire une boucle à travers tous les élément d'un tableau est très courant, il existe cette syntaxe:
      * 
      *     for(type variableName: someArray) {
      *         // do something with variableName
      *     }
      * 
-     *  For example, for displaying all the elements of an array:
+     *  Par exemple, pour afficher tous les élément d'un tableau:
      * 
      *     for(double level: batteryLevels) {
      *         System.out.println(level);
      *     }
      * 
-     * Note: this is only useful if you do not need the index of the current element. If, in addition to the element, you also need its index within the loop, use a regular 'for' loop.
+     * Note: cependant, cela ne fonctionne que si tu n'as pas besoin de l'index de l'élément. Dans le cas contraire, tu es obligé d'utiliser une boucle 'for' normale pour avoir l'index.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * Same as the min2() method, but using a 'for :' loop instead of a regular 'for' loop.
+     * Pareil que pour la méthode min2() , mais en utilisant une boucle 'for :' à la place d'une boucle 'for' normale.
      * 
      */
 
 
      /**
-     * # Computing the sum
+     * # Calculer la somme
      * 
-     * Write a method named 'sum' with an array of integers 'array' as a parameter.
-     * It returns the sum of all numbers within the array.
-     * If the array is empty, it should return 0.
+     * Écris une méthode 'sum' qui prend un tableau d'entier 'array' en paramètre.
+     * Elle retourne la somme de tous les entiers du tableau.
+     * Si le tableau est vide, elle retourne 0.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     var a = new int[2];
      *     a[0] = 10;
@@ -283,7 +284,7 @@ public class AboutArrays {
      *     a[2] = 20;
      *     System.out.println(sum(a));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 32
      * 
@@ -291,17 +292,17 @@ public class AboutArrays {
 
 
      /**
-     * # Computing the average
+     * # Calculer la moyenne
      * 
-     * Write a method named 'avg' with an array of integers 'array' as a parameter.
-     * It returns the average of numbers within the array (as a double).
-     * If the array is empty, it should return 0.0.
+     * Écris une méthode 'avg' qui prend un tableau d'entier 'array' en paramètre.
+     * Elle retourne la moyenne de tous les entiers du tableau (sous forme de double).
+     * Si le tableau est vide, elle retourne 0.0.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     var a = new int[2];
      *     a[0] = 10;
@@ -309,7 +310,7 @@ public class AboutArrays {
      *     a[2] = 20;
      *     System.out.println(avg(a));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 11
      * 
@@ -317,78 +318,78 @@ public class AboutArrays {
 
 
      /**
-     * # Filling an array
+     * # Remplir un tableau
      * 
-     * Write a method named 'fill' with an integer 'size' and an integer 'value' as a parameters.
-     * It returns an integer array with that number of element, all of them having the value 'value'.
+     * Écris une méthode 'fill' qui prend un entier 'size' et un entier 'value' en paramètres.
+     * Elle retourne un tableau d'entier de taille 'size', dont tous les éléments valent 'value'.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     fill(3, 20);
      * 
-     * Should return an array with 3 elements, all of them having the value 20.
+     * Devrait retourner un tableau avec 3 éléments, tous les éléments valant 20.
      * 
      */
 
-
+     
      /**
-     * # Creating a serie
+     * # Créer une série
      * 
-     * Write a method named 'serie' with an integer 'size' as a parameter.
-     * It returns an integer array with that number of element.
-     * The first element is 1. The second is 2. The 3rd is 3, and so on.
+     * Écris une méthode 'serie' qui prend un entier 'size' en paramètre.
+     * Elle retourne un tableau d'entier avec ce nombre d'éléments.
+     * Le premier élément vaut 1. Le 2e élément vaut 2. Le 3e vaut 3, etc...
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant
      * 
      *     serie(4);
      * 
-     * Should return the array [1, 2, 3, 4]. 
+     * Devrait retourner le tableau [1, 2, 3, 4]. 
      * 
      */
 
 
      /**
-     * # Switch two elements
+     * # Intervertir 2 éléments
      * 
-     * Write a method named 'switch' with takes an array 'array' as a parameter.
-     * If the array has 2 and only 2 elements, the method is switching them within the array.
-     * Otherwise, it does nothing.
+     * Écris une méthode 'switchFirst2' qui prend un tableau 'array' en paramètre.
+     * Si le tableau a 2, et seulement 2 éléments, la méthode les intervertit.
+     * Sinon, la méthode ne fait rien.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * After the following code:
+     * Après le code suivant:
      * 
      *     var a = new int[2];
      *     a[0] = 10;
      *     a[1] = 3;
-     *     switch(a);
+     *     switchFirst2(a);
      * 
-     * a should be [3, 10]. 
+     * a devrait valoir [3, 10]. 
      * 
      */
 
 
      /**
-     * # Reverse an array
+     * # Inverser un tableau
      * 
-     * Write a method named 'reverse' with takes an array 'array' as a parameter.
-     * Returns a new array with all elements reverted.
+     * Écris une méthode 'reverse' qui prend un tableau 'array' en paramètre.
+     * Elle renvoit un nouveau tableau avec les mêmes éléments que 'array', mais dans l'ordre inverse.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * After the following code:
+     * Après le code suivant:
      * 
      *     var a = new int[2];
      *     a[0] = 10;
@@ -396,7 +397,7 @@ public class AboutArrays {
      *     a[2] = 20;
      *     reverse(a);
      * 
-     * Should return the array [20, 3, 10]. 
+     * reverse(a) devrait retourner le tableau [20, 3, 10]. 
      * 
      */
 

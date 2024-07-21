@@ -324,43 +324,43 @@ public class Texts {
     // AboutArrays
     static final Localizable<String> FOR_LOOPS = 
         local("For loops")
-        .fr("objet");
+        .fr("Boucles for");
     static final Localizable<String> FIRST_ELEMENT_OF_AN_ARRAY = 
         local("First element of an array")
-        .fr("objet");
+        .fr("Premier élément d'un tableau");
     static final Localizable<String> LAST_ELEMENT_OF_AN_ARRAY = 
         local("Last element of an array")
-        .fr("objet");
+        .fr("Dernier élément d'un tableau");
     static final Localizable<String> FINDING_AN_ELEMENT = 
         local("Finding an element")
-        .fr("objet");
+        .fr("Trouver un élément");
     static final Localizable<String> FINDING_AN_ELEMENT_AT_THE_END = 
         local("Finding an element at the end")
-        .fr("objet");
+        .fr("Trouver un élément à la fin");
     static final Localizable<String> FINDING_THE_SMALLEST_ELEMENT = 
         local("Finding the smallest element")
-        .fr("objet");
+        .fr("Trouver l'élément le plus petit");
     static final Localizable<String> FINDING_THE_SMALLEST_ELEMENT_REVISITED = 
         local("Finding the smallest element, revisited")
-        .fr("objet");
+        .fr("Trouver l'élément le plus petit, revisité.");
     static final Localizable<String> COMPUTING_THE_SUM = 
         local("Computing the sum")
-        .fr("objet");
+        .fr("Calculer la somme");
     static final Localizable<String> COMPUTING_THE_AVERAGE = 
         local("Computing the average")
-        .fr("objet");
+        .fr("Calculer la moyenne");
     static final Localizable<String> FILLING_AN_ARRAY = 
         local("Filling an array")
-        .fr("objet");
+        .fr("Remplir un tableau");
     static final Localizable<String> CREATING_A_SERIE = 
         local("Creating a serie")
-        .fr("objet");
+        .fr("Créer une série");
     static final Localizable<String> SWITCH_TWO_ELEMENTS = 
         local("Switch two elements")
-        .fr("objet");
+        .fr("Intervertir 2 éléments");
     static final Localizable<String> REVERSE_AN_ARRAY = 
         local("Reverse an array")
-        .fr("objet");
+        .fr("Inverser un tableau");
 
 }
 

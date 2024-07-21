@@ -7,6 +7,8 @@ import java.util.function.DoubleToIntFunction;
 import java.util.function.Function;
 
 import engine.ConsoleFmt.Formats;
+import engine.ConsoleFmt.Formatted;
+import engine.script.Expression;
 import engine.script.Type;
 
 import static engine.ConsoleFmt.code;
@@ -100,80 +102,78 @@ public class Assertions {
         };
     }
 
-    public static ResultAssertion assertReturnValueEquals(final int expected) {
-        return (p, res) -> {
-            if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode), code(expected)));
-                return false;
-            } else if (!(res.executionResult instanceof Integer)) {
-                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), code(res.executionResult.getClass().getSimpleName())));
-                return false;
-            } else if (((Integer)res.executionResult).intValue() != expected) {
-                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(Integer.toString(expected)), code(res.executionResult.toString())));
-                return false;
-            }
-
-            p.println(format(OK_RETURNED_INT, Formats.Green, code(res.resultExpressionSourceCode), code(expected)));
-            return true;
-        }; 
-    }
-
     private static final double EPSILON = 0.0000000001;
-    private static boolean equals(Double actual, double expected) {
-        var diff = Math.abs(actual.doubleValue() - expected);
-        return diff < EPSILON;
+    private static boolean eq(Object expected, Object actual) {
+        if (actual == null) {
+            return expected == null;
+        } else if (expected instanceof int[] aIntArr && actual instanceof int[] bIntArr) {
+            return Arrays.equals(aIntArr, bIntArr);
+        } else if (expected instanceof Double aDouble && actual instanceof Double bDouble) {
+            final var diff = Math.abs(aDouble.doubleValue() - bDouble);
+            return diff < EPSILON;
+        }
+        return actual.equals(expected);
     }
 
-    public static ResultAssertion assertReturnValueEquals(final double expected) {
+    public static ResultAssertion assertVariableEquals(final String variableName, final Object expected) {
         return (p, res) -> {
-            if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
+            final Object val = res.executionContext.getVariableValue(variableName);
+            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expected));
+            final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(val));
+            final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
+            if (val == null) {
+                p.println(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL, Formats.Red, expressionFmted, code(variableName), expectedFmted));
                 return false;
-            } else if (!(res.executionResult instanceof Double)) {
-                p.println(format(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), res.executionResult.getClass().getSimpleName()));
+            } else if (val.getClass() != expected.getClass()) {
+                p.println(format(EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red, expressionFmted, code(variableName), code(expected.getClass().getSimpleName()), code(val.getClass().getSimpleName())));
                 return false;
-            } else if (!equals((Double)res.executionResult, expected)) {
-                p.println(format(EXPECTED_TO_RETURN_DOUBLE_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected, ((Double)res.executionResult).doubleValue()));
+            } else if (!eq(expected, val)) {
+                p.println(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red, expressionFmted, code(variableName), expectedFmted, actualFmted));
                 return false;
             }
 
-            p.println(format(OK_RETURNED_DOUBLE, Formats.Green, code(res.resultExpressionSourceCode), code(expected)));
+            p.println(format(OK_VARIABLE_EQUAL, Formats.Green, code(variableName), expectedFmted));
             return true;
         }; 
     }
 
-    public static ResultAssertion assertReturnValueEquals(final boolean expected) {
+    public static ResultAssertion assertReturnValueEquals(final Object expected) {
         return (p, res) -> {
+            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expected));
+            final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(res.executionResult));
+            final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
             if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, expressionFmted, expectedFmted));
                 return false;
-            } else if (!(res.executionResult instanceof Boolean)) {
-                p.println(format(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), res.executionResult.getClass().getSimpleName()));
+            } else if (res.executionResult.getClass() != expected.getClass()) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code(expected.getClass().getSimpleName()), code(res.executionResult.getClass().getSimpleName())));
                 return false;
-            } else if (((Boolean)res.executionResult).booleanValue() != expected) {
-                p.println(format(EXPECTED_TO_RETURN_BOOLEAN_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected, ((Boolean)res.executionResult).booleanValue()));
+            } else if (!eq(expected, res.executionResult)) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, expressionFmted, expectedFmted, actualFmted));
                 return false;
             }
 
-            p.println(format(OK_RETURNED_BOOLEAN, Formats.Green, code(res.resultExpressionSourceCode), code(expected)));
+            p.println(format(OK_RETURNED, Formats.Green, expressionFmted, expectedFmted));
             return true;
         }; 
     }
 
     public static ResultAssertion assertReturnValueEquals(final Localizable<String> expected) {
         return (p, res) -> {
+            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expected.get(res.locale)));
+            final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(res.executionResult));
             if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale)));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expectedFmted));
                 return false;
             } else if (!(res.executionResult instanceof String)) {
                 p.println(format(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), res.executionResult.getClass().getSimpleName()));
                 return false;
             } else if (!((String)res.executionResult).equals(expected.get(res.locale))) {
-                p.println(format(EXPECTED_TO_RETURN_STRING_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale), (String)res.executionResult));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode,expectedFmted, actualFmted));
                 return false;
             }
 
-            p.println(format(OK_RETURNED_STRING, Formats.Green, code(res.resultExpressionSourceCode), code(expected.get(res.locale))));
+            p.println(format(OK_RETURNED, Formats.Green, code(res.resultExpressionSourceCode), expectedFmted));
             return true;
         }; 
     }
@@ -200,7 +200,7 @@ public class Assertions {
         return (p, res) -> {
             final var randomNumber = res.randomNumber();
             if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.applyAsInt(randomNumber)));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.applyAsInt(randomNumber)));
                 return false;
             } else if (!(res.executionResult instanceof Integer)) {
                 p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName()));
@@ -250,7 +250,7 @@ public class Assertions {
 
             final int expected = buildExpected.apply(res);
             if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
                 return false;
             } else if (!(res.executionResult instanceof Integer)) {
                 p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName()));

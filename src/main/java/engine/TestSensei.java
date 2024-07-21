@@ -19,7 +19,7 @@ public class TestSensei {
         }
 
         public String toString() {
-            return String.format("%s/%s[%d]", test.koan.koanClass.get(TEST_LOCALE).simpleClassName, test.koan.koanName, testIndex);
+            return String.format("%s/%s[%d]", test.koan.koanClass.get(TEST_LOCALE).simpleClassName, test.koan.koanName.get(TEST_LOCALE), testIndex);
         }
     }
 
@@ -60,7 +60,8 @@ public class TestSensei {
             test,
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
-            interceptionResult.returnValue
+            interceptionResult.returnValue.executionResult(),
+            interceptionResult.returnValue.context()
         );
 
         return testIndex.toResult(result.executeAssertions(capturingPrinter), capturingPrinter);

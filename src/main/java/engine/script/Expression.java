@@ -73,7 +73,14 @@ public sealed interface Expression {
      * Creates an expression representing a variable assignment.
      */
     public static Expression assignVariable(String variableName, Expression value) {
+        if (value == null) {
+            return assignVariable(variableName, new Literal(value));
+        }
         return new AssignVariable(variableName, value);
+    }
+
+    public static Expression assignVariable(String variableName, Object value) {
+        return assignVariable(variableName, new Literal(value));
     }
 
     /**
@@ -113,9 +120,17 @@ public sealed interface Expression {
             .toArray(Expression[]::new);
     }
 
-    static String formatLiteralSourceCode(final Object value) {
-        if (value instanceof String) {
+    public static String formatLiteralSourceCode(final Object value) {
+        if (value == null) {
+            return "null";
+        } else if (value instanceof String) {
             return String.format("\"%s\"", value);
+        } else if (value instanceof int[] arr) {
+            final var elts = String.join(
+                ",", 
+                Arrays.stream(arr).<String>mapToObj(Integer::toString).toList()
+            );
+            return String.format("new int[]{%s}", elts);    
         }
         return value.toString();
     }
@@ -183,7 +198,7 @@ public sealed interface Expression {
         } catch(IllegalArgumentException iae) {
             throw new KoanBugException(String.format("The method %s do not possess the right parameters, which should have been already caught by a missing assertion in this or a previous Koans.", method.getName()));
         } catch(InvocationTargetException ite) {
-            throw new ScriptExecutionException(ite, String.format("%s.%s()", method.getClass().getSimpleName(), method.getName()));
+            throw new ScriptExecutionException(ite, String.format("%s.%s()", method.getDeclaringClass().getSimpleName(), method.getName()));
         }
     }
 }
@@ -196,7 +211,8 @@ final record Literal(Object value) implements Expression {
         Double.class,
         Boolean.class,
         Character.class,
-        String.class
+        String.class,
+        int[].class
     );
 
     public Literal {
@@ -207,7 +223,12 @@ final record Literal(Object value) implements Expression {
 
     @Override
     public Object execute(final ExecutionContext ctx) {
-        return value;
+        Object returnedLiteral = value;
+        // Make sure we clone mutable values first, so we preserve initial value if we later need to display it.
+        if (value instanceof int[] arrayValue) {
+            returnedLiteral = arrayValue.clone();
+        }
+        return returnedLiteral;
     }
 
     @Override

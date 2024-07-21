@@ -146,7 +146,8 @@ public class Sensei {
             test,
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
-            interceptionResult.returnValue
+            interceptionResult.returnValue.executionResult(),
+            interceptionResult.returnValue.context()
         );
 
         concludeConsole(test.koan);

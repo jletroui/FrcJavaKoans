@@ -5,21 +5,22 @@ import static engine.Assertions.assertNextStdOutLineEquals;
  import static engine.Assertions.assertNoMoreLineInStdOut;
 import static engine.ConsoleFmt.code;
 import static engine.ConsoleFmt.format;
+import static engine.ConsoleFmt.red;
 import static engine.Localizable.global;
 
 import java.util.List;
 
-import engine.ConsoleFmt;
 import engine.Koan;
 import engine.Localizable;
 import engine.ConsoleFmt.Formats;
 import engine.test.simulation.StudentSolutions;
+
 import static engine.script.Expression.callKoanMethod;
 import static engine.Texts.*;
 import static engine.test.UnitTestExpectation.assertSuccess;
 import static engine.test.UnitTestExpectation.assertFailure;
 
-public class ConsoleUnitTests {
+public class ConsoleAssertionsUnitTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
     public static final List<UnitTest> items = List.of(
@@ -45,7 +46,7 @@ public class ConsoleUnitTests {
                     assertNextStdOutLineEquals(global("hello"))
                 ),
             assertFailure(
-                new Line.Localized(ConsoleFmt.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
+                new Line.Localized(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
             )
         )
     );

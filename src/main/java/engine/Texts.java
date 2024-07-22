@@ -204,5 +204,8 @@ public class Texts {
     public static Localizable<String> EXPECTED_FIELD_TO_BE_OF_TYPE =
         local("Expected '%s' field in class %s to be a '%s', but it is a '%s'.")
         .fr("Attendu à ce que le champ '%s' dans la classe %s soit un '%s', mais il est un '%s'.");
+    public static Localizable<String> EXPECTED_CLASS_TO_IMPLEMENT =
+        local("Expected class %s to implement %s, but it does not.")
+        .fr("Attendu à ce la classe %s implémente %s, mais elle ne l'implémente pas.");
 
 }

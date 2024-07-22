@@ -438,4 +438,20 @@ public class Assertions {
             return true;
         };
     } 
+
+    public static BeforeTestAssertion assertImplementsInterface(final String className, final Class<?> interfaceClass) {
+        return (p, locale, koan) -> {
+            final var type = new Type(className);
+            final var clasz = type.unsafeResolve();
+            final var success = Arrays
+                .stream(clasz.getInterfaces())
+                .anyMatch(implemented -> implemented == interfaceClass);
+
+            if (!success) {
+                    p.println(format(EXPECTED_CLASS_TO_IMPLEMENT, Formats.Red, code(className), code(interfaceClass.getName())));
+            }
+
+            return success;
+        };
+    } 
 }

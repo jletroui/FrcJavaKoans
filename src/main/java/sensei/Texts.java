@@ -362,5 +362,11 @@ public class Texts {
         local("Reverse an array")
         .fr("Inverser un tableau");
 
+
+    // AboutInterfaces
+    static final Localizable<String> FIRST_INTERFACE_IMPLEMENTATIONS = 
+        local("First interface implementations")
+        .fr("object");
+
 }
 

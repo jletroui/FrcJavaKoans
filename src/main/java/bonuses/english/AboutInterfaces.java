@@ -1,7 +1,9 @@
 package bonuses.english;
 
 import java.util.List;
+import java.util.function.IntPredicate;
 
+import bonuses.teachingmaterial.Combining;
 import engine.Locale;
 import engine.Sensei;
 import sensei.AboutInterfacesKoans;
@@ -54,7 +56,7 @@ public class AboutInterfaces {
      *         // Since Sword implements Weapon, it must implement the hit method.
      *         @Override // This special annotation means the method is defined elsewhere (our interface in this case)
      *         public void hit(Monster monster) {
-     *             // some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc...
+     *             // Some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc...
      *         }
      * 
      *     }
@@ -88,6 +90,173 @@ public class AboutInterfaces {
      * 
      * 7
      * 12
+     * 
+     */
+
+     
+    /**
+     * # Anonymous interface implementation
+     * 
+     * Write a method 'getAnonymousCombining' which returns an anonymous implementation of 'bonuses.teachingmaterial.Combining'.
+     * The implementation of the combine() method should return the second number subtracted from the first.
+     * 
+     * ---------   TIPS   --------------
+     * 
+     * Sometimes, it is tedious to create a class file to implement an interface just for one occasion.
+     * In these situation, you can implement the interface in an anonymous class. It is anonymous, because it does not have a name.
+     * That class is instantiated immediately where it is created. For example:
+     * 
+     *     public Weapon toss() {
+     *         return new Weapon() {
+     *             @Override
+     *             public void hit(Monster monster) {
+     *                 // Some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc...
+     *             }
+     *         }
+     *     }
+     * 
+     * When looking at this code, you could be tempted to believe there is a constructor for the interface Weapon, but there is not.
+     * We are really creating a class, for which there exists a single object.
+     * The constructor with empty parameters is the one of this nameless class.
+     * We can now get and use the tossed weapon this way:
+     * 
+     *     Weapon tossedWeapon = toss();
+     *     tossedWeapon.hit(zombie);
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * getAnonymousCombining().combine(3, 4) should return -1
+     * 
+     */
+
+    
+    /**
+     * # Lambda methods
+     * 
+     * Write a method 'getLambdaCombining' which returns an lambda method implementing 'bonuses.teachingmaterial.Combining'.
+     * The implementation of the combine() method should return the first number subtracted from the second.
+     * 
+     * ---------   TIPS   --------------
+     * 
+     * When an interface have only one method, there is an even shorter form to implement it. You can use what is called a 'lambda method'.
+     * A 'lambda method' is a stripped down version of a method. Since our example interface 'Weapon' has only a single method 'hit()', we can use this shortcut:
+     * 
+     * For example:
+     * 
+     *     public Weapon toss() {
+     *         return (monster) -> { 
+     *             // Some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc.. 
+     *         };
+     *     }
+     * 
+     * We can now get and use the tossed weapon this way:
+     * 
+     *     Weapon tossedWeapon = toss();
+     *     tossedWeapon.hit(zombie);
+     * 
+     * The general syntax for lambda method returning void, or having a body with multiple lines:
+     * 
+     *     ([param1Name], [param2Name], ...) -> {
+     *         // Lambda method body here
+     *     }
+     * 
+     * If your lambda is having a single expression, you can even skip the parentheses and the 'return':
+     * 
+     *     ([param1Name], [param2Name], ...) -> // expression here
+     * 
+     * Here are some example of methods and their lambda equivalent (assuming the interface has only one method in it):
+     * 
+     * This interface implementation:
+     * 
+     *     public void sayHello() {
+     *         System.out.println("hello");
+     *     }
+     * 
+     * Can be replaced by this lambda:
+     * 
+     *     () -> {
+     *         System.out.println("hello");
+     *     }
+     * 
+     * This interface implementation:
+     * 
+     *     public int square(int x) {
+     *         return x * x;
+     *     }
+     * 
+     * Can be replaced by this lambda:
+     * 
+     *     (x) -> x * x
+     * 
+     * This interface implementation:
+     * 
+     *     public int min(int x, int y) {
+     *         if (x < y) {
+     *             return x;
+     *         }
+     *         return y;
+     *     }
+     * 
+     * Can be replaced by this lambda:
+     * 
+     *     (x, y) -> {
+     *         if (x < y) {
+     *             return x;
+     *         }
+     *         return y;
+     *     }
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * getLambdaCombining().combine(3, 4) should return 1
+     * 
+     */
+
+
+    /**
+     * # Common lambda interfaces
+     * 
+     * Write a method 'getIsEven' which returns a lambda method testing if an integer is even.
+     * 
+     * ---------   TIPS   --------------
+     * 
+     * Since lambda methods are so useful, a lot of interfaces already exist in the Java standard library, and we don't have to create them ourselves.
+     * 
+     * For example:
+     * 
+     * For a lambda taking no parameter, and returning nothing, {@link java.lang.Runnable}:
+     * 
+     *     Runnable sayHello = () -> { System.out.println("Hello"); };
+     * 
+     * For a lambda taking a int parameter, and returning nothing, {@link java.util.function.IntConsumer}:
+     * 
+     *     IntConsumer displayInt = (anInt) -> { System.out.println(anInt); };
+     * 
+     * The same exist for other type. For example {@link java.util.function.DoubleConsumer}:
+     * 
+     *     DoubleConsumer displayDouble = (aDouble) -> { System.out.println(aDouble); };
+     * 
+     * The reverse functions, taking nothing as a parameter, but returning something exist as well: {@link java.util.function.IntSupplier}, {@link java.util.function.DoubleSupplier}. etc...
+     * 
+     *     DoubleSupplier giveMePiPleeeaaase = () -> 3.14159;
+     * 
+     * There is also a lot of case where you would need to test a number somehow. This is where interfaces like {@link java.util.function.IntPredicate} shine:
+     * 
+     *     IntPredicate isPositive = (number) -> number >= 0;
+     * 
+     * For the exercise, you can use the modulo operator, %, which computes the remainder of an integer division:
+     * 
+     *     int remainder = 17 % 5; // remainder equals 2
+     * 
+     * -------------------------------
+     * 
+     * Expected result:
+     * 
+     * getIsEven().test(4) should return true
      * 
      */
 

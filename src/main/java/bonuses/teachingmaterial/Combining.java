@@ -7,5 +7,5 @@ public interface Combining {
     /**
      * somehow combines 2 integers a and b, and returns the result of this combination.
      */
-    int combine(int a, int b);
+    public int combine(int a, int b);
 }

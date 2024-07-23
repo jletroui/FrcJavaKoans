@@ -4,7 +4,7 @@ public class AboutLoops {
     /**
      * # First loop
      * 
-     * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console times times.
+     * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console 'times' times.
      * 
      * ---------   TIPS   --------------
      * 

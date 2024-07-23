@@ -367,6 +367,15 @@ public class Texts {
     static final Localizable<String> FIRST_INTERFACE_IMPLEMENTATIONS = 
         local("First interface implementations")
         .fr("object");
+    static final Localizable<String> ANONYMOUS_INTERFACE_IMPLEMENTATION = 
+        local("Anonymous interface implementation")
+        .fr("object");
+    static final Localizable<String> LAMBDA_METHODS = 
+        local("Lambda methods")
+        .fr("object");
+    static final Localizable<String> COMMON_LAMBDA_INTERFACES = 
+        local("Common lambda interfaces")
+        .fr("object");
 
 }
 

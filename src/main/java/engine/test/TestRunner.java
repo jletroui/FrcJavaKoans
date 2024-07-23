@@ -11,7 +11,8 @@ public class TestRunner {
     private static final List<List<UnitTest>> TO_RUN = List.of(
         ConsoleAssertionsUnitTests.items,
         EqualityAssertionsUnitTests.items,
-        ReflectionAssertionsUnitTests.items
+        ReflectionAssertionsUnitTests.items,
+        ImplementationAssertionsUnitTests.items
     );
     private static final Map<Boolean, String> SUCCESS_WORDING = Map.of(
         true, "success",

@@ -8,82 +8,82 @@ import sensei.AboutInterfacesKoans;
 
 public class AboutInterfaces {
     /**
-     * # First interface implementations
+     * # Première implémentations d'interface
      * 
-     * Write a class 'numbers.AddNumbers' which implements interface 'bonuses.teachingmaterial.Combining'.
-     * The implementation of the combine() method should return the 2 numbers added together.
-     * Write a class 'numbers.MultiplyNumbers' which also implements interface 'bonuses.teachingmaterial.Combining'.
-     * This implementation of the combine() method should return the 2 numbers multiplied together.
+     * Écrit une classe 'numbers.AddNumbers' qui implémente l'interface 'bonuses.teachingmaterial.Combining'.
+     * L'implémentation de la méthode 'combine()' devrait retourner les 2 entiers ajoutés l'un à l'autre.
+     * Écrit une classe 'numbers.MultiplyNumbers' qui implémente l'interface 'bonuses.teachingmaterial.Combining'.
+     * L'implémentation de la méthode 'combine()' devrait retourner les 2 entiers multipliés l'un par l'autre.
      * 
      * ---------   TIPS   --------------
      * 
-     * Consider the following situation:
+     * Considère la situation suivante:
      * 
-     * You are in the middle of a large, empty room, when a zombie suddenly attacks you.
-     * You have no weapon.
-     * Luckily, a fellow living human is standing in the doorway of the room.
-     * "Quick!" you shout at him. "Throw me something I can hit the zombie with!"
+     * Tu es au milieu d'une grande pièce vide, quand un zombie t'attaque soudainement.
+     * Tu n'as pas d'arme.
+     * Par chance, un frêre humain vivant est debout dans le cadre de porte de la pièce.
+     * "Vite!" lui crie tu. "Envoie moi quelque chose avec lequel je puisse frapper le zombie!"
      * 
-     * Now consider:
-     * You didn't specify (nor do you care) exactly what your friend will choose to toss; ...But it doesn't matter, as long as:
+     * Maintenant regardons:
+     * Tu n'a pas spécifié ce que ton ami va choisir de t'envoyer (et ça ne t'intéresse pas). Ça n'a pas d'importance, tant que:
      * 
-     * 1) It's something that can be tossed (He can't toss you the sofa)
-     * 2) It's something that you can grab hold of (Not a wet soap)
-     * 3) It's something you can use to bash the zombie's brains out (That rules out pillows and such)
+     * 1) C'est quelque chose qui est lançable (il ne peut pas te lancer le sofa)
+     * 2) C'est quelque chose que tu peux attraper (pas un savon mouillé, donc...)
+     * 3) C'est quelque chose avec laquelle tu peux endommager le cerveau du zombie (cela exclut donc les oreillers, etc...)
      * 
-     * It doesn't matter whether you get a baseball bat or a hammer - as long as it implements your three conditions, you're good.
+     * Cela n'a pas d'importance si tu reçoit une batte de baseball ou un marteau. Tant que les 3 conditions sont respectées, tu es sauvé.
      * 
-     * In Java, you sometimes need an object of a class you do not care, but which implements "conditions": one or more specific methods.
-     * We can see the interface as a kind of contract that an object would respect, by the object having implemented the methods listed in the contract.
+     * En Java, tu as souvent besoin d'un objet qui posssède certaines méthodes. Et ce, peu importe sa classe.
+     * Une interface est un contrat qu'un objet peut choisir de respecter, en implémentant les méthodes listées dans le contrat.
      * 
-     * For example, in a game where the situation above would happen, you could create the following interface:
+     * Par exemple, dans le jeu où la situation ci-dessus pourrait arriver, tu pourrait choisir de créer l'interface suivante:
      * 
      *     public interface Weapon {
      *         void hit(Monster monster);
      *     }
      * 
-     * Now, whether your weapon is a sword inflicting 10 damage points, or a knife inflicting only 4 damage points to the monster, the player will be able to hit a monster with it.
+     * Maintenant, que l'arme en question soit une épée infligeant 10 points de dommage, ou un couteau n'infligeant que 4 points de dommage au monstre, le joueur pourra frapper le monstre avec.
      * 
-     * Respecting the contract of a Java interface is called 'implementing the interface'. A class can implement an interface this way:
+     * Respecter le contrat d'une interface Java s'appelle 'implémenter l'interface'. Une classe peut implémenter une interface de cette manière:
      * 
-     *         you declare that this class will implement the Weapon interface
+     *         tu déclare que cette class va implémenter l'interface Weapon
      *                        vvvvvvvvvvvvvvvvv
      * 
      *     public class Sword implements Weapon {
      * 
-     *         // Since Sword implements Weapon, it must implement the hit method.
-     *         @Override // This strange annotation means the method is defined elsewhere (in our interface)
+     *         // Comme Sword implémente Weapon, elle doit implémenter la méthode 'hit()'.
+     *         @Override // Cette étrange annotation dit à Java que cette méthode est définie ailleurs (dans l'interface)
      *         public void hit(Monster monster) {
-     *             // Some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc...
+     *             // Du code qui, par exemple, calcule et applique le dommage, applique de l'usure à l'arme, etc...
      *         }
      * 
      *     }
      * 
-     * Now, the code in hit() maybe complicated but it does not matter: it follows the contract of the interface, and you can call it.
-     * For example, you could create an object allowing you to hit a zombie with the following code:
+     * Le code dans 'hit()' peut être compliqué ou simple. Cela n'a pas d'importance: il respecte le contrat de l'interface, et donc tu peux l'appeler.
+     * Par exemple, tu peux créer un objet qui permet de frapper un zombie avec le code suivant:
      * 
-     *     Monster zombie = ...;               // Code getting the object for the zombie in the middle of the room
-     *     Weapon tossedWeapon = new Sword();  // or new Hammer() or new Axe() or new WhateverImplementsWeapon()
-     *     tossedWeapon.hit(zombie);           // use the Weapon interface
+     *     Monster zombie = ...;               // Code qui récupère d'une façon ou d'une autre un objet représentant le zombie
+     *     Weapon tossedWeapon = new Sword();  // ou 'new Hammer()' ou 'new Axe()' ou 'new WhateverImplementsWeapon()'
+     *     tossedWeapon.hit(zombie);           // utilise l'interface Weapon
      * 
-     * Notice the type of the variable 'tossedWeapon': it is a Weapon, not a Sword. Interfaces, like classes, are types you can use for declaring variables, fields, and parameters.
-     * Because Sword implements Weapon, Java considers that a Sword object _is_ a Weapon. Having variables and parameters using the interface type allows you to work with any object implementing that interface.
+     * Note que le type de la variable 'tossedWeapon' est 'Weapon' et pas 'Sword'. Les interfaces, comme les classes, sont des types que tu peux utiliser pour tes variables, champs, et paramètres.
+     * Puisque 'Sword' implémente 'Weapon', Java considère qu'un objet 'Sword' _est_ une 'Weapon'. Avoir une variable de type interface permet que cette variable puisse avoir pour valeur des objets de classes différentes, pourvu qu'elles implémentent toutes l'interface.
      * 
-     * Take a look at the bonuses.teachingmaterial.Combining interface. It defines a method which can be implemented in various ways.
-     * This exercise is about implementing that interface in 2 ways.
+     * Regarde l'interface 'bonuses.teachingmaterial.Combining'. Elle définie une méthode qui peut être implémentée de plusieurs façons.
+     * Cet exercice a pour but d'implémenter l'interface de 2 façons.
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * The following code:
+     * Le code suivant:
      * 
      *     Combining combining = new AddNumbers();
      *     System.out.println(combining.combine(3, 4));
      *     combining = new MultiplyNumbers();
      *     System.out.println(combining.combine(3, 4));
      * 
-     * Should display:
+     * Devrait afficher:
      * 
      * 7
      * 12
@@ -95,7 +95,7 @@ public class AboutInterfaces {
      * # Anonymous interface implementation
      * 
      * Write a method 'getAnonymousCombining' which returns an anonymous implementation of 'bonuses.teachingmaterial.Combining'.
-     * The implementation of the combine() method should return the second number subtracted from the first.
+     * The implementation of the combine() method devrait retourner the second number subtracted from the first.
      * 
      * ---------   TIPS   --------------
      * 
@@ -122,9 +122,9 @@ public class AboutInterfaces {
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * getAnonymousCombining().combine(3, 4) should return -1
+     * getAnonymousCombining().combine(3, 4) devrait retourner -1
      * 
      */
 
@@ -133,7 +133,7 @@ public class AboutInterfaces {
      * # Lambda methods
      * 
      * Write a method 'getLambdaCombining' which returns an lambda method implementing 'bonuses.teachingmaterial.Combining'.
-     * The implementation of the combine() method should return the first number subtracted from the second.
+     * The implementation of the combine() method devrait retourner the first number subtracted from the second.
      * 
      * ---------   TIPS   --------------
      * 
@@ -207,9 +207,9 @@ public class AboutInterfaces {
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * getLambdaCombining().combine(3, 4) should return 1
+     * getLambdaCombining().combine(3, 4) devrait retourner 1
      * 
      */
 
@@ -251,9 +251,9 @@ public class AboutInterfaces {
      * 
      * -------------------------------
      * 
-     * Expected result:
+     * Résultat attendu:
      * 
-     * getIsEven().test(4) should return true
+     * getIsEven().test(4) devrait retourner true
      * 
      */
 

@@ -3,6 +3,7 @@ package sensei;
 import static engine.Assertions.assertNextStdOutLineEquals;
 import static engine.Assertions.assertNoMoreLineInStdOut;
 import static engine.Assertions.assertReturnValueEquals;
+import static engine.Assertions.assertConstructorIsInvokable;
 import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Assertions.assertStaticMethodIsInvokable;
 import static engine.Localizable.global;
@@ -24,6 +25,7 @@ public class AboutClassesKoans {
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, CLASSES_AND_PACKAGES)
             .beforeFirstTest(
+                assertConstructorIsInvokable("utils.MathUtils"),
                 assertStaticMethodIsInvokable("utils.MathUtils", "cube", int.class)
             )
             .when(callStaticMethod("utils.MathUtils", "cube", 2))
@@ -69,6 +71,7 @@ public class AboutClassesKoans {
             ),
         new Koan(CLASS, AN_OTHER_CLASS_IN_A_NESTED_PACKAGE)
             .beforeFirstTest(
+                assertConstructorIsInvokable("utils.OtherMathUtils"),
                 assertStaticMethodIsInvokable("utils.OtherMathUtils", "max", int.class, int.class)
             )
             .when(callStaticMethod("utils.OtherMathUtils", "max", 2, 2))

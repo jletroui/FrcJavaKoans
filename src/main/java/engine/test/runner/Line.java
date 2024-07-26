@@ -1,4 +1,4 @@
-package engine.test;
+package engine.test.runner;
 
 import engine.Locale;
 import engine.Localizable;

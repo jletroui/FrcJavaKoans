@@ -12,19 +12,22 @@ import java.util.function.IntPredicate;
 import engine.Koan;
 import engine.Localizable;
 import engine.ConsoleFmt.Formats;
+import engine.test.runner.Line;
+import engine.test.runner.UnitTest;
+import engine.test.runner.KoanUnitTest;
 import engine.test.simulation.SomeInterface;
 import engine.test.simulation.StudentSolutions;
 
 import static engine.script.Expression.callKoanMethod;
+import static engine.test.runner.UnitTestExpectation.assertFailure;
+import static engine.test.runner.UnitTestExpectation.assertSuccess;
 import static engine.Texts.*;
-import static engine.test.UnitTestExpectation.assertFailure;
-import static engine.test.UnitTestExpectation.assertSuccess;
 
-public class ImplementationAssertionsUnitTests {
+public class ImplementationAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
-    public static final List<UnitTest> items = List.of(
-        new UnitTest(
+    public static final List<UnitTest> tests = List.of(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueImplementsInterface"))
                 .when(
                     callKoanMethod("returnedValueImplements")
@@ -36,7 +39,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(OK_RETURNED_OBJECT_IMPLEMENTS, Formats.Green, code("returnedValueImplements()"), code("engine.test.simulation.SomeInterface")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueNullInsteadOfImplementsInterface"))
                 .when(
                     callKoanMethod("returnedValueNull")
@@ -48,7 +51,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_RETURNED_NULL, Formats.Red, code("returnedValueNull()"), code("engine.test.simulation.SomeInterface")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueDoesNotImplementInterface"))
                 .when(
                     callKoanMethod("returnedValueImplements")
@@ -60,7 +63,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_NOT, Formats.Red, code("returnedValueImplements()"), code("java.util.function.IntPredicate"), code("engine.test.simulation.SomeImplementation")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueAnonymous"))
                 .when(
                     callKoanMethod("returnedValueAnonymousImplementation")
@@ -72,7 +75,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(OK_RETURNED_OBJECT_IS_ANONYMOUS, Formats.Green, code("returnedValueAnonymousImplementation()")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedNullInsteadOfAnonymous"))
                 .when(
                     callKoanMethod("returnedValueNull")
@@ -84,7 +87,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_NULL, Formats.Red, code("returnedValueNull()")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueLambdaInsteadOfAnonymous"))
                 .when(
                     callKoanMethod("returnedValueLambda")
@@ -96,7 +99,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_LAMBDA, Formats.Red, code("returnedValueLambda()")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueNotAnonymous"))
                 .when(
                     callKoanMethod("returnedValueImplements")
@@ -108,7 +111,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED, Formats.Red, code("returnedValueImplements()"), code("engine.test.simulation.SomeImplementation")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueLambda"))
                 .when(
                     callKoanMethod("returnedValueLambda")
@@ -120,7 +123,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(OK_RETURNED_OBJECT_IS_LAMBDA, Formats.Green, code("returnedValueLambda()")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedNullInsteadOfLambda"))
                 .when(
                     callKoanMethod("returnedValueNull")
@@ -132,7 +135,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_NULL, Formats.Red, code("returnedValueNull()")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueNotLambda"))
                 .when(
                     callKoanMethod("returnedValueAnonymousImplementation")
@@ -144,7 +147,7 @@ public class ImplementationAssertionsUnitTests {
                 new Line.Localized(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_ANONYMOUS, Formats.Red, code("returnedValueAnonymousImplementation()")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("returnedValueNotLambda"))
                 .when(
                     callKoanMethod("returnedValueImplements")

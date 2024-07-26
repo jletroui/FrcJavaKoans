@@ -35,10 +35,10 @@ public class AboutInterfaces {
      * 
      * It doesn't matter whether you get a baseball bat or a hammer - as long as it implements your three conditions, you're good.
      * 
-     * In Java, you sometimes need an object that implements "conditions": one or more specific methods. But you don't care about its class. The interface is what will describe those methods.
-     * We can see the interface as a kind of contract that an object would respect.
+     * In Java, you sometimes need an object of a class you do not care, but which implements "conditions": one or more specific methods.
+     * We can see the interface as a kind of contract that an object would respect, by the object having implemented the methods listed in the contract.
      * 
-     * For example, in a game where the situation above would happen, you could create the following interface in a game:
+     * For example, in a game where the situation above would happen, you could create the following interface:
      * 
      *     public interface Weapon {
      *         void hit(Monster monster);
@@ -54,13 +54,12 @@ public class AboutInterfaces {
      *     public class Sword implements Weapon {
      * 
      *         // Since Sword implements Weapon, it must implement the hit method.
-     *         @Override // This special annotation means the method is defined elsewhere (our interface in this case)
+     *         @Override // This strange annotation means the method is defined elsewhere (in our interface)
      *         public void hit(Monster monster) {
      *             // Some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc...
      *         }
      * 
      *     }
-     * 
      * 
      * Now, the code in hit() maybe complicated but it does not matter: it follows the contract of the interface, and you can call it.
      * For example, you could create an object allowing you to hit a zombie with the following code:
@@ -69,7 +68,7 @@ public class AboutInterfaces {
      *     Weapon tossedWeapon = new Sword();  // or new Hammer() or new Axe() or new WhateverImplementsWeapon()
      *     tossedWeapon.hit(zombie);           // use the Weapon interface
      * 
-     * Notice the type of the variable 'tossedWeapon': it is a Weapon, not a Sword. Interfaces, like classes, are types you can use for variables, fields, and parameters.
+     * Notice the type of the variable 'tossedWeapon': it is a Weapon, not a Sword. Interfaces, like classes, are types you can use for declaring variables, fields, and parameters.
      * Because Sword implements Weapon, Java considers that a Sword object _is_ a Weapon. Having variables and parameters using the interface type allows you to work with any object implementing that interface.
      * 
      * Take a look at the bonuses.teachingmaterial.Combining interface. It defines a method which can be implemented in various ways.
@@ -93,7 +92,7 @@ public class AboutInterfaces {
      * 
      */
 
-     
+
     /**
      * # Anonymous interface implementation
      * 

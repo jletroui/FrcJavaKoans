@@ -13,18 +13,21 @@ import java.util.List;
 import engine.Koan;
 import engine.Localizable;
 import engine.ConsoleFmt.Formats;
+import engine.test.runner.Line;
+import engine.test.runner.UnitTest;
+import engine.test.runner.KoanUnitTest;
 import engine.test.simulation.StudentSolutions;
 
 import static engine.script.Expression.callKoanMethod;
+import static engine.test.runner.UnitTestExpectation.assertFailure;
+import static engine.test.runner.UnitTestExpectation.assertSuccess;
 import static engine.Texts.*;
-import static engine.test.UnitTestExpectation.assertSuccess;
-import static engine.test.UnitTestExpectation.assertFailure;
 
-public class ConsoleAssertionsUnitTests {
+public class ConsoleAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
-    public static final List<UnitTest> items = List.of(
-        new UnitTest(
+    public static final List<UnitTest> tests = List.of(
+        new KoanUnitTest(
             new Koan(CLASS, global("simpleConsoleOutput()"))
                 .useConsole()
                 .beforeFirstTest(assertKoanMethodIsInvokable("simpleConsoleOutput"))
@@ -37,7 +40,7 @@ public class ConsoleAssertionsUnitTests {
                 new Line.Localized(format(OK_DISPLAYED_IN_CONSOLE, Formats.Green, "hello", code("simpleConsoleOutput()")))
             )
         ),
-        new UnitTest(
+        new KoanUnitTest(
             new Koan(CLASS, global("noMethod"))
                 .useConsole()
                 .beforeFirstTest(assertKoanMethodIsInvokable("noMethod"))

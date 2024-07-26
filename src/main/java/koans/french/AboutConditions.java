@@ -57,6 +57,8 @@ public class AboutConditions {
      *         return 0; // Stoppe l'exécution de la méthode ici et retourne la valeur 0.
      *     }
      * 
+     * Note 3: à l'intérieur des accolades d'un 'if' ou 'else', tu peux mettre tout le code que tu veux, et même d'autres if/else !.
+     * 
      * -------------------------------
      * 
      * Résultat attendu:

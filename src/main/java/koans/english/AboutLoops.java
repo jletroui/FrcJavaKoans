@@ -20,6 +20,8 @@ public class AboutLoops {
      *         times = times -1;
      *     }
      * 
+     * Note 3: like of the 'if', within the curly brackets of a 'while', you can write any code, including other 'while' and 'if' !.
+     * 
      * -------------------------------
      * 
      * Expected result:

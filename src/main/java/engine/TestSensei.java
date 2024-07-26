@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import engine.script.ScriptRunner;
-import engine.test.Line;
+import engine.test.runner.Line;
 
+/**
+ * A sensei used to run unit tests for the FRC Java Koans, for contributors.
+ */
 public class TestSensei {
     public static final Locale TEST_LOCALE = Locale.en;
 

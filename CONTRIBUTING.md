@@ -64,7 +64,7 @@ We expressed above a concern for saving student's attention / motivation / time.
 ### Design goals
 
 - Strive to work on a bare WPILib installation: on VSCode with no need for a plugin.
-- Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool.
+- Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool. This has consequences: the project has to includes a mini test framework for example.
 - Java 17, because as of 2024, this is the version used by default in WPILib's VSCode.
 
 ### Compromises and limitations

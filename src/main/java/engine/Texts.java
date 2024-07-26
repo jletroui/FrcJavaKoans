@@ -217,14 +217,14 @@ public class Texts {
         local("Expected %s to return %d from random number %f but returned %d instead!")
         .fr("Attendu à ce que %s retourne %d à partir du nombre aléatoire %f mais a retourné %d à la place!");
     public static Localizable<String> OK_RETURNED_INT_FROM_RANDOM =
-        local("Ok: %s returned %d from random number %f.")
-        .fr("Ok: %s a retourné %d à partir du nombre aléatoire %f.");
+        local("Ok: %s returned %s from random number %f.")
+        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %f.");
     public static Localizable<String> EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED =
-        local("Expected %s to return %d from random numbers %s but returned %d instead!")
-        .fr("Attendu à ce que %s retourne %d à partir des nombres aléatoires %s mais a retourné %d à la place!");
+        local("Expected %s to return %s from random numbers %s but returned %d instead!")
+        .fr("Attendu à ce que %s retourne %s à partir des nombres aléatoires %s mais a retourné %d à la place!");
     public static Localizable<String> OK_RETURNED_INT_FROM_RANDOMS =
-        local("Ok: %s returned %d from random numbers %s.")
-        .fr("Ok: %s a retourné %d à partir du nombre aléatoire %s.");        
+        local("Ok: %s returned %s from random numbers %s.")
+        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %s.");        
     public static Localizable<String> EXPECTED_FIELD_TO_BE_PRIVATE =
         local("Expected '%s' field in class %s to be private, but it is not.")
         .fr("Attendu à ce que le champ '%s' dans la classe %s soit privé, mais il ne l'est pas.");

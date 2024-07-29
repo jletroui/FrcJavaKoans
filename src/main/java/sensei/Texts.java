@@ -362,20 +362,18 @@ public class Texts {
         local("Reverse an array")
         .fr("Inverser un tableau");
 
-
     // AboutInterfaces
     static final Localizable<String> FIRST_INTERFACE_IMPLEMENTATIONS = 
         local("First interface implementations")
-        .fr("object");
+        .fr("Première implémentations d'interface");
     static final Localizable<String> ANONYMOUS_INTERFACE_IMPLEMENTATION = 
         local("Anonymous interface implementation")
-        .fr("object");
+        .fr("Anonymous interface implementation");
     static final Localizable<String> LAMBDA_METHODS = 
         local("Lambda methods")
-        .fr("object");
+        .fr("Méthodes lambda");
     static final Localizable<String> COMMON_LAMBDA_INTERFACES = 
         local("Common lambda interfaces")
-        .fr("object");
-
+        .fr("Interfaces lambda communes");
 }
 

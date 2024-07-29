@@ -300,7 +300,7 @@ public class Assertions {
             } else if (res.executionResult.getClass().isAnonymousClass()) {
                 p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_ANONYMOUS, Formats.Red, code(res.resultExpressionSourceCode)));
                 return false;
-            } else if (!res.executionResult.getClass().getSimpleName().contains("$$Lambda$")) { // Kind of hacky, but only way as far as I know
+            } else if (!res.executionResult.getClass().getSimpleName().contains("$$Lambda")) { // Kind of hacky, but only way as far as I know
                 p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(res.executionResult.getClass().getName())));
                 return false;
             }

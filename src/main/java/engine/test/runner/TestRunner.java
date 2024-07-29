@@ -21,7 +21,7 @@ public class TestRunner {
         System.out.println(String.format("%d/%d tests passed.", successCount, totalCount));
     }
 
-    private static List<List<UnitTest>> findTestSuites() {
+    private static List<List<KoanEngineAutomatedTest>> findTestSuites() {
         try(var packageStream = TestRunner.class.getClassLoader().getResourceAsStream("engine/test")) {
             try(var reader = new BufferedReader(new InputStreamReader(packageStream))) {
                 return reader
@@ -46,9 +46,9 @@ public class TestRunner {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<UnitTest> getTestSuite(Class<?> clasz) {
+    private static List<KoanEngineAutomatedTest> getTestSuite(Class<?> clasz) {
         try {
-            return (List<UnitTest>)clasz.getField("tests").get(null);
+            return (List<KoanEngineAutomatedTest>)clasz.getField("tests").get(null);
         } catch(NoSuchFieldException nsfe) {
             System.out.println(String.format("WARNING: did not find a 'tests' static field in %s", clasz.getName()));
             return List.of();

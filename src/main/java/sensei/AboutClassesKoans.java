@@ -71,18 +71,18 @@ public class AboutClassesKoans {
             ),
         new Koan(CLASS, AN_OTHER_CLASS_IN_A_NESTED_PACKAGE)
             .beforeFirstTest(
-                assertConstructorIsInvokable("utils.OtherMathUtils"),
-                assertStaticMethodIsInvokable("utils.OtherMathUtils", "max", int.class, int.class)
+                assertConstructorIsInvokable("utils.math.OtherMathUtils"),
+                assertStaticMethodIsInvokable("utils.math.OtherMathUtils", "max", int.class, int.class)
             )
-            .when(callStaticMethod("utils.OtherMathUtils", "max", 2, 2))
+            .when(callStaticMethod("utils.math.OtherMathUtils", "max", 2, 2))
             .then(
                 assertReturnValueEquals(2)
             )
-            .when(callStaticMethod("utils.OtherMathUtils", "max", 1, 4))
+            .when(callStaticMethod("utils.math.OtherMathUtils", "max", 1, 4))
             .then(
                 assertReturnValueEquals(4)
             )          
-            .when(callStaticMethod("utils.OtherMathUtils", "max", 4, 1))
+            .when(callStaticMethod("utils.math.OtherMathUtils", "max", 4, 1))
             .then(
                 assertReturnValueEquals(4)
             ),

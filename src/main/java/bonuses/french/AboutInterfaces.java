@@ -94,28 +94,28 @@ public class AboutInterfaces {
     /**
      * # Anonymous interface implementation
      * 
-     * Write a method 'getAnonymousCombining' which returns an anonymous implementation of 'bonuses.teachingmaterial.Combining'.
-     * The implementation of the combine() method devrait retourner the second number subtracted from the first.
+     * Écris une méthode 'getAnonymousCombining' qui retourne une implémentation anonyme de 'bonuses.teachingmaterial.Combining'.
+     * L'implémentation de la méthode combine() devrait retourner le 2ème nombre soustrait du 1er.
      * 
      * ---------   TIPS   --------------
      * 
-     * Sometimes, it is tedious to create a class file to implement an interface just for one occasion.
-     * In these situation, you can implement the interface in an anonymous class. It is anonymous, because it does not have a name.
-     * That class is instantiated immediately where it is created. For example:
+     * Parfois, créer un fichier et une classe publique représente beaucoup de travail lorsque l'on implémente une interface simple, et qu'on l'utilise à un seul endroit dans le code.
+     * Dans cette situation, tu peux implémenter une interface dans une classe anonyme. La classe est anonyme car elle n'a pas de nom.
+     * Cette classe est instantiée en un object immédiatement où elle est définie. Par exemple:
      * 
      *     public Weapon toss() {
      *         return new Weapon() {
      *             @Override
      *             public void hit(Monster monster) {
-     *                 // Some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc...
+     *                 // Du code qui calcule et applique le dommage, applique de l'usure à l'arme, etc...
      *             }
      *         }
      *     }
      * 
-     * When looking at this code, you could be tempted to believe there is a constructor for the interface Weapon, but there is not.
-     * We are really creating a class, for which there exists a single object.
-     * The constructor with empty parameters is the one of this nameless class.
-     * We can now get and use the tossed weapon this way:
+     * Quand on considère ce code, on pourrait être tenté de croire qu'il y a un constructeur pour l'interface 'Weapon', mais évidemment, une interface n'a pas de constructeur, puisque c'est un simple "contrat".
+     * Ici, nous créons vraiment une classe, pour laquelle le seul endroit où des objets vont être créés est la méthode 'toss()'.
+     * Le constructeur sans paramètre est celui de cette classe sans nom.
+     * Nous pouvons maintenant utiliser cette arme envoyée de cette manière:
      * 
      *     Weapon tossedWeapon = toss();
      *     tossedWeapon.hit(zombie);
@@ -130,64 +130,62 @@ public class AboutInterfaces {
 
     
     /**
-     * # Lambda methods
+     * # Méthodes lambda
      * 
-     * Write a method 'getLambdaCombining' which returns an lambda method implementing 'bonuses.teachingmaterial.Combining'.
-     * The implementation of the combine() method devrait retourner the first number subtracted from the second.
+     * Écris une méthode 'getLambdaCombining' qui retourne une méthode lambda implémentant 'bonuses.teachingmaterial.Combining'.
+     * L'implémentation de la méthode combine() devrait retourner le 1er nombre soustrait du 2ème.
      * 
      * ---------   TIPS   --------------
      * 
-     * When an interface have only one method, there is an even shorter form to implement it. You can use what is called a 'lambda method'.
-     * A 'lambda method' is a stripped down version of a method. Since our example interface 'Weapon' has only a single method 'hit()', we can use this shortcut:
+     * Quand une interface a une seule méthode, il exist une forme encore plus courte pour l'implémenter. Tu peux créer ce que l'on appelle une "méthode lambda".
+     * Une "méthode lambda" est une version raccourcie d'une méthode. Comme notre interface exemple 'Weapon' ne contient qu'une seule méthode 'hit()', nous pouvons utiliser ce raccourci.
      * 
-     * For example:
+     * Par example:
      * 
      *     public Weapon toss() {
      *         return (monster) -> { 
-     *             // Some code computing and applying damage to the monster, applying some tear and wear on the weapon, etc.. 
+     *             // Du code qui calcule et applique le dommage, applique de l'usure à l'arme, etc...
      *         };
      *     }
      * 
-     * We can now get and use the tossed weapon this way:
+     * Nous pouvons maintenant utiliser cette arme envoyée de cette manière:
      * 
      *     Weapon tossedWeapon = toss();
      *     tossedWeapon.hit(zombie);
      * 
-     * The general syntax for lambda method returning void, or having a body with multiple lines:
+     * La syntaxe générale pour une méthode lambda dont l'implémentation est constituée de plusieurs lignes est la suivante:
      * 
-     *     ([param1Name], [param2Name], ...) -> {
-     *         // Lambda method body here
+     *     ([nomParam1], [nomParam2], ...) -> {
+     *         // Corps de la méthode lambda ici
      *     }
      * 
-     * If your lambda is having a single expression, you can even skip the parentheses and the 'return':
+     * Si ta lambda a une seule expression, tu peux même enlever les accolades et l'instruction 'return':
      * 
-     *     ([param1Name], [param2Name], ...) -> // expression here
+     *     ([nomParam1], [nomParam2], ...) -> // expression ici
      * 
-     * Here are some example of methods and their lambda equivalent (assuming the interface has only one method in it):
+     * Voici quelques exemples de méthodes et leur équivalent lambda (en supposant que l'interface n'a qu'une seule de ces méthodes dans son contrat):
      * 
-     * This interface implementation:
+     * L'implémentation de cette méthode:
      * 
      *     public void sayHello() {
      *         System.out.println("hello");
      *     }
      * 
-     * Can be replaced by this lambda:
+     * Peut être remplacée par cette lambda:
      * 
-     *     () -> {
-     *         System.out.println("hello");
-     *     }
+     *     () -> System.out.println("hello")
      * 
-     * This interface implementation:
+     * L'implémentation de cette méthode:
      * 
      *     public int square(int x) {
      *         return x * x;
      *     }
      * 
-     * Can be replaced by this lambda:
+     * Peut être remplacée par cette lambda:
      * 
      *     (x) -> x * x
      * 
-     * This interface implementation:
+     * L'implémentation de cette méthode:
      * 
      *     public int min(int x, int y) {
      *         if (x < y) {
@@ -196,7 +194,7 @@ public class AboutInterfaces {
      *         return y;
      *     }
      * 
-     * Can be replaced by this lambda:
+     * Peut être remplacée par cette lambda:
      * 
      *     (x, y) -> {
      *         if (x < y) {
@@ -215,39 +213,42 @@ public class AboutInterfaces {
 
 
     /**
-     * # Common lambda interfaces
+     * # Interfaces lambda communes
      * 
-     * Write a method 'getIsEven' which returns a lambda method testing if an integer is even.
+     * Écris une méthode 'getIsEven' qui retourne une méthode lambda testant si un entier est pair.
      * 
      * ---------   TIPS   --------------
      * 
-     * Since lambda methods are so useful, a lot of interfaces already exist in the Java standard library, and we don't have to create them ourselves.
+     * Note: la notation {@link java.lang.String} permet de montrer un lien vers une classe dans un commentaire. Pour voir la classe, tu peux faire un [CTRL] + clic sur le nom de la classe.
      * 
-     * For example:
+     * Comme les méthodes lambdas sont si pratiques, beaucoup d'interfaces simples existent déjà dans la librairie standard de Java. Nous n'avons pas besoin de les créer nous même.
+     * Par exemple, une interface avec une méthode ayant la même signature que 'combine()' existe déjà. C'est {@link java.util.function.IntBinaryOperator}.
      * 
-     * For a lambda taking no parameter, and returning nothing, {@link java.lang.Runnable}:
+     * D'autres exemples:
      * 
-     *     Runnable sayHello = () -> { System.out.println("Hello"); };
+     * Pour une lambda sans paramètre, et ne retournant rien, {@link java.lang.Runnable}:
      * 
-     * For a lambda taking a int parameter, and returning nothing, {@link java.util.function.IntConsumer}:
+     *     Runnable sayHello = () -> System.out.println("Hello");
      * 
-     *     IntConsumer displayInt = (anInt) -> { System.out.println(anInt); };
+     * Pour une lambda prenant un paramètre 'int', et ne retournant rien, {@link java.util.function.IntConsumer}:
      * 
-     * The same exist for other type. For example {@link java.util.function.DoubleConsumer}:
+     *     IntConsumer displayInt = (anInt) -> System.out.println(anInt);
      * 
-     *     DoubleConsumer displayDouble = (aDouble) -> { System.out.println(aDouble); };
+     * La même chose existe pour d'autres types de paramètres. Par exemple {@link java.util.function.DoubleConsumer}:
      * 
-     * The reverse functions, taking nothing as a parameter, but returning something exist as well: {@link java.util.function.IntSupplier}, {@link java.util.function.DoubleSupplier}. etc...
+     *     DoubleConsumer displayDouble = (aDouble) -> System.out.println(aDouble);
+     * 
+     * Les methodes inverses, ne prenant aucun paramètre, mais retournant un résultat, existent aussi: {@link java.util.function.IntSupplier}, {@link java.util.function.DoubleSupplier}. etc...
      * 
      *     DoubleSupplier giveMePiPleeeaaase = () -> 3.14159;
      * 
-     * There is also a lot of case where you would need to test a number somehow. This is where interfaces like {@link java.util.function.IntPredicate} shine:
+     * Un cas courant est lorsque nous avons besoin de tester si un nombre respecte une condition. C'est là que les interfaces "prédicat" brillent, comme {@link java.util.function.IntPredicate}:
      * 
      *     IntPredicate isPositive = (number) -> number >= 0;
      * 
-     * For the exercise, you can use the modulo operator, %, which computes the remainder of an integer division:
+     * Pour cet exercice, tu peux utiliser l'opérateur modulo, %, qui calcule le reste d'une division entière:
      * 
-     *     int remainder = 17 % 5; // remainder equals 2
+     *     int remainder = 17 % 5; // remainder vaut 2
      * 
      * -------------------------------
      * 

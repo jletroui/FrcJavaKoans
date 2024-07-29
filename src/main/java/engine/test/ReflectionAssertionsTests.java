@@ -12,8 +12,8 @@ import engine.Koan;
 import engine.Localizable;
 import engine.ConsoleFmt.Formats;
 import engine.test.runner.Line;
-import engine.test.runner.UnitTest;
-import engine.test.runner.KoanUnitTest;
+import engine.test.runner.KoanEngineAutomatedTest;
+import engine.test.runner.KoanEngineIntegrationTest;
 import engine.test.simulation.SomeInterface;
 import engine.test.simulation.StudentSolutions;
 
@@ -25,14 +25,14 @@ import static engine.Texts.*;
 public class ReflectionAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
-    public static final List<UnitTest> tests = List.of(
-        new KoanUnitTest(
+    public static final List<KoanEngineAutomatedTest> tests = List.of(
+        new KoanEngineIntegrationTest(
             new Koan(CLASS, global("implements interface"))
                 .beforeFirstTest(assertImplementsInterface("engine.test.simulation.SomeImplementation", SomeInterface.class))
                 .when(callKoanMethod("simpleConsoleOutput")),
             assertSuccess()
         ),
-        new KoanUnitTest(
+        new KoanEngineIntegrationTest(
             new Koan(CLASS, global("does not implement interface"))
                 .beforeFirstTest(assertImplementsInterface("engine.test.simulation.SomeImplementation", IntConsumer.class))
                 .when(callKoanMethod("simpleConsoleOutput")),

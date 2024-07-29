@@ -101,8 +101,8 @@ public class AboutInterfaces {
      * 
      * ---------   TIPS   --------------
      * 
-     * Sometimes, it is tedious to create a class file to implement an interface just for one occasion.
-     * In these situation, you can implement the interface in an anonymous class. It is anonymous, because it does not have a name.
+     * Sometimes, creating a file and a public class is a lot of work when we implement a simple interface, and we only use it in a single place.
+     * In such a situation, you can implement the interface in an anonymous class. It is anonymous, because it does not have a name.
      * That class is instantiated immediately where it is created. For example:
      * 
      *     public Weapon toss() {
@@ -115,7 +115,7 @@ public class AboutInterfaces {
      *     }
      * 
      * When looking at this code, you could be tempted to believe there is a constructor for the interface Weapon, but there is not.
-     * We are really creating a class, for which there exists a single object.
+     * We are really creating a class, for which the only place we will create objects is this 'toss()' method.
      * The constructor with empty parameters is the one of this nameless class.
      * We can now get and use the tossed weapon this way:
      * 
@@ -139,7 +139,7 @@ public class AboutInterfaces {
      * 
      * ---------   TIPS   --------------
      * 
-     * When an interface have only one method, there is an even shorter form to implement it. You can use what is called a 'lambda method'.
+     * When an interface have only one method, there is an even shorter form to implement it. You can create what is called a "lambda method".
      * A 'lambda method' is a stripped down version of a method. Since our example interface 'Weapon' has only a single method 'hit()', we can use this shortcut:
      * 
      * For example:
@@ -155,17 +155,17 @@ public class AboutInterfaces {
      *     Weapon tossedWeapon = toss();
      *     tossedWeapon.hit(zombie);
      * 
-     * The general syntax for lambda method returning void, or having a body with multiple lines:
+     * The general syntax for lambda method having a body with multiple lines is:
      * 
      *     ([param1Name], [param2Name], ...) -> {
      *         // Lambda method body here
      *     }
      * 
-     * If your lambda is having a single expression, you can even skip the parentheses and the 'return':
+     * If your lambda is having a single expression, you can even skip the curly brackets and the 'return' statement:
      * 
      *     ([param1Name], [param2Name], ...) -> // expression here
      * 
-     * Here are some example of methods and their lambda equivalent (assuming the interface has only one method in it):
+     * Here are some example of methods and their lambda equivalent (assuming the interface has only one of these methods in its contract):
      * 
      * This interface implementation:
      * 
@@ -175,9 +175,7 @@ public class AboutInterfaces {
      * 
      * Can be replaced by this lambda:
      * 
-     *     () -> {
-     *         System.out.println("hello");
-     *     }
+     *     () -> System.out.println("hello")
      * 
      * This interface implementation:
      * 
@@ -223,27 +221,30 @@ public class AboutInterfaces {
      * 
      * ---------   TIPS   --------------
      * 
-     * Since lambda methods are so useful, a lot of interfaces already exist in the Java standard library, and we don't have to create them ourselves.
+     * Note: the {@link java.lang.String} notation allows to show a link to a class in a comment. To see the class, you can [CTRL] + clic on its name.
      * 
-     * For example:
+     * Since lambda methods are so useful, a lot of simple interfaces already exist in the Java standard library, and we don't have to create them ourselves.
+     * For example, an interface with a method having the same signature as the 'combine()' method already exists. It is called the {@link java.util.function.IntBinaryOperator}.
+     * 
+     * Other examples:
      * 
      * For a lambda taking no parameter, and returning nothing, {@link java.lang.Runnable}:
      * 
-     *     Runnable sayHello = () -> { System.out.println("Hello"); };
+     *     Runnable sayHello = () -> System.out.println("Hello");
      * 
-     * For a lambda taking a int parameter, and returning nothing, {@link java.util.function.IntConsumer}:
+     * For a lambda taking a 'int' parameter, and returning nothing, {@link java.util.function.IntConsumer}:
      * 
-     *     IntConsumer displayInt = (anInt) -> { System.out.println(anInt); };
+     *     IntConsumer displayInt = (anInt) -> System.out.println(anInt);
      * 
-     * The same exist for other type. For example {@link java.util.function.DoubleConsumer}:
+     * The same exist for other parameter types. For example {@link java.util.function.DoubleConsumer}:
      * 
-     *     DoubleConsumer displayDouble = (aDouble) -> { System.out.println(aDouble); };
+     *     DoubleConsumer displayDouble = (aDouble) -> System.out.println(aDouble);
      * 
-     * The reverse functions, taking nothing as a parameter, but returning something exist as well: {@link java.util.function.IntSupplier}, {@link java.util.function.DoubleSupplier}. etc...
+     * The reverse methods, taking no parameter, but returning something exist as well: {@link java.util.function.IntSupplier}, {@link java.util.function.DoubleSupplier}. etc...
      * 
      *     DoubleSupplier giveMePiPleeeaaase = () -> 3.14159;
      * 
-     * There is also a lot of case where you would need to test a number somehow. This is where interfaces like {@link java.util.function.IntPredicate} shine:
+     * There is also a lot of case where you would need to test if a number respect a certain condition. This is where "predicate" interfaces like {@link java.util.function.IntPredicate} shine:
      * 
      *     IntPredicate isPositive = (number) -> number >= 0;
      * 

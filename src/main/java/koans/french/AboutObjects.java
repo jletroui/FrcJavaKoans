@@ -65,7 +65,7 @@ public class AboutObjects {
      *         private final String name;
      *         private final int age;
      *         
-     *         public introduce() {
+     *         public void introduce() {
      *             // Dans une méthode attachée à l'objet, nous pouvons utiliser les valeurs des champs, comme si c'était de simples variables
      *             System.out.println("Salut, mon nom est " + name + " et j'ai " + age + " ans");
      *         }
@@ -93,7 +93,7 @@ public class AboutObjects {
      *             this.age = age; 
      *         }
      * 
-     *         public introduce() {
+     *         public void introduce() {
      *             System.out.println("Hello, my name is " + name + " and I am " + age);
      *         }
      *     }

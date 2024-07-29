@@ -14,8 +14,8 @@ import engine.Koan;
 import engine.Localizable;
 import engine.ConsoleFmt.Formats;
 import engine.test.runner.Line;
-import engine.test.runner.UnitTest;
-import engine.test.runner.KoanUnitTest;
+import engine.test.runner.KoanEngineAutomatedTest;
+import engine.test.runner.KoanEngineIntegrationTest;
 import engine.test.simulation.StudentSolutions;
 
 import static engine.script.Expression.callKoanMethod;
@@ -26,8 +26,8 @@ import static engine.Texts.*;
 public class ConsoleAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
-    public static final List<UnitTest> tests = List.of(
-        new KoanUnitTest(
+    public static final List<KoanEngineAutomatedTest> tests = List.of(
+        new KoanEngineIntegrationTest(
             new Koan(CLASS, global("simpleConsoleOutput()"))
                 .useConsole()
                 .beforeFirstTest(assertKoanMethodIsInvokable("simpleConsoleOutput"))
@@ -40,7 +40,7 @@ public class ConsoleAssertionsTests {
                 new Line.Localized(format(OK_DISPLAYED_IN_CONSOLE, Formats.Green, "hello", code("simpleConsoleOutput()")))
             )
         ),
-        new KoanUnitTest(
+        new KoanEngineIntegrationTest(
             new Koan(CLASS, global("noMethod"))
                 .useConsole()
                 .beforeFirstTest(assertKoanMethodIsInvokable("noMethod"))

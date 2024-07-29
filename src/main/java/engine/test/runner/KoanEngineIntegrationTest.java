@@ -10,7 +10,7 @@ import engine.TestSensei.TestResult;
 /**
  * This kind of unit test allows to test koan mechanisms, by asserting the console output of successful or failing koans.
  */
-public record KoanUnitTest(Koan koan, UnitTestExpectation... expectations) implements UnitTest {
+public record KoanEngineIntegrationTest(Koan koan, UnitTestExpectation... expectations) implements KoanEngineAutomatedTest {
     private static final Map<Boolean, String> SUCCESS_WORDING = Map.of(
         true, "success",
         false, "failure"
@@ -46,7 +46,7 @@ public record KoanUnitTest(Koan koan, UnitTestExpectation... expectations) imple
 
     private static void displayOutputDiff(UnitTestExpectation expected, TestResult actual) {
         System.out.println("Expected output:");
-        expected.displayOutputToConsole(TestSensei.TEST_LOCALE);
+        expected.displayOutputToConsole(actual.locale());
         System.out.println();
         System.out.println("Actual output:");
         actual.displayOutputToConsole();

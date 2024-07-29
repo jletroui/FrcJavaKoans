@@ -104,8 +104,7 @@ public class Sensei {
                 // Can't detect infinite loop when the user has to enter data through the console, because we don't know how much time to wait for.
                 thread.join();
             } else {
-                thread.join();
-                //thread.join(TIMEOUT_INFINITE_LOOPS_MS);
+                thread.join(TIMEOUT_INFINITE_LOOPS_MS);
             }
         }
         catch(InterruptedException ie) {

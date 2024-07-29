@@ -277,7 +277,7 @@ We have found that students learn faster if mentors are not giving solutions to 
 2) Not part of the FRC Java Koans: make them program their first robot with a simple `TimedRobot`. It is suggested to have a simple differential drive robot.
   * Super simple auto mode making the robot go forward at 20% speed for 1 second.
   * Simple teleop mode making the robot move with a joystick.
-3) Students can now follow the `src/main/java/bonuses/english/AboutInterfaces.java` (** COMING SOON **) bonus koans.
+3) Students can now follow the `src/main/java/bonuses/english/AboutInterfaces.java` bonus koans.
 4) Not part of the FRC Java Koans: make them program the simple robot again, but using [commands based programming](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html).
 
 Optional:
@@ -598,7 +598,7 @@ Nous avons trouvé que les élèves passent à travers le cours plus rapidement,
 2) Non couvert par les FRC Java Koans: faites les programmer leur premier robot, avec un simple `TimedRobot`. Il est recommandé d'avoir un robot avec une simple base différentielle.
   * Mode auto basique, faisant avancer le robot à 20% de sa vitesse pendant 1 seconde.
   * Mode téléop faisant contrôler le robot avec un joystick.
-3) Les élèves peuvent ensuite suivre le koan bonus `src/main/java/bonuses/french/AboutInterfaces.java` (** BIENTÔT DISPONIBLE **).
+3) Les élèves peuvent ensuite suivre le koan bonus `src/main/java/bonuses/french/AboutInterfaces.java`.
 4) Non couvert par les FRC Java Koans: les élève peuvent programmer de nouveau le robot simple, mais cette fois ci [en programmation orientée commandes](https://docs.wpilib.org/fr/stable/docs/software/commandbased/index.html).
 
 Optionnel:

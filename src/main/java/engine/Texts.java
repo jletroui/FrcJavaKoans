@@ -153,6 +153,30 @@ public class Texts {
     public static Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE =
         local("Expected %s to return a %s but returned a %s instead!")
         .fr("Attendu à ce que %s retourne un %s mais a retourné un %s à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_IMPLEMENTING_BUT_RETURNED_NULL =
+        local("Expected %s to return a %s but returned null instead!")
+        .fr("Attendu à ce que %s retourne un %s mais a retourné null à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_IMPLEMENTING_BUT_NOT =
+        local("Expected %s to return an object implementing %s but %s is not!")
+        .fr("Attendu à ce que %s retourne un object implémentant %s mais %s ne l'implémente pas!");
+    public static Localizable<String> EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_NULL =
+        local("Expected %s to return an anonymous implementation but returned null instead!")
+        .fr("Attendu à ce que %s retourne une implémentation anonyme mais a retourné null à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED =
+        local("Expected %s to return an anonymous implementation but returned a %s instead!")
+        .fr("Attendu à ce que %s retourne une implémentation anonyme mais a retourné un %s à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_LAMBDA =
+        local("Expected %s to return an anonymous implementation but returned a lambda method instead!")
+        .fr("Attendu à ce que %s retourne une implémentation anonyme mais a retourné une méthode lambda à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_NULL =
+        local("Expected %s to return a lambda method but returned null instead!")
+        .fr("Attendu à ce que %s retourne une méthode lambda mais a retourné null à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED =
+        local("Expected %s to return a lambda method but returned a %s instead!")
+        .fr("Attendu à ce que %s retourne une méthode lambda mais a retourné un %s à la place!");
+    public static Localizable<String> EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_ANONYMOUS =
+        local("Expected %s to return a lambda method but returned an anonymous implementation instead!")
+        .fr("Attendu à ce que %s retourne une méthode lambda mais a retourné une implémentation anonyme à la place!");
     public static Localizable<String> EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE =
         local("Expected %s to result in %s being a %s but was a %s instead!")
         .fr("Attendu à ce que %s résulte en %s étant un %s mais était un %s à la place!");
@@ -168,6 +192,15 @@ public class Texts {
     public static Localizable<String> OK_RETURNED =
         local("Ok: %s returned %s.")
         .fr("Ok: %s a retourné %s.");
+    public static Localizable<String> OK_RETURNED_OBJECT_IMPLEMENTS =
+        local("Ok: return of %s implements %s.")
+        .fr("Ok: le retour de %s implémente %s.");
+    public static Localizable<String> OK_RETURNED_OBJECT_IS_ANONYMOUS =
+        local("Ok: return of %s is an anonymous implementation.")
+        .fr("Ok: le retour de %s est une implémentation anonyme.");
+    public static Localizable<String> OK_RETURNED_OBJECT_IS_LAMBDA =
+        local("Ok: return of %s is a lambda method.")
+        .fr("Ok: le retour de %s est une méthode lambda.");
     public static Localizable<String> EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE =
         local("Expected %s to return an integer but returned a '%s' instead!")
         .fr("Attendu à ce que %s retourne un entier mais a retourné un '%s' à la place!");
@@ -184,14 +217,14 @@ public class Texts {
         local("Expected %s to return %d from random number %f but returned %d instead!")
         .fr("Attendu à ce que %s retourne %d à partir du nombre aléatoire %f mais a retourné %d à la place!");
     public static Localizable<String> OK_RETURNED_INT_FROM_RANDOM =
-        local("Ok: %s returned %d from random number %f.")
-        .fr("Ok: %s a retourné %d à partir du nombre aléatoire %f.");
+        local("Ok: %s returned %s from random number %f.")
+        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %f.");
     public static Localizable<String> EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED =
-        local("Expected %s to return %d from random numbers %s but returned %d instead!")
-        .fr("Attendu à ce que %s retourne %d à partir des nombres aléatoires %s mais a retourné %d à la place!");
+        local("Expected %s to return %s from random numbers %s but returned %d instead!")
+        .fr("Attendu à ce que %s retourne %s à partir des nombres aléatoires %s mais a retourné %d à la place!");
     public static Localizable<String> OK_RETURNED_INT_FROM_RANDOMS =
-        local("Ok: %s returned %d from random numbers %s.")
-        .fr("Ok: %s a retourné %d à partir du nombre aléatoire %s.");        
+        local("Ok: %s returned %s from random numbers %s.")
+        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %s.");        
     public static Localizable<String> EXPECTED_FIELD_TO_BE_PRIVATE =
         local("Expected '%s' field in class %s to be private, but it is not.")
         .fr("Attendu à ce que le champ '%s' dans la classe %s soit privé, mais il ne l'est pas.");
@@ -204,5 +237,8 @@ public class Texts {
     public static Localizable<String> EXPECTED_FIELD_TO_BE_OF_TYPE =
         local("Expected '%s' field in class %s to be a '%s', but it is a '%s'.")
         .fr("Attendu à ce que le champ '%s' dans la classe %s soit un '%s', mais il est un '%s'.");
+    public static Localizable<String> EXPECTED_CLASS_TO_IMPLEMENT =
+        local("Expected class %s to implement %s, but it does not.")
+        .fr("Attendu à ce la classe %s implémente %s, mais elle ne l'implémente pas.");
 
 }

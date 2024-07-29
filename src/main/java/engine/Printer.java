@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import engine.test.Line;
+import engine.test.runner.Line;
 
 /**
  * A Printer allows to print feedback to the student.

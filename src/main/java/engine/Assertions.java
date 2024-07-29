@@ -273,6 +273,58 @@ public class Assertions {
             return true;
         }; 
     }
+
+    public static ResultAssertion assertReturnValueIsAnonymousObject() {
+        return (p, res) -> {
+            if (res.executionResult == null) {
+                p.println(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode)));
+                return false;
+            } else if (res.executionResult.getClass().getSimpleName().contains("$$Lambda$")) { // Kind of hacky, but only way as far as I know
+                p.println(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_LAMBDA, Formats.Red, code(res.resultExpressionSourceCode)));
+                return false;
+            } else if (!res.executionResult.getClass().isAnonymousClass()) {
+                p.println(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(res.executionResult.getClass().getName())));
+                return false;
+            }
+
+            p.println(format(OK_RETURNED_OBJECT_IS_ANONYMOUS, Formats.Green, code(res.resultExpressionSourceCode)));
+            return true;
+        };
+    }
+
+    public static ResultAssertion assertReturnValueIsLambda() {
+        return (p, res) -> {
+            if (res.executionResult == null) {
+                p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode)));
+                return false;
+            } else if (res.executionResult.getClass().isAnonymousClass()) {
+                p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_ANONYMOUS, Formats.Red, code(res.resultExpressionSourceCode)));
+                return false;
+            } else if (!res.executionResult.getClass().getSimpleName().contains("$$Lambda")) { // Kind of hacky, but only way as far as I know
+                p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(res.executionResult.getClass().getName())));
+                return false;
+            }
+
+            p.println(format(OK_RETURNED_OBJECT_IS_LAMBDA, Formats.Green, code(res.resultExpressionSourceCode)));
+            return true;
+        };
+    }
+
+    public static ResultAssertion assertReturnValueImplements(Class<?> valueInterface) {
+        return (p, res) -> {
+            final var interfaceName = code(valueInterface.getName());
+            if (res.executionResult == null) {
+                p.println(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode), interfaceName));
+                return false;
+            } else if (!valueInterface.isInstance(res.executionResult)) {
+                p.println(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_NOT, Formats.Red, code(res.resultExpressionSourceCode), interfaceName, code(res.executionResult.getClass().getName())));
+                return false;
+            }
+
+            p.println(format(OK_RETURNED_OBJECT_IMPLEMENTS, Formats.Green, code(res.resultExpressionSourceCode), interfaceName));
+            return true;
+        };
+    }
     
     public static BeforeTestAssertion assertConstructorIsInvokable(final String className, final Type... constructorParamTypes) {
         return (p, locale, _koan) -> {
@@ -325,7 +377,7 @@ public class Assertions {
             return true;
         };
     }
-    
+
     /**
      * This asserts that the method in the current Koan class is invokable with the given param types.
      * 
@@ -436,6 +488,20 @@ public class Assertions {
             }
 
             return true;
+        };
+    } 
+
+    public static BeforeTestAssertion assertImplementsInterface(final String className, final Class<?> interfaceClass) {
+        return (p, locale, koan) -> {
+            final var type = new Type(className);
+            final var clasz = type.unsafeResolve();
+            final var success = interfaceClass.isAssignableFrom(clasz);
+
+            if (!success) {
+                    p.println(format(EXPECTED_CLASS_TO_IMPLEMENT, Formats.Red, code(className), code(interfaceClass.getName())));
+            }
+
+            return success;
         };
     } 
 }

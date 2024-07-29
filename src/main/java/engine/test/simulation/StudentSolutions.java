@@ -19,5 +19,22 @@ public class StudentSolutions {
 
     public static int[] returnedValueNull() {
         return null;
-    }    
+    }
+
+    public static SomeInterface returnedValueImplements() {
+        return new SomeImplementation();
+    }
+
+    public static SomeInterface returnedValueAnonymousImplementation() {
+        return new SomeInterface() {
+            @Override
+            public int op(int a, int b) {
+                return a+b;
+            }
+        };
+    }
+
+    public static SomeInterface returnedValueLambda() {
+        return (a, b) -> a + b;
+    }
 }

@@ -1,40 +1,33 @@
-package engine.test;
+package engine.test.runner;
 
-import java.util.List;
 import java.util.Map;
 
 import engine.ConsoleFmt;
+import engine.Koan;
 import engine.TestSensei;
 import engine.TestSensei.TestResult;
 
-public class TestRunner {
-    private static final List<List<UnitTest>> TO_RUN = List.of(
-        ConsoleAssertionsUnitTests.items,
-        EqualityAssertionsUnitTests.items
-    );
+/**
+ * This kind of unit test allows to test koan mechanisms, by asserting the console output of successful or failing koans.
+ */
+public record KoanEngineIntegrationTest(Koan koan, UnitTestExpectation... expectations) implements KoanEngineAutomatedTest {
     private static final Map<Boolean, String> SUCCESS_WORDING = Map.of(
         true, "success",
         false, "failure"
     );
     private static final String RED_FAILURE =  ConsoleFmt.red("FAILURE");
 
-    public static void main(String[] args) {
+    public RunResult runTest() {
         var totalCount = 0;
         var successCount = 0;
-
-        for(var unitTestSeries: TO_RUN) {
-            for(var unitTest: unitTestSeries) {
-                var actualResults = TestSensei.execute(unitTest.koan());
-                for(int i=0; i<unitTest.expectations().length; i++) {
-                    totalCount++;
-                    if (assertResult(unitTest.expectations()[i], actualResults.get(i))) {
-                        successCount++;
-                    }
-                }
+        var actualResults = TestSensei.execute(koan);
+        for(int i=0; i<expectations.length; i++) {
+            totalCount++;
+            if (assertResult(expectations[i], actualResults.get(i))) {
+                successCount++;
             }
         }
-
-        System.out.println(String.format("%d/%d tests passed.", successCount, totalCount));
+        return new RunResult(totalCount, successCount);
     }
 
     private static boolean assertResult(UnitTestExpectation expected, TestResult actual) {
@@ -53,10 +46,10 @@ public class TestRunner {
 
     private static void displayOutputDiff(UnitTestExpectation expected, TestResult actual) {
         System.out.println("Expected output:");
-        expected.displayOutputToConsole(TestSensei.TEST_LOCALE);
+        expected.displayOutputToConsole(actual.locale());
         System.out.println();
         System.out.println("Actual output:");
         actual.displayOutputToConsole();
         System.out.println();
-    }
+    }    
 }

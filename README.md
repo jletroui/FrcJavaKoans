@@ -28,7 +28,7 @@ To get started you will need to either install VS Code or use GitHub Codespaces,
 
 To install VS Code, you will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) first to run the Java Koans for the FRC.
 
-Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.2/FrcJavaKoans.zip) of the Java Koans.
+Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v2.0/FrcJavaKoans.zip) of the Java Koans.
 
 Then, extract it somewhere on your computer. Go to the folder where you have downloaded the koans, righ-click on the koans zip file, and choose 'Extract All'. Choose your destination folder, for example, a `/src` folder within your `Documents` folder.
 
@@ -347,7 +347,7 @@ Pour commencer, vous devrez soit installer VS Code, soit utiliser GitHub Codespa
 
 Si ce n'est déjà fait, tu vas devoir installer [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) pour pouvoir exécuter les Koans Java pour la FRC.
 
-Une fois installé, télécharge [la dernière version](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.2/FrcJavaKoans.zip) des Koans Java.
+Une fois installé, télécharge [la dernière version](https://github.com/jletroui/FrcJavaKoans/releases/download/v2.0/FrcJavaKoans.zip) des Koans Java.
 
 Ensuite, décompresse les quelque part sur ton ordinateur. Pour ce faire, va dans le répertoire où tu as téléchargé les koans, clic-droit dessus, et choisis "Extraire Tout". Choisis un répertoire de destination, par exemple, un répertoire `/src` dans ton répertoire `Documents`.
 

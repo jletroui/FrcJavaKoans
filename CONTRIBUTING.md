@@ -64,7 +64,7 @@ We expressed above a concern for saving student's attention / motivation / time.
 ### Design goals
 
 - Strive to work on a bare WPILib installation: on VSCode with no need for a plugin.
-- Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool.
+- Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool. This has consequences: the project has to includes a mini test framework for example.
 - Java 17, because as of 2024, this is the version used by default in WPILib's VSCode.
 
 ### Compromises and limitations
@@ -79,3 +79,15 @@ We expressed above a concern for saving student's attention / motivation / time.
 Pull requests for translations, curiculum tweaks or new capabilities are welcome.
 
 When submitting bugs, please submit a zip file of the koans in a state exhibiting the issue.
+
+## Testing
+
+Testing this kind of project is challenging for a few reasons, main ones being:
+
+1. By design, we don't have a build tool (Gradle or Maven for example), nor access to any libraries. So no JUnit on hand.
+2. We would not want to include solutions to the koans within the project, because the students might stumble on them, which would affect their learning.
+
+For 1., we have created a mini test framework in `engine.test.runner` in order to run unit and integration tests of the koans engine. Tests are located in `engine.test`. To run those tests, simply run the `engine.test.runner.TestRunner.main` method.
+
+For 2., we have created a [brother project](https://github.com/jletroui/FrcJavaKoansTests) testing the koans themselves.
+

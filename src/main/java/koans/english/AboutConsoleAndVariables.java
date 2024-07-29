@@ -135,7 +135,7 @@ public class AboutConsoleAndVariables {
      * 
      *     String someText = readLine();
      *                             ^
-     *       cet appel de méthode va être remplacé par son résultat
+     *       this method call will be replaced by its result
      * 
      * Will become the equivalent to:
      * 

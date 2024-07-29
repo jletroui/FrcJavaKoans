@@ -126,6 +126,16 @@ public class AboutNot7Game {
      * 
      * Écris une méthode 'askQuestion(String questionText)' qui pose une question à l'utilisateur, et retourne un booléen indiquant si l'utilisateur a répondu 'o'.
      * 
+     * ---------   INDICES   --------------
+     * 
+     * Java a une petite particuliarité. Pour tester si 2 String sont égales, nous ne pouvons pas utiliser '=='. Ex:
+     * 
+     *     "abc" == "abc" // Retourne toujours faux!!!
+     * 
+     * Pour comparer 2 String, il faut donc utiliser la méthode 'equals()' de String:
+     * 
+     *     "abc".equals("abc") // Retourne vrai, comme cela le devrait.
+     * 
      * -------------------------------
      * 
      * Résultat attendu:

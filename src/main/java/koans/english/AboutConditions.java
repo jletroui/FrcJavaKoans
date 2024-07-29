@@ -57,6 +57,8 @@ public class AboutConditions {
      *         return 0; // Stop the method execution right there and return 0.
      *     }
      * 
+     * Note 3: within the curly brackets of a 'if' or 'else', you can write all the code you want, including other 'if' / 'else' !.
+     * 
      * -------------------------------
      * 
      * Expected result:

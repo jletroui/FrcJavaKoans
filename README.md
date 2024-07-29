@@ -298,7 +298,7 @@ Before teaching them to deal with a Swerve Drive, the students could follow `src
 In the bonus koans:
 
 * Arrays and `for` loops
-* Functional interfaces (** COMING SOON **)
+* Functional interfaces
 
 ### Contributing and learning more
 
@@ -619,7 +619,7 @@ Avant de leur enseigner la programmation d'une base Swerve, les élèves peuvent
 In the bonus koans:
 
 * Tableaux et boucles `for`
-* Interfaces fonctionnelles (** BIENTÔT DISPONIBLE **)
+* Interfaces fonctionnelles
 
 ### En savoir plus, contribuer
 

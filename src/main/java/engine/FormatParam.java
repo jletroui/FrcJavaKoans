@@ -18,7 +18,7 @@ public interface FormatParam {
                     try {
                         final int value = Integer.parseInt(line);
                         return  String.valueOf(value + increment);
-                    } catch(NumberFormatException nfe) {
+                    } catch(final NumberFormatException _nfe) {
                         // Ignore
                     }
                     return "";

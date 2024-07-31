@@ -3,58 +3,99 @@ package engine.test.runner;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.List;
 
+import engine.ConsoleFmt;
+import engine.test.runner.RunnerAssertions.AssertionFailure;
+
+/**
+ * This is a stripped down, poor's version of JUnit, since we don't have access to any dependency.
+ */
 public class TestRunner {
-    public static void main(String[] args) {
+    private static final String RED_FAILURE =  ConsoleFmt.red("FAILURE");
+
+    public static void main(final String[] args) {
         var totalCount = 0;
         var successCount = 0;
 
-        for(var unitTestSeries: findTestSuites()) {
-            for(var unitTest: unitTestSeries) {
-                final var unitTestResult = unitTest.runTest();
-                totalCount += unitTestResult.total();
-                successCount += unitTestResult.succeeded();
+        for(final var testSuite: findTestSuites()) {
+            for(final var test: testSuite) {
+                try {
+                    test.run();
+                    successCount++;
+                } catch(final AssertionFailure _af) {
+                    // Nothing else to do other than not increasing successCount, since feedback is already given to the console by the test.
+                }
+                totalCount ++;
             }
         }
 
-        System.out.println(String.format("%d/%d tests passed.", successCount, totalCount));
+        System.out.printf("%d/%d tests passed.%n", successCount, totalCount);
     }
 
-    private static List<List<KoanEngineAutomatedTest>> findTestSuites() {
-        try(var packageStream = TestRunner.class.getClassLoader().getResourceAsStream("engine/test")) {
-            try(var reader = new BufferedReader(new InputStreamReader(packageStream))) {
+    private static List<List<Runnable>> findTestSuites() {
+        try(final var packageStream = TestRunner.class.getClassLoader().getResourceAsStream("engine/test")) {
+            try(final var reader = new BufferedReader(new InputStreamReader(packageStream))) {
                 return reader
                     .lines()
                     .filter(line -> line.endsWith("Tests.class"))
-                    .map(line -> getTestClass(line))
-                    .map(clasz -> getTestSuite(clasz))
+                    .map(TestRunner::loadTestClass)
+                    .map(TestRunner::findTestsInClass)
                     .toList();
             }
-        } catch(IOException ioe) {
+        } catch(final IOException ioe) {
             throw new RuntimeException("Cannot locate unit tests", ioe);
         }
     }
 
-    private static Class<?> getTestClass(String testClassSimpleName) {
+    private static Class<?> loadTestClass(final String testClassSimpleName) {
         final var className = "engine.test." + testClassSimpleName.substring(0, testClassSimpleName.lastIndexOf("."));   
         try {
             return Class.forName(className);
-        } catch(ClassNotFoundException cnfe) {
+        } catch(final ClassNotFoundException cnfe) {
             throw new RuntimeException(String.format("Cannot load %s", className), cnfe);
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private static List<KoanEngineAutomatedTest> getTestSuite(Class<?> clasz) {
-        try {
-            return (List<KoanEngineAutomatedTest>)clasz.getField("tests").get(null);
-        } catch(NoSuchFieldException nsfe) {
-            System.out.println(String.format("WARNING: did not find a 'tests' static field in %s", clasz.getName()));
-            return List.of();
-        } catch(IllegalAccessException iae) {
-            System.out.println(String.format("WARNING: cannot access the 'tests' static field in %s", clasz.getName()));
-            return List.of();
-        }
+    private static boolean isTestMethod(final Method m) {
+        final var modifiers = m.getModifiers();
+        return
+            Modifier.isStatic(modifiers) &&
+            Modifier.isPublic(modifiers) &&
+            m.getParameters().length == 0 &&
+            m.getName().startsWith("when"); // Small constraint on test method name, avoid having to define an @Test annotation.
+    }
+
+    private static Runnable toTest(final Method m) {
+        return () -> {
+            try {
+                m.invoke(null);
+            } catch(final IllegalAccessException _iae) {
+                throw new RuntimeException("We should have verified in isTestMethod() that the method is accessible");
+            } catch(final IllegalArgumentException _iae) {
+                throw new RuntimeException("We should have verified in isTestMethod() that the method has no argument");
+            } catch(final InvocationTargetException ite) {
+                if (ite.getCause() instanceof final AssertionFailure af) {
+                    System.out.printf("%s %s.%s%n%s%n", RED_FAILURE, m.getDeclaringClass().getName(), m.getName(), af.getMessage());
+                }
+                if (ite.getCause() instanceof final RuntimeException re) {
+                    throw re;
+                } else {
+                    throw new RuntimeException(ite);
+                }
+            }
+        };
+    }
+
+    private static List<Runnable> findTestsInClass(final Class<?> clasz) {
+        return Arrays
+            .stream(clasz.getMethods())
+            .filter(TestRunner::isTestMethod)
+            .map(TestRunner::toTest)
+            .toList();
     }
 }

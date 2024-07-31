@@ -21,8 +21,8 @@ import static engine.Texts.*;
  */
 public class Assertions {
     private static String resolveTemplateParam(final KoanResult res, final Object param) {
-        if (param instanceof FormatParam) {
-            return ((FormatParam)param).format(res);
+        if (param instanceof final FormatParam fp) {
+            return fp.format(res);
         }
 
         return Optional.ofNullable(param).map((v) -> v.toString()).orElse("");
@@ -103,12 +103,12 @@ public class Assertions {
     }
 
     private static final double EPSILON = 0.0000000001;
-    private static boolean eq(Object expected, Object actual) {
+    private static boolean eq(final Object expected, final Object actual) {
         if (actual == null) {
             return expected == null;
-        } else if (expected instanceof int[] aIntArr && actual instanceof int[] bIntArr) {
+        } else if (expected instanceof final int[] aIntArr && actual instanceof final int[] bIntArr) {
             return Arrays.equals(aIntArr, bIntArr);
-        } else if (expected instanceof Double aDouble && actual instanceof Double bDouble) {
+        } else if (expected instanceof final Double aDouble && actual instanceof final Double bDouble) {
             final var diff = Math.abs(aDouble.doubleValue() - bDouble);
             return diff < EPSILON;
         }
@@ -369,7 +369,7 @@ public class Assertions {
                     );
                 }
                 return false;
-            } catch (ClassNotFoundException cnfe) {
+            } catch (final ClassNotFoundException _cnfe) {
                     p.println(ConsoleFmt.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), type.simpleClassName,type.packageName);
                 return false;
             }
@@ -417,7 +417,7 @@ public class Assertions {
                     );
                 }
             }
-            catch(NoSuchMethodException nsme) {
+            catch(final NoSuchMethodException _nsme) {
                 if (methodParamClasses.length == 0) {
                     p.println(
                         ConsoleFmt.red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS),

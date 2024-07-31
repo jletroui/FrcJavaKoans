@@ -47,7 +47,7 @@ public class Sensei {
     }
 
     private boolean tryOfferKoan(Koan koan, int successfulCount) {
-        for(var test: koan.tests) {
+        for(final var test: koan.tests) {
             if (!tryOfferTest(test, successfulCount)) {
                 return false;
             }
@@ -80,17 +80,17 @@ public class Sensei {
         final var thread = new Thread(() -> {
             try {
                 success.set(executeCall(test));
-            } catch (ScriptExecutionException see) {
+            } catch (final ScriptExecutionException see) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
-                if (see.getCause() instanceof InvocationTargetException ite && ite.getTargetException() instanceof StackOverflowError) {
+                if (see.getCause() instanceof final InvocationTargetException ite && ite.getTargetException() instanceof StackOverflowError) {
                     p.println(ConsoleFmt.red(THE_METHOD_SEEMS_TO_RECURSE_INFINITELY), see.methodName);
-                } else if (see.getCause() instanceof InvocationTargetException ite) {
+                } else if (see.getCause() instanceof final InvocationTargetException ite) {
                     p.println(ConsoleFmt.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), see.methodName, ite.getCause().getMessage());
                 } else {
                     throw see; // Serious bug
                 }
-            } catch (KoanBugException kbe) {
+            } catch (final KoanBugException kbe) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
                 p.println(ConsoleFmt.red(BUG_FOUND), kbe.getMessage());
@@ -107,7 +107,7 @@ public class Sensei {
                 thread.join(TIMEOUT_INFINITE_LOOPS_MS);
             }
         }
-        catch(InterruptedException ie) {
+        catch(final InterruptedException ie) {
             throw new IllegalStateException(String.format("Something very weird happened. We should not have been interrupted: %s.", ie.getMessage()));
         }
 
@@ -127,7 +127,7 @@ public class Sensei {
 
         test.setupRandomForKoan();
 
-        for(var assertion: test.koan.beforeAssertions) {
+        for(final var assertion: test.koan.beforeAssertions) {
             if (!assertion.validate(p, locale, test.koan)) {
                 return false;
             }

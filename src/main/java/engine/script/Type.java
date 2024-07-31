@@ -37,7 +37,7 @@ public class Type {
         if (clasz == null) {
             try {
                 clasz = Class.forName(className);
-            } catch(ClassNotFoundException cnfe) {
+            } catch(final ClassNotFoundException cnfe) {
                 throw new KoanBugException(String.format("The class %s is not found, which should have been already caught by a missing assertion in this or a previous Koans.", className));
             }
         }
@@ -72,18 +72,18 @@ public class Type {
 
         try {
             return constructorCandidates.get(0).newInstance(Expression.executeAll(ctx, constructorParams));
-        } catch (InstantiationException ie) {
+        } catch (final InstantiationException _ie) {
             throw new KoanBugException(String.format(
                 "Koans should assert that class %s is instantiable.",
                 clasz.getName()
             ));
-        } catch(IllegalAccessException iae) {
+        } catch(final IllegalAccessException _iae) {
             throw new KoanBugException(String.format("The constructor of %s is not accessible, which should have been already caught by a missing assertion in this or a previous Koans.", clasz.getSimpleName()));
-        } catch(SecurityException se) {
+        } catch(final SecurityException _se) {
             throw new KoanBugException(String.format("Stop messing with class loaders ;). Cannot instantiate %s.", clasz.getSimpleName()));
-        } catch(IllegalArgumentException iae) {
+        } catch(final IllegalArgumentException _iae) {
             throw new KoanBugException(String.format("The constructor of %s do not possess the right parameters, which should have been already caught by a missing assertion in this or a previous Koans.", clasz.getSimpleName()));
-        } catch(InvocationTargetException ite) {
+        } catch(final InvocationTargetException ite) {
             throw new ScriptExecutionException(ite, String.format("new %s(...)", clasz.getSimpleName()));
         }
 }

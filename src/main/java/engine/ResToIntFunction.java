@@ -1,5 +1,6 @@
 package engine;
 
+@FunctionalInterface
 public interface ResToIntFunction {
-    int apply(KoanResult res);
+    int apply(final KoanResult res);
 }

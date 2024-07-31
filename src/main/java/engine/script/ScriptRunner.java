@@ -13,7 +13,7 @@ public final class ScriptRunner {
         Object lastCallValue = null;
         final var ctx = new ExecutionContext(declaredKoanClass, locale);
 
-        for(var stmt: script) {
+        for(final var stmt: script) {
             lastCallValue = stmt.execute(ctx);
         }
         

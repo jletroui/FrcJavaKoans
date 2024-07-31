@@ -104,7 +104,7 @@ public final class KoanResult {
     }
 
     public boolean executeAssertions(final Printer p, final ResultAssertion... assertions) {
-        for (ResultAssertion as : assertions) {
+        for (final ResultAssertion as : assertions) {
             if (!as.validate(p, this)) {
                 return false;
             }

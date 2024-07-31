@@ -1,15 +1,9 @@
 package engine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import engine.test.runner.Line;
-
 /**
  * A Printer allows to print feedback to the student.
  */
-public sealed interface Printer {
+public interface Printer {
     /**
      * A Printer which is silent, hence displaying nothing.
      * Useful when executing koans outside the view of the student.
@@ -62,48 +56,6 @@ final class ConsolePrinter implements Printer {
             System.out.println(String.format(template.get(locale), params));
             System.out.flush();
         }
-    } 
-}
-
-/**
- * A printer capturing feedback displayed to the student in unit tests.
- */
-final class CapturingPrinter implements Printer {
-    private final Locale locale;
-    private final List<String> output = new ArrayList<>();
-
-    public CapturingPrinter(final Locale locale) {
-        this.locale = locale;
-    }
-
-    public boolean hasCaptured(final Line... lines) {
-        return output.equals(
-            Arrays
-                .stream(lines)
-                .map(line -> line.resolve(locale))
-                .toList()
-        );
-    }
-
-    public void displayToConsole() {
-        for(var line: output) {
-            System.out.println(line);
-        }
-    }
-
-    @Override
-    public void println() {
-        output.add("");
-    }
-
-    @Override
-    public void println(final String template, final Object... params) {
-        output.add(String.format(template, params));
-    }
-
-    @Override
-    public void println(final Localizable<String> template, final Object... params) {
-        println(template.get(locale), params);
     } 
 }
 

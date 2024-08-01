@@ -330,7 +330,7 @@ public class Assertions {
         return (p, locale, koan) -> {
             final var type = new Type(className);
 
-            if (!assertClassExist(global(type)).validate(p, locale, koan)) {
+            if (!assertCanInstantiateClass(global(type)).validate(p, locale, koan)) {
                 return false;
             }
 
@@ -374,7 +374,7 @@ public class Assertions {
         };
     }
 
-    private static BeforeTestAssertion assertClassExist(final Localizable<Type> type) {
+    public static BeforeTestAssertion assertCanInstantiateClass(final Localizable<Type> type) {
         return (p, locale, _koan) -> {
             final var actualType = type.get(locale);
             try {
@@ -411,7 +411,7 @@ public class Assertions {
     private static BeforeTestAssertion assertMethodIsInvokable(final Localizable<Type> type, final String methodName, final boolean isStatic, final Type... paramTypes) {
         return (p, locale, koan) -> {
 
-            if (!assertClassExist(type).validate(p, locale, koan)) {
+            if (!assertCanInstantiateClass(type).validate(p, locale, koan)) {
                 return false;
             }
 

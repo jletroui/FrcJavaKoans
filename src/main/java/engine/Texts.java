@@ -61,14 +61,14 @@ public class Texts {
         local("Expected constructor in %s to be public but it is not.")
         .fr("Attendu à ce que le constructeur dans %s soit publique, mais il ne l'est pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS =
-        local("Expected to find a constructor in %s but did not find any.")
-        .fr("Attendu à un constructeur dans %s, mais ne le trouve pas.");
+        local("Expected to find a public constructor without parameters in %s but did not find any.")
+        .fr("Attendu à un constructeur publique sans paramètre dans %s, mais ne le trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM =
-        local("Expected to find a constructor in %s with a '%s' parameter but did not find any.")
-        .fr("Attendu à constructeur dans %s, avec un paramètre '%s' mais ne le trouve pas.");
+        local("Expected to find a public constructor in %s with a '%s' parameter but did not find any.")
+        .fr("Attendu à constructeur publique dans %s, avec un paramètre '%s' mais ne le trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS =
-        local("Expected to find a constructor in %s with parameters of type %s but did not find any.")
-        .fr("Attendu à un constructeur dans %s, avec des paramètres de type %s mais ne le trouve pas.");
+        local("Expected to find a public constructor in %s with parameters of type %s but did not find any.")
+        .fr("Attendu à un constructeur publique dans %s, avec des paramètres de type %s mais ne le trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE =
         local("Expected to find a class %s in the %s package, but did not find any.")
         .fr("Attendu à trouver une classe %s dans le package %s, mais ne la trouve pas.");

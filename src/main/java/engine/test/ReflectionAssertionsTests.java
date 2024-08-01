@@ -4,6 +4,8 @@ import static engine.Assertions.assertImplementsInterface;
 import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Assertions.assertObjectMethodIsInvokable;
 import static engine.Assertions.assertStaticMethodIsInvokable;
+import static engine.Assertions.assertCanInstantiateClass;
+import static engine.Assertions.assertConstructorIsInvokable;
 import static engine.ConsoleFmt.code;
 import static engine.ConsoleFmt.format;
 import static engine.ConsoleFmt.red;
@@ -20,6 +22,7 @@ import engine.test.simulation.SomeInterface;
 import engine.test.simulation.StudentSolutions;
 
 import static engine.script.Expression.callKoanMethod;
+import static engine.script.Type.type;
 import static engine.test.runner.RunnerAssertions.assertKoanFails;
 import static engine.test.runner.RunnerAssertions.assertKoanPass;
 import static engine.Texts.*;
@@ -61,7 +64,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodIsInvokableAndMethodDoesExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodIsInvokableAndMethodDoesExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "simpleConsoleOutput")
                 )
@@ -76,7 +78,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod")
                 )
@@ -94,7 +95,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodIsInvokableAndMethodIsNotStatic() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodIsInvokableAndMethodIsNotStatic"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "nonStaticMethod")
                 )
@@ -112,7 +112,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodNoParamIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodNoParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod")
                 )
@@ -130,7 +129,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodOneParamIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodOneParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod", int.class)
                 )
@@ -148,7 +146,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodMultipleParamsIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodOneParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod", int.class, double.class)
                 )
@@ -166,7 +163,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodIsPublicAndItIsNot() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodIsPublicAndItIsNot"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "privateMethod")
                 )
@@ -184,7 +180,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertStaticMethodIsInvokableAndClassDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertStaticMethodIsInvokableAndClassDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.NoClass", "noMethod")
                 )
@@ -202,7 +197,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertKoanMethodIsInvokableAndMethodDoesExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertKoanMethodIsInvokableAndMethodDoesExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertKoanMethodIsInvokable("simpleConsoleOutput")
                 )
@@ -217,7 +211,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertKoanMethodIsInvokableAndMethodIsNotStatic() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertKoanMethodIsInvokableAndMethodIsNotStatic"))
-                .useConsole()
                 .beforeFirstTest(
                     assertKoanMethodIsInvokable("nonStaticMethod")
                 )
@@ -235,7 +228,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertKoanMethodNoParamIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertKoanMethodNoParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertKoanMethodIsInvokable("noMethod")
                 )
@@ -253,7 +245,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertKoanMethodOneParamIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertKoanMethodOneParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertStaticMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod", int.class)
                 )
@@ -271,7 +262,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertKoanMethodMultipleParamsIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertKoanMethodOneParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertKoanMethodIsInvokable("noMethod", int.class, double.class)
                 )
@@ -289,7 +279,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertKoanMethodIsPublicAndItIsNot() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertKoanMethodIsPublicAndItIsNot"))
-                .useConsole()
                 .beforeFirstTest(
                     assertKoanMethodIsInvokable("privateMethod")
                 )
@@ -307,7 +296,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodIsInvokableAndMethodDoesExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodIsInvokableAndMethodDoesExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.StudentSolutions", "nonStaticMethod")
                 )
@@ -322,7 +310,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod")
                 )
@@ -340,7 +327,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodIsInvokableAndMethodIsStatic() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodIsInvokableAndMethodIsNotStatic"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.StudentSolutions", "doNothing")
                 )
@@ -358,7 +344,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodNoParamIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodNoParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod")
                 )
@@ -376,7 +361,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodOneParamIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodOneParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod", int.class)
                 )
@@ -394,7 +378,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodMultipleParamsIsInvokableAndMethodDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodOneParamIsInvokableAndMethodDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.StudentSolutions", "noMethod", int.class, double.class)
                 )
@@ -412,7 +395,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodIsInvokableAndItIsNotPublic() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodIsInvokableAndItIsNotPublic"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.StudentSolutions", "nonStaticPrivateMethod")
                 )
@@ -430,7 +412,6 @@ public class ReflectionAssertionsTests {
     public static void whenAssertObjectMethodIsInvokableAndClassDoesNotExist() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertObjectMethodIsInvokableAndClassDoesNotExist"))
-                .useConsole()
                 .beforeFirstTest(
                     assertObjectMethodIsInvokable("engine.test.simulation.NoClass", "noMethod")
                 )
@@ -445,4 +426,201 @@ public class ReflectionAssertionsTests {
         );
     }
 
+    public static void whenAssertClassIsInstantiableAndItIs() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertClassIsInstantiableAndItIs"))
+                .beforeFirstTest(
+                    assertCanInstantiateClass(global(type("engine.test.simulation.StudentSolutions")))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanPass(res[0]);
+    }
+
+    public static void whenAssertClassIsInstantiableAndItDoesNotExist() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertClassIsInstantiableAndItDoesNotExist"))
+                .beforeFirstTest(
+                    assertCanInstantiateClass(global(type("engine.test.simulation.Unkown")))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), "Unkown", "engine.test.simulation")
+        );
+    }
+
+    public static void whenAssertClassIsInstantiableAndItIsInterface() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertClassIsInstantiableAndItIsInterface"))
+                .beforeFirstTest(
+                    assertCanInstantiateClass(global(type("engine.test.simulation.SomeInterface")))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "SomeInterface")
+        );
+    } 
+
+    public static void whenAssertClassIsInstantiableAndItIsAbstract() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertClassIsInstantiableAndItIsAbstract"))
+                .beforeFirstTest(
+                    assertCanInstantiateClass(global(type("engine.test.simulation.AbstractClass")))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "AbstractClass")
+        );
+    }       
+
+    public static void whenAssertClassIsInstantiableAndItIsPrimitive() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertClassIsInstantiableAndItIsPrimitive"))
+                .beforeFirstTest(
+                    assertCanInstantiateClass(global(type(int.class)))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "int")
+        );
+    }
+
+    public static void whenAssertClassIsInstantiableAndItIsArray() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertClassIsInstantiableAndItIsArray"))
+                .beforeFirstTest(
+                    assertCanInstantiateClass(global(type(String[].class)))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "String[]")
+        );
+    }
+
+    public static void whenAssertClassIsInstantiableAndItIsVoid() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertClassIsInstantiableAndItIsVoid"))
+                .beforeFirstTest(
+                    assertCanInstantiateClass(global(type(void.class)))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "void")
+        );
+    }
+
+    public static void whenAssertConstructorIsInvokableAndItIs() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertConstructorIsInvokableAndItIs"))
+                .beforeFirstTest(
+                    assertConstructorIsInvokable("engine.test.simulation.StudentSolutions")
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanPass(res[0]);
+    }
+
+    public static void whenAssertConstructorIsInvokableAndItIsPrivate() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertConstructorIsInvokableAndItIsPrivate"))
+                .beforeFirstTest(
+                    assertConstructorIsInvokable("engine.test.simulation.NoPublicConstructor")
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS), "NoPublicConstructor")
+        );
+    }
+
+    public static void whenAssertConstructorNoParamsIsInvokableAndItNotExist() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertConstructorNoParamsIsInvokableAndItNotExist"))
+                .beforeFirstTest(
+                    assertConstructorIsInvokable("engine.test.simulation.ManyParamsConstructor")
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS), "ManyParamsConstructor")
+        );
+    }
+
+    public static void whenAssertConstructorOneParamIsInvokableAndItNotExist() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertConstructorOneParamIsInvokableAndItNotExist"))
+                .beforeFirstTest(
+                    assertConstructorIsInvokable("engine.test.simulation.ManyParamsConstructor", type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM), "ManyParamsConstructor", "int")
+        );
+    }
+
+    public static void whenAssertConstructorManyParamsIsInvokableAndItNotExist() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertConstructorManyParamsIsInvokableAndItNotExist"))
+                .beforeFirstTest(
+                    assertConstructorIsInvokable("engine.test.simulation.ManyParamsConstructor", type(int.class), type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS), "ManyParamsConstructor", "'int', and 'int'")
+        );
+    }
 }

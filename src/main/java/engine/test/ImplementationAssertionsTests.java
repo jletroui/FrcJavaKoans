@@ -24,7 +24,7 @@ import static engine.Texts.*;
 public class ImplementationAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
-    public static void whenAssertIntArrayVariableAndValueIsEqual() {
+    public static void whenAssertReturnedValueImplementsInterfaceAndReturnedValueDoesImplementIt() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertReturnedValueImplementsInterfaceAndReturnedValueDoesImplementIt"))
                 .when(
@@ -210,4 +210,5 @@ public class ImplementationAssertionsTests {
             new Line(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED, Formats.Red, code("returnedValueImplements()"), code("engine.test.simulation.SomeImplementation")))
         );
     }
+    
 }

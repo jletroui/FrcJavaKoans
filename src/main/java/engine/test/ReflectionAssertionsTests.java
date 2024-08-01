@@ -3,6 +3,8 @@ package engine.test;
 import static engine.Assertions.assertImplementsInterface;
 import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Assertions.assertObjectMethodIsInvokable;
+import static engine.Assertions.assertPrivateField;
+import static engine.Assertions.assertPrivateFinalField;
 import static engine.Assertions.assertStaticMethodIsInvokable;
 import static engine.Assertions.assertCanInstantiateClass;
 import static engine.Assertions.assertConstructorIsInvokable;
@@ -623,4 +625,168 @@ public class ReflectionAssertionsTests {
             new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS), "ManyParamsConstructor", "'int', and 'int'")
         );
     }
+
+    public static void whenAssertPrivateFinalFieldAndItIs() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFinalFieldAndItIs"))
+                .beforeFirstTest(
+                    assertPrivateFinalField("engine.test.simulation.StudentSolutions", "privateFinalField", type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanPass(res[0]);
+    }
+
+    public static void whenAssertPrivateFinalFieldAndItIsPublic() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFinalFieldAndItIsPublic"))
+                .beforeFirstTest(
+                    assertPrivateFinalField("engine.test.simulation.StudentSolutions", "publicFinalField", type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_FIELD_TO_BE_PRIVATE), "publicFinalField", "engine.test.simulation.StudentSolutions")
+        );
+    }
+
+    public static void whenAssertPrivateFinalFieldAndItIsNotFinal() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFinalFieldAndItIsNotFinal"))
+                .beforeFirstTest(
+                    assertPrivateFinalField("engine.test.simulation.StudentSolutions", "privateField", type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_FIELD_TO_BE_FINAL), "privateField", "engine.test.simulation.StudentSolutions")
+        );
+    }
+
+    public static void whenAssertPrivateFinalFieldAndItIsNotRightType() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFinalFieldAndItIsNotRightType"))
+                .beforeFirstTest(
+                    assertPrivateFinalField("engine.test.simulation.StudentSolutions", "privateFinalField", type(boolean.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_FIELD_TO_BE_OF_TYPE), "privateFinalField", "engine.test.simulation.StudentSolutions", "boolean", "int")
+        );
+    }
+
+    public static void whenAssertPrivateFinalFieldAndItDoesNotExist() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFinalFieldAndItDoesNotExist"))
+                .beforeFirstTest(
+                    assertPrivateFinalField("engine.test.simulation.StudentSolutions", "unknownField", type(boolean.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_TO_FIND_FIELD_IN_CLASS), "unknownField", "engine.test.simulation.StudentSolutions")
+        );
+    }
+
+    public static void whenAssertPrivateFieldAndItIs() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFieldAndItIs"))
+                .beforeFirstTest(
+                    assertPrivateField("engine.test.simulation.StudentSolutions", "privateField", type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanPass(res[0]);
+    }
+
+    public static void whenAssertPrivateFieldAndItIsPublic() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFieldAndItIsPublic"))
+                .beforeFirstTest(
+                    assertPrivateField("engine.test.simulation.StudentSolutions", "publicField", type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_FIELD_TO_BE_PRIVATE), "publicField", "engine.test.simulation.StudentSolutions")
+        );
+    }
+
+    public static void whenAssertPrivateFieldAndItIsFinal() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFieldAndItIsFinal"))
+                .beforeFirstTest(
+                    assertPrivateField("engine.test.simulation.StudentSolutions", "privateFinalField", type(int.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_FIELD_TO_NOT_BE_FINAL), "privateFinalField", "engine.test.simulation.StudentSolutions")
+        );
+    }
+
+    public static void whenAssertPrivateFieldAndItIsNotRightType() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFieldAndItIsNotRightType"))
+                .beforeFirstTest(
+                    assertPrivateField("engine.test.simulation.StudentSolutions", "privateField", type(boolean.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_FIELD_TO_BE_OF_TYPE), "privateField", "engine.test.simulation.StudentSolutions", "boolean", "int")
+        );
+    }
+
+    public static void whenAssertPrivateFieldAndItDoesNotExist() {
+        var res = TestSensei.execute(
+           new Koan(CLASS, global("whenAssertPrivateFieldAndItDoesNotExist"))
+                .beforeFirstTest(
+                    assertPrivateField("engine.test.simulation.StudentSolutions", "unknownField", type(boolean.class))
+                )
+                .when(
+                    callKoanMethod("doNothing")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(red(EXPECTED_TO_FIND_FIELD_IN_CLASS), "unknownField", "engine.test.simulation.StudentSolutions")
+        );
+    }    
 }

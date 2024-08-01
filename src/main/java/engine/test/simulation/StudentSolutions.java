@@ -1,6 +1,11 @@
 package engine.test.simulation;
 
 public class StudentSolutions {
+    private final int privateFinalField = 0;
+    public final int publicFinalField = 0;
+    private int privateField = 0;
+    public int publicField = 0;
+
     public static void doNothing() {
     }
 

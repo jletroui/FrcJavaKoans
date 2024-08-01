@@ -477,7 +477,7 @@ public class Assertions {
         return assertField(className, fieldName, false, fieldType);
     }
 
-    public static BeforeTestAssertion assertField(final String className, final String fieldName, final Boolean isFinal, final Type fieldType) {
+    private static BeforeTestAssertion assertField(final String className, final String fieldName, final Boolean isFinal, final Type fieldType) {
         return (p, locale, koan) -> {
             final var type = new Type(className);
 

@@ -1,5 +1,7 @@
 package engine.test.simulation;
 
+import engine.Helpers;
+
 public class StudentSolutions {
     private final int privateFinalField = 0;
     public final int publicFinalField = 0;
@@ -11,6 +13,14 @@ public class StudentSolutions {
 
     public static void simpleConsoleOutput() {
         System.out.println("hello");
+    }
+
+    public static void emptyConsoleOutput() {
+        System.out.println();
+    }
+
+    public static void readFromConsole() {
+        Helpers.readLine();
     }
 
     public static int[] returnedValueEqualsIntArray() {

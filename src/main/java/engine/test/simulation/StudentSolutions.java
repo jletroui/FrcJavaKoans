@@ -1,6 +1,9 @@
 package engine.test.simulation;
 
 public class StudentSolutions {
+    public static void doNothing() {
+    }
+
     public static void simpleConsoleOutput() {
         System.out.println("hello");
     }
@@ -36,5 +39,20 @@ public class StudentSolutions {
 
     public static SomeInterface returnedValueLambda() {
         return (a, b) -> a + b;
+    }
+
+    public void nonStaticMethod() {
+    }
+
+    public void nonStaticMethodOneParam(int x) {
+    }
+    
+    public void nonStaticMethodMoreParam(int x, double y) {
+    }
+
+    static void nonStaticPrivateMethod() {
+    }
+
+    static void privateMethod() {
     }
 }

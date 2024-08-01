@@ -40,23 +40,23 @@ public class Texts {
         local("The constructor of %s appears to produce an error: %s.")
         .fr("Le constructeur de %s a produit une erreur: %s.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_NO_PARAMS =
-        local("Expected to find a method called '%s' in src/main/java/%s.java but did not find any.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, mais ne la trouve pas.");
+        local("Expected to find a public method without parameters called '%s' in src/main/java/%s.java but did not find any.")
+        .fr("Attendu à une méthode publique sans paramètres nommée '%s' dans src/main/java/%s.java, mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_METHOD_TO_BE_STATIC =
         local("Expected method '%s' in src/main/java/%s.java to have the 'static' modifier, but it had not.")
         .fr("Attendu à ce que la méthode '%s' dans src/main/java/%s.java ai le modifieur 'static', mais elle ne l'a pas.");
     public static final Localizable<String> EXPECTED_METHOD_TO_NOT_BE_STATIC =
-        local("Expected method '%s' %s to not have the 'static' modifier, but it had.")
-        .fr("Attendu à ce que la méthode '%s' dans %s n'ai pas le modifieur 'static', mais elle l'a.");
+        local("Expected method '%s' in src/main/java/%s.java to not have the 'static' modifier, but it had.")
+        .fr("Attendu à ce que la méthode '%s' dans src/main/java/%s.java n'ai pas le modifieur 'static', mais elle l'a.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_RETURN_TYPE =
         local("Expected to find a method called '%s' in src/main/java/%s.java with a '%s' return type but did not find any.")
         .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, avec un type de retour '%s' mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_ONE_PARAM =
-        local("Expected to find a method called '%s' in src/main/java/%s.java with a '%s' parameter but did not find any.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, avec un paramètre '%s' mais ne la trouve pas.");
+        local("Expected to find a public method called '%s' in src/main/java/%s.java with a '%s' parameter but did not find any.")
+        .fr("Attendu à une méthode publique nommée '%s' dans src/main/java/%s.java, avec un paramètre '%s' mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_MANY_PARAMS =
-        local("Expected to find a method called '%s' in src/main/java/%s.java with parameters of type %s but did not find any.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, avec des paramètres de type %s mais ne la trouve pas.");
+        local("Expected to find a public method called '%s' in src/main/java/%s.java with parameters of type %s but did not find any.")
+        .fr("Attendu à une méthode publique nommée '%s' dans src/main/java/%s.java, avec des paramètres de type %s mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_CONSTRUCTOR_TO_BE_PUBLIC =
         local("Expected constructor in %s to be public but it is not.")
         .fr("Attendu à ce que le constructeur dans %s soit publique, mais il ne l'est pas.");

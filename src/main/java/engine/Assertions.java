@@ -327,16 +327,15 @@ public class Assertions {
     }
     
     public static BeforeTestAssertion assertConstructorIsInvokable(final String className, final Type... constructorParamTypes) {
-        return (p, locale, _koan) -> {
+        return (p, locale, koan) -> {
             final var type = new Type(className);
 
-            try {
-                final var clasz = type.resolve();
-                if (!Type.isInstantiable(clasz)) {
-                    p.println(ConsoleFmt.red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), className);
-                    return false;
-                }
+            if (!assertClassExist(global(type)).validate(p, locale, koan)) {
+                return false;
+            }
 
+            try {
+                final var clasz = type.unsafeResolve();
                 final var constructor = clasz.getConstructor(Type.unsafeResolveTypes(constructorParamTypes));
                 if (!Modifier.isPublic(constructor.getModifiers())) {
                     p.println(
@@ -369,12 +368,26 @@ public class Assertions {
                     );
                 }
                 return false;
-            } catch (final ClassNotFoundException _cnfe) {
-                    p.println(ConsoleFmt.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), type.simpleClassName,type.packageName);
-                return false;
             }
 
             return true;
+        };
+    }
+
+    private static BeforeTestAssertion assertClassExist(final Localizable<Type> type) {
+        return (p, locale, _koan) -> {
+            final var actualType = type.get(locale);
+            try {
+                final var clasz = actualType.resolve();
+                if (!Type.isInstantiable(clasz)) {
+                    p.println(ConsoleFmt.red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), actualType.simpleClassName);
+                    return false;
+                }
+                return true;
+            } catch (final ClassNotFoundException _cnfe) {
+                p.println(ConsoleFmt.red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), actualType.simpleClassName,actualType.packageName);
+                return false;
+            }
         };
     }
 
@@ -396,18 +409,23 @@ public class Assertions {
     }
 
     private static BeforeTestAssertion assertMethodIsInvokable(final Localizable<Type> type, final String methodName, final boolean isStatic, final Type... paramTypes) {
-        return (p, locale, _koan) -> {
+        return (p, locale, koan) -> {
+
+            if (!assertClassExist(type).validate(p, locale, koan)) {
+                return false;
+            }
+
             final var clasz = type.get(locale).unsafeResolve();
             final var methodParamClasses = Type.unsafeResolveTypes(paramTypes);
 
             try {
                 final var method = clasz.getMethod(methodName, methodParamClasses);
                 if (isStatic && !Modifier.isStatic(method.getModifiers())) {
-                    p.println(ConsoleFmt.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
+                    p.println(ConsoleFmt.red(EXPECTED_METHOD_TO_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
                     return false;
                 }
                 if (!isStatic && Modifier.isStatic(method.getModifiers())) {
-                    p.println(ConsoleFmt.red(EXPECTED_METHOD_TO_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
+                    p.println(ConsoleFmt.red(EXPECTED_METHOD_TO_NOT_BE_STATIC), methodName, clasz.getName().replace(".", "/"));
                     return false;
                 }
                 if (!Modifier.isPublic(method.getModifiers())) {

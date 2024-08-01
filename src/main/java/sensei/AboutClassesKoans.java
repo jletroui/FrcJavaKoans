@@ -25,7 +25,6 @@ public class AboutClassesKoans {
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, CLASSES_AND_PACKAGES)
             .beforeFirstTest(
-                assertConstructorIsInvokable("utils.MathUtils"),
                 assertStaticMethodIsInvokable("utils.MathUtils", "cube", int.class)
             )
             .when(callStaticMethod("utils.MathUtils", "cube", 2))
@@ -71,7 +70,6 @@ public class AboutClassesKoans {
             ),
         new Koan(CLASS, AN_OTHER_CLASS_IN_A_NESTED_PACKAGE)
             .beforeFirstTest(
-                assertConstructorIsInvokable("utils.math.OtherMathUtils"),
                 assertStaticMethodIsInvokable("utils.math.OtherMathUtils", "max", int.class, int.class)
             )
             .when(callStaticMethod("utils.math.OtherMathUtils", "max", 2, 2))

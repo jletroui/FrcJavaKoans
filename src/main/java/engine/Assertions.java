@@ -17,7 +17,7 @@ import static engine.Localizable.global;
 import static engine.Texts.*;
 
 /**
- * Library of various assertions which can be run about the result of a koan execution.
+ * Library of various assertions which can be run either before the koan test runs or about the result of a koan execution.
  */
 public class Assertions {
     private static String resolveTemplateParam(final KoanResult res, final Object param) {
@@ -117,17 +117,18 @@ public class Assertions {
 
     public static ResultAssertion assertVariableEquals(final String variableName, final Object expected) {
         return (p, res) -> {
+            final Object expectedValue = expected instanceof final Localizable<?> localizable ? localizable.get(res.locale) : expected;
             final Object val = res.executionContext.getVariableValue(variableName);
-            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expected));
+            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expectedValue));
             final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(val));
             final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
             if (val == null) {
                 p.println(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL, Formats.Red, expressionFmted, code(variableName), expectedFmted));
                 return false;
-            } else if (val.getClass() != expected.getClass()) {
-                p.println(format(EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red, expressionFmted, code(variableName), code(expected.getClass().getSimpleName()), code(val.getClass().getSimpleName())));
+            } else if (val.getClass() != expectedValue.getClass()) {
+                p.println(format(EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red, expressionFmted, code(variableName), code(expectedValue.getClass().getSimpleName()), code(val.getClass().getSimpleName())));
                 return false;
-            } else if (!eq(expected, val)) {
+            } else if (!eq(expectedValue, val)) {
                 p.println(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red, expressionFmted, code(variableName), expectedFmted, actualFmted));
                 return false;
             }
@@ -139,16 +140,17 @@ public class Assertions {
 
     public static ResultAssertion assertReturnValueEquals(final Object expected) {
         return (p, res) -> {
-            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expected));
+            final Object expectedValue = expected instanceof final Localizable<?> localizable ? localizable.get(res.locale) : expected;
+            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expectedValue));
             final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(res.executionResult));
             final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
             if (res.executionResult == null) {
                 p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, expressionFmted, expectedFmted));
                 return false;
-            } else if (res.executionResult.getClass() != expected.getClass()) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code(expected.getClass().getSimpleName()), code(res.executionResult.getClass().getSimpleName())));
+            } else if (res.executionResult.getClass() != expectedValue.getClass()) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code(expectedValue.getClass().getSimpleName()), code(res.executionResult.getClass().getSimpleName())));
                 return false;
-            } else if (!eq(expected, res.executionResult)) {
+            } else if (!eq(expectedValue, res.executionResult)) {
                 p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, expressionFmted, expectedFmted, actualFmted));
                 return false;
             }
@@ -158,26 +160,10 @@ public class Assertions {
         }; 
     }
 
-    public static ResultAssertion assertReturnValueEquals(final Localizable<String> expected) {
-        return (p, res) -> {
-            final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expected.get(res.locale)));
-            final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(res.executionResult));
-            if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expectedFmted));
-                return false;
-            } else if (!(res.executionResult instanceof String)) {
-                p.println(format(EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE, Formats.Red, code(res.resultExpressionSourceCode), res.executionResult.getClass().getSimpleName()));
-                return false;
-            } else if (!((String)res.executionResult).equals(expected.get(res.locale))) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode,expectedFmted, actualFmted));
-                return false;
-            }
-
-            p.println(format(OK_RETURNED, Formats.Green, code(res.resultExpressionSourceCode), expectedFmted));
-            return true;
-        }; 
-    }
-
+    /**
+     * Since we can't ask students to provide a proper equals() method, it is a bit tricky to assert the content of the objects they create.
+     * The idea is to make them create a "toString()" method, and then assert the String representation of those objects.
+     */
     public static ResultAssertion assertReturnValueStringRepresentationEquals(final Localizable<String> expected, final String expectedType) {
         return (p, res) -> {
             if (res.executionResult == null) {

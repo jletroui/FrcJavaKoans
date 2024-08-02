@@ -273,7 +273,7 @@ final record Literal(Object value) implements Expression {
 
     public Literal {
         if (value != null && !ALLOWED_LITERAL_TYPES.contains(value.getClass())) {
-            throw new KoanBugException("Only null, String, and primitive types are allowed as literal in an Expression");
+            throw new KoanBugException("Only null, String, int arrays, and primitive types are allowed as literal in an Expression");
         }
     }
 

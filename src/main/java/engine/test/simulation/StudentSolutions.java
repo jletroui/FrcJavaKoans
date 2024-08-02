@@ -3,8 +3,10 @@ package engine.test.simulation;
 import engine.Helpers;
 
 public class StudentSolutions {
+    @SuppressWarnings("unused")
     private final int privateFinalField = 0;
     public final int publicFinalField = 0;
+    @SuppressWarnings("unused")
     private int privateField = 0;
     public int publicField = 0;
 
@@ -21,18 +23,6 @@ public class StudentSolutions {
 
     public static void readFromConsole() {
         Helpers.readLine();
-    }
-
-    public static int[] returnedValueEqualsIntArray() {
-        return new int[]{1, 3};
-    }
-
-    public static int[] returnedValueNotEqualsIntArray() {
-        return new int[]{1, 2};
-    }
-
-    public static String returnedValueNotIntArray() {
-        return "abc";
     }
 
     public static int[] returnedValueNull() {

@@ -5,156 +5,285 @@ import static engine.Assertions.assertVariableEquals;
 import static engine.ConsoleFmt.code;
 import static engine.ConsoleFmt.format;
 import static engine.Localizable.global;
+import static engine.Localizable.local;
 
 import engine.Koan;
+import engine.Locale;
 import engine.Localizable;
 import engine.TestSensei;
 import engine.ConsoleFmt.Formats;
 import engine.test.runner.Line;
-import engine.test.simulation.StudentSolutions;
 
 import static engine.script.Expression.assignVariable;
 import static engine.script.Expression.callKoanMethod;
 import static engine.test.runner.RunnerAssertions.assertKoanFails;
 import static engine.test.runner.RunnerAssertions.assertKoanPass;
+
+import java.util.List;
+
 import static engine.Texts.*;
 
 public class EqualityAssertionsTests {
-    private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
-    
-    public static void whenAssertIntArrayVariableAndValueIsEqual() {
+    private static Localizable<Class<?>> CLASS = global(EqualityAssertionsTests.class);
+    private record ValueData(String methodName, Object expected, Object returnedNotEquals, String codeExpected, String codeNotEquals) {
+        Object actual() {
+            return expected instanceof final Localizable<?> localizable ? localizable.get(Locale.en) : expected;
+        }
+    }
+    private static final List<ValueData> VALUE_EXAMPLES = List.of(
+        new ValueData("returnInt", 3, 4, "3", "4"),
+        new ValueData("returnDouble", 3.0, 4.0, "3.0", "4.0"),
+        new ValueData("returnBoolean", false, true, "false", "true"),
+        new ValueData("returnString", "abc", "def", "\"abc\"", "\"def\""),
+        new ValueData("returnString", local("english").fr("french"), "english2", "\"english\"", "\"english2\""),
+        new ValueData("returnIntArray", new int[]{1, 3}, new int[]{1, 2}, "new int[]{1,3}", "new int[]{1,2}")
+    );
+    public static Object returnNull() {
+        return null;
+    }
+    public static int returnInt(int val) {
+        return val;
+    }
+    public static double returnDouble(double val) {
+        return val;
+    }
+    public static boolean returnBoolean(boolean val) {
+        return val;
+    }
+    public static String returnString(String val) {
+        return val;
+    }
+    public static int[] returnIntArray(int[] val) {
+        return val;
+    }
+
+    public static void whenAssertVariableEquals() {
+        for(int i=0; i<VALUE_EXAMPLES.size(); i++) {
+            final var val = VALUE_EXAMPLES.get(i);
+            var res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertVariableEqualsAndValueIsEqual"))
+                    .when(
+                        assignVariable("a", val.actual())
+                    )
+                    .then(
+                        assertVariableEquals("a", val.expected)
+                    )
+            );
+
+            assertKoanPass(
+                res[0],
+                new Line(format(OK_VARIABLE_EQUAL, Formats.Green, code("a"), code(val.codeExpected)))
+            );
+
+            res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertVariableEqualsAndValueIsNotEqual"))
+                    .when(
+                        assignVariable("a", val.returnedNotEquals)
+                    )
+                    .then(
+                        assertVariableEquals("a", val.expected)
+                    )
+            );
+            
+            assertKoanFails(
+                res[0],
+                new Line(format(
+                    EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red,
+                    code("var a = " + val.codeNotEquals),
+                    code("a"),
+                    code(val.codeExpected),
+                    code(val.codeNotEquals)
+                ))
+            );
+
+            final var otherTypeVal = VALUE_EXAMPLES.get(i == 0 ? 1 : 0);
+            res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertVariableEqualsAndValueIsNotRightType"))
+                    .when(
+                        assignVariable("a", otherTypeVal.actual())
+                    )
+                    .then(
+                        assertVariableEquals("a", val.expected)
+                    )
+            );
+            
+            assertKoanFails(
+                res[0],
+                new Line(format(
+                    EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red,
+                    code("var a = " + otherTypeVal.codeExpected),
+                    code("a"),
+                    code(val.actual().getClass().getSimpleName()),
+                    code(otherTypeVal.expected.getClass().getSimpleName())
+                ))
+            );
+
+            res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertVariableEqualsAndValueIsNull"))
+                    .when(
+                        assignVariable("a", null)
+                    )
+                    .then(
+                        assertVariableEquals("a", val.expected)
+                    )
+            );
+            
+            assertKoanFails(
+                res[0],
+                new Line(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL, Formats.Red, code("var a = null"), code("a"), code(val.codeExpected)))
+            );            
+        }
+    }
+
+    public static void whenAssertVariableEqualsOnAlmostEqualsDouble() {
         var res = TestSensei.execute(
-            new Koan(CLASS, global("whenAssertIntArrayVariableAndValueIsEqual"))
+            new Koan(CLASS, global("whenAssertVariableEqualsOnAlmostEqualsDouble"))
                 .when(
-                    assignVariable("a", new int[]{1, 3})
+                    assignVariable("a", 3.00000000001)
                 )
                 .then(
-                    assertVariableEquals("a", new int[]{1, 3})
+                    assertVariableEquals("a", 3.0)
                 )
         );
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_VARIABLE_EQUAL, Formats.Green, code("a"), code("new int[]{1,3}")))
+            new Line(format(OK_VARIABLE_EQUAL, Formats.Green, code("a"), code("3.0")))
         );
-    }
 
-    public static void whenAssertVariableNotEqualsIntArray() {
-        var res = TestSensei.execute(
-            new Koan(CLASS, global("whenAssertIntArrayVariableAndValueIsNotEqual"))
+        res = TestSensei.execute(
+            new Koan(CLASS, global("whenAssertVariableEqualsOnAlmostEqualsDouble"))
                 .when(
-                    assignVariable("a", new int[]{1, 3})
+                    assignVariable("a", 3.0000000001)
                 )
                 .then(
-                    assertVariableEquals("a", new int[]{1, 2})
+                    assertVariableEquals("a", 3.0)
                 )
         );
         
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red, code("var a = new int[]{1,3}"), code("a"), code("new int[]{1,2}"), code("new int[]{1,3}")))
+            new Line(format(
+                EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red,
+                code("var a = 3.0000000001"),
+                code("a"),
+                code("3.0"),
+                code("3.0000000001")
+            ))
         );
+
     }
 
-    public static void whenAssertIntArrayVariableAndValueIsNotAIntArray() {
-        var res = TestSensei.execute(
-            new Koan(CLASS, global("whenAssertIntArrayVariableAndValueIsNotAIntArray"))
-                .when(
-                    assignVariable("a", "abc")
-                )
-                .then(
-                    assertVariableEquals("a", new int[]{1, 2})
-                )
-        );
-        
-        assertKoanFails(
-            res[0],
-            new Line(format(EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red, code("var a = \"abc\""), code("a"), code("int[]"), code("String")))
-        );
+    public static void whenAssertReturnValueEquals() {
+        for(int i=0; i<VALUE_EXAMPLES.size(); i++) {
+            final var val = VALUE_EXAMPLES.get(i);
+            var res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertReturnValueEqualsAndValueIsEqual"))
+                    .when(
+                        callKoanMethod(val.methodName, val.actual())
+                    )
+                    .then(
+                        assertReturnValueEquals(val.expected)
+                    )
+            );
+
+            assertKoanPass(
+                res[0],
+                new Line(format(OK_RETURNED, Formats.Green, code(callKoanMethod(val.methodName, val.actual()).formatSourceCode(Locale.en)), code(val.codeExpected)))
+            );
+
+            res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertReturnValueEqualsAndValueIsNotEqual"))
+                    .when(
+                        callKoanMethod(val.methodName, val.returnedNotEquals)
+                    )
+                    .then(
+                        assertReturnValueEquals(val.expected)
+                    )
+            );
+            
+            assertKoanFails(
+                res[0],
+                new Line(format(
+                    EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red,
+                    code(callKoanMethod(val.methodName, val.returnedNotEquals).formatSourceCode(Locale.en)),
+                    code(val.codeExpected),
+                    code(val.codeNotEquals)
+                ))
+            );
+
+            final var otherTypeVal = VALUE_EXAMPLES.get(i == 0 ? 1 : 0);
+            res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertReturnValueEqualsAndValueIsNotRightType"))
+                    .when(
+                        callKoanMethod(otherTypeVal.methodName, otherTypeVal.actual())
+                    )
+                    .then(
+                        assertReturnValueEquals(val.expected)
+                    )
+            );
+            
+            assertKoanFails(
+                res[0],
+                new Line(format(
+                    EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red,
+                    code(callKoanMethod(otherTypeVal.methodName, otherTypeVal.actual()).formatSourceCode(Locale.en)),
+                    code(val.actual().getClass().getSimpleName()),
+                    code(otherTypeVal.expected.getClass().getSimpleName())
+                ))
+            );
+
+            res = TestSensei.execute(
+                new Koan(CLASS, global("whenAssertReturnValueEqualsAndValueIsNull"))
+                    .when(
+                        callKoanMethod("returnNull")
+                    )
+                    .then(
+                        assertReturnValueEquals(val.expected)
+                    )
+            );
+            
+            assertKoanFails(
+                res[0],
+                new Line(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, code("returnNull()"), code(val.codeExpected)))
+            );            
+        }
     }
 
-    public static void whenAssertIntArrayVariableAndValueIsNull() {
+    public static void whenAssertReturnValueEqualsOnAlmostEqualsDouble() {
         var res = TestSensei.execute(
-            new Koan(CLASS, global("whenAssertIntArrayVariableAndValueIsNull"))
+            new Koan(CLASS, global("whenAssertReturnValueEqualsOnAlmostEqualsDouble"))
                 .when(
-                    assignVariable("a", null)
+                    callKoanMethod("returnDouble", 3.00000000001)
                 )
                 .then(
-                    assertVariableEquals("a", new int[]{1, 2})
-                )
-        );
-        
-        assertKoanFails(
-            res[0],
-            new Line(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL, Formats.Red, code("var a = null"), code("a"), code("new int[]{1,2}")))
-        );
-    }
-
-    public static void whenAssertIntArrayMethodReturnValueAndReturnedValueIsEqual() {
-        var res = TestSensei.execute(
-             new Koan(CLASS, global("whenAssertIntArrayMethodReturnValueAndReturnedValueIsEqual"))
-                .when(
-                    callKoanMethod("returnedValueEqualsIntArray")
-                )
-                .then(
-                    assertReturnValueEquals(new int[]{1, 3})
+                    assertReturnValueEquals(3.0)
                 )
         );
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_RETURNED, Formats.Green, code("returnedValueEqualsIntArray()"), code("new int[]{1,3}")))
+            new Line(format(OK_RETURNED, Formats.Green, code("returnDouble(3.00000000001)"), code("3.0")))
         );
-    }
 
-    public static void whenAssertIntArrayMethodReturnValueAndReturnedValueIsNotEqual() {
-        var res = TestSensei.execute(
-            new Koan(CLASS, global("whenAssertIntArrayMethodReturnValueAndReturnedValueIsNotEqual"))
+        res = TestSensei.execute(
+            new Koan(CLASS, global("whenAssertReturnValueEqualsOnAlmostEqualsDouble"))
                 .when(
-                    callKoanMethod("returnedValueNotEqualsIntArray")
+                    callKoanMethod("returnDouble", 3.0000000001)
                 )
                 .then(
-                    assertReturnValueEquals(new int[]{1, 3})
+                    assertReturnValueEquals(3.0)
                 )
         );
         
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, code("returnedValueNotEqualsIntArray()"), code("new int[]{1,3}"), code("new int[]{1,2}")))
-        );
-    }
-
-    public static void whenAssertIntArrayMethodReturnValueAndReturnedValueIsNotAnIntArray() {
-        var res = TestSensei.execute(
-            new Koan(CLASS, global("whenAssertIntArrayMethodReturnValueAndReturnedValueIsNotAnIntArray"))
-                .when(
-                    callKoanMethod("returnedValueNotIntArray")
-                )
-                .then(
-                    assertReturnValueEquals(new int[]{1, 3})
-                )
-        );
-        
-        assertKoanFails(
-            res[0],
-            new Line(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, code("returnedValueNotIntArray()"), code("int[]"), code("String")))
-        );
-    }
-
-    public static void whenAssertIntArrayMethodReturnValueAndReturnedValueIsNull() {
-        var res = TestSensei.execute(
-            new Koan(CLASS, global("whenAssertIntArrayMethodReturnValueAndReturnedValueIsNull"))
-                .when(
-                    callKoanMethod("returnedValueNull")
-                )
-                .then(
-                    assertReturnValueEquals(new int[]{1, 3})
-                )
-        );
-        
-        assertKoanFails(
-            res[0],
-            new Line(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, code("returnedValueNull()"), code("new int[]{1,3}")))
+            new Line(format(
+                EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red,
+                code("returnDouble(3.0000000001)"),
+                code("3.0"),
+                code("3.0000000001")
+            ))
         );
     }
 }

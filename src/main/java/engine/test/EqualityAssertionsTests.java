@@ -1,6 +1,7 @@
 package engine.test;
 
 import static engine.Assertions.assertReturnValueEquals;
+import static engine.Assertions.assertReturnValueStringRepresentationEquals;
 import static engine.Assertions.assertVariableEquals;
 import static engine.ConsoleFmt.code;
 import static engine.ConsoleFmt.format;
@@ -286,4 +287,86 @@ public class EqualityAssertionsTests {
             ))
         );
     }
+
+    public static void whenAssertReturnValueStringRepresentationEqualsAndItDoes() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("assertReturnValueStringRepresentationEqualsAndItDoes"))
+                .when(
+                    callKoanMethod("returnDouble", 7.5)
+                )
+                .then(
+                    assertReturnValueStringRepresentationEquals(global("7.5"), "java.lang.Double")
+                )
+        );
+
+        assertKoanPass(
+            res[0],
+            new Line(format(OK_RETURNED, Formats.Green, code("returnDouble(7.5)"), code("7.5")))
+        );
+    }
+
+    public static void whenAssertReturnValueStringRepresentationEqualsAndItDoesNot() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("assertReturnValueStringRepresentationEqualsAndItDoesNot"))
+                .when(
+                    callKoanMethod("returnDouble", 7.5)
+                )
+                .then(
+                    assertReturnValueStringRepresentationEquals(global("8.5"), "java.lang.Double")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(format(
+                EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red,
+                code("returnDouble(7.5)"),
+                8.5,
+                "7.5"
+            ))
+        );
+    }
+
+    public static void whenAssertReturnValueStringRepresentationEqualsAndItIsOtherType() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("assertReturnValueStringRepresentationEqualsAndItIsOtherType"))
+                .when(
+                    callKoanMethod("returnDouble", 7.5)
+                )
+                .then(
+                    assertReturnValueStringRepresentationEquals(global("7.5"), "Integer")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(format(
+                EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red,
+                code("returnDouble(7.5)"),
+                code("Integer"),
+                code("Double")
+            ))
+        );
+    }
+
+    public static void whenAssertReturnValueStringRepresentationEqualsAndItIsNull() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("assertReturnValueStringRepresentationEqualsAndItIsOtherType"))
+                .when(
+                    callKoanMethod("returnNull")
+                )
+                .then(
+                    assertReturnValueStringRepresentationEquals(global("7.5"), "Double")
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            new Line(format(
+                EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red,
+                code("returnNull()"),
+                "7.5"
+            ))
+        );
+    }        
 }

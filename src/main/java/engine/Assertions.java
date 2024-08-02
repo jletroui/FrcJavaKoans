@@ -166,18 +166,19 @@ public class Assertions {
      */
     public static ResultAssertion assertReturnValueStringRepresentationEquals(final Localizable<String> expected, final String expectedType) {
         return (p, res) -> {
+            final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
             if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale)));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, expressionFmted, expected.get(res.locale)));
                 return false;
             } else if (!res.executionResult.getClass().getName().equals(expectedType)) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, expectedType, res.executionResult.getClass().getSimpleName()));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code(expectedType), code(res.executionResult.getClass().getSimpleName())));
                 return false;
             } else if (!res.executionResult.toString().equals(expected.get(res.locale))) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, res.resultExpressionSourceCode, expected.get(res.locale), res.executionResult.toString()));
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, expressionFmted, expected.get(res.locale), res.executionResult.toString()));
                 return false;
             }
 
-            p.println(format(OK_RETURNED, Formats.Green, code(res.resultExpressionSourceCode), code(expected.get(res.locale))));
+            p.println(format(OK_RETURNED, Formats.Green, expressionFmted, code(expected.get(res.locale))));
             return true;
         }; 
     }

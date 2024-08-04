@@ -80,14 +80,35 @@ Pull requests for translations, curiculum tweaks or new capabilities are welcome
 
 When submitting bugs, please submit a zip file of the koans in a state exhibiting the issue.
 
+## I want to contribute. What can I do?
+
+Here are suggestions, in ascending order of involvement:
+
+* Submit [issues](https://github.com/jletroui/FrcJavaKoans/issues/new) for text issues: typos, awkward, ambiguous, etc...
+* Submit pull requests for text issues: typos, awkward, ambiguous, etc...
+* Report [bugs](https://github.com/jletroui/FrcJavaKoans/issues/new). Please submit a zip file of the koans in a state exhibiting the issue.
+* Submit [issues](https://github.com/jletroui/FrcJavaKoans/issues/new) or pull requests for better koans replacing existing ones. In particular, one improvements we are trying to converge to are koans exhibiting the same pedagogic targets and quality, but FRC and robot themed.
+* Submit [issues](https://github.com/jletroui/FrcJavaKoans/issues/new) or pull requests for new koans in existing series plugging a hole in the learning journey.
+* Better engine code comments or test coverage.
+* Submit a new bonus koan series. Current potentially beneficial areas not covered: sugar syntax (var, ternary operator, etc...), inheritance (and its fallbacks), generics, etc...
+* A new language localization. This involves:
+  1. Adding the new [Locale](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/engine/Locale.java) and [Localizable helper](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/engine/Localizable.java#L20).
+  2. Translating all [sensei and assertion messages](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/engine/Texts.java).
+  3. Translating all [koans title and texts](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/sensei/Texts.java).
+  4. Adding a [`*PathToEnlightment.java`](https://github.com/jletroui/FrcJavaKoans/tree/master/src/main/java).
+  5. Copying the [main series of koans](https://github.com/jletroui/FrcJavaKoans/tree/master/src/main/java/koans/english) in a package for the new language. Translate all the comments in there.
+  6. Repeat 5. for the [bonus koans](https://github.com/jletroui/FrcJavaKoans/tree/master/src/main/java/bonuses/english).
+  7. Add koans solutions for the new language in [the testing companion project](https://github.com/jletroui/FrcJavaKoansTests), to make sure koans work in the new language as well.
+
 ## Testing
 
-Testing this kind of project is challenging for a few reasons, main ones being:
+Automated testing of this project was challenging for a few reasons, main ones being:
 
-1. By design, we don't have a build tool (Gradle or Maven for example), nor access to any libraries. So no JUnit on hand.
+1. By design, we don't have a build tool (Gradle or Maven for example), nor access to any libraries. So no JUnit on hand to test the koans engine.
 2. We would not want to include solutions to the koans within the project, because the students might stumble on them, which would affect their learning.
+
+Here are the compromises we came up with to solve these challenges:
 
 For 1., we have created a mini test framework in `engine.test.runner` in order to run unit and integration tests of the koans engine. Tests are located in `engine.test`. To run those tests, simply run the `engine.test.runner.TestRunner.main` method.
 
 For 2., we have created a [brother project](https://github.com/jletroui/FrcJavaKoansTests) testing the koans themselves.
-

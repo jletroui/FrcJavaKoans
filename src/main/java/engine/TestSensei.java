@@ -1,5 +1,6 @@
 package engine;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import engine.script.ScriptRunner;
@@ -13,19 +14,19 @@ import engine.test.runner.OutputCapture;
 public class TestSensei {
     private static final Locale DEFAULT_TEST_LOCALE = Locale.en;
 
-    public record TestResult(Locale locale, int testIndex, Koan koan, boolean succeeded, OutputCapture output) {
+    public record TestResult(Locale locale, int testIndex, KoanResult koanResult, boolean succeeded, OutputCapture output) {
         public boolean hasCaptured(final Line... lines) {
             return output.hasCaptured(lines);
         }
 
         public String toString() {
-            return String.format("%s/%s[%d]", koan.koanClass.get(locale).simpleClassName, koan.koanName.get(locale), testIndex);
+            return String.format("%s/%s[%d]", koanResult.test.koan.koanClass.get(locale).simpleClassName, koanResult.test.koan.koanName.get(locale), testIndex);
         }
     }
 
     private record KoanTestIndex(Locale locale, int testIndex, KoanTest test) {
-        TestResult toResult(final boolean succeed, final CapturingPrinter output) {
-            return new TestResult(locale, testIndex, test.koan, succeed, output);
+        TestResult toResult(final KoanResult koanResult, final boolean succeed, final CapturingPrinter output) {
+            return new TestResult(locale, testIndex, koanResult, succeed, output);
         }
     }
 
@@ -49,7 +50,15 @@ public class TestSensei {
 
         for(final var assertion: test.koan.beforeAssertions) {
             if (!assertion.validate(capturingPrinter, testIndex.locale(), test.koan)) {
-                return testIndex.toResult(false, capturingPrinter);
+                final var emptyResult = new KoanResult(
+                    testIndex.locale(),
+                    test,
+                    new String[0],
+                    new String[0],
+                    Optional.empty(),
+                    Optional.empty()
+                );
+                return testIndex.toResult(emptyResult, false, capturingPrinter);
             }
         }
 
@@ -65,9 +74,9 @@ public class TestSensei {
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
             interceptionResult.returnValue.executionResult(),
-            interceptionResult.returnValue.context()
+            Optional.of(interceptionResult.returnValue.context())
         );
 
-        return testIndex.toResult(result.executeAssertions(capturingPrinter), capturingPrinter);
+        return testIndex.toResult(result, result.executeAssertions(capturingPrinter), capturingPrinter);
     }
 }

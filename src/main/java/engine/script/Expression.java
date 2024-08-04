@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
 
 import engine.KoanBugException;
@@ -169,17 +168,8 @@ public sealed interface Expression {
         );
     }
 
-    static final Map<Class<?>, Class<?>> UNBOXED = Map.of(
-        Integer.class, int.class,
-        Double.class, double.class,
-        Boolean.class, boolean.class,
-        Long.class, long.class,
-        Float.class, float.class,
-        Character.class, char.class
-    );
-
     private static boolean paramIsMatching(final Class<?> actualParam, final Class<?> expressionParam) {
-        return actualParam.isAssignableFrom(expressionParam) || actualParam.equals(UNBOXED.get(expressionParam));
+        return actualParam.isAssignableFrom(expressionParam) || actualParam.equals(Type.UNBOXED.get(expressionParam));
     }
 
     private static boolean paramsAreMatching(final ExecutionContext ctx, final Method method, final Expression[] params) {

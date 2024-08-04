@@ -11,6 +11,7 @@ import engine.ConsoleFmt.Formatted;
 import engine.script.Expression;
 import engine.script.Type;
 
+import static engine.ConsoleFmt.classSimpleNameAsCode;
 import static engine.ConsoleFmt.code;
 import static engine.ConsoleFmt.format;
 import static engine.Localizable.global;
@@ -118,7 +119,7 @@ public class Assertions {
     public static ResultAssertion assertVariableEquals(final String variableName, final Object expected) {
         return (p, res) -> {
             final Object expectedValue = expected instanceof final Localizable<?> localizable ? localizable.get(res.locale) : expected;
-            final Object val = res.executionContext.getVariableValue(variableName);
+            final Object val = res.executionContext.get().getVariableValue(variableName);
             final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expectedValue));
             final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(val));
             final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
@@ -126,7 +127,7 @@ public class Assertions {
                 p.println(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL, Formats.Red, expressionFmted, code(variableName), expectedFmted));
                 return false;
             } else if (val.getClass() != expectedValue.getClass()) {
-                p.println(format(EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red, expressionFmted, code(variableName), code(expectedValue.getClass().getSimpleName()), code(val.getClass().getSimpleName())));
+                p.println(format(EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red, expressionFmted, code(variableName), classSimpleNameAsCode(expectedValue.getClass()), classSimpleNameAsCode(val.getClass())));
                 return false;
             } else if (!eq(expectedValue, val)) {
                 p.println(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red, expressionFmted, code(variableName), expectedFmted, actualFmted));
@@ -140,17 +141,18 @@ public class Assertions {
 
     public static ResultAssertion assertReturnValueEquals(final Object expected) {
         return (p, res) -> {
+            final Object actual = res.executionResult;
             final Object expectedValue = expected instanceof final Localizable<?> localizable ? localizable.get(res.locale) : expected;
             final Formatted<String> expectedFmted = code(Expression.formatLiteralSourceCode(expectedValue));
-            final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(res.executionResult));
+            final Formatted<String> actualFmted = code(Expression.formatLiteralSourceCode(actual));
             final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
-            if (res.executionResult == null) {
+            if (actual == null) {
                 p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, expressionFmted, expectedFmted));
                 return false;
-            } else if (res.executionResult.getClass() != expectedValue.getClass()) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code(expectedValue.getClass().getSimpleName()), code(res.executionResult.getClass().getSimpleName())));
+            } else if (actual.getClass() != expectedValue.getClass()) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, classSimpleNameAsCode(expectedValue.getClass()), classSimpleNameAsCode(actual.getClass())));
                 return false;
-            } else if (!eq(expectedValue, res.executionResult)) {
+            } else if (!eq(expectedValue, actual)) {
                 p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, expressionFmted, expectedFmted, actualFmted));
                 return false;
             }
@@ -167,14 +169,15 @@ public class Assertions {
     public static ResultAssertion assertReturnValueStringRepresentationEquals(final Localizable<String> expected, final String expectedType) {
         return (p, res) -> {
             final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
-            if (res.executionResult == null) {
+            final Object actual = res.executionResult;
+            if (actual == null) {
                 p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, expressionFmted, expected.get(res.locale)));
                 return false;
-            } else if (!res.executionResult.getClass().getName().equals(expectedType)) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code(expectedType), code(res.executionResult.getClass().getSimpleName())));
+            } else if (!actual.getClass().getName().equals(expectedType)) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code(expectedType), classSimpleNameAsCode(actual.getClass())));
                 return false;
-            } else if (!res.executionResult.toString().equals(expected.get(res.locale))) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, expressionFmted, expected.get(res.locale), res.executionResult.toString()));
+            } else if (!actual.toString().equals(expected.get(res.locale))) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red, expressionFmted, expected.get(res.locale), actual.toString()));
                 return false;
             }
 
@@ -186,27 +189,27 @@ public class Assertions {
     public static ResultAssertion assertReturnValueWithRandomEquals(final DoubleToIntFunction expected) {
         return (p, res) -> {
             final var randomNumber = res.randomNumber();
-            if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected.applyAsInt(randomNumber)));
+            final Object actual = res.executionResult;
+            final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
+            if (actual == null) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, expressionFmted, code(expected.applyAsInt(randomNumber))));
                 return false;
-            } else if (!(res.executionResult instanceof Integer)) {
-                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName()));
+            } else if (!(actual instanceof Integer)) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code("int"), classSimpleNameAsCode(actual.getClass())));
                 return false;
-            } else if (((Integer)res.executionResult).intValue() != expected.applyAsInt(randomNumber)) {
-                p.println(
-                    format(
-                        EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED,
-                        Formats.Red, 
-                        code(res.resultExpressionSourceCode),
-                        code(expected.applyAsInt(randomNumber)),
-                        randomNumber,
-                        code(res.executionResult.toString())
-                    )
-                );
+            } else if (((Integer)actual).intValue() != expected.applyAsInt(randomNumber)) {
+                p.println(format(
+                    EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED,
+                    Formats.Red, 
+                    expressionFmted,
+                    code(expected.applyAsInt(randomNumber)),
+                    code(randomNumber),
+                    code(actual.toString())
+                ));
                 return false;
             }
 
-            p.println(format(OK_RETURNED_INT_FROM_RANDOM, Formats.Green, code(res.resultExpressionSourceCode), code(expected.applyAsInt(randomNumber)), randomNumber));
+            p.println(format(OK_RETURNED_INT_FROM_RANDOM, Formats.Green, expressionFmted, code(expected.applyAsInt(randomNumber)), code(randomNumber)));
             return true;
         }; 
     }
@@ -232,45 +235,48 @@ public class Assertions {
 
     private static ResultAssertion assertReturnValueWithRandomEquals(final Function<KoanResult, double[]> randomNumbersFunc, final ResToIntFunction buildExpected) {
         return (p, res) -> {
+            final Object actual = res.executionResult;
             final var randomNumbers = randomNumbersFunc.apply(res);
             final var formatRandomNumbers = Helpers.formatSequence(res.locale, randomNumbers);
+            final Formatted<String> expressionFmted = code(res.resultExpressionSourceCode);
 
             final int expected = buildExpected.apply(res);
-            if (res.executionResult == null) {
-                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, res.resultExpressionSourceCode, expected));
+            if (actual == null) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, expressionFmted, expected));
                 return false;
-            } else if (!(res.executionResult instanceof Integer)) {
-                p.println(format(EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE, Formats.Red, res.resultExpressionSourceCode, res.executionResult.getClass().getSimpleName()));
+            } else if (!(actual instanceof Integer)) {
+                p.println(format(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red, expressionFmted, code("int"), classSimpleNameAsCode(actual.getClass())));
                 return false;
-            } else if (((Integer)res.executionResult).intValue() != expected) {
+            } else if (((Integer)actual).intValue() != expected) {
                 p.println(
                     format(
                         EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED, 
                         Formats.Red, 
-                        code(res.resultExpressionSourceCode),
+                        expressionFmted,
                         code(expected),
                         formatRandomNumbers,
-                        code(res.executionResult.toString())
+                        code(actual.toString())
                     )
                 );
                 return false;
             }
 
-            p.println(format(OK_RETURNED_INT_FROM_RANDOMS, Formats.Green, res.resultExpressionSourceCode, expected, formatRandomNumbers));
+            p.println(format(OK_RETURNED_INT_FROM_RANDOMS, Formats.Green, expressionFmted, expected, formatRandomNumbers));
             return true;
         }; 
     }
 
     public static ResultAssertion assertReturnValueIsAnonymousObject() {
         return (p, res) -> {
-            if (res.executionResult == null) {
+            final Object actual = res.executionResult;
+            if (actual == null) {
                 p.println(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode)));
                 return false;
-            } else if (res.executionResult.getClass().getSimpleName().contains("$$Lambda$")) { // Kind of hacky, but only way as far as I know
+            } else if (actual.getClass().getSimpleName().contains("$$Lambda$")) { // Kind of hacky, but only way as far as I know
                 p.println(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_LAMBDA, Formats.Red, code(res.resultExpressionSourceCode)));
                 return false;
-            } else if (!res.executionResult.getClass().isAnonymousClass()) {
-                p.println(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(res.executionResult.getClass().getName())));
+            } else if (!actual.getClass().isAnonymousClass()) {
+                p.println(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(actual.getClass().getName())));
                 return false;
             }
 
@@ -281,14 +287,15 @@ public class Assertions {
 
     public static ResultAssertion assertReturnValueIsLambda() {
         return (p, res) -> {
-            if (res.executionResult == null) {
+            final Object actual = res.executionResult;
+            if (actual == null) {
                 p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode)));
                 return false;
-            } else if (res.executionResult.getClass().isAnonymousClass()) {
+            } else if (actual.getClass().isAnonymousClass()) {
                 p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_ANONYMOUS, Formats.Red, code(res.resultExpressionSourceCode)));
                 return false;
-            } else if (!res.executionResult.getClass().getSimpleName().contains("$$Lambda")) { // Kind of hacky, but only way as far as I know
-                p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(res.executionResult.getClass().getName())));
+            } else if (!actual.getClass().getSimpleName().contains("$$Lambda")) { // Kind of hacky, but only way as far as I know
+                p.println(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED, Formats.Red, code(res.resultExpressionSourceCode), code(actual.getClass().getName())));
                 return false;
             }
 
@@ -299,12 +306,13 @@ public class Assertions {
 
     public static ResultAssertion assertReturnValueImplements(Class<?> valueInterface) {
         return (p, res) -> {
+            final Object actual = res.executionResult;
             final var interfaceName = code(valueInterface.getName());
-            if (res.executionResult == null) {
+            if (actual == null) {
                 p.println(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_RETURNED_NULL, Formats.Red, code(res.resultExpressionSourceCode), interfaceName));
                 return false;
-            } else if (!valueInterface.isInstance(res.executionResult)) {
-                p.println(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_NOT, Formats.Red, code(res.resultExpressionSourceCode), interfaceName, code(res.executionResult.getClass().getName())));
+            } else if (!valueInterface.isInstance(actual)) {
+                p.println(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_NOT, Formats.Red, code(res.resultExpressionSourceCode), interfaceName, code(actual.getClass().getName())));
                 return false;
             }
 

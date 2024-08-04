@@ -201,27 +201,15 @@ public class Texts {
     public static final Localizable<String> OK_RETURNED_OBJECT_IS_LAMBDA =
         local("Ok: return of %s is a lambda method.")
         .fr("Ok: le retour de %s est une méthode lambda.");
-    public static final Localizable<String> EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return an integer but returned a '%s' instead!")
-        .fr("Attendu à ce que %s retourne un entier mais a retourné un '%s' à la place!");
-    public static final Localizable<String> EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return a String but returned a %s instead!")
-        .fr("Attendu à ce que %s retourne une String mais a retourné un '%s' à la place!");
-    public static final Localizable<String> EXPECTED_TO_LOOK_LIKE_BUT_LOOKED_LIKE =
-        local("Expected object to look like \"%s\" but looked like \"%s\" instead!")
-        .fr("Attendu à ce que l'objet ressemble à \"%s\" mais ressemble à \"%s\" à la place!");
-    public static final Localizable<String> OK_LOOKED_LIKE =
-        local("Ok: object looked like \"%s\".")
-        .fr("Ok: l'object ressemble à \"%s\".");
     public static final Localizable<String> EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED =
-        local("Expected %s to return %d from random number %f but returned %d instead!")
-        .fr("Attendu à ce que %s retourne %d à partir du nombre aléatoire %f mais a retourné %d à la place!");
+        local("Expected %s to return %s from random number %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s à partir du nombre aléatoire %s mais a retourné %s à la place!");
     public static final Localizable<String> OK_RETURNED_INT_FROM_RANDOM =
-        local("Ok: %s returned %s from random number %f.")
-        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %f.");
+        local("Ok: %s returned %s from random number %s.")
+        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %s.");
     public static final Localizable<String> EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED =
-        local("Expected %s to return %s from random numbers %s but returned %d instead!")
-        .fr("Attendu à ce que %s retourne %s à partir des nombres aléatoires %s mais a retourné %d à la place!");
+        local("Expected %s to return %s from random numbers %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s à partir des nombres aléatoires %s mais a retourné %s à la place!");
     public static final Localizable<String> OK_RETURNED_INT_FROM_RANDOMS =
         local("Ok: %s returned %s from random numbers %s.")
         .fr("Ok: %s a retourné %s à partir du nombre aléatoire %s.");        

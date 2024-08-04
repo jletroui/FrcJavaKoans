@@ -169,6 +169,10 @@ public class AboutMethods {
      * Expected result:
      * 
      * square(3) should return 9
+     * square(4) should return 16
+     * square(0) should return 0
+     * 
+     * Note: from this koan onward, the sensei might show you a single example of a call of your methods in the 'expected result' section. They should however work for any value of their parameters.
      * 
      */
     public static int square(int number) {
@@ -190,6 +194,7 @@ public class AboutMethods {
      * Expected result:
      * 
      * opposite(2) should return -2
+     * opposite(-5) should return 5
      * 
      */
 

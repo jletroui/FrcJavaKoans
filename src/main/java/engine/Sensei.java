@@ -2,6 +2,7 @@ package engine;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import engine.ConsoleFmt.Formats;
@@ -147,7 +148,7 @@ public class Sensei {
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
             interceptionResult.returnValue.executionResult(),
-            interceptionResult.returnValue.context()
+            Optional.of(interceptionResult.returnValue.context())
         );
 
         concludeConsole(test.koan);

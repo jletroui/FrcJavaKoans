@@ -2,6 +2,8 @@ package engine;
 
 import java.util.Arrays;
 
+import engine.script.Type;
+
 /**
  * Console text coloring.
  */
@@ -40,6 +42,11 @@ public final class ConsoleFmt {
 
     public static <T> Formatted<T> code(T text) {
         return new Formatted<T>(text, Formats.Code);
+    }
+
+    public static Formatted<String> classSimpleNameAsCode(Class<?> clasz) {
+        final var unboxed = Type.UNBOXED.getOrDefault(clasz, clasz);
+        return new Formatted<>(unboxed.getSimpleName(), Formats.Code);
     }
 
     public static <T> Formatted<T> strong(T text) {

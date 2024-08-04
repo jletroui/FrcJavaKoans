@@ -3,10 +3,20 @@ package engine.script;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Map;
 
 import engine.KoanBugException;
 
 public class Type {
+    public static final Map<Class<?>, Class<?>> UNBOXED = Map.of(
+        Integer.class, int.class,
+        Double.class, double.class,
+        Boolean.class, boolean.class,
+        Long.class, long.class,
+        Float.class, float.class,
+        Character.class, char.class
+    );
+
     private Class<?> clasz = null;
     public final String className;
     public final String simpleClassName;

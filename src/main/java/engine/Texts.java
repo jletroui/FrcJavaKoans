@@ -103,8 +103,8 @@ public class Texts {
         local("Console:")
         .fr("Console:");
     public static final Localizable<String> YOUR_PROGRESS_THUS_FAR =
-        local("Your progress thus far: [%s%s%s] %s/%s")
-        .fr("Ton progrès jusqu'à maintenant: [%s%s%s] %s/%s");
+        local("Your progress thus far: [%s%s%s] %s")
+        .fr("Ton progrès jusqu'à maintenant: [%s%s%s] %s    ");
     public static final Localizable<String> AND =
         local(" and %s")
         .fr(" et %s");

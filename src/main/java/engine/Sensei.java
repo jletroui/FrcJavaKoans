@@ -217,7 +217,7 @@ public class Sensei {
         p.println(notStyled(
             PLEASE_MEDITATE_ON, 
             strong(koan.koanName),
-            classSimpleName(koan.koanClass.get(locale))
+            sameStyle(koan.koanClass.get(locale).simpleClassName)
         ));
         p.println();
     }
@@ -233,8 +233,7 @@ public class Sensei {
             green(repeat(".", successfulCount)),
             red("X"),
             cyan(repeat("_", allKoans.size() - successfulCount - 1)),
-            notStyled(successfulCount),
-            notStyled(allKoans.size())
+            notStyled(String.format("%s/%s", successfulCount, allKoans.size()))
         ));
         p.println();
     }

@@ -15,7 +15,7 @@ public enum Style {
 
     public final String tags;
 
-    private Style(String tags) {
+    private Style(final String tags) {
         this.tags = tags;
     }
 }

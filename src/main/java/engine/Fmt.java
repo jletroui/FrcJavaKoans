@@ -10,12 +10,12 @@ import static engine.Texts.AND;
 /**
  * A piece of localizable and stylized text in the console. Allow to create colored output in the console.
  */
-public record Fmt(Localizable<String> templ, Style style, Fmt... children) {
-    public String format(Locale locale) {
+public final record Fmt(Localizable<String> templ, Style style, Fmt... children) {
+    public String format(final Locale locale) {
         return format(locale, Style.None);
     }
 
-    private String format(Locale locale, Style parentStyle) {
+    private String format(final Locale locale, final Style parentStyle) {
         final var actualStyle = style == Style.Inherit ? parentStyle : style;
         final var formattedChildren = Arrays
             .stream(children)
@@ -24,91 +24,91 @@ public record Fmt(Localizable<String> templ, Style style, Fmt... children) {
         return String.format("%s%s%s", actualStyle.tags, String.format(templ.get(locale), formattedChildren) , parentStyle.tags);
     }
 
-    public static Fmt notStyled(Localizable<String> templ, Fmt... children) {
+    public static Fmt notStyled(final Localizable<String> templ, final Fmt... children) {
         return new Fmt(templ, Style.None, children);
     }
 
-    public static Fmt notStyled(String value) {
+    public static Fmt notStyled(final String value) {
         return new Fmt(global(value), Style.None);
     }
 
-    public static Fmt notStyled(int value) {
+    public static Fmt notStyled(final int value) {
         return new Fmt(global(Integer.toString(value)), Style.None);
     }
 
-    public static Fmt red(Localizable<String> templ, Fmt... children) {
+    public static Fmt red(final Localizable<String> templ, final Fmt... children) {
         return new Fmt(templ, Style.Red, children);
     }
 
-    public static Fmt red(String text) {
+    public static Fmt red(final String text) {
         return new Fmt(global(text), Style.Red);
     }
 
-    public static Fmt green(Localizable<String> templ, Fmt... children) {
+    public static Fmt green(final Localizable<String> templ, final Fmt... children) {
         return new Fmt(templ, Style.Green, children);
     }
 
-    public static Fmt green(String text) {
+    public static Fmt green(final String text) {
         return new Fmt(global(text), Style.Green);
     }
 
-    public static Fmt cyan(Localizable<String> templ, Fmt... children) {
+    public static Fmt cyan(final Localizable<String> templ, final Fmt... children) {
         return new Fmt(templ, Style.Cyan, children);
     }
 
-    public static Fmt cyan(String text) {
+    public static Fmt cyan(final String text) {
         return new Fmt(global(text), Style.Cyan);
     }
 
-    public static Fmt strong(Localizable<String> templ, Fmt... children) {
+    public static Fmt strong(final Localizable<String> templ, final Fmt... children) {
         return new Fmt(templ, Style.Strong, children);
     }
 
-    public static Fmt strongRed(Localizable<String> templ, Fmt... children) {
+    public static Fmt strongRed(final Localizable<String> templ, final Fmt... children) {
         return new Fmt(templ, Style.StrongRed, children);
     }
 
-    public static Fmt sameStyle(Localizable<String> templ, Fmt... children) {
+    public static Fmt sameStyle(final Localizable<String> templ, final Fmt... children) {
         return new Fmt(templ, Style.Inherit, children);
     }
 
-    public static Fmt sameStyle(String value) {
+    public static Fmt sameStyle(final String value) {
         return new Fmt(global(value), Style.Inherit);
     }
 
-    public static <T> Fmt code(T expressionTextOrValue) {
+    public static <T> Fmt code(final T expressionTextOrValue) {
         return new Fmt(global(expressionTextOrValue.toString()), Style.Code);
     }
 
-    public static Fmt classSimpleName(Type type) {
+    public static Fmt classSimpleName(final Type type) {
         return code(type.simpleClassName);
     }
 
-    public static Fmt classSimpleName(Class<?> clasz) {
+    public static Fmt classSimpleName(final Class<?> clasz) {
         final var unboxed = Type.UNBOXED.getOrDefault(clasz, clasz);
         return code(unboxed.getSimpleName());
     }
 
-    public static Fmt classFullName(Class<?> clasz) {
+    public static Fmt classFullName(final Class<?> clasz) {
         final var unboxed = Type.UNBOXED.getOrDefault(clasz, clasz);
         return code(unboxed.getName());
     }
 
-    public static Fmt sequence(double[] items, Style itemStyle) {
+    public static Fmt sequence(final double[] items, final Style itemStyle) {
         return sequence(
             Arrays.stream(items).mapToObj(item -> global(Double.toString(item))).toList(),
             itemStyle
         );
     }
 
-    public static Fmt sequence(String[] items, Style itemStyle) {
+    public static Fmt sequence(final String[] items, final Style itemStyle) {
         return sequence(
             Arrays.stream(items).map(item -> global(item)).toList(),
             itemStyle
         );
     }
 
-    public static Fmt sequence(List<Localizable<String>> items, Style itemStyle) {
+    public static Fmt sequence(final List<Localizable<String>> items, final Style itemStyle) {
         if (items.isEmpty()) {
             return new Fmt(global(""), Style.Inherit);
         }

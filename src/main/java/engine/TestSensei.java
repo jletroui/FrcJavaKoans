@@ -54,7 +54,7 @@ public class TestSensei {
                     test,
                     new String[0],
                     new String[0],
-                    Optional.empty(),
+                    null,
                     Optional.empty()
                 );
                 return testIndex.toResult(emptyResult, false, capturingPrinter);

@@ -4,19 +4,22 @@ import static engine.Assertions.assertReturnValueEquals;
 import static engine.Assertions.assertReturnValueStringRepresentationEquals;
 import static engine.Assertions.assertReturnValueWithRandomEquals;
 import static engine.Assertions.assertVariableEquals;
-import static engine.ConsoleFmt.classSimpleNameAsCode;
-import static engine.ConsoleFmt.code;
-import static engine.ConsoleFmt.format;
+import static engine.Fmt.classSimpleName;
+import static engine.Fmt.code;
+import static engine.Fmt.green;
+import static engine.Fmt.red;
+import static engine.Fmt.sameStyle;
+import static engine.Fmt.sequence;
 import static engine.Localizable.global;
 import static engine.Localizable.local;
 
+import engine.Style;
 import engine.Helpers;
 import engine.Koan;
 import engine.Locale;
 import engine.Localizable;
+import engine.ResToIntFunction;
 import engine.TestSensei;
-import engine.ConsoleFmt.Formats;
-import engine.test.runner.Line;
 
 import static engine.script.Expression.assignVariable;
 import static engine.script.Expression.callKoanMethod;
@@ -25,7 +28,6 @@ import static engine.test.runner.RunnerAssertions.assertKoanPass;
 
 import java.util.List;
 import java.util.function.DoubleToIntFunction;
-
 import static engine.Texts.*;
 
 public class EqualityAssertionsTests {
@@ -44,6 +46,7 @@ public class EqualityAssertionsTests {
         new ValueData("returnIntArray", new int[]{1, 3}, new int[]{1, 2}, "new int[]{1,3}", "new int[]{1,2}")
     );
     private static final DoubleToIntFunction EXAMPLE_RANDOM_LOGIC = randomNumber -> (int)Math.floor(randomNumber * 1000);
+    private static final ResToIntFunction EXAMPLE_MULTIPLE_RANDOM_LOGIC = res -> EXAMPLE_RANDOM_LOGIC.applyAsInt(res.randomNumber(0)) + EXAMPLE_RANDOM_LOGIC.applyAsInt(res.randomNumber(1));
 
     public static Object returnNull() {
         return null;
@@ -64,7 +67,14 @@ public class EqualityAssertionsTests {
         return val;
     }
     public static int returnRandom() {
-        return EXAMPLE_RANDOM_LOGIC.applyAsInt(Helpers.random());
+        final var r = Helpers.random();
+        final var res = EXAMPLE_RANDOM_LOGIC.applyAsInt(r);
+        return res;
+    }
+    public static int returnRandoms() {
+        final var r1 = returnRandom();
+        final var r2 = returnRandom();
+        return r1 + r2;
     }
 
     public static void whenAssertVariableEquals() {
@@ -82,7 +92,7 @@ public class EqualityAssertionsTests {
 
             assertKoanPass(
                 res[0],
-                new Line(format(OK_VARIABLE_EQUAL, Formats.Green, code("a"), code(val.codeExpected)))
+                green(OK_VARIABLE_EQUAL, code("a"), code(val.codeExpected))
             );
 
             res = TestSensei.execute(
@@ -97,13 +107,13 @@ public class EqualityAssertionsTests {
             
             assertKoanFails(
                 res[0],
-                new Line(format(
-                    EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red,
+                red(
+                    EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL,
                     code("var a = " + val.codeNotEquals),
                     code("a"),
                     code(val.codeExpected),
                     code(val.codeNotEquals)
-                ))
+                )
             );
 
             final var otherTypeVal = VALUE_EXAMPLES.get(i == 0 ? 1 : 0);
@@ -119,13 +129,13 @@ public class EqualityAssertionsTests {
             
             assertKoanFails(
                 res[0],
-                new Line(format(
-                    EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE, Formats.Red,
+                red(
+                    EXPECTED_VARIABLE_TO_BE_BUT_WAS_OTHER_TYPE,
                     code("var a = " + otherTypeVal.codeExpected),
                     code("a"),
-                    classSimpleNameAsCode(val.actual().getClass()),
-                    classSimpleNameAsCode(otherTypeVal.expected.getClass())
-                ))
+                    classSimpleName(val.actual().getClass()),
+                    classSimpleName(otherTypeVal.expected.getClass())
+                )
             );
 
             res = TestSensei.execute(
@@ -140,7 +150,7 @@ public class EqualityAssertionsTests {
             
             assertKoanFails(
                 res[0],
-                new Line(format(EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL, Formats.Red, code("var a = null"), code("a"), code(val.codeExpected)))
+                red(EXPECTED_VARIABLE_TO_EQUAL_BUT_IS_NULL, code("var a = null"), code("a"), code(val.codeExpected))
             );            
         }
     }
@@ -158,7 +168,7 @@ public class EqualityAssertionsTests {
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_VARIABLE_EQUAL, Formats.Green, code("a"), code("3.0")))
+            green(OK_VARIABLE_EQUAL, code("a"), code("3.0"))
         );
 
         res = TestSensei.execute(
@@ -173,13 +183,13 @@ public class EqualityAssertionsTests {
         
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL, Formats.Red,
+            red(
+                EXPECTED_VARIABLE_TO_EQUAL_BUT_EQUAL,
                 code("var a = 3.0000000001"),
                 code("a"),
                 code("3.0"),
                 code("3.0000000001")
-            ))
+            )
         );
 
     }
@@ -199,7 +209,7 @@ public class EqualityAssertionsTests {
 
             assertKoanPass(
                 res[0],
-                new Line(format(OK_RETURNED, Formats.Green, code(callKoanMethod(val.methodName, val.actual()).formatSourceCode(Locale.en)), code(val.codeExpected)))
+                green(OK_RETURNED, code(callKoanMethod(val.methodName, val.actual()).formatSourceCode(Locale.en)), code(val.codeExpected))
             );
 
             res = TestSensei.execute(
@@ -214,12 +224,12 @@ public class EqualityAssertionsTests {
             
             assertKoanFails(
                 res[0],
-                new Line(format(
-                    EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red,
+                red(
+                    EXPECTED_TO_RETURN_BUT_RETURNED,
                     code(callKoanMethod(val.methodName, val.returnedNotEquals).formatSourceCode(Locale.en)),
                     code(val.codeExpected),
                     code(val.codeNotEquals)
-                ))
+                )
             );
 
             final var otherTypeVal = VALUE_EXAMPLES.get(i == 0 ? 1 : 0);
@@ -235,12 +245,12 @@ public class EqualityAssertionsTests {
             
             assertKoanFails(
                 res[0],
-                new Line(format(
-                    EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red,
+                red(
+                    EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE,
                     code(callKoanMethod(otherTypeVal.methodName, otherTypeVal.actual()).formatSourceCode(Locale.en)),
-                    classSimpleNameAsCode(val.actual().getClass()),
-                    classSimpleNameAsCode(otherTypeVal.expected.getClass())
-                ))
+                    classSimpleName(val.actual().getClass()),
+                    classSimpleName(otherTypeVal.expected.getClass())
+                )
             );
 
             res = TestSensei.execute(
@@ -255,7 +265,7 @@ public class EqualityAssertionsTests {
             
             assertKoanFails(
                 res[0],
-                new Line(format(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red, code("returnNull()"), code(val.codeExpected)))
+                red(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, code("returnNull()"), code(val.codeExpected))
             );            
         }
     }
@@ -273,7 +283,7 @@ public class EqualityAssertionsTests {
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_RETURNED, Formats.Green, code("returnDouble(3.00000000001)"), code("3.0")))
+            green(OK_RETURNED, code("returnDouble(3.00000000001)"), code("3.0"))
         );
 
         res = TestSensei.execute(
@@ -288,12 +298,12 @@ public class EqualityAssertionsTests {
         
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red,
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED,
                 code("returnDouble(3.0000000001)"),
                 code("3.0"),
                 code("3.0000000001")
-            ))
+            )
         );
     }
 
@@ -304,13 +314,13 @@ public class EqualityAssertionsTests {
                     callKoanMethod("returnDouble", 7.5)
                 )
                 .then(
-                    assertReturnValueStringRepresentationEquals(global("7.5"), "java.lang.Double")
+                    assertReturnValueStringRepresentationEquals(global("7.5"), "double")
                 )
         );
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_RETURNED, Formats.Green, code("returnDouble(7.5)"), code("7.5")))
+            green(OK_RETURNED, code("returnDouble(7.5)"), code("7.5"))
         );
     }
 
@@ -321,18 +331,18 @@ public class EqualityAssertionsTests {
                     callKoanMethod("returnDouble", 7.5)
                 )
                 .then(
-                    assertReturnValueStringRepresentationEquals(global("8.5"), "java.lang.Double")
+                    assertReturnValueStringRepresentationEquals(global("8.5"), "double")
                 )
         );
 
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_TO_RETURN_BUT_RETURNED, Formats.Red,
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED,
                 code("returnDouble(7.5)"),
-                8.5,
-                "7.5"
-            ))
+                sameStyle("8.5"),
+                sameStyle("7.5")
+            )
         );
     }
 
@@ -349,12 +359,12 @@ public class EqualityAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red,
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE,
                 code("returnDouble(7.5)"),
                 code("int"),
                 code("double")
-            ))
+            )
         );
     }
 
@@ -365,17 +375,17 @@ public class EqualityAssertionsTests {
                     callKoanMethod("returnNull")
                 )
                 .then(
-                    assertReturnValueStringRepresentationEquals(global("7.5"), "Double")
+                    assertReturnValueStringRepresentationEquals(global("7.5"), "double")
                 )
         );
 
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red,
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED_NULL,
                 code("returnNull()"),
-                "7.5"
-            ))
+                sameStyle("7.5")
+            )
         );
     }        
 
@@ -394,7 +404,7 @@ public class EqualityAssertionsTests {
         var expected = EXAMPLE_RANDOM_LOGIC.applyAsInt(randomNumber);
         assertKoanPass(
             res[0],
-            new Line(format(OK_RETURNED_INT_FROM_RANDOM, Formats.Green, code("returnRandom()"), code(expected), code(randomNumber)))
+            green(OK_RETURNED_INT_FROM_RANDOM, code("returnRandom()"), code(expected), code(randomNumber))
         );
     }
 
@@ -413,13 +423,13 @@ public class EqualityAssertionsTests {
         var expected = EXAMPLE_RANDOM_LOGIC.applyAsInt(randomNumber);
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED, Formats.Red,
+            red(
+                EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED,
                 code("returnInt(0)"),
                 code(expected),
                 code(randomNumber),
                 code(0)
-            ))
+            )
         );
     }
 
@@ -436,12 +446,12 @@ public class EqualityAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, Formats.Red,
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE,
                 code("returnDouble(7.5)"),
                 code("int"),
                 code("double")
-            ))
+            )
         );
     }
 
@@ -460,11 +470,99 @@ public class EqualityAssertionsTests {
         var expected = EXAMPLE_RANDOM_LOGIC.applyAsInt(randomNumber);
         assertKoanFails(
             res[0],
-            new Line(format(
-                EXPECTED_TO_RETURN_BUT_RETURNED_NULL, Formats.Red,
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED_NULL,
                 code("returnNull()"),
                 code(expected)
-            ))
+            )
+        );
+    }     
+
+    public static void whenAssertReturnValueWithMultipleRandomEqualsAndItDoes() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("whenAssertReturnValueWithMultipleRandomEqualsAndItDoes"))
+                .when(
+                    callKoanMethod("returnRandoms")
+                )
+                .then(
+                    assertReturnValueWithRandomEquals(2, EXAMPLE_MULTIPLE_RANDOM_LOGIC)
+                )
+        );
+
+        var randomNumbers = res[0].koanResult().randomNumbers(2);
+        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].koanResult());
+        assertKoanPass(
+            res[0],
+            green(OK_RETURNED_INT_FROM_RANDOMS, code("returnRandoms()"), code(expected), sequence(randomNumbers, Style.Code))
+        );
+    }
+
+    public static void whenAssertReturnValueWithMultipleRandomEqualsAndItDoesNot() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("whenAssertReturnValueWithMultipleRandomEqualsAndItDoesNot"))
+                .when(
+                    callKoanMethod("returnInt", 0)
+                )
+                .then(
+                    assertReturnValueWithRandomEquals(2, EXAMPLE_MULTIPLE_RANDOM_LOGIC)
+                )
+        );
+
+        var randomNumbers = res[0].koanResult().randomNumbers(2);
+        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].koanResult());
+        assertKoanFails(
+            res[0],
+            red(
+                EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED,
+                code("returnInt(0)"),
+                code(expected),
+                sequence(randomNumbers, Style.Code),
+                code(0)
+            )
+        );
+    }
+
+    public static void whenAssertReturnValueWithMultipleRandomEqualsAndItIsOtherType() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("whenAssertReturnValueWithMultipleRandomEqualsAndItIsOtherType"))
+                .when(
+                    callKoanMethod("returnDouble", 7.5)
+                )
+                .then(
+                    assertReturnValueWithRandomEquals(2, EXAMPLE_MULTIPLE_RANDOM_LOGIC)
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE,
+                code("returnDouble(7.5)"),
+                code("int"),
+                code("double")
+            )
+        );
+    }
+
+    public static void whenAssertReturnValueWithMultipleRandomEqualsAndItIsNull() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("whenAssertReturnValueWithMultipleRandomEqualsAndItIsNull"))
+                .when(
+                    callKoanMethod("returnNull")
+                )
+                .then(
+                    assertReturnValueWithRandomEquals(2, EXAMPLE_MULTIPLE_RANDOM_LOGIC)
+                )
+        );
+
+        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].koanResult());
+        assertKoanFails(
+            res[0],
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED_NULL,
+                code("returnNull()"),
+                code(expected)
+            )
         );
     }        
 }

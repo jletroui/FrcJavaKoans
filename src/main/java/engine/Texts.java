@@ -52,8 +52,8 @@ public class Texts {
         local("Expected to find a method called '%s' in src/main/java/%s.java with a '%s' return type but did not find any.")
         .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, avec un type de retour '%s' mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_ONE_PARAM =
-        local("Expected to find a public method called '%s' in src/main/java/%s.java with a '%s' parameter but did not find any.")
-        .fr("Attendu à une méthode publique nommée '%s' dans src/main/java/%s.java, avec un paramètre '%s' mais ne la trouve pas.");
+        local("Expected to find a public method called '%s' in src/main/java/%s.java with a %s parameter but did not find any.")
+        .fr("Attendu à une méthode publique nommée '%s' dans src/main/java/%s.java, avec un paramètre %s mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_MANY_PARAMS =
         local("Expected to find a public method called '%s' in src/main/java/%s.java with parameters of type %s but did not find any.")
         .fr("Attendu à une méthode publique nommée '%s' dans src/main/java/%s.java, avec des paramètres de type %s mais ne la trouve pas.");
@@ -103,10 +103,10 @@ public class Texts {
         local("Console:")
         .fr("Console:");
     public static final Localizable<String> YOUR_PROGRESS_THUS_FAR =
-        local(ConsoleFmt.green("Your progress thus far: [") + "%s" + ConsoleFmt.green("]") + " %d/%d")
-        .fr(ConsoleFmt.green("Ton progrès jusqu'à maintenant: [") + "%s" + ConsoleFmt.green("]") + " %d/%d");
+        local("Your progress thus far: [%s%s%s] %s/%s")
+        .fr("Ton progrès jusqu'à maintenant: [%s%s%s] %s/%s");
     public static final Localizable<String> AND =
-        local(", and %s")
+        local(" and %s")
         .fr(" et %s");
     public static final Localizable<String> EXPECTED_TO_FIND_FIELD_IN_CLASS =
         local("Expected to find a '%s' field in class %s, but did not find any.")

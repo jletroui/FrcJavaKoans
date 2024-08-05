@@ -5,7 +5,6 @@ import java.util.stream.IntStream;
 
 import engine.script.ScriptRunner;
 import engine.test.runner.CapturingPrinter;
-import engine.test.runner.Line;
 import engine.test.runner.OutputCapture;
 
 /**
@@ -15,7 +14,7 @@ public class TestSensei {
     private static final Locale DEFAULT_TEST_LOCALE = Locale.en;
 
     public record TestResult(Locale locale, int testIndex, KoanResult koanResult, boolean succeeded, OutputCapture output) {
-        public boolean hasCaptured(final Line... lines) {
+        public boolean hasCaptured(final Fmt... lines) {
             return output.hasCaptured(lines);
         }
 

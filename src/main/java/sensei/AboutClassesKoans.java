@@ -3,7 +3,6 @@ package sensei;
 import static engine.Assertions.assertNextStdOutLineEquals;
 import static engine.Assertions.assertNoMoreLineInStdOut;
 import static engine.Assertions.assertReturnValueEquals;
-import static engine.Assertions.assertConstructorIsInvokable;
 import static engine.Assertions.assertKoanMethodIsInvokable;
 import static engine.Assertions.assertStaticMethodIsInvokable;
 import static engine.Localizable.global;

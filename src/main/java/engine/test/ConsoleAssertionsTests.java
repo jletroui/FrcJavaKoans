@@ -4,15 +4,15 @@ import static engine.Assertions.assertAskedInStdIn;
 import static engine.Assertions.assertNextStdOutLineEquals;
 import static engine.Assertions.assertNextStdOutLineIsEmpty;
 import static engine.Assertions.assertNoMoreLineInStdOut;
-import static engine.ConsoleFmt.code;
-import static engine.ConsoleFmt.format;
+import static engine.Fmt.code;
+import static engine.Fmt.green;
+import static engine.Fmt.red;
+import static engine.Fmt.sameStyle;
 import static engine.Localizable.global;
 
 import engine.Koan;
 import engine.Localizable;
 import engine.TestSensei;
-import engine.ConsoleFmt.Formats;
-import engine.test.runner.Line;
 import engine.test.simulation.StudentSolutions;
 
 import static engine.script.Expression.callKoanMethod;
@@ -35,7 +35,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanPass(res[0], new Line(format(OK_DISPLAYED_IN_CONSOLE, Formats.Green, "hello", code("simpleConsoleOutput()"))));
+        assertKoanPass(res[0], green(OK_DISPLAYED_IN_CONSOLE, sameStyle("hello"), code("simpleConsoleOutput()")));
     }
 
     public static void whenAssertNextStdOutLineAndItIsDifferent() {
@@ -50,7 +50,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanFails(res[0], new Line(format(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD, Formats.Red, "bye", code("simpleConsoleOutput()"), "hello")));
+        assertKoanFails(res[0], red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_INSTEAD, sameStyle("bye"), code("simpleConsoleOutput()"), sameStyle("hello")));
     }
 
     public static void whenAssertNextStdOutLineAndThereIsNothing() {
@@ -65,7 +65,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanFails(res[0], new Line(format(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, Formats.Red, "hello", code("doNothing()"))));
+        assertKoanFails(res[0], red(EXPECTED_TO_SEE_IN_CONSOLE_BUT_SAW_NOTHING, sameStyle("hello"), code("doNothing()")));
     }
 
     public static void whenAssertNoMoreLineInStdOutAndThereIsNone() {
@@ -95,7 +95,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanFails(res[0], new Line(format(EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD, Formats.Red, code("simpleConsoleOutput()"), "hello")));
+        assertKoanFails(res[0], red(EXPECTED_TO_SEE_NOTHING_IN_CONSOLE_BUT_SAW_INSTEAD, code("simpleConsoleOutput()"), sameStyle("hello")));
     }
 
     public static void whenAssertNextStdOutLineIsEmptyAndItIs() {
@@ -110,7 +110,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanPass(res[0], new Line(format(OK_DISPLAYED_EMPTY_LINE_IN_CONSOLE, Formats.Green)));
+        assertKoanPass(res[0], green(OK_DISPLAYED_EMPTY_LINE_IN_CONSOLE));
     }
 
     public static void whenAssertNextStdOutLineIsEmptyAndItIsNot() {
@@ -125,7 +125,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanFails(res[0], new Line(format(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_INSTEAD, Formats.Red, "hello")));
+        assertKoanFails(res[0], red(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_INSTEAD, sameStyle("hello")));
     }    
 
     public static void whenAssertNextStdOutLineIsEmptyAndThereIsNone() {
@@ -140,7 +140,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanFails(res[0], new Line(format(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_NOTHING, Formats.Red)));
+        assertKoanFails(res[0], red(EXPECTED_TO_SEE_EMPTY_LINE_IN_CONSOLE_BUT_SAW_NOTHING));
     }    
 
     public static void whenAssertAskedInStdInAndAsked() {
@@ -156,7 +156,7 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanPass(res[0], new Line(format(OK_ASKED_FOR_LINE_IN_CONSOLE, Formats.Green)));
+        assertKoanPass(res[0], green(OK_ASKED_FOR_LINE_IN_CONSOLE));
     }    
 
     public static void whenAssertAskedInStdInAndDidNotAsked() {
@@ -171,6 +171,6 @@ public class ConsoleAssertionsTests {
                 )
         );
 
-        assertKoanFails(res[0], new Line(format(EXPECTED_FOR_USER_TO_ANSWER_IN_CONSOLE, Formats.Red)));
+        assertKoanFails(res[0], red(EXPECTED_FOR_USER_TO_ANSWER_IN_CONSOLE));
     }    
 }

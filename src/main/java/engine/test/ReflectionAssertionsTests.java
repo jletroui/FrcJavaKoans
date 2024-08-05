@@ -8,21 +8,21 @@ import static engine.Assertions.assertPrivateFinalField;
 import static engine.Assertions.assertStaticMethodIsInvokable;
 import static engine.Assertions.assertCanInstantiateClass;
 import static engine.Assertions.assertConstructorIsInvokable;
-import static engine.ConsoleFmt.code;
-import static engine.ConsoleFmt.format;
-import static engine.ConsoleFmt.red;
 import static engine.Localizable.global;
 
+import java.util.List;
 import java.util.function.IntConsumer;
 
+import engine.Style;
 import engine.Koan;
 import engine.Localizable;
 import engine.TestSensei;
-import engine.ConsoleFmt.Formats;
-import engine.test.runner.Line;
 import engine.test.simulation.SomeInterface;
 import engine.test.simulation.StudentSolutions;
-
+import static engine.Fmt.code;
+import static engine.Fmt.red;
+import static engine.Fmt.sameStyle;
+import static engine.Fmt.sequence;
 import static engine.script.Expression.callKoanMethod;
 import static engine.script.Type.type;
 import static engine.test.runner.RunnerAssertions.assertKoanFails;
@@ -59,7 +59,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_CLASS_TO_IMPLEMENT, Formats.Red, code("engine.test.simulation.SomeImplementation"), code("java.util.function.IntConsumer")))
+            red(EXPECTED_CLASS_TO_IMPLEMENT, code("engine.test.simulation.SomeImplementation"), code("java.util.function.IntConsumer"))
         );
     }
 
@@ -90,7 +90,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -107,7 +107,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_METHOD_TO_BE_STATIC), "nonStaticMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_METHOD_TO_BE_STATIC, sameStyle("nonStaticMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -124,7 +124,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -141,7 +141,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM), "noMethod", "engine/test/simulation/StudentSolutions", "int")
+            red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"), code("int"))
         );
     }
 
@@ -158,7 +158,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions", "'int', and 'double'")
+            red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"), sequence(List.of(global("int"), global("double")), Style.Code))
         );
     }
 
@@ -175,7 +175,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "privateMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("privateMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -192,7 +192,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), "NoClass", "engine.test.simulation")
+            red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE, code("NoClass"), code("engine.test.simulation"))
         );
     }
 
@@ -223,7 +223,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_METHOD_TO_BE_STATIC), "nonStaticMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_METHOD_TO_BE_STATIC, sameStyle("nonStaticMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -240,7 +240,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -257,7 +257,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM), "noMethod", "engine/test/simulation/StudentSolutions", "int")
+            red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"), code("int"))
         );
     }
 
@@ -274,7 +274,12 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions", "'int', and 'double'")
+            red(
+                EXPECTED_TO_FIND_MEHOD_MANY_PARAMS,
+                sameStyle("noMethod"),
+                sameStyle("engine/test/simulation/StudentSolutions"),
+                sequence(List.of(global("int"), global("double")), Style.Code)
+            )
         );
     }
 
@@ -291,7 +296,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "privateMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("privateMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -322,7 +327,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -339,7 +344,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_METHOD_TO_NOT_BE_STATIC), "doNothing", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_METHOD_TO_NOT_BE_STATIC, sameStyle("doNothing"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -356,7 +361,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -373,7 +378,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM), "noMethod", "engine/test/simulation/StudentSolutions", "int")
+            red(EXPECTED_TO_FIND_MEHOD_ONE_PARAM, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"), code("int"))
         );
     }
 
@@ -390,7 +395,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS), "noMethod", "engine/test/simulation/StudentSolutions", "'int', and 'double'")
+            red(EXPECTED_TO_FIND_MEHOD_MANY_PARAMS, sameStyle("noMethod"), sameStyle("engine/test/simulation/StudentSolutions"), sequence(List.of(global("int"), global("double")), Style.Code))
         );
     }
 
@@ -407,7 +412,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS), "nonStaticPrivateMethod", "engine/test/simulation/StudentSolutions")
+            red(EXPECTED_TO_FIND_MEHOD_NO_PARAMS, sameStyle("nonStaticPrivateMethod"), sameStyle("engine/test/simulation/StudentSolutions"))
         );
     }
 
@@ -424,7 +429,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), "NoClass", "engine.test.simulation")
+            red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE, code("NoClass"), code("engine.test.simulation"))
         );
     }
 
@@ -455,7 +460,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE), "Unkown", "engine.test.simulation")
+            red(EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE, code("Unkown"), code("engine.test.simulation"))
         );
     }
 
@@ -472,7 +477,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "SomeInterface")
+            red(EXPECTED_CLASS_TO_BE_INSTANTIABLE, code("SomeInterface"))
         );
     } 
 
@@ -489,7 +494,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "AbstractClass")
+            red(EXPECTED_CLASS_TO_BE_INSTANTIABLE, code("AbstractClass"))
         );
     }       
 
@@ -506,7 +511,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "int")
+            red(EXPECTED_CLASS_TO_BE_INSTANTIABLE, code("int"))
         );
     }
 
@@ -523,7 +528,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "String[]")
+            red(EXPECTED_CLASS_TO_BE_INSTANTIABLE, code("String[]"))
         );
     }
 
@@ -540,7 +545,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_CLASS_TO_BE_INSTANTIABLE), "void")
+            red(EXPECTED_CLASS_TO_BE_INSTANTIABLE, code("void"))
         );
     }
 
@@ -571,7 +576,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS), "NoPublicConstructor")
+            red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS, code("NoPublicConstructor"))
         );
     }
 
@@ -588,7 +593,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS), "ManyParamsConstructor")
+            red(EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS, code("ManyParamsConstructor"))
         );
     }
 
@@ -605,7 +610,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM), "ManyParamsConstructor", "int")
+            red(EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM, code("ManyParamsConstructor"), code("int"))
         );
     }
 
@@ -622,7 +627,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS), "ManyParamsConstructor", "'int', and 'int'")
+            red(EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS, code("ManyParamsConstructor"), sequence(List.of(global("int"), global("int")), Style.Code))
         );
     }
 
@@ -653,7 +658,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_FIELD_TO_BE_PRIVATE), "publicFinalField", "engine.test.simulation.StudentSolutions")
+            red(EXPECTED_FIELD_TO_BE_PRIVATE, code("publicFinalField"), code("engine.test.simulation.StudentSolutions"))
         );
     }
 
@@ -670,7 +675,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_FIELD_TO_BE_FINAL), "privateField", "engine.test.simulation.StudentSolutions")
+            red(EXPECTED_FIELD_TO_BE_FINAL, code("privateField"), code("engine.test.simulation.StudentSolutions"))
         );
     }
 
@@ -687,7 +692,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_FIELD_TO_BE_OF_TYPE), "privateFinalField", "engine.test.simulation.StudentSolutions", "boolean", "int")
+            red(EXPECTED_FIELD_TO_BE_OF_TYPE, code("privateFinalField"), code("engine.test.simulation.StudentSolutions"), code("boolean"), code("int"))
         );
     }
 
@@ -704,7 +709,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_FIELD_IN_CLASS), "unknownField", "engine.test.simulation.StudentSolutions")
+            red(EXPECTED_TO_FIND_FIELD_IN_CLASS, code("unknownField"), code("engine.test.simulation.StudentSolutions"))
         );
     }
 
@@ -735,7 +740,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_FIELD_TO_BE_PRIVATE), "publicField", "engine.test.simulation.StudentSolutions")
+            red(EXPECTED_FIELD_TO_BE_PRIVATE, code("publicField"), code("engine.test.simulation.StudentSolutions"))
         );
     }
 
@@ -752,7 +757,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_FIELD_TO_NOT_BE_FINAL), "privateFinalField", "engine.test.simulation.StudentSolutions")
+            red(EXPECTED_FIELD_TO_NOT_BE_FINAL, code("privateFinalField"), code("engine.test.simulation.StudentSolutions"))
         );
     }
 
@@ -769,7 +774,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_FIELD_TO_BE_OF_TYPE), "privateField", "engine.test.simulation.StudentSolutions", "boolean", "int")
+            red(EXPECTED_FIELD_TO_BE_OF_TYPE, code("privateField"), code("engine.test.simulation.StudentSolutions"), code("boolean"), code("int"))
         );
     }
 
@@ -786,7 +791,7 @@ public class ReflectionAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(red(EXPECTED_TO_FIND_FIELD_IN_CLASS), "unknownField", "engine.test.simulation.StudentSolutions")
+            red(EXPECTED_TO_FIND_FIELD_IN_CLASS, code("unknownField"), code("engine.test.simulation.StudentSolutions"))
         );
     }    
 }

@@ -3,16 +3,15 @@ package engine.test;
 import static engine.Assertions.assertReturnValueImplements;
 import static engine.Assertions.assertReturnValueIsAnonymousObject;
 import static engine.Assertions.assertReturnValueIsLambda;
-import static engine.ConsoleFmt.code;
-import static engine.ConsoleFmt.format;
+import static engine.Fmt.code;
+import static engine.Fmt.green;
+import static engine.Fmt.red;
 import static engine.Localizable.global;
 
 import java.util.function.IntPredicate;
 import engine.Koan;
 import engine.Localizable;
 import engine.TestSensei;
-import engine.ConsoleFmt.Formats;
-import engine.test.runner.Line;
 import engine.test.simulation.SomeInterface;
 import engine.test.simulation.StudentSolutions;
 
@@ -24,7 +23,7 @@ import static engine.Texts.*;
 public class ImplementationAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);
     
-    public static void whenAssertIntArrayVariableAndValueIsEqual() {
+    public static void whenAssertReturnedValueImplementsInterfaceAndReturnedValueDoesImplementIt() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertReturnedValueImplementsInterfaceAndReturnedValueDoesImplementIt"))
                 .when(
@@ -37,7 +36,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_RETURNED_OBJECT_IMPLEMENTS, Formats.Green, code("returnedValueImplements()"), code("engine.test.simulation.SomeInterface")))
+            green(OK_RETURNED_OBJECT_IMPLEMENTS, code("returnedValueImplements()"), code("engine.test.simulation.SomeInterface"))
         );
     }
 
@@ -54,7 +53,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_RETURNED_NULL, Formats.Red, code("returnedValueNull()"), code("engine.test.simulation.SomeInterface")))
+            red(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_RETURNED_NULL, code("returnedValueNull()"), code("engine.test.simulation.SomeInterface"))
         );
     }
 
@@ -71,7 +70,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_NOT, Formats.Red, code("returnedValueImplements()"), code("java.util.function.IntPredicate"), code("engine.test.simulation.SomeImplementation")))
+            red(EXPECTED_TO_RETURN_IMPLEMENTING_BUT_NOT, code("returnedValueImplements()"), code("java.util.function.IntPredicate"), code("engine.test.simulation.SomeImplementation"))
         );
     }
 
@@ -88,7 +87,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_RETURNED_OBJECT_IS_ANONYMOUS, Formats.Green, code("returnedValueAnonymousImplementation()")))
+            green(OK_RETURNED_OBJECT_IS_ANONYMOUS, code("returnedValueAnonymousImplementation()"))
         );
     }
 
@@ -105,7 +104,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_NULL, Formats.Red, code("returnedValueNull()")))
+            red(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_NULL, code("returnedValueNull()"))
         );
     }
 
@@ -122,7 +121,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_LAMBDA, Formats.Red, code("returnedValueLambda()")))
+            red(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED_LAMBDA, code("returnedValueLambda()"))
         );
     }
 
@@ -139,7 +138,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED, Formats.Red, code("returnedValueImplements()"), code("engine.test.simulation.SomeImplementation")))
+            red(EXPECTED_TO_RETURN_ANONYMOUS_BUT_RETURNED, code("returnedValueImplements()"), code("engine.test.simulation.SomeImplementation"))
         );
     }
 
@@ -156,7 +155,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanPass(
             res[0],
-            new Line(format(OK_RETURNED_OBJECT_IS_LAMBDA, Formats.Green, code("returnedValueLambda()")))
+            green(OK_RETURNED_OBJECT_IS_LAMBDA, code("returnedValueLambda()"))
         );
     }
 
@@ -173,7 +172,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_NULL, Formats.Red, code("returnedValueNull()")))
+            red(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_NULL, code("returnedValueNull()"))
         );
     }
 
@@ -190,7 +189,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_ANONYMOUS, Formats.Red, code("returnedValueAnonymousImplementation()")))
+            red(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED_ANONYMOUS, code("returnedValueAnonymousImplementation()"))
         );
     }
 
@@ -207,7 +206,7 @@ public class ImplementationAssertionsTests {
 
         assertKoanFails(
             res[0],
-            new Line(format(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED, Formats.Red, code("returnedValueImplements()"), code("engine.test.simulation.SomeImplementation")))
+            red(EXPECTED_TO_RETURN_LAMBDA_BUT_RETURNED, code("returnedValueImplements()"), code("engine.test.simulation.SomeImplementation"))
         );
     }
 }

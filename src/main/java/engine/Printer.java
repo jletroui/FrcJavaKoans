@@ -15,6 +15,10 @@ public interface Printer {
      */
     void println();
     /**
+     * Prints a styled text.
+     */
+    void println(final Fmt fmt);
+    /**
      * Prints the given line out of the given String template and its parameters.
      */
     void println(final String template, final Object... params);
@@ -38,6 +42,14 @@ final class ConsolePrinter implements Printer {
     public void println() {
         synchronized(System.out) {
             System.out.println();
+            System.out.flush();
+        }
+    }
+
+    @Override
+    public void println(final Fmt fmt) {
+        synchronized(System.out) {
+            System.out.println(fmt.format(locale));
             System.out.flush();
         }
     }
@@ -71,6 +83,11 @@ final class SilentPrinter implements Printer {
 
     @Override
     public void println() {
+        // Silent        
+    }
+
+    @Override
+    public void println(final Fmt _fmt) {
         // Silent        
     }
 

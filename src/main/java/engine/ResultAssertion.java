@@ -3,6 +3,7 @@ package engine;
 /**
  * An assertion is the main way to assert that the student succeeded a koan.
  */
+@FunctionalInterface
 public interface ResultAssertion {
     /**
      * Validates that the given result is correct, and display feedback using the given Printer.

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import engine.Fmt;
 import engine.Locale;
 import engine.Localizable;
 import engine.Printer;
@@ -20,11 +21,11 @@ public final class CapturingPrinter implements Printer, OutputCapture {
     }
 
     @Override
-    public boolean hasCaptured(final Line... lines) {
+    public boolean hasCaptured(final Fmt... lines) {
         return output.equals(
             Arrays
                 .stream(lines)
-                .map(line -> line.resolve(locale))
+                .map(line -> line.format(locale))
                 .toList()
         );
     }
@@ -42,6 +43,11 @@ public final class CapturingPrinter implements Printer, OutputCapture {
     @Override
     public void println() {
         output.add("");
+    }
+
+    @Override
+    public void println(Fmt fmt) {
+        output.add(fmt.format(locale));
     }
 
     @Override

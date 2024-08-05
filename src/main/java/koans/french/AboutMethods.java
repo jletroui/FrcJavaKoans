@@ -172,6 +172,10 @@ public class AboutMethods {
      * Résultat attendu:
      * 
      * square(3) devrait retourner 9
+     * square(4) devrait retourner 16
+     * square(0) devrait retourner 0
+     * 
+     * Note: à partir de ce koan, le sensei pourrait te montrer un seul exemple d'appel à tes méthodes dans la section 'Résultat attendu'. Cependant, les méthodes doivent fonctionner quelque soit les valeurs données à leur paramètres.
      * 
      */
     public static int square(int number) {
@@ -192,6 +196,7 @@ public class AboutMethods {
      * Résultat attendu:
      * 
      * opposite(2) devrait retourner -2
+     * opposite(-5) devrait retourner 5
      * 
      */
 

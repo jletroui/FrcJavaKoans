@@ -9,14 +9,15 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
-import engine.ConsoleFmt;
+import engine.Fmt;
+import engine.Locale;
 import engine.test.runner.RunnerAssertions.AssertionFailure;
 
 /**
  * This is a stripped down, poor's version of JUnit, since we don't have access to any dependency.
  */
 public class TestRunner {
-    private static final String RED_FAILURE =  ConsoleFmt.red("FAILURE");
+    private static final String RED_FAILURE =  Fmt.red("FAILURE").format(Locale.en);
 
     public static void main(final String[] args) {
         var totalCount = 0;

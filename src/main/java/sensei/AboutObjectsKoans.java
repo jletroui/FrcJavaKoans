@@ -44,13 +44,13 @@ public class AboutObjectsKoans {
                 newObject("geom.Point", 2.0, 2.0).call("toString")
             )
             .then(
-                assertReturnValueEquals(global("Point(2.0, 2.0)"))
+                assertReturnValueEquals("Point(2.0, 2.0)")
             )
             .when(
                 newObject("geom.Point", -2.0, 4.5).call("toString")
             )
             .then(
-                assertReturnValueEquals(global("Point(-2.0, 4.5)"))
+                assertReturnValueEquals("Point(-2.0, 4.5)")
             ),
         new Koan(CLASS, AN_OTHER_OBJECT_METHOD)
             .beforeFirstTest(
@@ -99,7 +99,7 @@ public class AboutObjectsKoans {
                 ).call("toString")
             )
             .then(
-                assertReturnValueEquals(global("Triangle(Point(2.0, 2.0), Point(0.0, 0.0), Point(2.0, -1.0))"))
+                assertReturnValueEquals("Triangle(Point(2.0, 2.0), Point(0.0, 0.0), Point(2.0, -1.0))")
             )
             .when(
                 newObject(
@@ -110,7 +110,7 @@ public class AboutObjectsKoans {
                 ).call("toString")
             )
             .then(
-                assertReturnValueEquals(global("Triangle(Point(0.0, -2.0), Point(0.0, 0.0), Point(2.5, 5.3))"))
+                assertReturnValueEquals("Triangle(Point(0.0, -2.0), Point(0.0, 0.0), Point(2.5, 5.3))")
             ),
         new Koan(CLASS, USING_ANOTHER_OBJECT_S_METHOD)
             .beforeFirstTest(
@@ -159,13 +159,13 @@ public class AboutObjectsKoans {
                 newObject("geom.Circle", newObject("geom.Point", 2.0, 2.0), 1.7).call("toString")
             )
             .then(
-                assertReturnValueEquals(global("Circle(Point(2.0, 2.0), 1.7)"))
+                assertReturnValueEquals("Circle(Point(2.0, 2.0), 1.7)")
             )
             .when(
                 newObject("geom.Circle", newObject("geom.Point", -2.5, 8.2), 4.5).call("toString")
             )
             .then(
-                assertReturnValueEquals(global("Circle(Point(-2.5, 8.2), 4.5)"))
+                assertReturnValueEquals("Circle(Point(-2.5, 8.2), 4.5)")
             ),
         new Koan(CLASS, APPLY_LEARNINGS_CIRCLE_TRANSLATION)
             .beforeFirstTest(

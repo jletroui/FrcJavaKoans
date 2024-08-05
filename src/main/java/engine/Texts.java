@@ -40,35 +40,35 @@ public class Texts {
         local("The constructor of %s appears to produce an error: %s.")
         .fr("Le constructeur de %s a produit une erreur: %s.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_NO_PARAMS =
-        local("Expected to find a method called '%s' in src/main/java/%s.java but did not find any.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, mais ne la trouve pas.");
+        local("Expected to find a public method without parameters called '%s' in src/main/java/%s.java but did not find any.")
+        .fr("Attendu à une méthode publique sans paramètres nommée '%s' dans src/main/java/%s.java, mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_METHOD_TO_BE_STATIC =
         local("Expected method '%s' in src/main/java/%s.java to have the 'static' modifier, but it had not.")
         .fr("Attendu à ce que la méthode '%s' dans src/main/java/%s.java ai le modifieur 'static', mais elle ne l'a pas.");
     public static final Localizable<String> EXPECTED_METHOD_TO_NOT_BE_STATIC =
-        local("Expected method '%s' %s to not have the 'static' modifier, but it had.")
-        .fr("Attendu à ce que la méthode '%s' dans %s n'ai pas le modifieur 'static', mais elle l'a.");
+        local("Expected method '%s' in src/main/java/%s.java to not have the 'static' modifier, but it had.")
+        .fr("Attendu à ce que la méthode '%s' dans src/main/java/%s.java n'ai pas le modifieur 'static', mais elle l'a.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_RETURN_TYPE =
         local("Expected to find a method called '%s' in src/main/java/%s.java with a '%s' return type but did not find any.")
         .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, avec un type de retour '%s' mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_ONE_PARAM =
-        local("Expected to find a method called '%s' in src/main/java/%s.java with a '%s' parameter but did not find any.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, avec un paramètre '%s' mais ne la trouve pas.");
+        local("Expected to find a public method called '%s' in src/main/java/%s.java with a %s parameter but did not find any.")
+        .fr("Attendu à une méthode publique nommée '%s' dans src/main/java/%s.java, avec un paramètre %s mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_MEHOD_MANY_PARAMS =
-        local("Expected to find a method called '%s' in src/main/java/%s.java with parameters of type %s but did not find any.")
-        .fr("Attendu à une méthode nommée '%s' dans src/main/java/%s.java, avec des paramètres de type %s mais ne la trouve pas.");
+        local("Expected to find a public method called '%s' in src/main/java/%s.java with parameters of type %s but did not find any.")
+        .fr("Attendu à une méthode publique nommée '%s' dans src/main/java/%s.java, avec des paramètres de type %s mais ne la trouve pas.");
     public static final Localizable<String> EXPECTED_CONSTRUCTOR_TO_BE_PUBLIC =
         local("Expected constructor in %s to be public but it is not.")
         .fr("Attendu à ce que le constructeur dans %s soit publique, mais il ne l'est pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_CONSTRUCTOR_NO_PARAMS =
-        local("Expected to find a constructor in %s but did not find any.")
-        .fr("Attendu à un constructeur dans %s, mais ne le trouve pas.");
+        local("Expected to find a public constructor without parameters in %s but did not find any.")
+        .fr("Attendu à un constructeur publique sans paramètre dans %s, mais ne le trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_CONSTRUCTOR_ONE_PARAM =
-        local("Expected to find a constructor in %s with a '%s' parameter but did not find any.")
-        .fr("Attendu à constructeur dans %s, avec un paramètre '%s' mais ne le trouve pas.");
+        local("Expected to find a public constructor in %s with a '%s' parameter but did not find any.")
+        .fr("Attendu à constructeur publique dans %s, avec un paramètre '%s' mais ne le trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_CONSTRUCTOR_MANY_PARAMS =
-        local("Expected to find a constructor in %s with parameters of type %s but did not find any.")
-        .fr("Attendu à un constructeur dans %s, avec des paramètres de type %s mais ne le trouve pas.");
+        local("Expected to find a public constructor in %s with parameters of type %s but did not find any.")
+        .fr("Attendu à un constructeur publique dans %s, avec des paramètres de type %s mais ne le trouve pas.");
     public static final Localizable<String> EXPECTED_TO_FIND_A_CLASS_IN_THE_PACKAGE =
         local("Expected to find a class %s in the %s package, but did not find any.")
         .fr("Attendu à trouver une classe %s dans le package %s, mais ne la trouve pas.");
@@ -103,10 +103,10 @@ public class Texts {
         local("Console:")
         .fr("Console:");
     public static final Localizable<String> YOUR_PROGRESS_THUS_FAR =
-        local(ConsoleFmt.green("Your progress thus far: [") + "%s" + ConsoleFmt.green("]") + " %d/%d")
-        .fr(ConsoleFmt.green("Ton progrès jusqu'à maintenant: [") + "%s" + ConsoleFmt.green("]") + " %d/%d");
+        local("Your progress thus far: [%s%s%s] %s")
+        .fr("Ton progrès jusqu'à maintenant: [%s%s%s] %s    ");
     public static final Localizable<String> AND =
-        local(", and %s")
+        local(" and %s")
         .fr(" et %s");
     public static final Localizable<String> EXPECTED_TO_FIND_FIELD_IN_CLASS =
         local("Expected to find a '%s' field in class %s, but did not find any.")
@@ -201,27 +201,15 @@ public class Texts {
     public static final Localizable<String> OK_RETURNED_OBJECT_IS_LAMBDA =
         local("Ok: return of %s is a lambda method.")
         .fr("Ok: le retour de %s est une méthode lambda.");
-    public static final Localizable<String> EXPECTED_TO_RETURN_INT_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return an integer but returned a '%s' instead!")
-        .fr("Attendu à ce que %s retourne un entier mais a retourné un '%s' à la place!");
-    public static final Localizable<String> EXPECTED_TO_RETURN_STRING_BUT_RETURNED_OTHER_TYPE =
-        local("Expected %s to return a String but returned a %s instead!")
-        .fr("Attendu à ce que %s retourne une String mais a retourné un '%s' à la place!");
-    public static final Localizable<String> EXPECTED_TO_LOOK_LIKE_BUT_LOOKED_LIKE =
-        local("Expected object to look like \"%s\" but looked like \"%s\" instead!")
-        .fr("Attendu à ce que l'objet ressemble à \"%s\" mais ressemble à \"%s\" à la place!");
-    public static final Localizable<String> OK_LOOKED_LIKE =
-        local("Ok: object looked like \"%s\".")
-        .fr("Ok: l'object ressemble à \"%s\".");
     public static final Localizable<String> EXPECTED_TO_RETURN_INT_FROM_RANDOM_BUT_RETURNED =
-        local("Expected %s to return %d from random number %f but returned %d instead!")
-        .fr("Attendu à ce que %s retourne %d à partir du nombre aléatoire %f mais a retourné %d à la place!");
+        local("Expected %s to return %s from random number %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s à partir du nombre aléatoire %s mais a retourné %s à la place!");
     public static final Localizable<String> OK_RETURNED_INT_FROM_RANDOM =
-        local("Ok: %s returned %s from random number %f.")
-        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %f.");
+        local("Ok: %s returned %s from random number %s.")
+        .fr("Ok: %s a retourné %s à partir du nombre aléatoire %s.");
     public static final Localizable<String> EXPECTED_TO_RETURN_INT_FROM_RANDOMS_BUT_RETURNED =
-        local("Expected %s to return %s from random numbers %s but returned %d instead!")
-        .fr("Attendu à ce que %s retourne %s à partir des nombres aléatoires %s mais a retourné %d à la place!");
+        local("Expected %s to return %s from random numbers %s but returned %s instead!")
+        .fr("Attendu à ce que %s retourne %s à partir des nombres aléatoires %s mais a retourné %s à la place!");
     public static final Localizable<String> OK_RETURNED_INT_FROM_RANDOMS =
         local("Ok: %s returned %s from random numbers %s.")
         .fr("Ok: %s a retourné %s à partir du nombre aléatoire %s.");        

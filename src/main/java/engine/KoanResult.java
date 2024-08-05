@@ -13,7 +13,7 @@ public final class KoanResult {
     private final String[] stdInLines;
     private int stdInIndex = 0;
     public final Object executionResult;
-    public final ExecutionContext executionContext;
+    public final Optional<ExecutionContext> executionContext;
     /**
      * The source code of the last script expression, the one we are actually asserting the result and/or the console output.
      */
@@ -21,7 +21,7 @@ public final class KoanResult {
     public final KoanTest test;
     public final Locale locale;
 
-    public KoanResult(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult, final ExecutionContext executionContext) {
+    public KoanResult(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult, final Optional<ExecutionContext> executionContext) {
         this.locale = locale;
         this.test = test;
         this.stdOutLines = stdOutLines;

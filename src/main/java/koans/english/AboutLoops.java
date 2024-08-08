@@ -4,7 +4,7 @@ public class AboutLoops {
      /**
      * # First loop
      * 
-     * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console times times.
+     * Write a method named 'helloNTimes' which has an integer parameter 'times' and displays 'Hello' in the console 'times' times.
      * 
      * ---------   TIPS   --------------
      * 
@@ -46,6 +46,8 @@ public class AboutLoops {
      *         // We can modify the value of an existing variable. We take advantage of this capability here.
      *         times = times -1;
      *     }
+     * 
+     * Note 3: like of the 'if', within the curly brackets of a 'while', you can write any code, including other 'while' and 'if' !.
      * 
      * -------------------------------
      * 

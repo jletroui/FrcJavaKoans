@@ -2,6 +2,8 @@ package engine;
 
 import java.util.Optional;
 
+import engine.script.ExecutionContext;
+
 /**
  * Stores all the information about what happened during the execution of a koan.
  */
@@ -11,6 +13,7 @@ public final class KoanResult {
     private final String[] stdInLines;
     private int stdInIndex = 0;
     public final Object executionResult;
+    public final Optional<ExecutionContext> executionContext;
     /**
      * The source code of the last script expression, the one we are actually asserting the result and/or the console output.
      */
@@ -18,12 +21,13 @@ public final class KoanResult {
     public final KoanTest test;
     public final Locale locale;
 
-    public KoanResult(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult) {
+    public KoanResult(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult, final Optional<ExecutionContext> executionContext) {
         this.locale = locale;
         this.test = test;
         this.stdOutLines = stdOutLines;
         this.stdInLines = stdInLines;
         this.executionResult = executionResult;
+        this.executionContext = executionContext;
         resultExpressionSourceCode = test.script[test.script.length - 1].formatSourceCode(locale);
     }
 
@@ -100,7 +104,7 @@ public final class KoanResult {
     }
 
     public boolean executeAssertions(final Printer p, final ResultAssertion... assertions) {
-        for (ResultAssertion as : assertions) {
+        for (final ResultAssertion as : assertions) {
             if (!as.validate(p, this)) {
                 return false;
             }

@@ -23,7 +23,7 @@ public class StdStreamsInterceptor {
         public final String[] stdInLines;
         public final T returnValue;
 
-        public InterceptionResult(String[] stdOutLines, String[] stdInLines, T returnValue) {
+        public InterceptionResult(final String[] stdOutLines, final String[] stdInLines, final T returnValue) {
             this.stdOutLines = stdOutLines;
             this.stdInLines = stdInLines;
             this.returnValue = returnValue;
@@ -34,13 +34,13 @@ public class StdStreamsInterceptor {
         private final OutputStream stream1;
         private final OutputStream stream2;
         
-        public OutputStreamMultiplexer(OutputStream stream1, OutputStream stream2) {
+        public OutputStreamMultiplexer(final OutputStream stream1, final OutputStream stream2) {
             this.stream1 = stream1;
             this.stream2 = stream2;
         }
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(final int b) throws IOException {
             stream1.write(b);
             stream2.write(b);
         }
@@ -52,7 +52,7 @@ public class StdStreamsInterceptor {
 
         @Override
         public int read() throws IOException {
-            int b = realIn.read();
+            final int b = realIn.read();
             bos.write(b);
             return b;
         }
@@ -63,8 +63,8 @@ public class StdStreamsInterceptor {
         }
 
         @Override
-        public int read(byte[] b, int off, int len) throws IOException {
-            var n = realIn.read(b, off, len);
+        public int read(final byte[] b, final int off, final int len) throws IOException {
+            final var n = realIn.read(b, off, len);
             bos.write(b, off, len);
             return n;
         }
@@ -73,27 +73,27 @@ public class StdStreamsInterceptor {
             try {
                 bos.flush();
             }
-            catch(IOException ioe) {
+            catch(final IOException _ioe) {
                 // Do nothing: the assertion based on this will not pass anyway.
             }
             return StdStreamsInterceptor.lines(bos);
         }
     }
 
-    private static String[] lines(ByteArrayOutputStream bos) {
-        var lines = bos.toString().split("\\r?\\n", -1);
+    private static String[] lines(final ByteArrayOutputStream bos) {
+        final var lines = bos.toString().split("\\r?\\n", -1);
         return Arrays.copyOf(lines, lines.length - 1);
     }
 
     public static <T> InterceptionResult<T> capture(
-        boolean silent,
-        Supplier<T> executeFunc,
-        String[] stdInputs
+        final boolean silent,
+        final Supplier<T> executeFunc,
+        final String[] stdInputs
     ) {
-        var bos = new ByteArrayOutputStream();
-        var printStream = new PrintStream(silent ? bos : new OutputStreamMultiplexer(bos, realOut), true);
+        final var bos = new ByteArrayOutputStream();
+        final var printStream = new PrintStream(silent ? bos : new OutputStreamMultiplexer(bos, realOut), true);
 
-        var inputStream = silent ? new ByteArrayInputStream(String.join(System.lineSeparator(), stdInputs).getBytes()) : new StdInInterceptor();
+        final var inputStream = silent ? new ByteArrayInputStream(String.join(System.lineSeparator(), stdInputs).getBytes()) : new StdInInterceptor();
 
         System.setOut(printStream);
         System.setIn(inputStream);

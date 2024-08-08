@@ -24,6 +24,8 @@ In particular: kids don't need to know about functionnal interfaces, arrays, or 
 
 You might ask why not start right away with programming the robot then? The students are way too lost in the midst of pages of arcane syntax, and we observed anecdotally it is slower to teach that way. In particular, it is requiring a lot more repetition, because they jump too fast from one concept they don't master to another, and don't register them the first time they hear about it.
 
+That being said, the bonus koans are providing additional material. We found good success using them only after students have started programming actual robots, so as to keep the kids excited.
+
 ### Enough exercises
 
 Most of the resources have too few exercices. Or exercises not really relevant to the kind of thinking we need for programming robots with WPILib. On the other hand, (most) kids like to learn by practicing. So this curiculum is focused on having a good amount exercices. Of course "a good amount" is not an exact science, so we expect to tweak this as our experience teaching various profiles of rookies is growing.
@@ -62,7 +64,7 @@ We expressed above a concern for saving student's attention / motivation / time.
 ### Design goals
 
 - Strive to work on a bare WPILib installation: on VSCode with no need for a plugin.
-- Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool.
+- Simple start: no dependency other than the Java standard library, so as to avoid a build step with a dependency management tool. This has consequences: the project has to includes a mini test framework for example.
 - Java 17, because as of 2024, this is the version used by default in WPILib's VSCode.
 
 ### Compromises and limitations
@@ -77,3 +79,36 @@ We expressed above a concern for saving student's attention / motivation / time.
 Pull requests for translations, curiculum tweaks or new capabilities are welcome.
 
 When submitting bugs, please submit a zip file of the koans in a state exhibiting the issue.
+
+## I want to contribute. What can I do?
+
+Here are suggestions, in ascending order of involvement:
+
+* Submit [issues](https://github.com/jletroui/FrcJavaKoans/issues/new) for text issues: typos, awkward, ambiguous, etc...
+* Submit pull requests for text issues: typos, awkward, ambiguous, etc...
+* Report [bugs](https://github.com/jletroui/FrcJavaKoans/issues/new). Please submit a zip file of the koans in a state exhibiting the issue.
+* Submit [issues](https://github.com/jletroui/FrcJavaKoans/issues/new) or pull requests for better koans replacing existing ones. In particular, one improvements we are trying to converge to are koans exhibiting the same pedagogic targets and quality, but FRC and robot themed.
+* Submit [issues](https://github.com/jletroui/FrcJavaKoans/issues/new) or pull requests for new koans in existing series plugging a hole in the learning journey.
+* Better engine code comments or test coverage.
+* Submit a new bonus koan series. Current potentially beneficial areas not covered: sugar syntax (var, ternary operator, etc...), inheritance (and its fallbacks), generics, etc...
+* A new language localization. This involves:
+  1. Adding the new [Locale](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/engine/Locale.java) and [Localizable helper](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/engine/Localizable.java#L20).
+  2. Translating all [sensei and assertion messages](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/engine/Texts.java).
+  3. Translating all [koans title and texts](https://github.com/jletroui/FrcJavaKoans/blob/master/src/main/java/sensei/Texts.java).
+  4. Adding a [`*PathToEnlightment.java`](https://github.com/jletroui/FrcJavaKoans/tree/master/src/main/java).
+  5. Copying the [main series of koans](https://github.com/jletroui/FrcJavaKoans/tree/master/src/main/java/koans/english) in a package for the new language. Translate all the comments in there.
+  6. Repeat 5. for the [bonus koans](https://github.com/jletroui/FrcJavaKoans/tree/master/src/main/java/bonuses/english).
+  7. Add koans solutions for the new language in [the testing companion project](https://github.com/jletroui/FrcJavaKoansTests), to make sure koans work in the new language as well.
+
+## Testing
+
+Automated testing of this project was challenging for a few reasons, main ones being:
+
+1. By design, we don't have a build tool (Gradle or Maven for example), nor access to any libraries. So no JUnit on hand to test the koans engine.
+2. We would not want to include solutions to the koans within the project, because the students might stumble on them, which would affect their learning.
+
+Here are the compromises we came up with to solve these challenges:
+
+For 1., we have created a mini test framework in `engine.test.runner` in order to run unit and integration tests of the koans engine. Tests are located in `engine.test`. To run those tests, simply run the `engine.test.runner.TestRunner.main` method.
+
+For 2., we have created a [brother project](https://github.com/jletroui/FrcJavaKoansTests) testing the koans themselves.

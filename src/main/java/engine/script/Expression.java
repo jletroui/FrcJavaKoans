@@ -18,6 +18,8 @@ import engine.Localizable;
  *     import static engine.script.Expression.newObject;
  * 
  *     var expressionToCreatePoint = newObject("geom.Point", 2.0, 2.0);
+ * 
+ * Koans can then define assertions based on this expression, and display approriate errors when those assertions are failing.
  */
 public sealed interface Expression {
     /**
@@ -29,6 +31,11 @@ public sealed interface Expression {
      * Show to the student what the Java source code of this expression would be.
      */
     String formatSourceCode(final Locale locale);
+
+    /**
+     * Fetch what would be the resulting type of this expression.
+     */
+    Class<?> expressionClass(final ExecutionContext ctx);
 
     /**
      * Executes all the given expressions. Useful for getting actual values for parameters of a method or constructor.
@@ -63,6 +70,13 @@ public sealed interface Expression {
     }
 
     /**
+     * Creates an expression representing a literal.
+     */
+    public static Expression lit(Object value) {
+        return value instanceof Localizable ? new LocalizedLiteral((Localizable<?>)value) : new Literal(value);
+    }
+
+    /**
      * Creates an expression representing a call to the constructor of the given class.
      */
     public static Expression newObject(String className, Object... params) {
@@ -70,10 +84,20 @@ public sealed interface Expression {
     }
 
     /**
-     * Creates an expression representing a variable assignment.
+     * Creates an expression representing a variable assignment with the given expression.
      */
     public static Expression assignVariable(String variableName, Expression value) {
+        if (value == null) {
+            return assignVariable(variableName, new Literal(value));
+        }
         return new AssignVariable(variableName, value);
+    }
+
+    /**
+     * Creates an expression representing a variable assignment with the given literal.
+     */
+    public static Expression assignVariable(String variableName, Object value) {
+        return assignVariable(variableName, new Literal(value));
     }
 
     /**
@@ -83,6 +107,9 @@ public sealed interface Expression {
         return new Variable(variableName);
     }
 
+    /**
+     * Formats what the code defined by the given script would look like in Java.
+     */
     public static String formatSourceCode(final Expression[] script, final Locale locale) {
         StringBuilder builder = new StringBuilder();
 
@@ -94,7 +121,7 @@ public sealed interface Expression {
     }
 
     /**
-     * Same as formatSourceCode(), except it ommits the last expression (considered the main one a test is testing).
+     * Same as formatSourceCode(), except it ommits the last expression (considered the main one a Koan is testing).
      */
     public static String formatPreparationSourceCode(final Expression[] script, final Locale locale, final String identation) {
         StringBuilder builder = new StringBuilder();
@@ -109,13 +136,21 @@ public sealed interface Expression {
     static Expression[] normalizeToExpression(final Object[] objects) {
         return Arrays
             .stream(objects)
-            .map(p -> p instanceof Expression ? p : new Literal(p))
+            .map(p -> p instanceof Expression ? p : lit(p))
             .toArray(Expression[]::new);
     }
 
     static String formatLiteralSourceCode(final Object value) {
-        if (value instanceof String) {
+        if (value == null) {
+            return "null";
+        } else if (value instanceof String) {
             return String.format("\"%s\"", value);
+        } else if (value instanceof int[] arr) {
+            final var elts = String.join(
+                ",", 
+                Arrays.stream(arr).<String>mapToObj(Integer::toString).toList()
+            );
+            return String.format("new int[]{%s}", elts);    
         }
         if (value.getClass().isArray()){
             return Arrays.toString((int[])value);
@@ -136,8 +171,34 @@ public sealed interface Expression {
         );
     }
 
-    private static Method getMethod(final Class<?> clasz, final String methodName, final Expression[] params) {
-        final var methodCandidates = Arrays
+    private static boolean paramIsMatching(final Class<?> actualParam, final Class<?> expressionParam) {
+        return actualParam.isAssignableFrom(expressionParam) || actualParam.equals(Type.UNBOXED.get(expressionParam));
+    }
+
+    private static boolean paramsAreMatching(final ExecutionContext ctx, final Method method, final Expression[] params) {
+        final var actualParams = method.getParameters();
+        if (actualParams.length != params.length) {
+            return false;
+        }
+        for(int i=0; i<params.length; i++) {
+            final var actualParamClass = actualParams[i].getType();
+            final var expressionParamClass = params[i].expressionClass(ctx);
+            if (!paramIsMatching(actualParamClass, expressionParamClass)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static Method findMethod(final ExecutionContext ctx, final Class<?> clasz, final String methodName, final Expression[] params) {
+        // Because anonymous and lambda classes are package private, only their interface methods are accessible. So if one of the interfaces
+        // has that method, use this one instead of the concrete class version.
+        final var interfaceMethodCandidates = Arrays
+            .stream(clasz.getInterfaces())
+            .flatMap(cls -> Arrays.stream(cls.getMethods()))
+            .filter(meth -> meth.getName().equals(methodName) && paramsAreMatching(ctx, meth, params))
+            .toList();
+        final var methodCandidates = interfaceMethodCandidates.size() > 0 ? interfaceMethodCandidates : Arrays
             .stream(clasz.getMethods())
             .filter(meth -> meth.getName().equals(methodName) && meth.getParameterCount() == params.length)
             .toList();
@@ -162,31 +223,31 @@ public sealed interface Expression {
         return methodCandidates.get(0);
     }
     
-    static Method getStaticMethod(final Class<?> clasz, final String methodName, final Expression[] params) {
-        final var method = getMethod(clasz, methodName, params);
+    static Method findStaticMethod(final ExecutionContext ctx, final Class<?> clasz, final String methodName, final Expression[] params) {
+        final var method = findMethod(ctx, clasz, methodName, params);
         if (!Modifier.isStatic(method.getModifiers())) {
             throw new KoanBugException(String.format("The method %s is static, which should have been already caught by a missing assertion in this or a previous Koans.", methodName));
         }
         return method;
     }
 
-    static Method getObjectMethod(final Class<?> clasz, final String methodName, final Expression[] params) {
-        final var method = getMethod(clasz, methodName, params);
+    static Method findObjectMethod(final ExecutionContext ctx, final Class<?> clasz, final String methodName, final Expression[] params) {
+        final var method = findMethod(ctx, clasz, methodName, params);
         if (Modifier.isStatic(method.getModifiers())) {
             throw new KoanBugException(String.format("The method %s is not static, which should have been already caught by a missing assertion in this or a previous Koans.", methodName));
         }
         return method;
     }
 
-    static Object invoke(final ExecutionContext ctx, final Object instance, final Method method, final Expression[] params) {
+    static Object invokeMethod(final ExecutionContext ctx, final Object instance, final Method method, final Expression[] params) {
         try {
             return method.invoke(instance, Expression.executeAll(ctx, params));
-        } catch(IllegalAccessException iae) {
+        } catch(final IllegalAccessException iae) {
             throw new KoanBugException(String.format("The method %s is not accessible, which should have been already caught by a missing assertion in this or a previous Koans.", method.getName()));
-        } catch(IllegalArgumentException iae) {
+        } catch(final IllegalArgumentException iae) {
             throw new KoanBugException(String.format("The method %s do not possess the right parameters, which should have been already caught by a missing assertion in this or a previous Koans.", method.getName()));
-        } catch(InvocationTargetException ite) {
-            throw new ScriptExecutionException(ite, String.format("%s.%s()", method.getClass().getSimpleName(), method.getName()));
+        } catch(final InvocationTargetException ite) {
+            throw new ScriptExecutionException(ite, String.format("%s.%s()", method.getDeclaringClass().getSimpleName(), method.getName()));
         }
     }
 }
@@ -205,18 +266,27 @@ final record Literal(Object value) implements Expression {
 
     public Literal {
         if (value != null && !ALLOWED_LITERAL_TYPES.contains(value.getClass())) {
-            throw new KoanBugException("Only null, String, int[], and primitive types are allowed as literal in an Expression");
+            throw new KoanBugException("Only null, String, int arrays, and primitive types are allowed as literal in an Expression");
         }
     }
 
     @Override
     public Object execute(final ExecutionContext ctx) {
+        // Make sure we clone mutable values first, so we preserve initial value if we later need to display it.
+        if (value instanceof final int[] arrayValue) {
+            return arrayValue.clone();
+        }
         return value;
     }
 
     @Override
     public String formatSourceCode(final Locale locale) {
         return Expression.formatLiteralSourceCode(value);
+    }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext _ctx) {
+        return value.getClass();
     }
 }
 
@@ -231,6 +301,11 @@ final record Variable(String name) implements Expression {
     public String formatSourceCode(final Locale locale) {
         return name;
     }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext ctx) {
+        return execute(ctx).getClass();
+    }
 }
 
 final record LocalizedLiteral(Localizable<?> local) implements Expression {
@@ -242,6 +317,11 @@ final record LocalizedLiteral(Localizable<?> local) implements Expression {
     @Override
     public String formatSourceCode(final Locale locale) {
         return Expression.formatLiteralSourceCode(local.get(locale));
+    }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext _ctx) {
+        return local.get(Locale.en).getClass();
     }
 }
 
@@ -255,19 +335,31 @@ final record NewObject(String className, Object[] constructorParams) implements 
     public String formatSourceCode(final Locale locale) {
         return String.format("new %s(%s)", className, Expression.formatParamListSourceCode(constructorParams, locale));
     }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext _ctx) {
+        return new Type(className).unsafeResolve();
+    }
 }
 
 final record CallKoanMethod(String methodName, Object[] params) implements Expression {
     @Override
     public Object execute(final ExecutionContext ctx) {
         final var paramExpressions = Expression.normalizeToExpression(params);
-        final var method = Expression.getStaticMethod(ctx.koanClass, methodName, paramExpressions);
-        return Expression.invoke(ctx, null, method, paramExpressions);
+        final var method = Expression.findStaticMethod(ctx, ctx.koanClass, methodName, paramExpressions);
+        return Expression.invokeMethod(ctx, null, method, paramExpressions);
     }
 
     @Override
     public String formatSourceCode(final Locale locale) {
         return String.format("%s(%s)", methodName, Expression.formatParamListSourceCode(params, locale));
+    }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext ctx) {
+        final var paramExpressions = Expression.normalizeToExpression(params);
+        final var method = Expression.findStaticMethod(ctx, ctx.koanClass, methodName, paramExpressions);
+        return method.getReturnType();
     }
 }
 
@@ -276,13 +368,21 @@ final record CallStaticMethod(String className, String methodName, Object... par
     public Object execute(final ExecutionContext ctx) {
         final var paramExpressions = Expression.normalizeToExpression(params);
         final var clasz = new Type(className).unsafeResolve();
-        final var method = Expression.getStaticMethod(clasz, methodName, paramExpressions);
-        return Expression.invoke(ctx, null, method, paramExpressions);
+        final var method = Expression.findStaticMethod(ctx, clasz, methodName, paramExpressions);
+        return Expression.invokeMethod(ctx, null, method, paramExpressions);
     }
 
     @Override
     public String formatSourceCode(final Locale locale) {
         return String.format("%s.%s(%s)", className, methodName, Expression.formatParamListSourceCode(params, locale));
+    }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext ctx) {
+        final var paramExpressions = Expression.normalizeToExpression(params);
+        final var clasz = new Type(className).unsafeResolve();
+        final var method = Expression.findStaticMethod(ctx, clasz, methodName, paramExpressions);
+        return method.getReturnType();
     }
 }
 
@@ -291,13 +391,21 @@ final record CallMethod(Expression instance, String methodName, Object... params
     public Object execute(final ExecutionContext ctx) {
         final var paramExpressions = Expression.normalizeToExpression(params);
         final var instanceValue = instance.execute(ctx);
-        final var method = Expression.getObjectMethod(instanceValue.getClass(), methodName, paramExpressions);
-        return Expression.invoke(ctx, instanceValue, method, paramExpressions);
+        final var method = Expression.findObjectMethod(ctx, instanceValue.getClass(), methodName, paramExpressions);
+        return Expression.invokeMethod(ctx, instanceValue, method, paramExpressions);
     }
 
     @Override
     public String formatSourceCode(final Locale locale) {
         return String.format("%s.%s(%s)", instance.formatSourceCode(locale), methodName, Expression.formatParamListSourceCode(params, locale));
+    }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext ctx) {
+        final var paramExpressions = Expression.normalizeToExpression(params);
+        final var instanceValue = instance.execute(ctx);
+        final var method = Expression.findObjectMethod(ctx, instanceValue.getClass(), methodName, paramExpressions);
+        return method.getReturnType();
     }
 }
 
@@ -311,5 +419,10 @@ final record AssignVariable(String variableName, Expression value) implements Ex
     @Override
     public String formatSourceCode(final Locale locale) {
         return String.format("var %s = %s", variableName, value.formatSourceCode(locale));
+    }
+
+    @Override
+    public Class<?> expressionClass(final ExecutionContext _ctx) {
+        return void.class;
     }
 }

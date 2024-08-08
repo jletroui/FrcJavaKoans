@@ -25,7 +25,7 @@ To get started you will need to either install VS Code or use GitHub Codespaces,
 
 To install VS Code, you will need to install [WPILib](https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-2/wpilib-setup.html) first to run the Java Koans for the FRC.
 
-Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v1.1/FrcJavaKoans.zip) of the Java Koans.
+Once installed, download the [latest release](https://github.com/jletroui/FrcJavaKoans/releases/download/v2.0/FrcJavaKoans.zip) of the Java Koans.
 
 Then, extract it somewhere on your computer. Go to the folder where you have downloaded the koans, righ-click on the koans zip file, and choose 'Extract All'. Choose your destination folder, for example, a `/src` folder within your `Documents` folder.
 
@@ -252,6 +252,10 @@ To help you remember the bits of Java syntax you are learning while completing y
 ## And then what?
 
 After completing the koans, you are ready to learn how to program an actual robot. Mykah, from [team 9153 - Bearcat Robotics](https://sites.google.com/lincolnschoolscb.org/9153-bearcat-robotics/home), is maintaining a [wonderful compendium of FRC programming resources](https://docs.google.com/document/d/1jcBLAyJ3iTbsYSnWMVWqHaK8uywGTaTjF98eY_xxpl0/edit#heading=h.21bclvyus8vm) from which you can dig for your next steps.
+
+Once you understand how to program a simple `TimedRobot`, you can come back here and practice with bonus koans you will find in `src/main/java/bonuses/english`. These koan series are independant of each other and can be followed in any order.
+To run them, right click on the one you are interested, for example `src/main/java/bonuses/english/AboutArrays.java` and choose `Run Java` directely on the koans file itself.
+
 <br/>
 
 > Experience is the name everyone gives to their mistakes.
@@ -264,6 +268,19 @@ This course intent to come batteries included, with 100% of the information need
 
 We have found that students learn faster if mentors are not giving solutions to students' issues, but instead ask them open questions about what they don't understand about the exercise instructions or displayed error. Programming is, most of the time, about figuring out what little detail have been overlooked. Thus, helping students to look for answers by themselves in the koans' text will help them become more autonomous faster when it will be time to program and debug a robot.
 
+### Full curiculum suggestion
+
+1) Start with the students completing all the initial koan series ("EnglishPathToEnlightment").
+2) Not part of the FRC Java Koans: make them program their first robot with a simple `TimedRobot`. It is suggested to have a simple differential drive robot.
+  * Super simple auto mode making the robot go forward at 20% speed for 1 second.
+  * Simple teleop mode making the robot move with a joystick.
+3) Students can now follow the `src/main/java/bonuses/english/AboutInterfaces.java` bonus koans.
+4) Not part of the FRC Java Koans: make them program the simple robot again, but using [commands based programming](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html).
+
+Optional:
+
+Before teaching them to deal with a Swerve Drive, the students could follow `src/main/java/bonuses/english/AboutArrays.java` to learn arrays and `for` loops.
+
 ### Topics included
 
 * Printing to and reading from the console
@@ -275,6 +292,11 @@ We have found that students learn faster if mentors are not giving solutions to 
 * Arrays
 * Packages and classes with static methods
 * Objects, constructors, fields
+
+In the bonus koans:
+
+* Arrays and `for` loops
+* Functional interfaces
 
 ### Contributing and learning more
 

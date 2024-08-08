@@ -2,17 +2,23 @@ package engine;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import engine.ConsoleFmt.Formats;
 import engine.script.Expression;
 import engine.script.ScriptExecutionException;
 import engine.script.ScriptRunner;
 
-import static engine.ConsoleFmt.code;
-import static engine.ConsoleFmt.format;
-import static engine.ConsoleFmt.strong;
-import static engine.ConsoleFmt.strongRed;
+import static engine.Fmt.classSimpleName;
+import static engine.Fmt.code;
+import static engine.Fmt.cyan;
+import static engine.Fmt.green;
+import static engine.Fmt.notStyled;
+import static engine.Fmt.red;
+import static engine.Fmt.sameStyle;
+import static engine.Fmt.sequence;
+import static engine.Fmt.strong;
+import static engine.Fmt.strongRed;
 import static engine.Texts.*;
 
 /**
@@ -47,7 +53,7 @@ public class Sensei {
     }
 
     private boolean tryOfferKoan(Koan koan, int successfulCount) {
-        for(var test: koan.tests) {
+        for(final var test: koan.tests) {
             if (!tryOfferTest(test, successfulCount)) {
                 return false;
             }
@@ -80,20 +86,20 @@ public class Sensei {
         final var thread = new Thread(() -> {
             try {
                 success.set(executeCall(test));
-            } catch (ScriptExecutionException see) {
+            } catch (final ScriptExecutionException see) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
-                if (see.getCause() instanceof InvocationTargetException ite && ite.getTargetException() instanceof StackOverflowError) {
-                    p.println(ConsoleFmt.red(THE_METHOD_SEEMS_TO_RECURSE_INFINITELY), see.methodName);
-                } else if (see.getCause() instanceof InvocationTargetException ite) {
-                    p.println(ConsoleFmt.red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR), see.methodName, ite.getCause().getMessage());
+                if (see.getCause() instanceof final InvocationTargetException ite && ite.getTargetException() instanceof StackOverflowError) {
+                    p.println(red(THE_METHOD_SEEMS_TO_RECURSE_INFINITELY, code(see.methodName)));
+                } else if (see.getCause() instanceof final InvocationTargetException ite) {
+                    p.println(red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, code(see.methodName), sameStyle(ite.getCause().getMessage())));
                 } else {
                     throw see; // Serious bug
                 }
-            } catch (KoanBugException kbe) {
+            } catch (final KoanBugException kbe) {
                 // Special case: since the executeCall() method did not complete, the console conclusion was not displayed.
                 concludeConsole(koan);
-                p.println(ConsoleFmt.red(BUG_FOUND), kbe.getMessage());
+                p.println(red(BUG_FOUND, sameStyle(kbe.getMessage())));
             }
         });
 
@@ -107,14 +113,14 @@ public class Sensei {
                 thread.join(TIMEOUT_INFINITE_LOOPS_MS);
             }
         }
-        catch(InterruptedException ie) {
+        catch(final InterruptedException ie) {
             throw new IllegalStateException(String.format("Something very weird happened. We should not have been interrupted: %s.", ie.getMessage()));
         }
 
         if (thread.isAlive()) {
             StdStreamsInterceptor.reset();
             concludeConsole(koan);
-            p.println(ConsoleFmt.red(THE_CODE_TRIED_BY_THE_SENSEI_SEEMS_TO_NOT_FINISH), Expression.formatSourceCode(test.script, locale));
+            p.println(red(THE_CODE_TRIED_BY_THE_SENSEI_SEEMS_TO_NOT_FINISH, code(Expression.formatSourceCode(test.script, locale))));
         }
 
         offerToMeditate(koan);
@@ -127,7 +133,7 @@ public class Sensei {
 
         test.setupRandomForKoan();
 
-        for(var assertion: test.koan.beforeAssertions) {
+        for(final var assertion: test.koan.beforeAssertions) {
             if (!assertion.validate(p, locale, test.koan)) {
                 return false;
             }
@@ -146,7 +152,8 @@ public class Sensei {
             test,
             interceptionResult.stdOutLines,
             interceptionResult.stdInLines,
-            interceptionResult.returnValue
+            interceptionResult.returnValue.executionResult(),
+            Optional.of(interceptionResult.returnValue.context())
         );
 
         concludeConsole(test.koan);
@@ -160,18 +167,18 @@ public class Sensei {
         if (test.script.length > 1 || test.koan.showStdInInputs) {
             p.println(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN); // Seulement si code de prep ou stdin input
             if (test.koan.showStdInInputs) {
-                p.println(WHEN_ANSWERING, Helpers.formatSequence(locale, test.stdInInputs(locale)));
+                p.println(notStyled(WHEN_ANSWERING, sequence(test.stdInInputs(locale), Style.Inherit)));
             }
             if (test.script.length > 1) {
                 p.println(WHEN_EXECUTING);
                 p.println();
-                p.println(format(Expression.formatPreparationSourceCode(test.script, locale, "    "), Formats.Code));
-                p.println(format(AND_FINALLY_LOOKING_THE_RESULT_OF, Formats.None, testedExpression));
+                p.println(code(Expression.formatPreparationSourceCode(test.script, locale, "    ")));
+                p.println(notStyled(AND_FINALLY_LOOKING_THE_RESULT_OF, testedExpression));
             } else {
-                p.println(format(WHEN_LOOKING_THE_RESULT_OF, Formats.None, testedExpression));
+                p.println(notStyled(WHEN_LOOKING_THE_RESULT_OF, testedExpression));
             }
         } else {
-            p.println(format(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN_LOOKING_AT, Formats.None, testedExpression));
+            p.println(notStyled(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN_LOOKING_AT, testedExpression));
         }
 
         p.println();
@@ -194,10 +201,10 @@ public class Sensei {
     private void encourage(final Koan koan) {
         p.println();
         p.println(THINKING, koan.koanClass.get(locale).simpleClassName);
-        p.println(format(HAS_DAMAGED_YOUR_KARMA, Formats.Red, strongRed(koan.koanName.get(locale))));
+        p.println(red(HAS_DAMAGED_YOUR_KARMA, strongRed(koan.koanName)));
         p.println();
         p.println(THE_MASTER_SAYS);
-        p.println(ConsoleFmt.cyan(YOU_HAVE_NOT_REACHED_ENLIGHTMENT));
+        p.println(cyan(YOU_HAVE_NOT_REACHED_ENLIGHTMENT));
         p.println();
         p.println("---------");
         p.println();
@@ -207,14 +214,11 @@ public class Sensei {
 
     private void offerToMeditate(final Koan koan) {
         p.println();
-        p.println(
-            format(
-                PLEASE_MEDITATE_ON, 
-                Formats.None,
-                strong(koan.koanName.get(locale)),
-                koan.koanClass.get(locale).simpleClassName
-            )
-        );
+        p.println(notStyled(
+            PLEASE_MEDITATE_ON, 
+            strong(koan.koanName),
+            sameStyle(koan.koanClass.get(locale).simpleClassName)
+        ));
         p.println();
     }
 
@@ -224,12 +228,13 @@ public class Sensei {
             return;
         }
 
-        final var bar = String.format(
-            "%s%s%s",
-            ConsoleFmt.green(repeat(".", successfulCount)),
-            ConsoleFmt.red("X"),
-            ConsoleFmt.cyan(repeat("_", allKoans.size() - successfulCount - 1)));
-        p.println(YOUR_PROGRESS_THUS_FAR, bar, successfulCount, allKoans.size());
+        p.println(green(
+            YOUR_PROGRESS_THUS_FAR,
+            green(repeat(".", successfulCount)),
+            red("X"),
+            cyan(repeat("_", allKoans.size() - successfulCount - 1)),
+            notStyled(String.format("%s/%s", successfulCount, allKoans.size()))
+        ));
         p.println();
     }
 

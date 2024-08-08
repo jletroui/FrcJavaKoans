@@ -328,5 +328,60 @@ public class Texts {
     static final Localizable<String> ROBOT_SCORE_TO_STRING_0_2 = 
         local("RobotScore: notes in speaker = 0; notes in amp = 2")
         .fr("ScoreRobot: notes dans le haut parleur = 0; notes dans le amp = 2");
+
+    // AboutArrays
+    static final Localizable<String> FOR_LOOPS = 
+        local("For loops")
+        .fr("Boucles for");
+    static final Localizable<String> FIRST_ELEMENT_OF_AN_ARRAY = 
+        local("First element of an array")
+        .fr("Premier élément d'un tableau");
+    static final Localizable<String> LAST_ELEMENT_OF_AN_ARRAY = 
+        local("Last element of an array")
+        .fr("Dernier élément d'un tableau");
+    static final Localizable<String> FINDING_AN_ELEMENT = 
+        local("Finding an element")
+        .fr("Trouver un élément");
+    static final Localizable<String> FINDING_AN_ELEMENT_AT_THE_END = 
+        local("Finding an element at the end")
+        .fr("Trouver un élément à la fin");
+    static final Localizable<String> FINDING_THE_SMALLEST_ELEMENT = 
+        local("Finding the smallest element")
+        .fr("Trouver l'élément le plus petit");
+    static final Localizable<String> FINDING_THE_SMALLEST_ELEMENT_REVISITED = 
+        local("Finding the smallest element, revisited")
+        .fr("Trouver l'élément le plus petit, revisité.");
+    static final Localizable<String> COMPUTING_THE_SUM = 
+        local("Computing the sum")
+        .fr("Calculer la somme");
+    static final Localizable<String> COMPUTING_THE_AVERAGE = 
+        local("Computing the average")
+        .fr("Calculer la moyenne");
+    static final Localizable<String> FILLING_AN_ARRAY = 
+        local("Filling an array")
+        .fr("Remplir un tableau");
+    static final Localizable<String> CREATING_A_SERIE = 
+        local("Creating a serie")
+        .fr("Créer une série");
+    static final Localizable<String> SWITCH_TWO_ELEMENTS = 
+        local("Switch two elements")
+        .fr("Intervertir 2 éléments");
+    static final Localizable<String> REVERSE_AN_ARRAY = 
+        local("Reverse an array")
+        .fr("Inverser un tableau");
+
+    // AboutInterfaces
+    static final Localizable<String> FIRST_INTERFACE_IMPLEMENTATIONS = 
+        local("First interface implementations")
+        .fr("Première implémentations d'interface");
+    static final Localizable<String> ANONYMOUS_INTERFACE_IMPLEMENTATION = 
+        local("Anonymous interface implementation")
+        .fr("Anonymous interface implementation");
+    static final Localizable<String> LAMBDA_METHODS = 
+        local("Lambda methods")
+        .fr("Méthodes lambda");
+    static final Localizable<String> COMMON_LAMBDA_INTERFACES = 
+        local("Common lambda interfaces")
+        .fr("Interfaces lambda communes");
 }
 

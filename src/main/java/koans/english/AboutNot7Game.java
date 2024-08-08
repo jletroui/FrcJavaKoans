@@ -122,7 +122,7 @@ public class AboutNot7Game {
      */
     public static int die6(){
 
-        return (int)(Math.random()*6)+1;
+        return (int)(random()*6)+1;
 
     }
 
@@ -172,7 +172,7 @@ public class AboutNot7Game {
 
         int roll1 = die6();
         int roll2 = die6();
-        System.out.println("you threw " + roll1 + " and " + roll2 + ".");
+        System.out.println("You threw " + roll1 + " and " + roll2 + ".");
 
         return roll1 + roll2;
 
@@ -248,9 +248,15 @@ public class AboutNot7Game {
 
         boolean isPlaying = true;
 
+        int total = 0;
+
         while(isPlaying){
 
-            System.out.println("Your result so far:" + throwDice() + ".");
+            int rolled = throwDice();
+
+            total += rolled;
+
+            System.out.println("Your result so far: " + total + ".");
             if(!askQuestion("Do you want to throw again [y/n]?")){
 
                 isPlaying = !isPlaying;
@@ -285,11 +291,15 @@ public class AboutNot7Game {
 
         int throwSum = 0;
 
+        int total = 0;
+
         while(isPlaying){
 
             throwSum = throwDice();
 
-            System.out.println("Your result so far:" + throwSum + ".");
+            total += throwSum;
+
+            System.out.println("Your result so far: " + total + ".");
             if(!askQuestion("Do you want to throw again [y/n]?")){
 
                 isPlaying = !isPlaying;
@@ -298,7 +308,7 @@ public class AboutNot7Game {
 
         }
 
-        return throwSum;
+        return total;
 
     }
 
@@ -326,15 +336,24 @@ public class AboutNot7Game {
 
         int throwSum = 0;
 
+        int total = 0;        
+
         while(isPlaying){
 
             throwSum = throwDice();
 
-            System.out.println("Your result so far:" + throwSum + ".");
+            total += throwSum;
+
             if(throwSum == 7){
 
                 System.out.println("Oh no, Not 7! You lose!");
+
+                System.out.println();
                 return 0;
+
+            } else {
+
+                System.out.println("Your result so far: " + total + ".");
 
             }
             if(!askQuestion("Do you want to throw again [y/n]?")){
@@ -345,7 +364,7 @@ public class AboutNot7Game {
 
         }
 
-        return throwSum;
+        return total;
 
     }
 
@@ -382,15 +401,24 @@ public class AboutNot7Game {
 
         int throwSum = 0;
 
+        int total = 0;
+
         while(isPlaying){
 
             throwSum = throwDice();
 
-            System.out.println("Your result so far:" + throwSum + ".");
+            total += throwSum;
+
             if(throwSum == 7){
 
                 System.out.println("Oh no, Not 7! You lose!");
+
+                System.out.println();
                 return 0;
+
+            } else {
+
+                System.out.println("Your result so far: " + total + ".");
 
             }
             if(!askQuestion("Do you want to throw again [y/n]?")){
@@ -401,9 +429,11 @@ public class AboutNot7Game {
 
         }
 
-        System.out.println("Well done, your score is " + throwSum + "!");
+        System.out.println("\n" + "Well done, your score is " + total + "!");
 
-        return throwSum;
+        System.out.println();
+
+        return total;
 
     }
 

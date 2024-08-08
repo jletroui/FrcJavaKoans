@@ -1,5 +1,9 @@
 package koans.english;
 
+import utils.MathUtils;
+
+import utils.OtherMathUtils;
+
 public class AboutClasses {
     /**
      * # Classes and packages
@@ -81,6 +85,12 @@ public class AboutClasses {
      * displayCube(3) should display '27' in the console.
      */
 
+    public static void displayCube(int n){
+
+        System.out.println(utils.MathUtils.cube(n));
+
+    }
+
 
     /**
      * # An other class in a nested package
@@ -109,6 +119,12 @@ public class AboutClasses {
      * 
      */
 
+     public static void displayMax(int n1, int n2){
+
+        System.out.println(utils.OtherMathUtils.max(n1, n2));
+
+    }
+
 
     /**
      * # Using a class from a previous Koan
@@ -126,6 +142,12 @@ public class AboutClasses {
      * displayMin(5, -1) should display '-1' in the console.
      * 
      */
+
+     public static void displayMin(int n1, int n2){
+
+        System.out.println(AboutMoreMethods.min(n1, n2));
+
+    }
 
 
 }

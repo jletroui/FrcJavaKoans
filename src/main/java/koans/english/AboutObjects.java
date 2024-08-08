@@ -1,5 +1,7 @@
 package koans.english;
 
+import frc.*;
+
 public class AboutObjects {
     /**
      * # The first object
@@ -63,7 +65,7 @@ public class AboutObjects {
      *         private final String name;
      *         private final int age;
      *         
-     *         public void introduce() {
+     *         public introduce() {
      *             // In an object's method, we can use object field' values, like if they were simple variables
      *             System.out.println("Hello, my name is " + name + " and I am " + age);
      *         }
@@ -92,7 +94,7 @@ public class AboutObjects {
      *             this.age = age; 
      *         }
      * 
-     *         public void introduce() {
+     *         public introduce() {
      *             // In an object's method, we can use object fields
      *             System.out.println("Hello, my name is " + name + " and I am " + age);
      *         }
@@ -347,5 +349,7 @@ public class AboutObjects {
      *   12
      * 
      */
+
+     
     
 }

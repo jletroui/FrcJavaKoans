@@ -3,6 +3,8 @@ package koans.english;
 import static engine.Helpers.random;
 import static engine.Helpers.readLine;
 
+import java.security.PublicKey;
+
 public class AboutNot7Game {
     /**
      * # Introduction to the 'Not 7!' game
@@ -118,22 +120,17 @@ public class AboutNot7Game {
      * die6() should return an int between 1 and 6 randomly
      * 
      */
+    public static int die6(){
+
+        return (int)(Math.random()*6)+1;
+
+    }
 
 
     /**
      * # Asking a question to the player
      * 
      * Write a method 'askQuestion(String questionText)' asking a question to the user, and returns a boolean stating if the user answered 'y'.
-     * 
-     * ---------   INDICES   --------------
-     * 
-     * Java has a litle quirk. For testing if 2 String are equal, we can't use '=='. Ex:
-     * 
-     *     "abc" == "abc" // Always false!!!
-     * 
-     * To compare 2 String, you need to use the 'equals' method on a String:
-     * 
-     *     "abc".equals("abc") // Return true, as it should
      * 
      * -------------------------------
      * 
@@ -150,6 +147,13 @@ public class AboutNot7Game {
      *   - return false if the user entered 'n'
      * 
      */
+    public static boolean askQuestion(String questionText){
+
+        System.out.println(questionText);
+        String userInput = readLine();
+        return userInput.equals("y");
+
+    }
 
 
     /**
@@ -164,6 +168,15 @@ public class AboutNot7Game {
      * When the thrown dice results are 2 and 3, throwDice() should display 'You threw 2 and 3.' and return 5.
      * 
      */
+    public static int throwDice(){
+
+        int roll1 = die6();
+        int roll2 = die6();
+        System.out.println("you threw " + roll1 + " and " + roll2 + ".");
+
+        return roll1 + roll2;
+
+    }
 
 
     /**
@@ -194,6 +207,22 @@ public class AboutNot7Game {
      * If the user answers 'y', then it should go for another throw.
      * If the user answers 'n', then it should stop.
      */
+    public static void gameRoundv1(){
+
+        boolean isPlaying = true;
+
+        while(isPlaying){
+
+            throwDice();
+            if(!askQuestion("Do you want to throw again [y/n]?")){
+
+                isPlaying = !isPlaying;
+                
+            }
+
+        }
+
+    }
 
 
     /**
@@ -215,6 +244,22 @@ public class AboutNot7Game {
      * If the user answers 'n', then it should stop.
      */
 
+    public static void gameRoundv2(){
+
+        boolean isPlaying = true;
+
+        while(isPlaying){
+
+            System.out.println("Your result so far:" + throwDice() + ".");
+            if(!askQuestion("Do you want to throw again [y/n]?")){
+
+                isPlaying = !isPlaying;
+                
+            }
+
+        }
+
+    }
 
     /**
      * # Programming a round of the game: 3rd step
@@ -234,6 +279,29 @@ public class AboutNot7Game {
      * If the user answers 'n', then it should stop and return 5.
      */       
 
+     public static int gameRoundv3(){
+
+        boolean isPlaying = true;
+
+        int throwSum = 0;
+
+        while(isPlaying){
+
+            throwSum = throwDice();
+
+            System.out.println("Your result so far:" + throwSum + ".");
+            if(!askQuestion("Do you want to throw again [y/n]?")){
+
+                isPlaying = !isPlaying;
+                
+            }
+
+        }
+
+        return throwSum;
+
+    }
+
 
     /**
      * # Programming a round of the game: 4th step
@@ -251,6 +319,35 @@ public class AboutNot7Game {
      * Oh no, Not 7! You lose!
      * 
      */
+
+     public static int gameRoundv4(){
+
+        boolean isPlaying = true;
+
+        int throwSum = 0;
+
+        while(isPlaying){
+
+            throwSum = throwDice();
+
+            System.out.println("Your result so far:" + throwSum + ".");
+            if(throwSum == 7){
+
+                System.out.println("Oh no, Not 7! You lose!");
+                return 0;
+
+            }
+            if(!askQuestion("Do you want to throw again [y/n]?")){
+
+                isPlaying = !isPlaying;
+                
+            }
+
+        }
+
+        return throwSum;
+
+    }
 
 
     /**
@@ -279,6 +376,36 @@ public class AboutNot7Game {
      * Well done, your score is 9!
      * 
      */
+    public static int gameRoundv5(){
+
+        boolean isPlaying = true;
+
+        int throwSum = 0;
+
+        while(isPlaying){
+
+            throwSum = throwDice();
+
+            System.out.println("Your result so far:" + throwSum + ".");
+            if(throwSum == 7){
+
+                System.out.println("Oh no, Not 7! You lose!");
+                return 0;
+
+            }
+            if(!askQuestion("Do you want to throw again [y/n]?")){
+
+                isPlaying = !isPlaying;
+                
+            }
+
+        }
+
+        System.out.println("Well done, your score is " + throwSum + "!");
+
+        return throwSum;
+
+    }
 
 
     /**

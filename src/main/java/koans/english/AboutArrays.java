@@ -41,7 +41,7 @@ public class AboutArrays {
      */
 
     public static int valueAtIndex(int[] array, int index){
-        return 0;
+        return array[index];
     }
     
 
@@ -70,7 +70,22 @@ public class AboutArrays {
      * 
      */
     public static int indexOfValue(int[] array, int value){
-        return 0;
+        int count = 0;
+        
+        while(count < array.length-1 && value != array[count]){
+
+            count++;
+
+        }
+        if(value == array[count]){
+
+            return count;
+
+        } else {
+
+            return -1;
+
+        }
     }
 
     /**
@@ -94,7 +109,27 @@ public class AboutArrays {
      */
 
      public static int[] sortArray(int[] array){
-        return array;
+        int[] temp = new int[array.length];
+        int min = 0;
+        for(int i = 0; i < temp.length; i++){
+            min = array[i];
+            for(int j = i; j < temp.length; j++){
+
+                if(array[j] < min){
+
+                    int tempInt = min;
+                    min = array[j];
+                    array[j] = tempInt;
+
+                }
+
+            }
+
+            temp[i] = min;
+
+        }
+
+        return temp;
      }
 
 }

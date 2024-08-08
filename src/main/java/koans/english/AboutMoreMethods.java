@@ -13,6 +13,19 @@ public class AboutMoreMethods {
      * abs(-2) should return 2
      * 
      */
+    public static int abs(int number){
+
+        if(number < 0){
+
+            return -1 * number;
+
+        } else {
+
+            return number;
+
+        }
+
+    }
 
 
      /**
@@ -27,6 +40,21 @@ public class AboutMoreMethods {
      * min(4, 3) should return 3
      * 
      */
+    public static int min(int num1, int num2){
+
+        if(num1 < num2){
+
+            return num1;
+
+        } else {
+
+            return num2;
+
+        }
+
+    }
+
+    
 
 
      /**
@@ -55,6 +83,13 @@ public class AboutMoreMethods {
      * remainder(17, 5) should return 2
      * 
      */
+    public static int remainder(int num1, int num2){
+
+        int baseNum = num1/num2;
+        
+        return num1 - num2*baseNum;
+
+    }
 
 
     /**
@@ -85,6 +120,11 @@ public class AboutMoreMethods {
      * isEven(5) should return false
      * 
      */
+    public static boolean isEven(int num){
+
+        return num % 2 == 0;
+
+    }
 
      
     /**
@@ -104,6 +144,12 @@ public class AboutMoreMethods {
      * isMultiple(15, 5) should return true
      * 
      */
+
+     public static boolean isMultiple(int num1, int num2){
+
+        return num1 % num2 == 0;
+
+     }
 
      
     /**
@@ -127,5 +173,31 @@ public class AboutMoreMethods {
      * Buzz
      * 
      */ 
+    public static void fizzBuzz(int num){
+
+        String retStr = "";
+
+        if(isMultiple(num, 3)){
+
+            retStr += "Fizz";
+
+        }
+        if(isMultiple(num, 5)){
+
+            retStr += "Buzz";
+
+        }
+
+        if( !(retStr.equals("")) ){
+
+            System.out.println(retStr);
+
+        } else {
+
+            System.out.println("" + num);
+
+        }
+
+    }
       
 }

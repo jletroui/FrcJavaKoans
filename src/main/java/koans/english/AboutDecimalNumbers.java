@@ -23,6 +23,11 @@ public class AboutDecimalNumbers {
      * toCm(2.0) should return 5.08
      * 
      */
+    public static double toCm(double num){
+
+        return num * 2.54;
+
+    }
 
 
     /**
@@ -38,6 +43,12 @@ public class AboutDecimalNumbers {
      * 
      */
 
+    public static double toInches(double num){
+
+        return num / 2.54;
+
+    }
+
 
     /**
      * # Computing some geometry
@@ -51,6 +62,11 @@ public class AboutDecimalNumbers {
      * rectangleArea(3.6, 2.0) should return 7.2
      * 
      */
+    public static double rectangleArea(double num1, double num2){
+
+        return num1 * num2;
+
+    }
 
 
      /**
@@ -69,6 +85,11 @@ public class AboutDecimalNumbers {
      * wheelCircumference(1) should return 6.28
      * 
      */
+    public static double wheelCircumference(double radius){
+
+        return 2*(3.14)*radius;
+
+    }
 
 
     /**
@@ -88,6 +109,11 @@ public class AboutDecimalNumbers {
      * wheelRotations(2.0, 0.2) should return 0.4
      * 
      */
+    public static double wheelRotations(double num1, double num2){
+
+        return num1 * num2;
+
+    }
 
 
     /**
@@ -108,6 +134,11 @@ public class AboutDecimalNumbers {
      * toDistance(10.0, 0.2, 2.0) should return 25.12
      * 
      */
+    public static double toDistance(double num1, double num2, double num3){
+
+        return wheelRotations(num1, num2) * wheelCircumference(num3);
+
+    }
 
      
 }

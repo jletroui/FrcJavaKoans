@@ -27,6 +27,31 @@ public class AboutMethods {
      */
     public static void computeAgeIn5And10And20YearsConsole() {
 
+        int yearGap = 5;
+
+        for(int i = 0; i < 3; i++){
+
+            if(i == 2){
+
+                computeAge(yearGap * (i+2));
+
+            } else {
+
+                computeAge(yearGap * (i+1));
+
+            }      
+
+        }
+
+    }
+
+    public static void computeAge(int y){
+
+        System.out.println("What is your age?");
+        int age = Integer.parseInt(readLine());
+        System.out.println("In " + y + " years from now, you will be " + (age+y) + ".");
+        
+        
     }
 
     /**
@@ -117,6 +142,22 @@ public class AboutMethods {
      */
     public static void computeAgeIn5And10And20YearsConsoleWithMethod() {
 
+        int yearGap = 5;
+
+        for(int i = 0; i < 3; i++){
+
+            if(i == 2){
+
+                computeAge(yearGap * (i+2));
+
+            } else {
+
+                computeAge(yearGap * (i+1));
+
+            }      
+
+        }
+
     }
 
     /**
@@ -169,14 +210,10 @@ public class AboutMethods {
      * Expected result:
      * 
      * square(3) should return 9
-     * square(4) should return 16
-     * square(0) should return 0
-     * 
-     * Note: from this koan onward, the sensei might show you a single example of a call of your methods in the 'expected result' section. They should however work for any value of their parameters.
      * 
      */
     public static int square(int number) {
-        return 0;
+        return number * number;
     }    
 
     
@@ -194,9 +231,14 @@ public class AboutMethods {
      * Expected result:
      * 
      * opposite(2) should return -2
-     * opposite(-5) should return 5
      * 
      */
+
+     public static int opposite(int number){
+
+        return -1 * number;
+
+     }
 
 
     /**
@@ -212,4 +254,9 @@ public class AboutMethods {
      * legs(2, 3, 4) should return 32
      * 
      */
+    public static int legs(int chick, int pig, int cow){
+
+        return chick*2 + pig * 4 + cow * 4;
+
+    }
 }

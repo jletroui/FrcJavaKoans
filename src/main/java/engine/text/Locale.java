@@ -1,4 +1,4 @@
-package engine;
+package engine.text;
 
 /**
  * Supported languages for translation.

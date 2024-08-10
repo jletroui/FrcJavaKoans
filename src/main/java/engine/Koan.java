@@ -7,6 +7,8 @@ import java.util.function.Function;
 
 import engine.script.Expression;
 import engine.script.Type;
+import engine.text.Localizable;
+import static engine.text.Localizable.global;
 
 /**
  * Stores all the information required to execute and assess the result of a koan.
@@ -46,9 +48,10 @@ public class Koan {
     }
 
     public Koan when(final Expression... script) {
-        var newTests = Arrays.copyOf(tests, tests.length + 1);
+        final int index = tests.length;
+        final KoanTest[] newTests = Arrays.copyOf(tests, tests.length + 1);
         
-        newTests[newTests.length - 1] = new KoanTest(this, script);
+        newTests[newTests.length - 1] = new KoanTest(this, index, script);
         return new Koan(
             koanClass,
             koanName,
@@ -99,7 +102,7 @@ public class Koan {
     public Koan withStdInInputs(final String... inputs) {
         return withStdInInputs(
             Arrays.stream(inputs)
-                .map(input -> (Localizable<String>)new Global<String>(input))
+                .map(input -> (Localizable<String>)global(input))
                 .toList()
         );
     }

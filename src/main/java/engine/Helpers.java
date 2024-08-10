@@ -7,7 +7,7 @@ public class Helpers {
     private static final Random rng = new Random();
     private static Scanner scanner = null;
 
-    static void cleanupStdInForKoan() {
+    public static void cleanupStdInForKoan() {
         if (scanner != null) {
             scanner.close();
             scanner = null;

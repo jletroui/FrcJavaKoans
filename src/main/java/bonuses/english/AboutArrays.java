@@ -2,8 +2,8 @@ package bonuses.english;
 
 import java.util.List;
 
-import engine.Locale;
 import engine.Sensei;
+import engine.text.Locale;
 import sensei.AboutArraysKoans;
 
 public class AboutArrays {
@@ -358,7 +358,7 @@ public class AboutArrays {
      /**
      * # Switch two elements
      * 
-     * Write a method named 'switchFirst2' with takes an array 'array' as a parameter.
+     * Write a method named 'switchFirst2' which takes an array 'array' as a parameter.
      * If the array has 2 and only 2 elements, the method is switching them within the array.
      * Otherwise, it does nothing.
      * 
@@ -381,7 +381,7 @@ public class AboutArrays {
      /**
      * # Reverse an array
      * 
-     * Write a method named 'reverse' with takes an array 'array' as a parameter.
+     * Write a method named 'reverse' which takes an array 'array' as a parameter.
      * Returns a new array with all elements reverted.
      * 
      * -------------------------------

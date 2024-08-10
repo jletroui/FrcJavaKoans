@@ -4,31 +4,31 @@ import static engine.Assertions.assertReturnValueEquals;
 import static engine.Assertions.assertReturnValueStringRepresentationEquals;
 import static engine.Assertions.assertReturnValueWithRandomEquals;
 import static engine.Assertions.assertVariableEquals;
-import static engine.Fmt.classSimpleName;
-import static engine.Fmt.code;
-import static engine.Fmt.green;
-import static engine.Fmt.red;
-import static engine.Fmt.sameStyle;
-import static engine.Fmt.sequence;
-import static engine.Localizable.global;
-import static engine.Localizable.local;
 
-import engine.Style;
 import engine.Helpers;
 import engine.Koan;
-import engine.Locale;
-import engine.Localizable;
-import engine.ResToIntFunction;
 import engine.TestSensei;
+import engine.console.Style;
+import engine.text.Locale;
+import engine.text.Localizable;
+import engine.util.ResToIntFunction;
 
 import static engine.script.Expression.assignVariable;
 import static engine.script.Expression.callKoanMethod;
 import static engine.test.runner.RunnerAssertions.assertKoanFails;
 import static engine.test.runner.RunnerAssertions.assertKoanPass;
+import static engine.text.Localizable.global;
+import static engine.text.Localizable.local;
 
 import java.util.List;
 import java.util.function.DoubleToIntFunction;
 import static engine.Texts.*;
+import static engine.console.Fmt.classSimpleName;
+import static engine.console.Fmt.code;
+import static engine.console.Fmt.green;
+import static engine.console.Fmt.red;
+import static engine.console.Fmt.sameStyle;
+import static engine.console.Fmt.sequence;
 
 public class EqualityAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(EqualityAssertionsTests.class);
@@ -75,6 +75,9 @@ public class EqualityAssertionsTests {
         final var r1 = returnRandom();
         final var r2 = returnRandom();
         return r1 + r2;
+    }
+    public static double returnNan() {
+        return 0.0/0.0;
     }
 
     public static void whenAssertVariableEquals() {
@@ -307,6 +310,27 @@ public class EqualityAssertionsTests {
         );
     }
 
+    public static void whenReturnNan() {
+        var res = TestSensei.execute(
+            new Koan(CLASS, global("whenReturnNan"))
+                .when(
+                    callKoanMethod("returnNan")
+                )
+                .then(
+                    assertReturnValueEquals(3.0)
+                )
+        );
+
+        assertKoanFails(
+            res[0],
+            red(
+                EXPECTED_TO_RETURN_BUT_RETURNED_NAN,
+                code("returnNan()"),
+                code("3.0")
+            )
+        );
+    }
+
     public static void whenAssertReturnValueStringRepresentationEqualsAndItDoes() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("assertReturnValueStringRepresentationEqualsAndItDoes"))
@@ -400,7 +424,7 @@ public class EqualityAssertionsTests {
                 )
         );
 
-        var randomNumber = res[0].koanResult().randomNumber();
+        var randomNumber = res[0].testResult().testOutput().randomNumber();
         var expected = EXAMPLE_RANDOM_LOGIC.applyAsInt(randomNumber);
         assertKoanPass(
             res[0],
@@ -419,7 +443,7 @@ public class EqualityAssertionsTests {
                 )
         );
 
-        var randomNumber = res[0].koanResult().randomNumber();
+        var randomNumber = res[0].testResult().testOutput().randomNumber();
         var expected = EXAMPLE_RANDOM_LOGIC.applyAsInt(randomNumber);
         assertKoanFails(
             res[0],
@@ -466,7 +490,7 @@ public class EqualityAssertionsTests {
                 )
         );
 
-        var randomNumber = res[0].koanResult().randomNumber();
+        var randomNumber = res[0].testResult().testOutput().randomNumber();
         var expected = EXAMPLE_RANDOM_LOGIC.applyAsInt(randomNumber);
         assertKoanFails(
             res[0],
@@ -489,8 +513,8 @@ public class EqualityAssertionsTests {
                 )
         );
 
-        var randomNumbers = res[0].koanResult().randomNumbers(2);
-        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].koanResult());
+        var randomNumbers = res[0].testResult().testOutput().randomNumbers(2);
+        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].testResult().testOutput());
         assertKoanPass(
             res[0],
             green(OK_RETURNED_INT_FROM_RANDOMS, code("returnRandoms()"), code(expected), sequence(randomNumbers, Style.Code))
@@ -508,8 +532,8 @@ public class EqualityAssertionsTests {
                 )
         );
 
-        var randomNumbers = res[0].koanResult().randomNumbers(2);
-        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].koanResult());
+        var randomNumbers = res[0].testResult().testOutput().randomNumbers(2);
+        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].testResult().testOutput());
         assertKoanFails(
             res[0],
             red(
@@ -555,7 +579,7 @@ public class EqualityAssertionsTests {
                 )
         );
 
-        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].koanResult());
+        var expected = EXAMPLE_MULTIPLE_RANDOM_LOGIC.apply(res[0].testResult().testOutput());
         assertKoanFails(
             res[0],
             red(

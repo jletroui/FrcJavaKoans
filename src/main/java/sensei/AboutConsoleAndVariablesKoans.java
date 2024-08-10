@@ -4,17 +4,17 @@ import static engine.Assertions.assertAskedInStdIn;
 import static engine.Assertions.assertNextStdOutLineEquals;
 import static engine.Assertions.assertNoMoreLineInStdOut;
 import static engine.Assertions.assertKoanMethodIsInvokable;
-import static engine.Localizable.localClass;
-import static engine.Localizable.global;
 import static engine.FormatParam.addToStdInInput;
 import static engine.FormatParam.stdInInput;
 import static sensei.Texts.*;
 import static engine.script.Expression.callKoanMethod;
+import static engine.text.Localizable.global;
+import static engine.text.Localizable.localClass;
 
 import java.util.List;
 
 import engine.Koan;
-import engine.Localizable;
+import engine.text.Localizable;
 
 public class AboutConsoleAndVariablesKoans {
     private static final Localizable<Class<?>> CLASS =

@@ -1,17 +1,16 @@
 package engine.test;
 
-import engine.Locale;
-import engine.Localizable;
+import engine.console.Fmt;
+import engine.console.Style;
+import engine.text.Locale;
+import engine.text.Localizable;
 
-import static engine.Localizable.local;
+import static engine.console.Fmt.*;
 import static engine.script.Type.type;
-import static engine.Fmt.*;
 import static engine.test.runner.RunnerAssertions.assertEquals;
+import static engine.text.Localizable.local;
 
 import java.util.List;
-
-import engine.Fmt;
-import engine.Style;
 
 public class FmtTests {
     private static final Locale DEFAULT_LOCALE = Locale.en;
@@ -26,12 +25,12 @@ public class FmtTests {
         assertFormatted("\033[0mabc\033[0m", sameStyle("abc"));
     }
     
-    public static void whenFormatNotStyled() {
-        assertFormatted("\033[0menglish\033[0m", notStyled(SOME_TEXT));
+    public static void whenFormatNormal() {
+        assertFormatted("english", normal(SOME_TEXT));
     }
     
-    public static void whenFormatNotStyledText() {
-        assertFormatted("\033[0mabc\033[0m", notStyled("abc"));
+    public static void whenFormatNormalText() {
+        assertFormatted("abc", normal("abc"));
     }
     
     public static void whenFormatRed() {
@@ -62,28 +61,28 @@ public class FmtTests {
         assertFormatted("\033[0;31m\033[1menglish\033[0m", strongRed(SOME_TEXT));
     }
     
-    public static void whenFormatNotStyledTemplate() {
-        assertFormatted("\033[0menglish(\033[0menglish\033[0m, \033[0;31menglish\033[0m)\033[0m", notStyled(SOME_TEMPLATE, notStyled(SOME_TEXT), red(SOME_TEXT)));
+    public static void whenFormatNormalTemplate() {
+        assertFormatted("\033[0menglish(\033[0menglish\033[0m, \033[0;31menglish\033[0m)\033[0m", normal(SOME_TEMPLATE, normal(SOME_TEXT), red(SOME_TEXT)));
     }
     
     public static void whenFormatRedTemplate() {
-        assertFormatted("\033[0;31menglish(\033[0menglish\033[0;31m, \033[0;31menglish\033[0;31m)\033[0m", red(SOME_TEMPLATE, notStyled(SOME_TEXT), red(SOME_TEXT)));
+        assertFormatted("\033[0;31menglish(\033[0menglish\033[0;31m, \033[0;31menglish\033[0;31m)\033[0m", red(SOME_TEMPLATE, normal(SOME_TEXT), red(SOME_TEXT)));
     }
     
     public static void whenFormatGreenTemplate() {
-        assertFormatted("\033[0;32menglish(\033[0menglish\033[0;32m, \033[0;31menglish\033[0;32m)\033[0m", green(SOME_TEMPLATE, notStyled(SOME_TEXT), red(SOME_TEXT)));
+        assertFormatted("\033[0;32menglish(\033[0menglish\033[0;32m, \033[0;31menglish\033[0;32m)\033[0m", green(SOME_TEMPLATE, normal(SOME_TEXT), red(SOME_TEXT)));
     }
     
     public static void whenFormatCyanTemplate() {
-        assertFormatted("\033[0;36menglish(\033[0menglish\033[0;36m, \033[0;31menglish\033[0;36m)\033[0m", cyan(SOME_TEMPLATE, notStyled(SOME_TEXT), red(SOME_TEXT)));
+        assertFormatted("\033[0;36menglish(\033[0menglish\033[0;36m, \033[0;31menglish\033[0;36m)\033[0m", cyan(SOME_TEMPLATE, normal(SOME_TEXT), red(SOME_TEXT)));
     }
     
     public static void whenFormatStrongTemplate() {
-        assertFormatted("\033[1menglish(\033[0menglish\033[1m, \033[0;31menglish\033[1m)\033[0m", strong(SOME_TEMPLATE, notStyled(SOME_TEXT), red(SOME_TEXT)));
+        assertFormatted("\033[1menglish(\033[0menglish\033[1m, \033[0;31menglish\033[1m)\033[0m", strong(SOME_TEMPLATE, normal(SOME_TEXT), red(SOME_TEXT)));
     }
     
     public static void whenFormatStrongTemplateInFrench() {
-        assertFormattedInFrench("\033[1mfrench(\033[0mfrench\033[1m, \033[0;31mfrench\033[1m)\033[0m", strong(SOME_TEMPLATE, notStyled(SOME_TEXT), red(SOME_TEXT)));
+        assertFormattedInFrench("\033[1mfrench(\033[0mfrench\033[1m, \033[0;31mfrench\033[1m)\033[0m", strong(SOME_TEMPLATE, normal(SOME_TEXT), red(SOME_TEXT)));
     }
     
     public static void whenFormatCodeText() {

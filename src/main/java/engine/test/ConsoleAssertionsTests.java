@@ -4,21 +4,21 @@ import static engine.Assertions.assertAskedInStdIn;
 import static engine.Assertions.assertNextStdOutLineEquals;
 import static engine.Assertions.assertNextStdOutLineIsEmpty;
 import static engine.Assertions.assertNoMoreLineInStdOut;
-import static engine.Fmt.code;
-import static engine.Fmt.green;
-import static engine.Fmt.red;
-import static engine.Fmt.sameStyle;
-import static engine.Localizable.global;
 
 import engine.Koan;
-import engine.Localizable;
 import engine.TestSensei;
 import engine.test.simulation.StudentSolutions;
+import engine.text.Localizable;
 
 import static engine.script.Expression.callKoanMethod;
 import static engine.test.runner.RunnerAssertions.assertKoanFails;
 import static engine.test.runner.RunnerAssertions.assertKoanPass;
+import static engine.text.Localizable.global;
 import static engine.Texts.*;
+import static engine.console.Fmt.code;
+import static engine.console.Fmt.green;
+import static engine.console.Fmt.red;
+import static engine.console.Fmt.sameStyle;
 
 public class ConsoleAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);

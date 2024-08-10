@@ -2,8 +2,8 @@ package bonuses.french;
 
 import java.util.List;
 
-import engine.Locale;
 import engine.Sensei;
+import engine.text.Locale;
 import sensei.AboutArraysKoans;
 
 public class AboutArrays {

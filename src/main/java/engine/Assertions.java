@@ -5,24 +5,28 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.DoubleToIntFunction;
 
+import engine.console.Fmt;
+import engine.console.Style;
 import engine.script.Expression;
 import engine.script.Type;
+import engine.text.Localizable;
+import engine.util.ResToIntFunction;
 
-import static engine.Fmt.classFullName;
-import static engine.Fmt.classSimpleName;
-import static engine.Fmt.code;
-import static engine.Fmt.green;
-import static engine.Fmt.red;
-import static engine.Fmt.sameStyle;
-import static engine.Fmt.sequence;
-import static engine.Localizable.global;
 import static engine.Texts.*;
+import static engine.console.Fmt.classFullName;
+import static engine.console.Fmt.classSimpleName;
+import static engine.console.Fmt.code;
+import static engine.console.Fmt.green;
+import static engine.console.Fmt.red;
+import static engine.console.Fmt.sameStyle;
+import static engine.console.Fmt.sequence;
+import static engine.text.Localizable.global;
 
 /**
  * Library of various assertions which can be run either before the koan test runs or about the result of a koan execution.
  */
 public class Assertions {
-    private static String resolveTemplateParam(final KoanResult res, final Object param) {
+    private static String resolveTemplateParam(final TestOutput res, final Object param) {
         if (param instanceof final FormatParam fp) {
             return fp.format(res);
         }
@@ -123,6 +127,10 @@ public class Assertions {
         return actual.equals(expected);
     }
 
+    private static boolean isNaN(final Object actual) {
+        return actual instanceof final Double d && Double.isNaN(d.doubleValue()) || actual instanceof final Float f && Float.isNaN(f.floatValue());
+    }
+
     public static ResultAssertion assertVariableEquals(final String variableName, final Object expected) {
         return (p, res) -> {
             final Object expectedValue = expected instanceof final Localizable<?> localizable ? localizable.get(res.locale) : expected;
@@ -155,6 +163,9 @@ public class Assertions {
             final Fmt expressionFmted = code(res.resultExpressionSourceCode);
             if (actual == null) {
                 p.println(red(EXPECTED_TO_RETURN_BUT_RETURNED_NULL, expressionFmted, expectedFmted));
+                return false;
+            } else if (isNaN(actual)) {
+                p.println(red(EXPECTED_TO_RETURN_BUT_RETURNED_NAN, expressionFmted, expectedFmted));
                 return false;
             } else if (actual.getClass() != expectedValue.getClass()) {
                 p.println(red(EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE, expressionFmted, classSimpleName(expectedValue.getClass()), classSimpleName(actual.getClass())));

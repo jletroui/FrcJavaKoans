@@ -1,6 +1,8 @@
 package engine;
 
-import static engine.Localizable.local;
+import static engine.text.Localizable.local;
+
+import engine.text.Localizable;
 
 public class Texts {
 
@@ -30,12 +32,15 @@ public class Texts {
     public static final Localizable<String> THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR =
         local("The method %s appears to produce an error: %s.")
         .fr("La méthode %s a produit une erreur: %s.");
+    public static final Localizable<String> THE_METHOD_APPEARS_TO_DIVIDE_BY_0 =
+        local("The method %s appears to divide a number by 0 (which is not allowed).")
+        .fr("La méthode %s semble essayer de diviser par 0 (ce qui n'est pas permis).");
     public static final Localizable<String> THE_CODE_TRIED_BY_THE_SENSEI_SEEMS_TO_NOT_FINISH =
-        local("The following code, tried by the Sensi, appears to not finish. Did you code an infinite loop?\n\n%s")
-        .fr("Le code suivant, essayé par le Sensei, semble ne jamais terminer. As tu codé une boucle infinie?\n\n%s");
+        local("The following code, tried by the Sensi, appears to not finish. Did you code an infinite loop?")
+        .fr("Le code suivant, essayé par le Sensei, semble ne jamais terminer. As tu codé une boucle infinie?");
     public static final Localizable<String> THE_METHOD_SEEMS_TO_RECURSE_INFINITELY =
-        local("The method %s() appears to not finish. Did you call the method in itself, forming an infinite loop?")
-        .fr("La méthode %s() semble ne jamais terminer. As tu appelé la méthode dans elle-même, formant une boucle infinie?");
+        local("The method %s appears to not finish. Did you call the method in itself, forming an infinite loop?")
+        .fr("La méthode %s semble ne jamais terminer. As tu appelé la méthode dans elle-même, formant une boucle infinie?");
     public static final Localizable<String> THE_CONSTRUCTOR_APPEARS_TO_PRODUCE_AN_ERROR =
         local("The constructor of %s appears to produce an error: %s.")
         .fr("Le constructeur de %s a produit une erreur: %s.");
@@ -150,6 +155,9 @@ public class Texts {
     public static final Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED_NULL =
         local("Expected %s to return %s but returned null instead!")
         .fr("Attendu à ce que %s retourne %s mais a retourné null à la place!");
+    public static final Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED_NAN =
+        local("Expected %s to return %s but returned 'Not A Number' instead. Did you divide 0 by 0?")
+        .fr("Attendu à ce que %s retourne %s mais a retourné 'Not A Number' à la place. As tu divisé 0 par 0?");
     public static final Localizable<String> EXPECTED_TO_RETURN_BUT_RETURNED_OTHER_TYPE =
         local("Expected %s to return a %s but returned a %s instead!")
         .fr("Attendu à ce que %s retourne un %s mais a retourné un %s à la place!");

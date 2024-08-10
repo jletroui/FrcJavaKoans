@@ -1,11 +1,12 @@
 package engine.test;
 
-import engine.Locale;
 import engine.script.ExecutionContext;
 import engine.script.Expression;
+import engine.text.Locale;
+
 import static engine.test.runner.RunnerAssertions.*;
-import static engine.Localizable.global;
-import static engine.Localizable.local;
+import static engine.text.Localizable.global;
+import static engine.text.Localizable.local;
 import static engine.script.Type.type;
 import static engine.script.Expression.*;
 

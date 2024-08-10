@@ -9,9 +9,9 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
-import engine.Fmt;
-import engine.Locale;
+import engine.console.Fmt;
 import engine.test.runner.RunnerAssertions.AssertionFailure;
+import engine.text.Locale;
 
 /**
  * This is a stripped down, poor's version of JUnit, since we don't have access to any dependency.
@@ -31,7 +31,7 @@ public class TestRunner {
                 } catch(final AssertionFailure _af) {
                     // Nothing else to do other than not increasing successCount, since feedback is already given to the console by the test.
                 }
-                totalCount ++;
+                totalCount ++;  
             }
         }
 

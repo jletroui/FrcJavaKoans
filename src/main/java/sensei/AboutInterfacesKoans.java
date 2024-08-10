@@ -7,9 +7,9 @@ import static engine.Assertions.assertReturnValueIsLambda;
 import static engine.Assertions.assertConstructorIsInvokable;
 import static engine.Assertions.assertImplementsInterface;
 import static engine.Assertions.assertKoanMethodIsInvokable;
-import static engine.Localizable.localClass;
 import static engine.script.Expression.callKoanMethod;
 import static engine.script.Expression.newObject;
+import static engine.text.Localizable.localClass;
 import static sensei.Texts.*;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.function.IntPredicate;
 
 import bonuses.teachingmaterial.Combining;
 import engine.Koan;
-import engine.Localizable;
+import engine.text.Localizable;
 
 
 public class AboutInterfacesKoans {

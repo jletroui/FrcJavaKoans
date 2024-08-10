@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.function.IntPredicate;
 
 import bonuses.teachingmaterial.Combining;
-import engine.Locale;
 import engine.Sensei;
+import engine.text.Locale;
 import sensei.AboutInterfacesKoans;
 
 public class AboutInterfaces {

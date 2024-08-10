@@ -3,8 +3,8 @@ package engine.script;
 import java.util.HashMap;
 import java.util.Map;
 
-import engine.Locale;
-import engine.Localizable;
+import engine.text.Locale;
+import engine.text.Localizable;
 
 public final class ExecutionContext {
     public final Class<?> koanClass;

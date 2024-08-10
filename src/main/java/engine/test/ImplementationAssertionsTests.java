@@ -3,22 +3,22 @@ package engine.test;
 import static engine.Assertions.assertReturnValueImplements;
 import static engine.Assertions.assertReturnValueIsAnonymousObject;
 import static engine.Assertions.assertReturnValueIsLambda;
-import static engine.Fmt.code;
-import static engine.Fmt.green;
-import static engine.Fmt.red;
-import static engine.Localizable.global;
 
 import java.util.function.IntPredicate;
 import engine.Koan;
-import engine.Localizable;
 import engine.TestSensei;
 import engine.test.simulation.SomeInterface;
 import engine.test.simulation.StudentSolutions;
+import engine.text.Localizable;
 
 import static engine.script.Expression.callKoanMethod;
 import static engine.test.runner.RunnerAssertions.assertKoanFails;
 import static engine.test.runner.RunnerAssertions.assertKoanPass;
+import static engine.text.Localizable.global;
 import static engine.Texts.*;
+import static engine.console.Fmt.code;
+import static engine.console.Fmt.green;
+import static engine.console.Fmt.red;
 
 public class ImplementationAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);

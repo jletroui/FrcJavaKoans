@@ -1,4 +1,7 @@
-package engine;
+package engine.console;
+
+import engine.text.Locale;
+import engine.text.Localizable;
 
 /**
  * A Printer allows to print feedback to the student.
@@ -9,6 +12,9 @@ public interface Printer {
      * Useful when executing koans outside the view of the student.
      */
     static Printer SILENT = SilentPrinter.INSTANCE;
+    public static Printer console(Locale locale) {
+        return new ConsolePrinter(locale);
+    }
 
     /**
      * Prints a single empty line.

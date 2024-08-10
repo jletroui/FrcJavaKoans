@@ -1,5 +1,8 @@
 package engine;
 
+import engine.console.Printer;
+import engine.text.Locale;
+
 /**
  * Asserts something about student's code before koan tests are run.
  */
@@ -8,7 +11,7 @@ public interface BeforeTestAssertion {
     /**
      * Validates that the structure of student code for a given Koan is correct, and display feedback using the given Printer.
      * @param p The printer to give feedback through.
-     * @return Whether or not the assertion is successful or not.
+     * @return Whether or not the assertion is successful.
      */
     boolean validate(final Printer p, final Locale locale, final Koan koan);
 }

@@ -5,17 +5,17 @@ import static engine.Assertions.assertNoMoreLineInStdOut;
 import static engine.Assertions.assertReturnValueEquals;
 import static engine.Assertions.assertVariableEquals;
 import static engine.Assertions.assertKoanMethodIsInvokable;
-import static engine.Localizable.localClass;
-import static engine.Localizable.global;
 import static engine.script.Expression.assignVariable;
 import static engine.script.Expression.callKoanMethod;
 import static engine.script.Expression.variable;
+import static engine.text.Localizable.global;
+import static engine.text.Localizable.localClass;
 import static sensei.Texts.*;
 
 import java.util.List;
 
 import engine.Koan;
-import engine.Localizable;
+import engine.text.Localizable;
 
 
 public class AboutArraysKoans {

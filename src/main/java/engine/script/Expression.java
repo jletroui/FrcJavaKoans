@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.Set;
 
 import engine.KoanBugException;
-import engine.Locale;
-import engine.Localizable;
+import engine.text.Locale;
+import engine.text.Localizable;
 
 /**
  * Allows to specify expressions to be executed, whether the student class / method is already defined or not.

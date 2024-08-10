@@ -3,11 +3,12 @@ package engine;
 import java.util.Optional;
 
 import engine.script.ExecutionContext;
+import engine.text.Locale;
 
 /**
  * Stores all the information about what happened during the execution of a koan.
  */
-public final class KoanResult {
+public final class TestOutput {
     private final String[] stdOutLines;
     private int stdOutIndex = 0;
     private final String[] stdInLines;
@@ -21,7 +22,7 @@ public final class KoanResult {
     public final KoanTest test;
     public final Locale locale;
 
-    public KoanResult(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult, final Optional<ExecutionContext> executionContext) {
+    public TestOutput(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult, final Optional<ExecutionContext> executionContext) {
         this.locale = locale;
         this.test = test;
         this.stdOutLines = stdOutLines;
@@ -29,6 +30,10 @@ public final class KoanResult {
         this.executionResult = executionResult;
         this.executionContext = executionContext;
         resultExpressionSourceCode = test.script[test.script.length - 1].formatSourceCode(locale);
+    }
+
+    public static TestOutput empty(final Locale locale, final KoanTest test) {
+        return new TestOutput(locale, test, new String[0], new String[0], null, Optional.empty());
     }
 
     public Optional<String> inputLine(final int inputIndex) {
@@ -99,16 +104,7 @@ public final class KoanResult {
         return res;
     }
 
-    public boolean executeAssertions(Printer p) {
-        return executeAssertions(p, test.assertions);
-    }
-
-    public boolean executeAssertions(final Printer p, final ResultAssertion... assertions) {
-        for (final ResultAssertion as : assertions) {
-            if (!as.validate(p, this)) {
-                return false;
-            }
-        }
-        return true;
+    public String debugTestName() {
+        return test.debugTestName(locale);
     }
 }

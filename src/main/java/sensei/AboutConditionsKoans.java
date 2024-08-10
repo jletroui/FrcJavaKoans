@@ -1,8 +1,8 @@
 package sensei;
 
 import static engine.Assertions.assertReturnValueEquals;
-import static engine.Localizable.localClass;
 import static engine.script.Expression.callKoanMethod;
+import static engine.text.Localizable.localClass;
 import static engine.Assertions.assertKoanMethodIsInvokable;
 import static sensei.Texts.*;
 
@@ -10,7 +10,7 @@ import static sensei.Texts.*;
 import java.util.List;
 
 import engine.Koan;
-import engine.Localizable;
+import engine.text.Localizable;
 
 public class AboutConditionsKoans {
     private static final Localizable<Class<?>> CLASS =

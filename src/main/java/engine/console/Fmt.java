@@ -1,22 +1,30 @@
-package engine;
+package engine.console;
 
 import java.util.Arrays;
 import java.util.List;
 
 import engine.script.Type;
-import static engine.Localizable.global;
+import engine.text.Locale;
+import engine.text.Localizable;
+
 import static engine.Texts.AND;
+import static engine.text.Localizable.global;
 
 /**
  * A piece of localizable and stylized text in the console. Allow to create colored output in the console.
  */
 public final record Fmt(Localizable<String> templ, Style style, Fmt... children) {
     public String format(final Locale locale) {
-        return format(locale, Style.None);
+        if (children.length == 0 && style == Style.Normal) {
+            // Optimization for special case
+            return templ.get(locale);
+        }
+        return format(locale, Style.Normal);
     }
 
     private String format(final Locale locale, final Style parentStyle) {
         final var actualStyle = style == Style.Inherit ? parentStyle : style;
+
         final var formattedChildren = Arrays
             .stream(children)
             .map(child -> child.format(locale, actualStyle))
@@ -24,16 +32,16 @@ public final record Fmt(Localizable<String> templ, Style style, Fmt... children)
         return String.format("%s%s%s", actualStyle.tags, String.format(templ.get(locale), formattedChildren) , parentStyle.tags);
     }
 
-    public static Fmt notStyled(final Localizable<String> templ, final Fmt... children) {
-        return new Fmt(templ, Style.None, children);
+    public static Fmt normal(final Localizable<String> templ, final Fmt... children) {
+        return new Fmt(templ, Style.Normal, children);
     }
 
-    public static Fmt notStyled(final String value) {
-        return new Fmt(global(value), Style.None);
+    public static Fmt normal(final String value) {
+        return new Fmt(global(value), Style.Normal);
     }
 
     public static Fmt notStyled(final int value) {
-        return new Fmt(global(Integer.toString(value)), Style.None);
+        return new Fmt(global(Integer.toString(value)), Style.Normal);
     }
 
     public static Fmt red(final Localizable<String> templ, final Fmt... children) {

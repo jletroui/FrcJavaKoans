@@ -1,5 +1,5 @@
-import engine.Locale;
 import engine.Sensei;
+import engine.text.Locale;
 import sensei.Wisdom;
 
 public class EnglishPathToEnlightment {

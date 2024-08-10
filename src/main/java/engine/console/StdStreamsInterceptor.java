@@ -1,4 +1,4 @@
-package engine;
+package engine.console;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.function.Supplier;
+
+import engine.Helpers;
 
 /**
  * Intercepts the StdOut output and the StdIn input of koans so we can assert what the koan method does output to the console and read from it.
@@ -21,12 +23,12 @@ public class StdStreamsInterceptor {
     public static class InterceptionResult<T> {
         public final String[] stdOutLines;
         public final String[] stdInLines;
-        public final T returnValue;
+        public final T scriptOutput;
 
         public InterceptionResult(final String[] stdOutLines, final String[] stdInLines, final T returnValue) {
             this.stdOutLines = stdOutLines;
             this.stdInLines = stdInLines;
-            this.returnValue = returnValue;
+            this.scriptOutput = returnValue;
         }
     }
 

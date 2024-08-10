@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import engine.Fmt;
-import engine.Locale;
-import engine.Localizable;
-import engine.Printer;
+import engine.console.Fmt;
+import engine.console.Printer;
+import engine.text.Locale;
+import engine.text.Localizable;
 
 /**
  * A printer capturing feedback displayed to the student in automated tests.
  */
-public final class CapturingPrinter implements Printer, OutputCapture {
+public final class CapturingPrinter implements Printer, SenseiOutputCapture {
     private final Locale locale;
     private final List<String> output = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public final class CapturingPrinter implements Printer, OutputCapture {
     }
 
     @Override
-    public boolean hasCaptured(final Fmt... lines) {
+    public boolean stdOutLinesMatch(final Fmt... lines) {
         return output.equals(
             Arrays
                 .stream(lines)
@@ -31,7 +31,7 @@ public final class CapturingPrinter implements Printer, OutputCapture {
     }
 
     @Override
-    public String capturedOutputAsString() {
+    public String capturedStdOutAsString() {
         final var res = new StringBuilder();
         for(final var line: output) {
             res.append(line);

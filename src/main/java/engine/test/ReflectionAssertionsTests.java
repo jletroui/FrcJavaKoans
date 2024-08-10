@@ -8,26 +8,27 @@ import static engine.Assertions.assertPrivateFinalField;
 import static engine.Assertions.assertStaticMethodIsInvokable;
 import static engine.Assertions.assertCanInstantiateClass;
 import static engine.Assertions.assertConstructorIsInvokable;
-import static engine.Localizable.global;
 
 import java.util.List;
 import java.util.function.IntConsumer;
 
-import engine.Style;
 import engine.Koan;
-import engine.Localizable;
 import engine.TestSensei;
+import engine.console.Style;
 import engine.test.simulation.SomeInterface;
 import engine.test.simulation.StudentSolutions;
-import static engine.Fmt.code;
-import static engine.Fmt.red;
-import static engine.Fmt.sameStyle;
-import static engine.Fmt.sequence;
+import engine.text.Localizable;
+
 import static engine.script.Expression.callKoanMethod;
 import static engine.script.Type.type;
 import static engine.test.runner.RunnerAssertions.assertKoanFails;
 import static engine.test.runner.RunnerAssertions.assertKoanPass;
+import static engine.text.Localizable.global;
 import static engine.Texts.*;
+import static engine.console.Fmt.code;
+import static engine.console.Fmt.red;
+import static engine.console.Fmt.sameStyle;
+import static engine.console.Fmt.sequence;
 
 public class ReflectionAssertionsTests {
     private static Localizable<Class<?>> CLASS = global(StudentSolutions.class);

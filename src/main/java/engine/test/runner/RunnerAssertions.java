@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import engine.Fmt;
-import engine.TestSensei.TestResult;
+import engine.TestSensei.TestSenseiResult;
+import engine.console.Fmt;
 
 public class RunnerAssertions {
     private static final Map<Boolean, String> SUCCESS_WORDING = Map.of(
@@ -73,47 +73,47 @@ public class RunnerAssertions {
         assertTrue(Arrays.equals(expected, (int[])actual), "%s is not equal to expected %s", format((int[])actual), expectedFmted);
     }
 
-    public static void assertKoanPass(final TestResult[] results) {
+    public static void assertKoanPass(final TestSenseiResult[] results) {
         assertTrue(results.length == 0, "Expected koan to not have any assertions.");
     }
 
-    public static void assertKoanPass(final TestResult actual, final Fmt... expectedConsoleLines) {
+    public static void assertKoanPass(final TestSenseiResult actual, final Fmt... expectedConsoleLines) {
         assertResult(true, actual, expectedConsoleLines);
     }
 
-    public static void assertKoanFails(final TestResult actual, final Fmt... expectedConsoleLines) {
+    public static void assertKoanFails(final TestSenseiResult actual, final Fmt... expectedConsoleLines) {
         assertResult(false, actual, expectedConsoleLines);
     }
 
-    private static void assertResult(final boolean expectedSucceeded, final TestResult actual, final Fmt... expectedConsoleLines) {
-        if (expectedSucceeded != actual.succeeded()) {
+    private static void assertResult(final boolean expectedSucceeded, final TestSenseiResult actual, final Fmt... expectedConsoleLines) {
+        if (expectedSucceeded != actual.testResult().succeeded()) {
             fail(String.format(
                 "%s: expected a %s but got a %s%n%s",
-                actual, 
+                actual.testName(), 
                 SUCCESS_WORDING.get(expectedSucceeded), 
-                SUCCESS_WORDING.get(actual.succeeded()),
+                SUCCESS_WORDING.get(actual.testResult().succeeded()),
                 outputDiff(expectedConsoleLines, actual)
             ));
         }
-        if (!actual.hasCaptured(expectedConsoleLines)) {
+        if (!actual.outputCapture().stdOutLinesMatch(expectedConsoleLines)) {
             fail(String.format(
                 "%s: output differ from expected%n%s",
-                actual,
+                actual.testName(),
                 outputDiff(expectedConsoleLines, actual)
             ));
         }
     }
 
-    private static String outputDiff(final Fmt[] expectedOutput, final TestResult actual) {
+    private static String outputDiff(final Fmt[] expectedOutput, final TestSenseiResult actual) {
         final var diff = new StringBuilder();
         final Consumer<String> println = (s) -> diff.append(String.format("%s%n", s));
 
         println.accept("Expected output:");
         for(final var line: expectedOutput) {
-            println.accept(line.format(actual.locale()));
+            println.accept(line.format(actual.testResult().testOutput().locale));
         }
         println.accept("Actual output:");
-        diff.append(actual.output().capturedOutputAsString());
+        diff.append(actual.outputCapture().capturedStdOutAsString());
 
         return diff.toString();
     }           

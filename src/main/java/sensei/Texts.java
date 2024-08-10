@@ -1,8 +1,8 @@
 package sensei;
 
-import static engine.Localizable.local;
+import static engine.text.Localizable.local;
 
-import engine.Localizable;
+import engine.text.Localizable;
 
 public class Texts {
     // AboutConsoleAndVariables

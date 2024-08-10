@@ -5,7 +5,7 @@ package engine;
  */
 @FunctionalInterface
 public interface FormatParam {
-    String format(final KoanResult res);
+    String format(final TestOutput res);
 
     /**
      * Creates a FormatParam taking the stdIn input for the given index, convert it to an int, and increment it by the given increment.

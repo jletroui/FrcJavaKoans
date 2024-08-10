@@ -6,20 +6,20 @@ import static engine.Assertions.assertPrivateField;
 import static engine.Assertions.assertObjectMethodIsInvokable;
 import static engine.Assertions.assertReturnValueEquals;
 import static engine.Assertions.assertReturnValueStringRepresentationEquals;
-import static engine.Localizable.localClass;
-import static engine.Localizable.global;
 import static engine.script.Expression.newObject;
 import static engine.script.Expression.assignVariable;
 import static engine.script.Expression.variable;
 import static engine.script.Type.type;
+import static engine.text.Localizable.global;
+import static engine.text.Localizable.localClass;
 import static sensei.Texts.*;
 
 
 import java.util.List;
 
 import engine.Koan;
-import engine.Localizable;
 import engine.script.Type;
+import engine.text.Localizable;
 
 public class AboutObjectsKoans {
     private static final Localizable<Class<?>> CLASS =

@@ -84,7 +84,7 @@ public class KoanTest {
     }
 
     public boolean hasStdInputs() {
-        return stdInInputs.size() > 0;
+        return koan.showStdInInputs;
     }
 
     boolean prepare(final Printer p, final Locale locale) {

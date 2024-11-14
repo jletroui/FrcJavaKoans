@@ -148,6 +148,24 @@ public class AboutLoopsKoans {
                 assertNextStdOutLineEquals(global("16")),
                 assertNoMoreLineInStdOut()
             )
+            .when(callKoanMethod("sevensOrEights", 60))
+            .then(
+                assertNextStdOutLineEquals(global("7")),
+                assertNextStdOutLineEquals(global("8")),
+                assertNextStdOutLineEquals(global("14")),
+                assertNextStdOutLineEquals(global("16")),
+                assertNextStdOutLineEquals(global("21")),
+                assertNextStdOutLineEquals(global("24")),
+                assertNextStdOutLineEquals(global("28")),
+                assertNextStdOutLineEquals(global("32")),
+                assertNextStdOutLineEquals(global("35")),
+                assertNextStdOutLineEquals(global("40")),
+                assertNextStdOutLineEquals(global("42")),
+                assertNextStdOutLineEquals(global("48")),
+                assertNextStdOutLineEquals(global("49")),
+                assertNextStdOutLineEquals(global("56")),
+                assertNoMoreLineInStdOut()
+            )
             .when(callKoanMethod("sevensOrEights", 6))
             .then(
                 assertNoMoreLineInStdOut()

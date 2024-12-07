@@ -210,6 +210,9 @@ public class Texts {
     static final Localizable<String> DO_YOU_WANT_TO_CONTINUE = 
         local("Do you want to continue [y/n]?")
         .fr("Voulez-vous continuer [o/n]?");
+    static final Localizable<String> DO_YOU_LIKE_JAVA = 
+        local("Do you like Java [y/n]?")
+        .fr("Aimez-vous Java [o/n]?");
     static final Localizable<String> Y = 
         local("y")
         .fr("o");

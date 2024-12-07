@@ -63,6 +63,20 @@ public class AboutNot7GameKoans {
                 assertNextStdOutLineEquals(DO_YOU_WANT_TO_CONTINUE),
                 assertReturnValueEquals(false),
                 assertNoMoreLineInStdOut()
+            )
+            .when(callKoanMethod("askQuestion", DO_YOU_LIKE_JAVA))
+            .withStdInInputs(List.of(Y))
+            .then(
+                assertNextStdOutLineEquals(DO_YOU_LIKE_JAVA),
+                assertReturnValueEquals(true),
+                assertNoMoreLineInStdOut()
+            )
+            .when(callKoanMethod("askQuestion", DO_YOU_LIKE_JAVA))
+            .withStdInInputs(List.of(N))
+            .then(
+                assertNextStdOutLineEquals(DO_YOU_LIKE_JAVA),
+                assertReturnValueEquals(false),
+                assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, ROLLING_2_DICE)
             .useConsole()

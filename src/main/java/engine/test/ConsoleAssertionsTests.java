@@ -146,7 +146,6 @@ public class ConsoleAssertionsTests {
     public static void whenAssertAskedInStdInAndAsked() {
         var res = TestSensei.execute(
             new Koan(CLASS, global("whenAssertAskedInStdInAndAsked"))
-                .useConsoleAndShowStdinInputs()
                 .when(
                     callKoanMethod("readFromConsole")
                 )

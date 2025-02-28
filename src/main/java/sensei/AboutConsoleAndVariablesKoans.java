@@ -63,7 +63,6 @@ public class AboutConsoleAndVariablesKoans {
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, ASKING_FOR_SOME_USER_ANSWER)
-            .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("askAndDisplayNameInConsole")
             )
@@ -77,7 +76,6 @@ public class AboutConsoleAndVariablesKoans {
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, PLAY_WITH_TEXT_CONTENT)
-            .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("askAndDisplayNameOnASingleLineInConsole")
             )
@@ -90,7 +88,6 @@ public class AboutConsoleAndVariablesKoans {
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, PLAYING_MORE_WITH_TEXT_CONTENT)
-            .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("askNameAndAgeInConsole")
             )
@@ -105,7 +102,6 @@ public class AboutConsoleAndVariablesKoans {
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, PLAYING_WITH_TEXT_AND_NUMBERS_AT_THE_SAME_TIME)
-            .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("computeAgeIn5YearsConsole")
             )

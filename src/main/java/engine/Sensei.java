@@ -28,7 +28,7 @@ public class Sensei {
     private Printer p = Printer.SILENT;
     private List<Koan> allKoans;
 
-    public Sensei(Locale locale, List<List<Koan>> koanSeries) {
+    public Sensei(final Locale locale, final List<List<Koan>> koanSeries) {
         this.locale = locale;
         this.consolePrinter = Printer.console(locale);
         this.allKoans = koanSeries
@@ -49,37 +49,35 @@ public class Sensei {
         consolePrinter.println();
     }
 
-    private boolean tryOfferKoan(Koan koan, int successfulCount) {
+    private boolean tryOfferKoan(final Koan koan, final int successfulCount) {
         for(final var test: koan.tests) {
-            if (!tryOfferTest(test, successfulCount)) {
+            if (!tryOfferTest(koan, test, successfulCount)) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean tryOfferTest(KoanTest test, int successfulCount) {
+    private boolean tryOfferTest(final Koan koan, final KoanTest test, final int successfulCount) {
         // Execute silently the first time.
         // We do not want to display all the outputs of the successful koans to the student.
         p = Printer.SILENT;
-        final var succeeded = offerTest(test, successfulCount);
+        final var succeeded = offerTest(koan, test, successfulCount);
 
         if (!succeeded) {
             // If failed, execute verbosely the second time, in order to give feedback to the student.
             p = consolePrinter;
-            offerTest(test, successfulCount);
+            offerTest(koan, test, successfulCount);
             return false;
         }
 
         return true;
     }
 
-    private boolean offerTest(KoanTest test, int successfulCount) {
-        final Koan koan = test.koan;        
-
+    private boolean offerTest(final Koan koan, final KoanTest test, final int successfulCount) {
         encourage(koan);
 
-        final boolean success = executeCall(test);
+        final boolean success = executeCall(koan, test);
 
         offerToMeditate(koan);
         showProgress(successfulCount);
@@ -87,28 +85,28 @@ public class Sensei {
         return success;
     }
 
-    private boolean executeCall(final KoanTest test) {
-        final boolean preparationSucceeded = test.prepare(p, locale);
+    private boolean executeCall(final Koan koan, final KoanTest test) {
+        final boolean preparationSucceeded = test.prepare(p, locale, koan);
         if (!preparationSucceeded) {
             return false;
         }
 
-        introduceConsole(test);
+        introduceConsole(koan, test);
 
         try {
-            return test.execute(p, locale, p == Printer.SILENT).succeeded();
+            return test.execute(p, locale, koan, p == Printer.SILENT).succeeded();
         }
         finally {
-            concludeConsole(test.koan);
+            concludeConsole(koan);
         }
     }
 
-    private void introduceConsole(final KoanTest test) {
+    private void introduceConsole(final Koan koan, final KoanTest test) {
         final Fmt testedExpression = code(test.script[test.script.length - 1].formatSourceCode(locale));
 
-        if (test.script.length > 1 || test.koan.showStdInInputs) {
+        if (test.script.length > 1 || koan.showStdInInputs) {
             p.println(THE_MASTER_SENSED_AN_HARMONY_BREACH_WHEN); // Seulement si code de prep ou stdin input
-            if (test.koan.showStdInInputs) {
+            if (koan.showStdInInputs) {
                 p.println(normal(WHEN_ANSWERING, sequence(test.stdInInputs(locale), Style.Inherit)));
             }
             if (test.script.length > 1) {
@@ -124,7 +122,7 @@ public class Sensei {
         }
 
         p.println();
-        if (test.koan.usesConsole) {
+        if (koan.usesConsole) {
             p.println();
             p.println(CONSOLE);
             p.println("---------");

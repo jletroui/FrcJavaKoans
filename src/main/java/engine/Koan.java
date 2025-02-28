@@ -51,7 +51,7 @@ public class Koan {
         final int index = tests.length;
         final KoanTest[] newTests = Arrays.copyOf(tests, tests.length + 1);
         
-        newTests[newTests.length - 1] = new KoanTest(this, index, script);
+        newTests[newTests.length - 1] = new KoanTest(index, script);
         return new Koan(
             koanClass,
             koanName,
@@ -96,7 +96,7 @@ public class Koan {
     }
 
     public Koan withStdInInputs(final List<Localizable<String>> inputs) {
-        return withUpdatedTest(kTest -> kTest.withStdInInputs(inputs));
+        return useConsoleAndShowStdinInputs().withUpdatedTest(kTest -> kTest.withStdInInputs(inputs));
     }
 
     public Koan withStdInInputs(final String... inputs) {

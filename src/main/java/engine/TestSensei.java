@@ -25,19 +25,19 @@ public class TestSensei {
     public static TestSenseiResult[] execute(final Koan koan, final Locale locale) {
         return Arrays
             .stream(koan.tests)
-            .map(test -> executeTest(locale, test))
+            .map(test -> executeTest(locale, koan, test))
             .toArray(TestSenseiResult[]::new);
     }
 
-    private static TestSenseiResult executeTest(final Locale locale, final KoanTest test) {
+    private static TestSenseiResult executeTest(final Locale locale, final Koan koan, final KoanTest test) {
         final CapturingPrinter printer = new CapturingPrinter(locale);
 
-        final boolean preparationSucceeded = test.prepare(printer, locale);
+        final boolean preparationSucceeded = test.prepare(printer, locale, koan);
         if (!preparationSucceeded) {
-            return new TestSenseiResult(ValidationResult.empty(locale, test), printer);
+            return new TestSenseiResult(ValidationResult.empty(locale, koan, test), printer);
         }
 
-        final ValidationResult testResult = test.execute(printer, locale, true);
+        final ValidationResult testResult = test.execute(printer, locale, koan, true);
         return new TestSenseiResult(testResult, printer);
     }
 }

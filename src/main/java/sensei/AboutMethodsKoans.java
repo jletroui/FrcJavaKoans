@@ -24,7 +24,6 @@ public class AboutMethodsKoans {
 
     public static final List<Koan> koans = List.of(
         new Koan(CLASS, REPETITIVE_TASKS)
-            .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("computeAgeIn5And10And20YearsConsole")
             )
@@ -43,7 +42,6 @@ public class AboutMethodsKoans {
                 assertNoMoreLineInStdOut()
             ),
         new Koan(CLASS, REPETITIVE_TASKS_METHODS_TO_THE_RESCUE)
-            .useConsole()
             .beforeFirstTest(
                 assertKoanMethodIsInvokable("computeAgeIn5And10And20YearsConsoleWithMethod")
             )

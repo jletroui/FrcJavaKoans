@@ -31,25 +31,23 @@ public class KoanTest {
 
     final Expression[] script;
     private final ResultAssertion[] assertions;
-    final Koan koan;
     private final int index;
     private final List<Localizable<String>> stdInInputs;
     private final long seed;
 
-    public KoanTest(final Koan koan, final int index, final Expression[] script) {
-        this(koan, index, script, new ResultAssertion[0], KoanTest.NO_STD_IN_INPUTS, Math.round(Math.random() * Long.MAX_VALUE));
+    public KoanTest(final int index, final Expression[] script) {
+        this(index, script, new ResultAssertion[0], KoanTest.NO_STD_IN_INPUTS, Math.round(Math.random() * Long.MAX_VALUE));
     }
 
-    private KoanTest(final Koan koan, final int index, final Expression[] script, final ResultAssertion[] assertions, final List<Localizable<String>> stdInInputs, final long seed) {
+    private KoanTest(final int index, final Expression[] script, final ResultAssertion[] assertions, final List<Localizable<String>> stdInInputs, final long seed) {
         this.index = index;
-        this.koan = koan;
         this.script = script;
         this.assertions = assertions;
         this.stdInInputs = stdInInputs;
         this.seed = seed;
     }
 
-    public String debugTestName(Locale locale) {
+    public String debugTestName(final Locale locale, final Koan koan) {
         return String.format("%s/%s[%d]", koan.koanClass.get(locale).simpleClassName, koan.koanName.get(locale), index);
     }
 
@@ -58,7 +56,7 @@ public class KoanTest {
             throw new IllegalArgumentException("Current call already have StdIn inputs");
         }
 
-        return new KoanTest(koan, index, script, assertions, inputs, seed);
+        return new KoanTest(index, script, assertions, inputs, seed);
     }
     
     public KoanTest withAssertions(final ResultAssertion[] assertions) {
@@ -66,11 +64,11 @@ public class KoanTest {
             throw new IllegalArgumentException("Current call already have assertions");
         }
 
-        return new KoanTest(koan, index, script, assertions, stdInInputs, seed);
+        return new KoanTest(index, script, assertions, stdInInputs, seed);
     }
 
     public KoanTest withSeed(final long seed) {
-        return new KoanTest(koan, index, script, assertions, stdInInputs, seed);
+        return new KoanTest(index, script, assertions, stdInInputs, seed);
     }
 
     public String[] stdInInputs(final Locale locale) {
@@ -83,11 +81,7 @@ public class KoanTest {
         Helpers.setupRandomForKoan(seed);
     }
 
-    public boolean hasStdInputs() {
-        return koan.showStdInInputs;
-    }
-
-    boolean prepare(final Printer p, final Locale locale) {
+    boolean prepare(final Printer p, final Locale locale, final Koan koan) {
         setupRandomForKoan();
 
         for(final var assertion: koan.beforeAssertions) {
@@ -99,54 +93,56 @@ public class KoanTest {
         return true;
     }
 
-    ValidationResult execute(final Printer p, final Locale locale, final boolean silent) {
-        final Optional<Either<InterceptionResult<ExecutionReport>, RuntimeException>> maybeCapturedOutput = executeTestExpressionInThread(locale, silent);
+    ValidationResult execute(final Printer p, final Locale locale, final Koan koan, final boolean silent) {
+        final Optional<Either<InterceptionResult<ExecutionReport>, RuntimeException>> maybeCapturedOutput = 
+            executeTestExpressionInThread(locale, koan, silent);
 
         if (maybeCapturedOutput.isEmpty()) {
             StdStreamsInterceptor.reset();
             p.println(red(THE_CODE_TRIED_BY_THE_SENSEI_SEEMS_TO_NOT_FINISH));
             p.println();
             p.println(code(Expression.formatSourceCode(script, locale)));
-            return ValidationResult.empty(locale, this);
+            return ValidationResult.empty(locale, koan, this);
         }
 
         return maybeCapturedOutput
             .get()
             .map(
-                capturedOutput -> validateAssertions(p, locale, capturedOutput),
-                throwable -> handleException(p, locale, throwable)
+                capturedOutput -> validateAssertions(p, locale, koan, capturedOutput),
+                throwable -> handleException(p, locale, koan, throwable)
             )
             .getValue();
     }
 
-    private ValidationResult handleException(final Printer p, final Locale locale, RuntimeException throwable) {
+    private ValidationResult handleException(final Printer p, final Locale locale, final Koan koan, RuntimeException throwable) {
         if (throwable instanceof final ScriptExecutionException see) {
             if (see.getCause() instanceof final InvocationTargetException ite) {
                 if (ite.getTargetException() instanceof StackOverflowError) {
                     p.println(red(THE_METHOD_SEEMS_TO_RECURSE_INFINITELY, code(see.methodName)));
-                    return ValidationResult.empty(locale, this);
+                    return ValidationResult.empty(locale, koan, this);
                 } else if (ite.getTargetException() instanceof final ArithmeticException ae) {
                     p.println(red(THE_METHOD_APPEARS_TO_DIVIDE_BY_0, code(see.methodName)));
-                    return ValidationResult.empty(locale, this);
+                    return ValidationResult.empty(locale, koan, this);
                 } else {
                     p.println(red(THE_METHOD_APPEARS_TO_PRODUCE_AN_ERROR, code(see.methodName), sameStyle(ite.getCause().getMessage())));
-                    return ValidationResult.empty(locale, this);
+                    return ValidationResult.empty(locale, koan, this);
                 }
             } else {
                 throw see; // Serious bug
             }
         } else if (throwable instanceof final KoanBugException kbe) {
             p.println(red(BUG_FOUND, sameStyle(kbe.getMessage())));
-            return ValidationResult.empty(locale, this);
+            return ValidationResult.empty(locale, koan, this);
         } else {
             // Should not happen
             throw new IllegalStateException("Received an unexpected exception", throwable);
         }
     }
 
-    private ValidationResult validateAssertions(final Printer p, final Locale locale, final InterceptionResult<ExecutionReport> capturedOutput) {
+    private ValidationResult validateAssertions(final Printer p, final Locale locale, final Koan koan, final InterceptionResult<ExecutionReport> capturedOutput) {
         final var output = new TestOutput(
             locale,
+            koan,
             this,
             capturedOutput.stdOutLines,
             capturedOutput.stdInLines,
@@ -158,14 +154,14 @@ public class KoanTest {
             return new ValidationResult(output, ResultAssertion.validateAll(p, output, assertions));
         } catch(final KoanBugException kbe) {
             p.println(red(BUG_FOUND, sameStyle(kbe.getMessage())));
-            return ValidationResult.empty(locale, this);
+            return ValidationResult.empty(locale, koan, this);
         }
     }
 
     /**
      * In order to detect code looping infinitely, execute the student's code in a separate thread with a timeout.
      */
-    private Optional<Either<InterceptionResult<ExecutionReport>, RuntimeException>> executeTestExpressionInThread(final Locale locale, final boolean silent) {
+    private Optional<Either<InterceptionResult<ExecutionReport>, RuntimeException>> executeTestExpressionInThread(final Locale locale, final Koan koan, final boolean silent) {
         final AtomicReference<Optional<Either<InterceptionResult<ExecutionReport>, RuntimeException>>> capturedOutputRef = new AtomicReference<>(Optional.empty());
 
         final Thread thread = new Thread(() -> {
@@ -186,7 +182,7 @@ public class KoanTest {
         thread.start();
         
         try {
-            if (hasStdInputs()) {
+            if (koan.showStdInInputs) {
                 // Can't detect infinite loop when the user has to enter data through the console, because we don't know how much time to wait for.
                 thread.join();
             } else {

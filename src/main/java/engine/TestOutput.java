@@ -19,11 +19,13 @@ public final class TestOutput {
      * The source code of the last script expression, the one we are actually asserting the result and/or the console output.
      */
     public final String resultExpressionSourceCode;
+    public final Koan koan;
     public final KoanTest test;
     public final Locale locale;
 
-    public TestOutput(final Locale locale, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult, final Optional<ExecutionContext> executionContext) {
+    public TestOutput(final Locale locale, final Koan koan, final KoanTest test, final String[] stdOutLines, final String[] stdInLines, final Object executionResult, final Optional<ExecutionContext> executionContext) {
         this.locale = locale;
+        this.koan = koan;
         this.test = test;
         this.stdOutLines = stdOutLines;
         this.stdInLines = stdInLines;
@@ -32,8 +34,8 @@ public final class TestOutput {
         resultExpressionSourceCode = test.script[test.script.length - 1].formatSourceCode(locale);
     }
 
-    public static TestOutput empty(final Locale locale, final KoanTest test) {
-        return new TestOutput(locale, test, new String[0], new String[0], null, Optional.empty());
+    public static TestOutput empty(final Locale locale, final Koan koan, final KoanTest test) {
+        return new TestOutput(locale, koan, test, new String[0], new String[0], null, Optional.empty());
     }
 
     public Optional<String> inputLine(final int inputIndex) {
@@ -105,6 +107,6 @@ public final class TestOutput {
     }
 
     public String debugTestName() {
-        return test.debugTestName(locale);
+        return test.debugTestName(locale, koan);
     }
 }
